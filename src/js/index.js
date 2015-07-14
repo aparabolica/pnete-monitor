@@ -116,9 +116,9 @@ app.controller('IndicadorCtrl', [
     $scope.date_ = date.format('L');
 
     $scope.pastelColor = function() {
-      var r = (Math.round(Math.random()* 127) + 127).toString(16);
-      var g = (Math.round(Math.random()* 127) + 127).toString(16);
-      var b = (Math.round(Math.random()* 127) + 127).toString(16);
+      var r = (Math.round(Math.random()* 127) + 70).toString(16);
+      var g = (Math.round(Math.random()* 127) + 70).toString(16);
+      var b = (Math.round(Math.random()* 127) + 70).toString(16);
       return '#' + r + g + b;
     }
 
