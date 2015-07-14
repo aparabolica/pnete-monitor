@@ -1,0 +1,138 @@
+@import "functions";
+
+@import (inline) "normalize.css";
+@import (inline) "skeleton.css";
+@import (inline) "icons.css";
+
+@import (inline) "ngdialog.css";
+
+/*
+* Customizing Skeleton grid system
+*/
+
+.container {
+  max-width: 1280px;
+  // margin: 0 10%;
+}
+
+/*
+* General
+*/
+
+body,
+html,
+input,
+textarea,
+select,
+select option {
+  font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+  font-size: 16px;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+.row {
+  margin-bottom: 40px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 58px;
+}
+
+h2 {
+  font-size: 42px;
+}
+
+h3 {
+  font-size: 32px;
+}
+
+h4 {
+  font-size: 28px;
+}
+
+/*
+* Main CSS
+*/
+
+body {
+  background-color: #fff;
+  // background-image: url('../img/bg_1.png');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 30%;
+  background-attachment:fixed;
+}
+
+#masthead {
+  padding: 40px 0 60px;
+  background: #f0f0f0;
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 18px;
+  }
+  h1 {
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    font-weight: 200;
+    font-size: 58px;
+    margin: 0;
+    color: #000;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    span {
+      letter-spacing: 0;
+      text-transform: none;
+      display: block;
+      font-size: 20px;
+    }
+  }
+}
+
+#hello {
+  #sections {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li {
+        margin: 0;
+        padding: 0;
+        .box-shadow(1px 1px 3px rgba(0,0,0,0.2));
+        padding: 20px;
+        .border-radius(3px);
+        margin: 0 0 10px;
+        h3,
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+@import "partials/indicador";
+
+@import "partials/eixo";
+
+@import "mobile";

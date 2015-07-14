@@ -1,0 +1,152 @@
+article#indicador {
+  h1 {
+    color: #666;
+    font-size: 27px;
+    border-bottom: 4px solid #333;
+    padding-bottom: 20px;
+  }
+  h2 {
+    color: #333;
+    // font-style: italic;
+  }
+  .eixo-icon {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-top: 35%;
+    padding-bottom: 65%;
+    .border-radius(100%);
+    text-align: center;
+    font-family: "Playfair Display";
+    color: #fff;
+    font-size: 1.4vw;
+    line-height: 100%;
+    &.blue {
+      background: #00c0f3;
+    }
+  }
+  .replies {
+    .replies-header {
+      border-top: 2px solid #ccc;
+      padding-top: 20px;
+      position: relative;
+      z-index: 2;
+      h3 {
+        color: #666;
+        font-size: 20px;
+        letter-spacing: 2px;
+        text-transform: lowercase;
+      }
+      .filters {
+        float: right;
+        .main-label {
+          font-family: "Playfair Display";
+          text-transform: lowercase;
+          color: #666;
+          float: left;
+          margin-right: 8px;
+          letter-spacing: 2px;
+        }
+        .filter {
+          display: block;
+          position: relative;
+          z-index: 10;
+          float: left;
+          padding: 5px 5px 5px 8px;
+          margin: -5px -5px -5px 0;
+          border: 1px solid transparent;
+          cursor: default;
+          .icon {
+            color: #999;
+          }
+          .border-radius(3px);
+          .label {
+            font-family: "Playfair Display";
+            text-transform: lowercase;
+            color: #999;
+            letter-spacing: 2px;
+          }
+          ul {
+            display: none;
+            position: absolute;
+            top: 25px;
+            left: 0;
+            right: 0;
+            padding: 5px 5px 5px 8px;
+            li {
+              margin: 0;
+              padding: 5px 0;
+              background: #fff;
+              color: #666;
+              cursor: pointer;
+              &:hover {
+                color: #333;
+              }
+            }
+          }
+          &:hover {
+            border: 1px solid #f0f0f0;
+            .box-shadow(1px 1px 1px rgba(0,0,0,0.1));
+            ul {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .reply {
+        margin: 0 0 20px;
+        padding: 0;
+        &.no-response {
+          .response {
+            color: #999;
+            p {
+              margin: 0;
+            }
+            .since {
+              font-weight: 600;
+            }
+            .date {
+              text-transform: lowercase;
+              display: block;
+            }
+          }
+        }
+        .avatar-container {
+          float: left;
+          margin-right: 25px;
+          margin-bottom: 40px;
+        }
+        .avatar {
+          width: 55px;
+          height: 55px;
+          background: #333;
+          .border-radius(100%);
+          color: #fff;
+          text-align: center;
+          line-height: 11px;
+          font-size: 11px;
+          display: table-cell;
+          vertical-align: middle;
+        }
+        h4 {
+          font-size: 18px;
+          font-weight: 500;
+          margin: 0;
+        }
+        .reply {
+          font-style: italic;
+          color: green;
+          &.not {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}
