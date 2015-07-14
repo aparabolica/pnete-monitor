@@ -8,8 +8,16 @@ article#indicador
     .container
       .two.columns
         a.eixo-icon.blue(ui-sref="eixo({eixoId: 1})") {{indicador.category}}
-      .six.columns
+      .seven.columns
         h2 {{indicador.pergunta}}
+    #overview
+      .container
+        .seven.columns.offset-by-two
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus neque, laoreet interdum blandit quis, scelerisque nec erat. Vestibulum urna tortor, tincidunt quis diam in, dapibus varius metus. In neque dui, accumsan non purus et, dapibus porttitor erat. Donec dictum sollicitudin viverra. Curabitur vitae felis eget leo convallis malesuada. Integer quis ipsum luctus, vestibulum justo ut, ultricies orci. Aliquam scelerisque metus sit amet mattis aliquam. Sed tincidunt, purus vitae pulvinar volutpat, leo nisi lacinia neque, quis cursus sem enim eget arcu. Mauris efficitur eu augue nec efficitur. Nulla at ultricies mauris, a dictum erat.
+        .two.columns.offset-by-one
+          #status
+            .icon.icon-check
+            p Respondido satisfatoriamente
     .replies
       .container
         .ten.columns.offset-by-two
@@ -30,7 +38,7 @@ article#indicador
           .container
             .four.columns.offset-by-two
               .avatar-container
-                .avatar {{response.slug}}
+                .avatar(style="background-color:{{pastelColor()}}") {{response.slug}}
               h4 {{response.responsible}}
               p.reply {{response.means}}
             .six.columns
@@ -40,7 +48,7 @@ article#indicador
           .container
             .four.columns.offset-by-two
               .avatar-container
-                .avatar MTE DETRAE
+                .avatar(style="background-color:{{pastelColor()}}") MTE DETRAE
               h4 Ministério do Trabalho e Emprego (DETRAE)
               p.reply.not Não respondeu
             .six.columns
@@ -52,7 +60,7 @@ article#indicador
           .container
             .four.columns.offset-by-two
               .avatar-container
-                .avatar MTE DETRAE
+                .avatar(style="background-color:{{pastelColor()}}") MTE DETRAE
               h4 Ministério do Trabalho e Emprego (DETRAE)
               p.reply Respondeu {{since}} 
                 br
@@ -65,7 +73,7 @@ article#indicador
           .container
             .four.columns.offset-by-two
               .avatar-container
-                .avatar MTE DETRAE
+                .avatar(style="background-color:{{pastelColor()}}") MTE DETRAE
               h4 Ministério do Trabalho e Emprego (DETRAE)
               p.reply.not Não respondeu
             .six.columns

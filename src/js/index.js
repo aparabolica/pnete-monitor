@@ -14,83 +14,83 @@ var app = angular.module('pnete', [
   'ui.router'
 ]);
 app.config([
-	'$stateProvider',
-	'$urlRouterProvider',
-	'$locationProvider',
-	'$httpProvider',
-	function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  '$stateProvider',
+  '$urlRouterProvider',
+  '$locationProvider',
+  '$httpProvider',
+  function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
-		$locationProvider.html5Mode({
-			enabled: true,
-			requireBase: false
-		});
-		$locationProvider.hashPrefix('!');
+    $locationProvider.html5Mode({
+      enabled: true,
+      requireBase: false
+    });
+    $locationProvider.hashPrefix('!');
 
-		$stateProvider
-			.state('home', {
-				url: '/',
-				controller: 'HomeCtrl',
-				templateUrl: '/views/home.html'
-			})
-      .state('indicador', {
-        url: '/indicador/:indicadorId',
-        controller: 'IndicadorCtrl',
-        templateUrl: '/views/indicador.html'
-      })
-      .state('eixo', {
-        url: '/eixo/:eixoId',
-        controller: 'EixoCtrl',
-        templateUrl: '/views/eixo.html'
+    $stateProvider
+    .state('home', {
+      url: '/',
+      controller: 'HomeCtrl',
+      templateUrl: '/views/home.html'
+    })
+    .state('indicador', {
+      url: '/indicador/:indicadorId',
+      controller: 'IndicadorCtrl',
+      templateUrl: '/views/indicador.html'
+    })
+    .state('eixo', {
+      url: '/eixo/:eixoId',
+      controller: 'EixoCtrl',
+      templateUrl: '/views/eixo.html'
+    });
+
+    /*
+    * Trailing slash rule
+    */
+    $urlRouterProvider.rule(function($injector, $location) {
+      var path = $location.path(),
+      search = $location.search(),
+      params;
+
+      // check to see if the path already ends in '/'
+      if (path[path.length - 1] === '/') {
+        return;
+      }
+
+      // If there was no search string / query params, return with a `/`
+      if (Object.keys(search).length === 0) {
+        return path + '/';
+      }
+
+      // Otherwise build the search string and return a `/?` prefix
+      params = [];
+      angular.forEach(search, function(v, k){
+        params.push(k + '=' + v);
       });
 
-		/*
-		 * Trailing slash rule
-		 */
-		$urlRouterProvider.rule(function($injector, $location) {
-			var path = $location.path(),
-				search = $location.search(),
-				params;
-
-			// check to see if the path already ends in '/'
-			if (path[path.length - 1] === '/') {
-				return;
-			}
-
-			// If there was no search string / query params, return with a `/`
-			if (Object.keys(search).length === 0) {
-				return path + '/';
-			}
-
-			// Otherwise build the search string and return a `/?` prefix
-			params = [];
-			angular.forEach(search, function(v, k){
-				params.push(k + '=' + v);
-			});
-
-			return path + '/?' + params.join('&');
-		});
-	}
+      return path + '/?' + params.join('&');
+    });
+  }
 ])
 .run([
-	'$rootScope',
-	'$location',
-	'$window',
-	'ngDialog',
-	function($rootScope, $location, $window, ngDialog) {
-		/*
-		 * Analytics
-		 */
-		$rootScope.$on('$stateChangeSuccess', function(ev, toState, toParams, fromState, fromParams) {
+  '$rootScope',
+  '$location',
+  '$window',
+  'ngDialog',
+  function($rootScope, $location, $window, ngDialog) {
+    /*
+    * Analytics
+    */
+    $rootScope.$on('$stateChangeSuccess', function(ev, toState, toParams, fromState, fromParams) {
 
-			if($window._gaq && fromState.name) {
-				$window._gaq.push(['_trackPageview', $location.path()]);
-			}
-			if(fromState.name) {
+      if($window._gaq && fromState.name) {
+        $window._gaq.push(['_trackPageview', $location.path()]);
+      }
+      if(fromState.name) {
         ngDialog.closeAll();
-				document.body.scrollTop = document.documentElement.scrollTop = 0;
-			}
-		});
-	}
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      }
+    });
+  }
 ]);
 
 app.controller('MainCtrl', [
@@ -114,6 +114,13 @@ app.controller('IndicadorCtrl', [
     $scope.since = date.fromNow();
     $scope.date = date.format('LLLL');
     $scope.date_ = date.format('L');
+
+    $scope.pastelColor = function() {
+      var r = (Math.round(Math.random()* 127) + 127).toString(16);
+      var g = (Math.round(Math.random()* 127) + 127).toString(16);
+      var b = (Math.round(Math.random()* 127) + 127).toString(16);
+      return '#' + r + g + b;
+    }
 
     $scope.indicadores = [
       {
@@ -168,10 +175,10 @@ app.controller('IndicadorCtrl', [
 app.controller('EixoCtrl', [
   '$scope',
   function($scope) {
-    
+
   }
 ]);
 
 angular.element(document).ready(function() {
-	angular.bootstrap(document, ['pnete']);
+  angular.bootstrap(document, ['pnete']);
 });
