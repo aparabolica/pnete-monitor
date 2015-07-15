@@ -44,6 +44,17 @@ select option {
   margin-bottom: 40px;
 }
 
+button,
+.button,
+a.button,
+input[type="submit"] {
+  max-width: 100%;
+  white-space: normal;
+  height: auto;
+  line-height: 200%;
+  padding: 10px 20px;
+}
+
 h1,
 h2,
 h3 {
@@ -80,32 +91,106 @@ body {
   background-attachment:fixed;
 }
 
+
+.subheader {
+  border-top: 2px solid #ccc;
+  padding-top: 10px;
+  position: relative;
+  z-index: 2;
+  h3 {
+    color: #666;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+  }
+  .filters {
+    float: right;
+    .main-label {
+      font-family: "Playfair Display";
+      text-transform: lowercase;
+      color: #666;
+      float: left;
+      margin-right: 8px;
+      letter-spacing: 1px;
+    }
+    .filter {
+      display: block;
+      position: relative;
+      z-index: 10;
+      float: left;
+      padding: 5px 5px 5px 8px;
+      margin: -5px -5px -5px 0;
+      border: 1px solid transparent;
+      cursor: default;
+      .icon {
+        color: #999;
+      }
+      .border-radius(3px);
+      .label {
+        font-family: "Playfair Display";
+        text-transform: lowercase;
+        color: #999;
+        letter-spacing: 2px;
+      }
+      ul {
+        display: none;
+        position: absolute;
+        top: 25px;
+        left: 0;
+        right: 0;
+        padding: 5px 5px 5px 8px;
+        li {
+          margin: 0;
+          padding: 5px 0;
+          background: #fff;
+          color: #666;
+          cursor: pointer;
+          &:hover {
+            color: #333;
+          }
+        }
+      }
+      &:hover {
+        border: 1px solid #f0f0f0;
+        .box-shadow(1px 1px 1px rgba(0,0,0,0.1));
+        ul {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
 #masthead {
-  padding: 40px 0 60px;
+  padding: 2vw 0;
   background: #f0f0f0;
   img {
     max-width: 100%;
     height: auto;
     display: block;
-    margin-top: 18px;
+    margin-top: 0;
   }
   h1 {
     text-transform: uppercase;
     letter-spacing: 8px;
     font-weight: 200;
-    font-size: 58px;
-    margin: 0;
+    font-size: 4vw;
+    line-height: 4vw;
+    margin: .5vw 0 0;
     color: #000;
     a {
       color: inherit;
       text-decoration: none;
     }
-    span {
-      letter-spacing: 0;
-      text-transform: none;
-      display: block;
-      font-size: 20px;
-    }
+  }
+  p {
+    margin: .5vw 0 0;
+    display: table-cell;
+    height: 4vw;
+    vertical-align: middle;
+    font-family: "Playfair Display";
+    font-size: 1.9vw;
+    color: #666;
   }
 }
 
