@@ -38,7 +38,8 @@ article#indicador
               .five.columns
                 .avatar-container
                   .avatar(style="background-color:{{pastelColor()}}") {{response.slug}}
-                h4 {{response.responsible}}
+                h4 
+                  a(ui-sref="rep({repId: 1})") {{response.responsible}}
                 p.reply {{response.means}}
               .seven.columns
                 .response

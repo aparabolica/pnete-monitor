@@ -1,3 +1,10 @@
+function getPastelColor() {
+  var r = (Math.round(Math.random()* 127) + 70).toString(16);
+  var g = (Math.round(Math.random()* 127) + 70).toString(16);
+  var b = (Math.round(Math.random()* 127) + 70).toString(16);
+  return '#' + r + g + b;
+}
+
 module.exports = function(app) {
 
   app.controller('MainCtrl', [
@@ -23,10 +30,7 @@ module.exports = function(app) {
       $scope.date_ = date.format('L');
 
       $scope.pastelColor = function() {
-        var r = (Math.round(Math.random()* 127) + 70).toString(16);
-        var g = (Math.round(Math.random()* 127) + 70).toString(16);
-        var b = (Math.round(Math.random()* 127) + 70).toString(16);
-        return '#' + r + g + b;
+        return getPastelColor();
       }
 
       $scope.indicadores = [
@@ -80,6 +84,13 @@ module.exports = function(app) {
   ]);
 
   app.controller('EixoCtrl', [
+    '$scope',
+    function($scope) {
+
+    }
+  ]);
+
+  app.controller('RepCtrl', [
     '$scope',
     function($scope) {
 

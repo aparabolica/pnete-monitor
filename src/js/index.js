@@ -41,6 +41,11 @@ app.config([
       url: '/eixo/:eixoId/',
       controller: 'EixoCtrl',
       templateUrl: '/views/eixo.html'
+    })
+    .state('rep', {
+      url: '/rep/:repId/',
+      controller: 'RepCtrl',
+      templateUrl: '/views/rep.html'
     });
 
     /*
