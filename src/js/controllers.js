@@ -94,6 +94,15 @@ module.exports = function(app) {
     '$scope',
     function($scope) {
 
+      $scope.rep = {
+        name: 'Ministério do Trabalho e Emprego (Detrae/SIT)',
+        slug: 'MTE DETRAE',
+        ratio: {
+          'questions': 50,
+          'replied': 20
+        }
+      }
+
     }
   ]);
 

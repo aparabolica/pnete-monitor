@@ -1,0 +1,14 @@
+article#rep
+  header.rep-header
+    .container.row
+      .twelve.columns
+        h1 {{rep.name}}
+    .container
+      .six.columns
+        #rep-meta
+          replied-percent(ratio="rep.ratio")
+          h2 Perguntas
+          p {{rep.ratio.questions}}
+          h2 Perguntas respondidas
+          p {{rep.ratio.replied}}
+      

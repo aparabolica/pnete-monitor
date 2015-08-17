@@ -99,6 +99,7 @@ app.config([
 ]);
 
 require('./controllers.js')(app);
+require('./directives.js')(app);
 
 angular.element(document).ready(function() {
   angular.bootstrap(document, ['pnete']);
