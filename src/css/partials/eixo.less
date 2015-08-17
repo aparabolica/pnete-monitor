@@ -1,26 +1,72 @@
+@import '../colors';
+
+.eixo-bg {
+  &.blue {
+    background: @blue;
+  }
+  &.orange {
+    background: @orange;
+  }
+  &.green {
+    background: @green;
+  }
+  &.red {
+    background: @red;
+  }
+  &.purple {
+    background: @purple;
+  }
+}
+
+.eixo-border {
+  &.blue {
+    border-color: @blue;
+  }
+  &.orange {
+    border-color: @orange;
+  }
+  &.green {
+    border-color: @green;
+  }
+  &.red {
+    border-color: @red;
+  }
+  &.purple {
+    border-color: @purple;
+  }
+}
+
 article#eixo {
   .eixo-header {
     h1 {
-      width: 100%;
-      height: 0;
-      padding-top: 35%;
-      padding-bottom: 65%;
-      .border-radius(100%);
+      padding: 20px;
+      .border-radius(4px);
       text-align: center;
       font-family: "Playfair Display";
       color: #fff;
-      font-size: 3.5vw;
+      font-size: 32px;
       line-height: 100%;
-      &.blue {
-        background: #00c0f3;
+      margin: 0 0 40px;
+    }
+    p.meta {
+      margin: 0 0 10px;
+      font-style: italic;
+      color: #999;
+      text-align: center;
+      font-size: 22px;
+      span {
+        font-weight: 600;
       }
     }
-    p {
+    p.description {
       font-family: "Playfair Display";
       font-size: 22px;
-      margin-top: 7.7vw;
+      margin-top: 60px;
       padding-top: 20px;
-      border-top: 4px solid #333;
+      border-top-width: 2px;
+      border-top-style: solid;
+      padding-left: 60px;
+      margin-left: -60px;
     }
   }
 }

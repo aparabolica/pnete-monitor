@@ -2,18 +2,24 @@ article#eixo
   header.eixo-header
     .container
       .four.columns
-        h1.blue Enfrentamento e repressão
+        h1.eixo-bg.blue Enfrentamento e repressão
+        p.meta 
+          span 23 
+          | indicadores
+        p.meta
+          span 32 
+          | responsáveis
       .eight.columns
-        p Com muito poder de incidência, é possível concretamente atingir alguns dos produtos e resultados esperados. Ações deste eixo são certamente mais custo-efetivas também pois a prevenção pode diminuir bastante os demais custos de repressão, fiscalização , etc. Este eixo também se relaciona com o eixo estruturante de proposição de ações integradas e coordenadas.
+        p.description.eixo-border.blue Com muito poder de incidência, é possível concretamente atingir alguns dos produtos e resultados esperados. Ações deste eixo são certamente mais custo-efetivas também pois a prevenção pode diminuir bastante os demais custos de repressão, fiscalização , etc. Este eixo também se relaciona com o eixo estruturante de proposição de ações integradas e coordenadas.
   .container
-    .four.columns
+    .six.columns
       aside#eixo-aside
         #eixo-actions
           h2 Ações do eixo
             span.icon.icon-chevron-down
           ul.action-list
             li 
-    .eight.columns
+    .six.columns
       section#indicadores(ng-controller="IndicadorCtrl")
         article.indicador(ng-repeat="indicador in indicadores")
           h3 

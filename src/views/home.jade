@@ -1,32 +1,72 @@
 #hello
-  .container
-    .six.columns
-      section#faq
+  section#intro.anti-row
+    .container
+      .twelve.columns
         h2 O que é o Plano Nacional de Erradicação do Trabalho Escravo (PNETE)?
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor nunc a sollicitudin blandit. Proin odio ante, cursus eget consequat vitae, mollis quis purus. Duis convallis ex sapien, sed vulputate massa ultricies quis. Etiam non ex ex. Mauris felis lorem, sollicitudin ultrices nisi id, dictum mattis nisi. Vivamus sapien augue, mattis sit amet ornare quis, pretium non mi. Maecenas vel tempor mauris, vel fermentum purus. Praesent pulvinar elit vehicula tellus finibus, et euismod lacus dapibus. Ut sodales urna augue, ac ornare ipsum aliquam ut. Pellentesque cursus turpis risus, at consequat ex sodales vel. 
-
-        h2 Como é realizado o monitoramento?
-        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor nunc a sollicitudin blandit. Proin odio ante, cursus eget consequat vitae, mollis quis purus. Duis convallis ex sapien, sed vulputate massa ultricies quis. Etiam non ex ex. Mauris felis lorem, sollicitudin ultrices nisi id, dictum mattis nisi. Vivamus sapien augue, mattis sit amet ornare quis, pretium non mi. Maecenas vel tempor mauris, vel fermentum purus. Praesent pulvinar elit vehicula tellus finibus, et euismod lacus dapibus. Ut sodales urna augue, ac ornare ipsum aliquam ut. Pellentesque cursus turpis risus, at consequat ex sodales vel. 
-    .six.columns
-      section#sections
-        ul
-          li 
-            h3 
+    .container
+      .four.columns
+        h3 1. Lorem
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor nunc a sollicitudin blandit. Proin odio ante, cursus eget consequat vitae, mollis quis purus. Duis convallis ex sapien, sed vulputate massa ultricies quis. 
+      .four.columns
+        h3 2. Ipsum
+        p Etiam non ex ex. Mauris felis lorem, sollicitudin ultrices nisi id, dictum mattis nisi. Vivamus sapien augue, mattis sit amet ornare quis, pretium non mi. Maecenas vel tempor mauris, vel fermentum purus.
+      .four.columns
+        h3 3. Dolor
+        p Praesent pulvinar elit vehicula tellus finibus, et euismod lacus dapibus. Ut sodales urna augue, ac ornare ipsum aliquam ut. Pellentesque cursus turpis risus, at consequat ex sodales vel. 
+  .row
+    section#sections
+      h2 Conheça os eixos
+      ul.eixo-list
+        li.eixo-bg.blue
+          .eixo-item-content
+            h3
               a(ui-sref="eixo({eixoId: 1})") Enfrentamento e repressão
             p 32 indicadores, totalizando 23 responsáveis.
-          li 
+        li.eixo-bg.green
+          .eixo-item-content
             h3
               a(ui-sref="eixo({eixoId: 1})") Reinserção e prevenção
             p 32 indicadores, totalizando 23 responsáveis.
-          li 
+        li.eixo-bg.red
+          .eixo-item-content
             h3 
               a(ui-sref="eixo({eixoId: 1})") Informação e capacitação
             p 32 indicadores, totalizando 23 responsáveis.
-          li 
+        li.eixo-bg.purple
+          .eixo-item-content
             h3 
               a(ui-sref="eixo({eixoId: 1})") Repressão econômica
             p 32 indicadores, totalizando 23 responsáveis.
-          li 
+        li.eixo-bg.orange
+          .eixo-item-content
             h3 
               a(ui-sref="eixo({eixoId: 1})") Ações gerais
             p 32 indicadores, totalizando 23 responsáveis.
+  .container.row
+    .six.columns
+      section#followup
+        h2 Acompanhamento político
+        ul.followup-list
+          li 
+            article
+              h3 
+                a(href="#") Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor nunc a sollicitudin blandit.
+              p.meta
+                span.date 
+                  span.icon-calendar 
+                  | Publicado ontem
+              p Vivamus sapien augue, mattis sit amet ornare quis, pretium non mi. Maecenas vel tempor mauris, vel fermentum purus. Praesent pulvinar elit vehicula tellus finibus, et euismod lacus dapibus. Ut sodales urna augue, ac ornare ipsum aliquam ut. Pellentesque cursus turpis risus, at consequat ex sodales vel.
+          li 
+            article
+              h3 
+                a(href="#") Sed porttitor nunc a sollicitudin blandit.
+              p.meta
+                span.date 
+                  span.icon-calendar 
+                  | Publicado há 2 dias
+              p Maecenas vel tempor mauris, vel fermentum purus. Praesent pulvinar elit vehicula tellus finibus, et euismod lacus dapibus. Ut sodales urna augue, ac ornare ipsum aliquam ut. Pellentesque cursus turpis risus, at consequat ex sodales vel.
+    .six.columns
+      section#how
+        h2 Como é realizado o monitoramento?
+        p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porttitor nunc a sollicitudin blandit. Proin odio ante, cursus eget consequat vitae, mollis quis purus. Duis convallis ex sapien, sed vulputate massa ultricies quis. Etiam non ex ex. Mauris felis lorem, sollicitudin ultrices nisi id, dictum mattis nisi. Vivamus sapien augue, mattis sit amet ornare quis, pretium non mi. Maecenas vel tempor mauris, vel fermentum purus. Praesent pulvinar elit vehicula tellus finibus, et euismod lacus dapibus. Ut sodales urna augue, ac ornare ipsum aliquam ut. Pellentesque cursus turpis risus, at consequat ex sodales vel. 
+        a.button(href="#") Saiba mais
