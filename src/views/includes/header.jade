@@ -3,16 +3,21 @@ header#masthead.row
     .two.columns
       a(ui-sref="home")
         img(src="/img/logo2.png")
-    .five.columns
+    .ten.columns
       h1 
-        a(ui-sref="home") Monitor
+        a(ui-sref="home") Plataforma de Monitoramento
       p Plano Nacional de Erradicação do Trabalho Escravo
-    .five.columns
-      nav#mastnav
+  nav#mastnav
+    .container
+      .twelve.columns
         ul
           li 
-            a(ui-sref="about") Sobre
+            a(ui-sref="trabalho-escravo") Trabalho escravo
           li
-            a(ui-sref="eixo") Eixos
+            a(ui-sref="conatrae") Sobre a conatrae
           li 
-            a(ui-sref="rep") Organizações
+            a(ui-sref="status") Status do atual monitoramento
+          li 
+            a(ui-sref="dados") Dados brutos            
+          li 
+            a(ui-sref="relatorios") Relatórios anuais

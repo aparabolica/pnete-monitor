@@ -32,6 +32,21 @@ app.config([
       controller: 'HomeCtrl',
       templateUrl: '/views/home.html'
     })
+    .state('trabalho-escravo', {
+      url: '/trabalho-escravo/'
+    })
+    .state('conatrae', {
+      url: '/conatrae/'
+    })
+    .state('status', {
+      url: '/status/'
+    })
+    .state('dados', {
+      url: '/dados/'
+    })
+    .state('relatorios', {
+      url: '/relatorios/'
+    })
     .state('indicador', {
       url: '/indicador/:indicadorId/',
       controller: 'IndicadorCtrl',
