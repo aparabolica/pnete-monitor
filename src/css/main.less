@@ -168,7 +168,7 @@ body {
 
 #masthead {
   padding: 1vw 0;
-  background: #f0f0f0;
+  background: #fff;
   img {
     max-width: 100px;
     height: auto;
@@ -226,18 +226,38 @@ body {
 #hello {
   #intro {
     padding-top: 40px;
-    background: #444;
-    color: #f0f0f0;
+    background: #fff url(../img/photos/01.jpg) no-repeat;
+    background-size: 50%;
+    background-position: 110% 115px;
+    color: #333;
+    position: relative;
+    // &:before {
+    //   position: absolute;
+    //   content: '';
+    //   top: 0;
+    //   bottom: 0;
+    //   left: 0;
+    //   pointer-events: none;
+    //   width: 100%;
+    //   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&amp;1+0,0+100;White+to+Transparent */
+    //   background: -moz-linear-gradient(left,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+    //   background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+    //   background: -webkit-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+    //   background: -o-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+    //   background: -ms-linear-gradient(left,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+    //   background: linear-gradient(to right,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+    //   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 */
+    // }
     h2 {
       padding-bottom: 20px;
       border-bottom: 2px solid #999;
-      color: #aaa;
+      color: #111;
       font-size: 22px;
     }
     h3 {
       margin: 0;
       font-size: 18px;
-      color: #aaa;
+      color: #111;
     }
     p {
       font-size: 18px;
@@ -340,7 +360,7 @@ body {
       }
     }
   }
-  #how {
+  .tip-box {
     border: 1px solid #ddd;
     padding: 20px;
     .border-radius(4px);
