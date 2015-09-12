@@ -33,7 +33,8 @@ app.config([
       templateUrl: '/views/home.html'
     })
     .state('trabalho-escravo', {
-      url: '/trabalho-escravo/'
+      url: '/trabalho-escravo/',
+      templateUrl: '/views/pages/trabalho-escravo.html'
     })
     .state('conatrae', {
       url: '/conatrae/'
