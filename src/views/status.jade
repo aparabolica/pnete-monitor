@@ -1,0 +1,16 @@
+#status
+  .container 
+    .nine.columns
+      h1 Status do monitoramento em curso
+  .container
+    .twelve.columns
+      .row
+        replied-percent(ratio="ratio")
+  .container
+    .six.columns
+      #orgs
+        h2 Acompanhe o andamento das respostas de cada organização participante do monitoramento
+      ul.status-list.org-list
+        li(ng-repeat="org in orgs")
+          h3 {{org.title}}
+          replied-percent(ratio="org.ratio")

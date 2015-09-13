@@ -3,21 +3,22 @@ header#masthead.row
     .two.columns
       a(ui-sref="home")
         img(src="/img/logo2.png")
-    .ten.columns
+    .nine.columns
       h1 
         a(ui-sref="home") Plataforma de Monitoramento
       p Plano Nacional de Erradicação do Trabalho Escravo
-  nav#mastnav
-    .container
-      .twelve.columns
-        ul
-          li 
-            a(ui-sref="trabalho-escravo") Trabalho escravo
-          li
-            a(ui-sref="conatrae") Sobre a conatrae
-          li 
-            a(ui-sref="status") Status do atual monitoramento
-          li 
-            a(ui-sref="dados") Dados brutos            
-          li 
-            a(ui-sref="relatorios") Relatórios anuais
+    .one.columns
+      a.nav-toggler(href="javascript:void(0);" ng-click="toggleNav()"  scrolled-class s-class="'scrolled'" offset="100")
+        span.icon-menu
+  nav#mastnav(ng-class="{active: nav}")
+    ol
+      li 
+        a(ui-sref="trabalho-escravo") O que é o trabalho escravo contemporâneo?
+      li
+        a(ui-sref="conatrae") Sobre a Conatrae
+      li 
+        a(ui-sref="status") Status do monitoramento em curso
+      li 
+        a(ui-sref="dados") Baixe os dados brutos
+      li 
+        a(ui-sref="relatorios") Baixe os relatórios anuais

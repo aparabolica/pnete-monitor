@@ -1,5 +1,33 @@
 module.exports = function(app) {
 
+  app.directive('scrolledClass', [
+    function() {
+      return {
+        restrict: 'A',
+        scope: {
+          sClass: '=',
+          offset: '@',
+          fromElement: '@'
+        },
+        link: function(scope, element, attrs) {
+          var offset = parseInt(scope.offset);
+          if(scope.fromElement) {
+            offset += $(element).offset().top;
+          }
+          console.log(offset);
+          $(window).scroll(function() {
+            if($(window).scrollTop() >= offset) {
+              console.log('should');
+              $(element).addClass(scope.sClass);
+            } else {
+              $(element).removeClass(scope.sClass);
+            }
+          });
+        }
+      }
+    }
+  ])
+
   app.directive('repliedPercent', [
     '$interpolate',
     function($interpolate) {

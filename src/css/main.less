@@ -199,29 +199,59 @@ body {
     margin: 0;
     color: #666;
   }
+  .nav-toggler {
+    text-align: right;
+    font-size: 50px;
+    color: inherit;
+    text-decoration: none;
+    position: fixed;
+    z-index: 10000;
+    background: #fff;
+    top: 0;
+    padding-top: 20px;
+    line-height: 1;
+    outline: none;
+    .transition(margin .2s linear);
+    &.scrolled {
+      margin-left: 80px;
+    }
+  }
   #mastnav {
-    ul {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    right: -100%;
+    background: #fff;
+    z-index: 9999;
+    border-left: 1px solid #ddd;
+    .transition(right .2s linear);
+    &.active {
+      right: 0;
+    }
+    ol {
       width: 100%;
-      display: table;
-      margin: 0;
-      padding: 20px 0 0;
+      margin: 0 0 0 30px;
+      padding: 10px 20px;
+      list-style: outside decimal;
       li {
+        width: 50%;
+        min-width: 280px;
         margin: 0;
-        padding: 0;
-        display: table-cell;
-        text-align: center;
-        color: #444;
-        font-size: 12px;
-        text-transform: uppercase;
-        vertical-align: middle;
+        padding: 20px 0;
+        color: #999;
+        font-size: 24px;
+        font-family: "Playfair Display";
+        border-bottom: 1px solid #eee;
+        &:last-child {
+          border-bottom: 0;
+        }
         a {
-          display: block;
-          background: #ddd;
-          .border-radius(4px);
-          margin: 0 3px;
-          padding: 5px;
-          color: inherit;
+          color: #666;
           text-decoration: none;
+          &:hover {
+            color: #333;
+          }
         }
       }
     }
@@ -384,5 +414,7 @@ body {
 @import "partials/eixo";
 
 @import "partials/rep";
+
+@import "partials/status";
 
 @import "mobile";

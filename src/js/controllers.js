@@ -10,7 +10,17 @@ module.exports = function(app) {
   app.controller('MainCtrl', [
     '$scope',
     function($scope) {
-
+      $scope.nav = false;
+      $scope.toggleNav = function() {
+        if($scope.nav) {
+          $scope.nav = false;
+        } else {
+          $scope.nav = true;
+        }
+      }
+      $scope.$on('$stateChangeSuccess', function() {
+        $scope.nav = false;
+      });
     }
   ]);
 
@@ -103,6 +113,51 @@ module.exports = function(app) {
         }
       }
 
+    }
+  ]);
+
+  app.controller('StatusCtrl', [
+    '$scope',
+    function($scope) {
+      $scope.ratio = {
+        'questions': 120,
+        'replied': 30
+      }
+
+      $scope.orgs = [
+        {
+          id: 1,
+          title: 'Lorem ipsum',
+          ratio: {
+            'questions': 30,
+            'replied': 19
+          }
+        },
+        {
+          id: 1,
+          title: 'Lorem ipsum',
+          ratio: {
+            'questions': 30,
+            'replied': 19
+          }
+        },
+        {
+          id: 1,
+          title: 'Lorem ipsum',
+          ratio: {
+            'questions': 30,
+            'replied': 19
+          }
+        },
+        {
+          id: 1,
+          title: 'Lorem ipsum',
+          ratio: {
+            'questions': 30,
+            'replied': 19
+          }
+        }
+      ]
     }
   ]);
 

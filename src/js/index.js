@@ -1,3 +1,4 @@
+window.$ = window.jQuery = require('jquery');
 window.angular = require('angular');
 window._ = require('underscore');
 window.moment = require('moment');
@@ -37,10 +38,13 @@ app.config([
       templateUrl: '/views/pages/trabalho-escravo.html'
     })
     .state('conatrae', {
-      url: '/conatrae/'
+      url: '/conatrae/',
+      templateUrl: '/views/pages/conatrae.html'
     })
     .state('status', {
-      url: '/status/'
+      url: '/status/',
+      controller: 'StatusCtrl',
+      templateUrl: '/views/status.html'
     })
     .state('dados', {
       url: '/dados/'
