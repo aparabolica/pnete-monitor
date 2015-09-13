@@ -18,9 +18,19 @@ module.exports = function(app) {
           $scope.nav = true;
         }
       }
-      $scope.$on('$stateChangeSuccess', function() {
+      $scope.isHome = true;
+      $scope.$on('$stateChangeSuccess', function(ev, to) {
         $scope.nav = false;
+        if(to.name == 'home')
+          $scope.isHome = true;
+        else
+          $scope.isHome = false;
       });
+      
+      $scope.ratio = {
+        'questions': 130,
+        'replied': 60
+      };
     }
   ]);
 
@@ -39,9 +49,9 @@ module.exports = function(app) {
       $scope.date = date.format('LLLL');
       $scope.date_ = date.format('L');
 
-      $scope.pastelColor = function() {
+      $scope.pastelColor = _.memoize(function() {
         return getPastelColor();
-      }
+      });
 
       $scope.indicadores = [
         {

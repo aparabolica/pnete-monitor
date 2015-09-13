@@ -1,13 +1,12 @@
-header#masthead.row
+header#masthead.row(ng-class="{shrink: !isHome}")
   .container
-    .two.columns
-      a(ui-sref="home")
-        img(src="/img/logo2.png")
-    .nine.columns
+    .twelve.columns
+      .logo-container
+        a(ui-sref="home")
+          img(src="/img/logo2_.png")
       h1 
         a(ui-sref="home") Plataforma de Monitoramento
       p Plano Nacional de Erradicação do Trabalho Escravo
-    .one.columns
       a.nav-toggler(href="javascript:void(0);" ng-click="toggleNav()"  scrolled-class s-class="'scrolled'" offset="100")
         span.icon-menu
   nav#mastnav(ng-class="{active: nav}")
@@ -22,3 +21,9 @@ header#masthead.row
         a(ui-sref="dados") Baixe os dados brutos
       li 
         a(ui-sref="relatorios") Baixe os relatórios anuais
+  section#status(ng-show="isHome")
+    .container
+      .twelve.columns
+        h2 Status do monitoramento em curso
+          a(ui-sref="status") Veja o status completo
+        replied-percent(ratio="ratio")

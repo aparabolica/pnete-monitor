@@ -14,10 +14,8 @@ module.exports = function(app) {
           if(scope.fromElement) {
             offset += $(element).offset().top;
           }
-          console.log(offset);
           $(window).scroll(function() {
             if($(window).scrollTop() >= offset) {
-              console.log('should');
               $(element).addClass(scope.sClass);
             } else {
               $(element).removeClass(scope.sClass);
