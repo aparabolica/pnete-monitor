@@ -134,6 +134,8 @@ module.exports = function(app) {
         'replied': 80
       }
 
+      $scope.label = '{{ratio.replied}}/{{ratio.questions}} respondidas'
+
       $scope.orgs = [
         {
           id: 1,

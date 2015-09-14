@@ -7,35 +7,41 @@
       .row
         replied-percent(ratio="ratio")
   .container
-    .six.columns
+    .eight.columns
       #orgs
         h2 Acompanhe o andamento das respostas de cada organização participante do monitoramento
       ul.status-list.org-list
         li(ng-repeat="org in orgs")
           h3 {{org.title}}
-          replied-percent(ratio="org.ratio")
+          replied-percent(ratio="org.ratio" label="label")
         li(ng-repeat="org in orgs")
           h3 {{org.title}}
-          replied-percent(ratio="org.ratio")
+          replied-percent(ratio="org.ratio" label="label")
         li(ng-repeat="org in orgs")
           h3 {{org.title}}
-          replied-percent(ratio="org.ratio")
-    .six.columns
+          replied-percent(ratio="org.ratio" label="label")
+        li(ng-repeat="org in orgs")
+          h3 {{org.title}}
+          replied-percent(ratio="org.ratio" label="label")
+    .four.columns
       #eixos
         h2 Acompanhe o andamento das respostas por cada eixo de ação
       ul.status-list.eixo-list
         li.eixo-bg.blue
           h3 Enfrentamento e repressão
-          replied-percent(ratio="ratio")
+          replied-percent(ratio="ratio" label="label")
         li.eixo-bg.green
           h3 Reinserção e prevenção
-          replied-percent(ratio="ratio")
+          replied-percent(ratio="ratio" label="label")
         li.eixo-bg.red
           h3 Informação e capacitação
-          replied-percent(ratio="ratio")
+          replied-percent(ratio="ratio" label="label")
         li.eixo-bg.purple
           h3 Repressão econômica
-          replied-percent(ratio="ratio")
+          replied-percent(ratio="ratio" label="label")
         li.eixo-bg.orange
           h3 Ações gerais
-          replied-percent(ratio="ratio")
+          replied-percent(ratio="ratio" label="label")
+        li.eixo-bg.yellow
+          h3 Monitoramento legislativo
+          replied-percent(label="'Não se aplica'")

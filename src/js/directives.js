@@ -28,7 +28,8 @@ module.exports = function(app) {
 
   app.directive('repliedPercent', [
     '$interpolate',
-    function($interpolate) {
+    '$timeout',
+    function($interpolate, $timeout) {
       return {
         restrict: 'E',
         scope: {
@@ -40,7 +41,7 @@ module.exports = function(app) {
 
           scope.percent = 0;
 
-          scope.label = scope.label || '{{percent.toFixed()}}% das perguntas foram respondidas';
+          scope.label = scope.label || '{{ratio.replied}}/{{ratio.questions}} das perguntas foram respondidas';
 
           scope.$watch('label', function(label) {
             scope.text = $interpolate(label)(scope);
@@ -48,9 +49,12 @@ module.exports = function(app) {
 
           var completeNode = element[0].getElementsByClassName('replied-percent-complete');
 
+          angular.element(completeNode).css({'width': '0%'});
           scope.$watch('ratio', function(ratio) {
-            scope.percent = (ratio.replied / ratio.questions) * 100;
-            angular.element(completeNode).css({'width': scope.percent + '%'});
+            $timeout(function() {
+              scope.percent = (ratio.replied / ratio.questions) * 100;
+              angular.element(completeNode).css({'width': scope.percent + '%'});
+            }, 100);
             scope.text = $interpolate(scope.label)(scope);
           });
 
