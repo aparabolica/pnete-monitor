@@ -26,7 +26,7 @@ module.exports = function(app) {
         else
           $scope.isHome = false;
       });
-      
+
       $scope.ratio = {
         'questions': 130,
         'replied': 60
@@ -131,7 +131,7 @@ module.exports = function(app) {
     function($scope) {
       $scope.ratio = {
         'questions': 120,
-        'replied': 30
+        'replied': 80
       }
 
       $scope.orgs = [

@@ -14,3 +14,28 @@
         li(ng-repeat="org in orgs")
           h3 {{org.title}}
           replied-percent(ratio="org.ratio")
+        li(ng-repeat="org in orgs")
+          h3 {{org.title}}
+          replied-percent(ratio="org.ratio")
+        li(ng-repeat="org in orgs")
+          h3 {{org.title}}
+          replied-percent(ratio="org.ratio")
+    .six.columns
+      #eixos
+        h2 Acompanhe o andamento das respostas por cada eixo de ação
+      ul.status-list.eixo-list
+        li.eixo-bg.blue
+          h3 Enfrentamento e repressão
+          replied-percent(ratio="ratio")
+        li.eixo-bg.green
+          h3 Reinserção e prevenção
+          replied-percent(ratio="ratio")
+        li.eixo-bg.red
+          h3 Informação e capacitação
+          replied-percent(ratio="ratio")
+        li.eixo-bg.purple
+          h3 Repressão econômica
+          replied-percent(ratio="ratio")
+        li.eixo-bg.orange
+          h3 Ações gerais
+          replied-percent(ratio="ratio")
