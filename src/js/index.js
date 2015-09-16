@@ -47,10 +47,12 @@ app.config([
       templateUrl: '/views/status.html'
     })
     .state('dados', {
-      url: '/dados/'
+      url: '/dados/',
+      templateUrl: '/views/pages/data.html'
     })
     .state('relatorios', {
-      url: '/relatorios/'
+      url: '/relatorios/',
+      templateUrl: '/views/pages/reports.html'
     })
     .state('indicador', {
       url: '/indicador/:indicadorId/',

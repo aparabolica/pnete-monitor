@@ -129,6 +129,7 @@ module.exports = function(app) {
   app.controller('StatusCtrl', [
     '$scope',
     function($scope) {
+
       $scope.ratio = {
         'questions': 120,
         'replied': 80
@@ -137,6 +138,22 @@ module.exports = function(app) {
       $scope.label = '{{ratio.replied}}/{{ratio.questions}} respondidas'
 
       $scope.orgs = [
+        {
+          id: 1,
+          title: 'Lorem ipsum',
+          ratio: {
+            'questions': 30,
+            'replied': 19
+          }
+        },
+        {
+          id: 1,
+          title: 'Lorem ipsum',
+          ratio: {
+            'questions': 30,
+            'replied': 19
+          }
+        },
         {
           id: 1,
           title: 'Lorem ipsum',
