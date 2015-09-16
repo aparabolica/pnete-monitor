@@ -106,7 +106,8 @@ body {
   border-top: 1px solid #333;
   padding-top: 10px;
   position: relative;
-  z-index: 2;
+  z-index: 5;
+  h2,
   h3 {
     color: #666;
     font-size: 16px;
@@ -129,14 +130,17 @@ body {
     .filter {
       display: block;
       position: relative;
-      z-index: 10;
+      z-index: 20;
       float: left;
       padding: 5px 5px 5px 8px;
       margin: -5px -5px -5px 0;
       border: 1px solid transparent;
       cursor: default;
+      .box-shadow(1px 1px 1px rgba(0,0,0,0.1));
       .icon {
         color: #999;
+        float: right;
+        margin-top: 5px;
       }
       .border-radius(3px);
       .label {
@@ -151,12 +155,21 @@ body {
         left: 0;
         right: 0;
         padding: 5px 5px 5px 8px;
+        list-style: none;
+        z-index: 100;
+        background: #fff;
+        .border-radius(0 0 3px 3px);
+        .box-shadow(1px 2px 1px rgba(0,0,0,0.1));
         li {
           margin: 0;
-          padding: 5px 0;
-          background: #fff;
+          padding: 5px 0px;
           color: #666;
           cursor: pointer;
+          font-size: 12px;
+          border-bottom: 1px solid #eee;
+          &:last-child {
+            border-bottom: 0;
+          }
           &:hover {
             color: #333;
           }
