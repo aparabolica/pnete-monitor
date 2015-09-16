@@ -38,7 +38,7 @@ article#indicador
                   li 2012
                   li 2013
             h3 Responsáveis e suas respostas
-          ul
+          ul.reply-list
             li.reply.clearfix(ng-repeat="response in indicador.responses" ng-class="{'no-response': !response.response}")
               .five.columns
                 .avatar-container
