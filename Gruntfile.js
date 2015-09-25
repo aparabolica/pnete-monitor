@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 					transform: ['browserify-shim']
 				},
 				files: {
-					'public/app.js': 'src/js/index.js'
+					'client/app.js': 'client-src/js/index.js'
 				}
 			}
 		},
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 					compress: true
 				},
 				files: {
-					'public/app.js': 'public/app.js',
+					'client/app.js': 'client/app.js',
 				}
 			}
 		},
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
 					compress: true
 				},
 				files: {
-					'public/css/app.css': 'src/css/main.less'
+					'client/css/app.css': 'client-src/css/main.less'
 				}
 			}
 		},
@@ -39,9 +39,9 @@ module.exports = function(grunt) {
 				},
 				files: [{
 					expand: true,
-					cwd: 'src',
+					cwd: 'client-src',
 					src: ['**/*.jade'],
-					dest: 'public',
+					dest: 'client',
 					ext: '.html'
 				}]
 			}
@@ -50,9 +50,9 @@ module.exports = function(grunt) {
 			all: {
 				files: [
 					{
-						cwd: 'src',
+						cwd: 'client-src',
 						src: ['**', '!js/**', '!**/*.less', '!**/*.jade', '!**/*.js'],
-						dest: 'public',
+						dest: 'client',
 						expand: true
 					}
 				]
@@ -63,19 +63,19 @@ module.exports = function(grunt) {
 				livereload: true
 			},
 			css: {
-				files: 'src/css/**/*',
+				files: 'client-src/css/**/*',
 				tasks: ['less']
 			},
 			jade: {
-				files: 'src/views/**/*.jade',
+				files: 'client-src/views/**/*.jade',
 				tasks: ['jade']
 			},
 			scripts: {
-				files: 'src/js/**/*.js',
+				files: 'client-src/js/**/*.js',
 				tasks: ['browserify']
 			},
 			copy: {
-				files: ['src/**', '!src/css/**/*', '!src/**/*.jade', '!src/**/*.js'],
+				files: ['client-src/**', '!client-src/css/**/*', '!client-src/**/*.jade', '!client-src/**/*.js'],
 				tasks: ['copy']
 			}
 		}

@@ -1,14 +1,16 @@
 {
   "name": "pnete-monitor",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "PNETE Monitor",
-  "main": "app.js",
+  "main": "server/server.js",
   "scripts": {
-    "postinstall": "mkdir -p public && ./node_modules/grunt-cli/bin/grunt build",
-    "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "jshint .",
+    "postinstall": "mkdir -p public && ./node_modules/grunt-cli/bin/grunt build"
   },
-  "author": "Miguel Peixe <miguel@cardume.art.br> (http://codigourbano.org/)",
+  "contributors": [
+    "Miguel Peixe <miguel@cardume.art.br> (http://codigourbano.org/)",
+    "Vitor George <vitor.george@gmail.com> (http://codigourbano.org/)"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -19,6 +21,8 @@
     "angular-ui-router": "^0.2.15",
     "browserify": "^10.2.6",
     "browserify-shim": "^3.8.9",
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
     "dotenv": "^1.2.0",
     "express": "^4.13.1",
     "grunt": "^0.4.5",
@@ -32,7 +36,15 @@
     "jquery": "^2.1.4",
     "moment": "^2.10.3",
     "ng-dialog": "^0.4.0",
-    "underscore": "^1.8.3"
+    "loopback": "^2.22.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^2.1.0",
+    "loopback-datasource-juggler": "^2.39.0",
+    "underscore": "^1.8.3",
+    "serve-favicon": "^2.0.1"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.6"
   },
   "browser": {
     "angular": "./node_modules/angular/angular.js"
