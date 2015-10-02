@@ -4,6 +4,7 @@
   "description": "PNETE Monitor",
   "main": "server/server.js",
   "scripts": {
+    "start": "node server/server.js",
     "pretest": "jshint .",
     "postinstall": "mkdir -p public && ./node_modules/grunt-cli/bin/grunt build"
   },
