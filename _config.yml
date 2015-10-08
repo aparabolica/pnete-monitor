@@ -1,6 +1,7 @@
 # Site settings
 title: PNETE's Monitor
-url: "http://codigourbano.github.io/pnete-monitor"
+url: "http://codigourbano.github.io"
+baseurl: "/pnete-monitor"
 
 # Build settings
 markdown: kramdown
