@@ -3,8 +3,6 @@
  */
 module.exports = function(grunt) {
 
-	grunt.loadNpmTasks('grunt-raml2html');
-
 	grunt.initConfig({
 	  raml2html: {
 	    all: {
@@ -12,13 +10,38 @@ module.exports = function(grunt) {
 	        'api/index.html': ['_api/index.raml'],
 	      }
 	    }
-	  }
+	  },
+		watch: {
+			options: {
+				livereload: true
+			},
+			apidocs: {
+				files: ['**/*.raml', '**/*.md'],
+				tasks: ['raml2html'],
+			}
+		},
+		jekyll: {
+			options: {
+				safe: true
+			},
+			server: {
+				options: {
+					serve: true
+				}
+			},
+			dist: {
+			}
+		}
 	});
+
+	grunt.loadNpmTasks('grunt-raml2html');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-jekyll');
 
 	grunt.registerTask(
 		'default',
 		'Generate API docs.',
-		['raml2html']
+		['raml2html', 'jekyll:dist']
 	);
 
 }
