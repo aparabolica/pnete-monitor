@@ -7,7 +7,11 @@ Install Node.js and MongoDB. Then clone this repository and run:
     npm install
     node .
 
-# Development
+## Setup
+
+Copy `server/datasources.json` to `server/datasources.local.json`  and update with your settings. More info at [enviroment-specific configuration docs](https://docs.strongloop.com/display/public/LB/Environment-specific+configuration) for Loopback.
+
+## Development
 
 This application is built upon [Loopback API framework](https://docs.strongloop.com/display/public/LB/LoopBack) and uses [AngularJS Javascript SDK](https://docs.strongloop.com/display/public/LB/AngularJS+JavaScript+SDK) for the client app.
 

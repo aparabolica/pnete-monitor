@@ -7,5 +7,24 @@
     "database": "pnete-dev",
     "name": "mongodb",
     "connector": "mongodb"
+  },
+  "emailDs": {
+    "name": "emailDs",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.yourserver.org",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "youruser",
+          "pass": "yourpass"
+        }
+      }
+    ]
   }
 }
