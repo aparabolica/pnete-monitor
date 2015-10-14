@@ -28,6 +28,9 @@
     }
   },
   "final": {
+    "./middleware/client": {
+      "name": "routes" 
+    },
     "loopback#urlNotFound": {}
   },
   "final:after": {
