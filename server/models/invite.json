@@ -1,9 +1,13 @@
 {
   "name": "Invite",
+  "plural": "convites",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
+  },
+  "http": {
+    "path": "convite"
   },
   "properties": {
     "email": {
@@ -31,6 +35,13 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    }
+  ],
   "methods": {}
 }
