@@ -12,9 +12,13 @@
       }
     }
   },
-  "session": {},
-  "auth": {},
-  "parse": {},
+  "auth": {
+    "loopback#token": {
+      "params": {
+        "headers": ["authentication"]
+      }
+    }
+  },
   "routes": {
     "loopback#rest": {
       "paths": [
@@ -28,6 +32,9 @@
     }
   },
   "final": {
+    "./middleware/client": {
+      "name": "routes"
+    },
     "loopback#urlNotFound": {}
   },
   "final:after": {
