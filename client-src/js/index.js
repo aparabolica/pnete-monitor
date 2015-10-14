@@ -123,6 +123,8 @@ app.config([
 require('./controllers.js')(app);
 require('./directives.js')(app);
 
+require('./dashboard')(app);
+
 angular.element(document).ready(function() {
   angular.bootstrap(document, ['pnete']);
 });

@@ -1,0 +1,30 @@
+section#dashboard
+  .container
+    .twelve.columns
+      header#dashboard-header
+        h1 Painel de Controle
+        nav#dashboard-breadcrumbs
+  .container
+    .three.columns
+      nav#dashboard-nav
+        ul
+          li
+            a(ui-sref="dashboard.eixos" ui-sref-active="active") Eixos
+          li
+            a(ui-sref="dashboard.actions" ui-sref-active="active") Ações
+          li
+            a(ui-sref="dashboard.indicadores" ui-sref-active="active") Indicadores
+          li
+            a(ui-sref="dashboard.organizations" ui-sref-active="active") Organizações
+          li
+            a(ui-sref="dashboard.users" ui-sref-active="active") Usuários
+        ul 
+          li
+            a(href="#") Meu perfil
+          li
+            a(href="#") Minhas perguntas
+    .nine.columns
+      section#dashboard-content(ui-view)
+  
+      
+      
