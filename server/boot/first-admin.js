@@ -11,20 +11,16 @@ module.exports = function(app) {
   }, function (err, adminRole){
     if (err) throw err;
 
-    // An admin exists?
+    // Search for admin
     User.find({
       roleId: adminRole.id
     }, function(err, admins){
       if (err) throw err;
 
-      // If not, create one
+      // Create if it doesn't exists
       if (admins.length == 0) {
-        User.create({
-          email: 'admin@admin.org',
-          password: 'myfirstlogin'
-        }, function(err, firstAdmin) {
+        User.create(app.settings.defaultAdmin, function(err, firstAdmin) {
           if (err) console.log(err);
-          console.log('Created first user:', firstAdmin);
 
           adminRole.principals.create({
             principalType: RoleMapping.USER,
@@ -32,7 +28,7 @@ module.exports = function(app) {
           }, function(err, principal) {
             if (err) throw err;
 
-            console.log('Who was added to admin role:', principal);
+            console.log('Default admin created (credentials at server/config.js).');
           });
         });
       }

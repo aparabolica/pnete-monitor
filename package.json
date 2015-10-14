@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "mkdir -p public && ./node_modules/grunt-cli/bin/grunt build",
-    "test": "./node_modules/loopback-testing/node_modules/.bin/mocha"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha test/api"
   },
   "contributors": [
     "Miguel Peixe <miguel@cardume.art.br> (http://codigourbano.org)",
@@ -55,5 +55,11 @@
     "transform": [
       "browserify-shim"
     ]
+  },
+  "devDependencies": {
+    "loopback-testing": "strongloop/loopback-testing",
+    "mocha": "^2.3.3",
+    "should": "^7.1.0",
+    "supertest": "^1.1.0"
   }
 }
