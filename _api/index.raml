@@ -1,5 +1,110 @@
 #%RAML 0.8
 title: PNETE Monitor's API
+baseUri: api/{version}
+version: v1
+mediaType: application/json
+documentation:
+ - title: Home
+   content: !include ../README.md
+
+
+resourceTypes:
+  - readOnlyCollection:
+      description: Collection of available <<resourcePathName>> in Jukebox.
+      get:
+        description: Get a list of <<resourcePathName>>.
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleCollection>>
+  - collection:
+      description: Collection of available <<resourcePathName>> in Jukebox.
+      get:
+        description: Get a list of <<resourcePathName>>.
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleCollection>>
+      post:
+        description: |
+          Add a new <<resourcePathName|!singularize>> to Jukebox.
+        queryParameters:
+          access_token:
+            description: "The access token provided by the authentication application"
+            example: AABBCCDD
+            required: true
+            type: string
+        body:
+          application/json:
+            schema: <<resourcePathName|!singularize>>
+            example: |
+              <<exampleItem>>
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  { "message": "The <<resourcePathName|!singularize>> has been properly entered" }
+  - collection-item:
+      description: Entity representing a <<resourcePathName|!singularize>>
+      get:
+        description: |
+          Get the <<resourcePathName|!singularize>>
+          with <<resourcePathName|!singularize>>Id =
+          {<<resourcePathName|!singularize>>Id}
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                  <<exampleItem>>
+          404:
+            body:
+              application/json:
+                example: |
+                  {"message": "<<resourcePathName|!singularize>> not found" }
+
+traits:
+  - onlyForAdmins:
+      headers:
+        authorization:
+          description: Access token of an admin user
+          type: string
+          example: N5IsBWwMqpmdBJh2PgxI2j7LckUZqoPFcWEKqOWVby1LmnHiCAQexWApeG7wjm3B
+          required: true
+  - onlyForOwnerAndAdmin:
+      queryParameters:
+        access_token:
+          description: Access Token for resource owner or admin
+          type: string
+          example: N5IsBWwMqpmdBJh2PgxI2j7LckUZqoPFcWEKqOWVby1LmnHiCAQexWApeG7wjm3B
+          required: true
+
 
 /users:
-/organizations:
+  post:
+    description: Creates a new user and sends activation email.
+    is: [ onlyForAdmins ]
+    queryParameters:
+      email:
+        description: User email
+        required: true
+  /login:
+    post:
+      queryParameters:
+        email:
+          description: User email.
+        password:
+          description: User password.
+  /confirm:
+    post:
+      description: Confirm user email and activate account.
+      queryParameters:
+        uid:
+          description: User id
+        token:
+          description: Verification token
