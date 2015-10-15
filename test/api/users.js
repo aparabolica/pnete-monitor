@@ -28,7 +28,7 @@ describe('Users endpoints', function() {
 
   before(function(doneBefore) {
     helpers.login(admin1, function(err, token){
-      adminToken = token;
+      admin1Token = token;
       doneBefore(err);
     });
   });
@@ -48,6 +48,38 @@ describe('Users endpoints', function() {
         .expect('Content-Type', /json/)
         .end(doneIt);
 
+      });
+    });
+
+    context('allow admin', function(){
+      it('should return 200', function(doneIt){
+
+        var payload = {
+          email: 'theveryfirstuser@email.com'
+        }
+
+        request(app)
+          .post(restApiRoot + '/users')
+          .set('Authorization', admin1Token)
+          .send(payload)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(onResponse);
+
+        /* Verify response */
+        function onResponse(err, res) {
+          if (err) doneIt(err);
+          var body = res.body;
+
+          /* User basic info */
+          body.should.have.property('id');
+          body.should.have.property('email', payload.email);
+          body.should.not.have.property('password');
+
+          org1Member1 = body;
+
+          doneIt();
+        }
       });
     });
   });
