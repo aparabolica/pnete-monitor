@@ -24,7 +24,8 @@ module.exports = function(User) {
         to: user.email,
         from: dsConfig.emailDs.transports[0].auth.user,
         subject: 'Bem-vindo ao Monitor do PNETE',
-        activationLink: 'http://localhost:3000/ativacao?token=' + user.verificationToken,
+        activationLink: 'http://localhost:3000/ativar?token=' + user.verificationToken
+          + '&uid=' + user.id,
         template: path.resolve(__dirname, '../../server/views/welcome.ejs')
       }
 
