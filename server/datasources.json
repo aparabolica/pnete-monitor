@@ -1,11 +1,7 @@
 {
   "db": {
     "name": "db",
-    "connector": "memory"
-  },
-  "mongodb": {
     "database": "pnete-dev",
-    "name": "mongodb",
     "connector": "mongodb"
   },
   "emailDs": {

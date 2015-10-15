@@ -14,35 +14,35 @@
     ]
   },
   "User": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": false
   },
   "ACL": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": false
   },
   "Role": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": false
   },
   "Organization": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": true
   },
   "user": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": true
   },
   "Invite": {
-    "dataSource": "mongodb",
+    "dataSource": "db",
     "public": true
   },
   "Email": {
