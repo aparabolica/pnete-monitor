@@ -69,6 +69,7 @@ describe('Users endpoints', function() {
         /* Verify response */
         function onResponse(err, res) {
           if (err) doneIt(err);
+          
           var body = res.body;
 
           /* User basic info */
