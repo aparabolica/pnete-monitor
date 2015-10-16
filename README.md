@@ -11,7 +11,11 @@ A admin account will be set using credentials from `server/config.json` file.
 
 ## Setup
 
-Copy `server/datasources.json` to `server/datasources.local.json`  and update with your settings. More info at [enviroment-specific configuration docs](https://docs.strongloop.com/display/public/LB/Environment-specific+configuration) for Loopback.
+Create a .env from example:
+
+    cp .env.example .env
+
+Change the file with options for MongoDB and e-mail services.
 
 ## Development
 

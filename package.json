@@ -26,6 +26,7 @@
     "browserify-shim": "^3.8.9",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
+    "dotenv": "^1.2.0",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.8.0",
     "grunt-cli": "^0.1.13",
