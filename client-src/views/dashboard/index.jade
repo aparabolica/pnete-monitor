@@ -1,30 +1,58 @@
 section#dashboard
-  .container
-    .twelve.columns
-      header#dashboard-header
-        h1 Painel de Controle
+  header#dashboard-header
+    .container
+      .three.columns
+        h1
+          a(ui-sref="dashboard") Painel de Controle
+      .nine.columns
         nav#dashboard-breadcrumbs
   .container
     .three.columns
       nav#dashboard-nav
         ul
           li
-            a(ui-sref="dashboard.eixos" ui-sref-active="active") Eixos
+            a(ui-sref="dashboard.eixo" ui-sref-active="active") Eixos
           li
-            a(ui-sref="dashboard.actions" ui-sref-active="active") Ações
+            a(ui-sref="dashboard.action" ui-sref-active="active") Ações
           li
-            a(ui-sref="dashboard.indicadores" ui-sref-active="active") Indicadores
+            a(ui-sref="dashboard.indicador" ui-sref-active="active") Indicadores
           li
-            a(ui-sref="dashboard.organizations" ui-sref-active="active") Organizações
+            a(ui-sref="dashboard.organization" ui-sref-active="active") Organizações
           li
-            a(ui-sref="dashboard.users" ui-sref-active="active") Usuários
-        ul 
+            a(ui-sref="dashboard.user" ui-sref-active="active") Usuários
+        ul
           li
             a(href="#") Meu perfil
           li
             a(href="#") Minhas perguntas
     .nine.columns
       section#dashboard-content(ui-view)
-  
-      
-      
+        .six.columns.alpha
+          h2 Conteúdo
+          table
+            thead
+              tr
+                th Tipo de conteúdo
+                th Quantidade
+            tbody
+              tr
+                td Eixos
+                td 0
+              tr
+                td Ações
+                td 0
+              tr
+                td Indicadores
+                td 0
+              tr
+                td Organizações
+                td 0
+              tr 
+                td Usuários
+                td 1
+        .six.columns.omega
+          h2 Monitoramento
+          .row
+            replied-percent(ratio="{'questions':130,'replied':60}")
+          .row
+            h3 Organizações pendentes

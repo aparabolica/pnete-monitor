@@ -1,0 +1,31 @@
+form
+  p
+    label(for="title_input") Título
+    input#title_input(type="text" ng-model="indicador.title")    
+  p
+    label(for="question_input") Pergunta
+    textarea#question_input(ng-model="indicador.question")
+  p
+    label(for="eixo_input") Eixo
+    select#eixo_input(ng-model="indicador.eixo")
+      option(value="1") Enfrentamento e Repressão
+  p
+    label(for="actions_input") Ações
+    span.checkbox-list.row
+      span.checkbox-item
+        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
+        label(for="actions_input_1") 1
+      span.checkbox-item
+        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
+        label(for="actions_input_1") 1
+      span.checkbox-item
+        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
+        label(for="actions_input_1") 1
+      span.checkbox-item
+        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
+        label(for="actions_input_1") 1
+      span.checkbox-item
+        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
+        label(for="actions_input_1") 1
+  p
+    input(type="submit" value="Enviar")

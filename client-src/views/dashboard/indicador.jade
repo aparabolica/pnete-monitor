@@ -1,0 +1,25 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.indicador") Indicadores
+  a(ui-sref="dashboard.indicador.edit") + Novo
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th Título
+        th Pergunta
+        th Eixo
+        th Avaliar
+        th Editar
+        th Remover
+    tbody
+      tr
+        td Quantidade de fiscais do trabalho para cada dez mil pessoas ocupadas
+        td Qual a quantidade de vagas de auditores fiscais do trabalho efetivamente preenchidas?
+        td Enfrentamento e Repressão
+        td 
+          a.icon.icon-eye(ui-sref="dashboard.indicador.review({'id': 1})")
+        td 
+          a.icon.icon-pencil(ui-sref="dashboard.indicador.edit({'id': 1})")
+        td 
+          a.icon.icon-cross(href="javascript:void(0);")

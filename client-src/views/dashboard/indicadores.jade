@@ -1,0 +1,22 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.indicador") Indicadores
+  a(ui-sref="dashboard.indicador.edit") + Novo
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th Título
+        th Publicação
+        th Pergunta
+        th Editar
+        th Remover
+    tbody
+      tr
+        td Enfrentamento e repressão
+        td 16 de outubro de 2015
+        td #00C1F3
+        td 
+          a(ui-sref="dashboard.indicador.edit") Editar
+        td 
+          a(href="javascript:void(0);") Remover

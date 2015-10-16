@@ -1,0 +1,20 @@
+.dashboard-review
+  h3 Avaliando "Quantidade de fiscais do trabalho para cada dez mil pessoas ocupadas"
+form
+  p
+    label(for="grade_input") Avaliação geral
+    span.radio-list.row
+      span.radio-item
+        input#grade_input_2(type="radio" ng-model="indicador.grade" value="2")
+        label(for="grade_input_2") Cumprido
+      span.radio-item
+        input#grade_input_1(type="radio" ng-model="indicador.grade" value="1")
+        label(for="grade_input_1") Parcialmente cumprido
+      span.radio-item
+        input#grade_input_0(type="radio" ng-model="indicador.grade" value="0")
+        label(for="grade_input_0") Não cumprido
+  p
+    label(for="review_input") Análise do gestor
+    textarea#review_input(ng-model="indicador.review")
+  p
+    input(type="submit" value="Enviar")

@@ -13,20 +13,37 @@ module.exports = function(app) {
         controller: 'DashboardCtrl',
         templateUrl: '/views/dashboard/index.html'
       })
-      .state('dashboard.users', {
+      .state('dashboard.user', {
         url: 'users/',
+        templateUrl: '/views/dashboard/users.html'
       })
-      .state('dashboard.indicadores', {
+      .state('dashboard.indicador', {
         url: 'indicadores/',
+        templateUrl: '/views/dashboard/indicador.html'
       })
-      .state('dashboard.actions', {
+      .state('dashboard.indicador.edit', {
+        url: 'editar/?id',
+        templateUrl: '/views/dashboard/indicador-edit.html'
+      })
+      .state('dashboard.indicador.review', {
+        url: 'avaliar/?id',
+        templateUrl: '/views/dashboard/indicador-review.html'
+      })
+      .state('dashboard.action', {
         url: 'acoes/',
+        templateUrl: '/views/dashboard/actions.html'
       })
-      .state('dashboard.eixos', {
-        url: 'eixos/',
-      })
-      .state('dashboard.organizations', {
+      .state('dashboard.organization', {
         url: 'organizacoes/',
+        templateUrl: '/views/dashboard/organizations.html'
+      })
+      .state('dashboard.eixo', {
+        url: 'eixos/',
+        templateUrl: '/views/dashboard/eixo.html'
+      })
+      .state('dashboard.eixo.edit', {
+        url: 'editar/',
+        templateUrl: '/views/dashboard/eixo-edit.html'
       });
 
     }
