@@ -1,0 +1,9 @@
+form
+  p
+    label(for="id_input") ID
+    input#id_input(type="text" ng-model="action.id")
+  p
+    label(for="description_input") Descrição
+    textarea#description_input(ng-model="action.description")
+  p
+    input(type="submit" value="Enviar")

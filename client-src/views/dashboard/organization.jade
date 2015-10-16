@@ -1,0 +1,20 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.organization") Organizações
+  a(ui-sref="dashboard.organization.edit") + Nova organização
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th Nome
+        th Status
+        th Editar
+        th Remover
+    tbody
+      tr
+        td Ministério do Trabalho e Emprego (Detrae/SIT)
+        td Confirmado
+        td 
+          a.icon.icon-pencil(ui-sref="dashboard.organization.edit({'id': 1})")
+        td 
+          a.icon.icon-cross(href="javascript:void(0);")

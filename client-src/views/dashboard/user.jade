@@ -1,20 +1,20 @@
 header.dashboard-inner-header
   h2
-    a(ui-sref="dashboard.eixo") Eixos
-  a(ui-sref="dashboard.eixo.edit") + Novo eixo
+    a(ui-sref="dashboard.user") Usuários
+  a(ui-sref="dashboard.user.edit") + Novo usuário
 section.dashboard-inner-content(ui-view)
   table
     thead
       tr
         th Nome
-        th Cor
+        th Email
         th Editar
         th Remover
     tbody
       tr
-        td Enfrentamento e repressão
-        td #00C1F3
+        td Miguel Peixe
+        td miguel@teste.com.br
         td 
-          a.icon.icon-pencil(ui-sref="dashboard.eixo.edit")
+          a.icon.icon-pencil(ui-sref="dashboard.user.edit({'id': 1})")
         td 
           a.icon.icon-cross(href="javascript:void(0);")

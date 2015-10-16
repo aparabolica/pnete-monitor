@@ -1,0 +1,17 @@
+form
+  p
+    label(for="name_input") Nome
+    input#name_input(type="text" ng-model="organization.name")
+  p
+    label(for="status_input") Status
+    select#status_input(ng-model="organization.status")
+      option(value="confirmed") Confirmado
+      option(value="confirmed") Não confirmado
+  p
+    label(for="active_input") Atividade
+    span.checkbox-list.row
+      span.checkbox-item
+        input#active_input(type="checkbox" ng-model="organization.activity")
+        label(for="active_input") Ativa no monitoramento
+  p
+    input(type="submit" value="Enviar")

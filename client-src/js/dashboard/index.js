@@ -14,8 +14,12 @@ module.exports = function(app) {
         templateUrl: '/views/dashboard/index.html'
       })
       .state('dashboard.user', {
-        url: 'users/',
-        templateUrl: '/views/dashboard/users.html'
+        url: 'usuarios/',
+        templateUrl: '/views/dashboard/user.html'
+      })
+      .state('dashboard.user.edit', {
+        url: 'editar/?id',
+        templateUrl: '/views/dashboard/user-edit.html'
       })
       .state('dashboard.indicador', {
         url: 'indicadores/',
@@ -31,11 +35,19 @@ module.exports = function(app) {
       })
       .state('dashboard.action', {
         url: 'acoes/',
-        templateUrl: '/views/dashboard/actions.html'
+        templateUrl: '/views/dashboard/action.html'
+      })
+      .state('dashboard.action.edit', {
+        url: 'editar/?id',
+        templateUrl: '/views/dashboard/action-edit.html'
       })
       .state('dashboard.organization', {
         url: 'organizacoes/',
-        templateUrl: '/views/dashboard/organizations.html'
+        templateUrl: '/views/dashboard/organization.html'
+      })
+      .state('dashboard.organization.edit', {
+        url: 'editar/?id',
+        templateUrl: '/views/dashboard/organization-edit.html'
       })
       .state('dashboard.eixo', {
         url: 'eixos/',

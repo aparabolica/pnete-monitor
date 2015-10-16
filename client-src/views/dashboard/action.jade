@@ -1,0 +1,20 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.action") Ações
+  a(ui-sref="dashboard.action.edit") + Nova ação
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th ID
+        th Descrição
+        th Editar
+        th Remover
+    tbody
+      tr
+        td 16
+        td Disponibilizar equipes de fiscalização móvel nacionais e regionais em número suficiente para atender as denúncias e demandas do planejamento anual da inspeção.
+        td 
+          a.icon.icon-pencil(ui-sref="dashboard.action.edit({'id': 1})")
+        td 
+          a.icon.icon-cross(href="javascript:void(0);")
