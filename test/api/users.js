@@ -5,7 +5,7 @@ var lt = require('loopback-testing');
 var assert = require('assert');
 var app = require('../../server/server.js'); //path to app.js or server.js
 var request = require('supertest');
-var helpers = require('../helpers');
+var helper = require('../helper');
 
 /*
  * Config
@@ -27,7 +27,7 @@ describe('Users endpoints', function() {
 
 
   before(function(doneBefore) {
-    helpers.login(admin1, function(err, token){
+    helper.login(admin1, function(err, token){
       admin1Token = token;
       doneBefore(err);
     });
@@ -37,16 +37,16 @@ describe('Users endpoints', function() {
     context('deny anonymous', function(){
       it('should return 401', function(doneIt){
 
-      var payload = {
-        email: 'theveryfirstuser@email.com'
-      }
+        var payload = {
+          email: 'theveryfirstuser@email.com'
+        }
 
-      request(app)
-        .post(restApiRoot + '/users')
-        .send(payload)
-        .expect(401)
-        .expect('Content-Type', /json/)
-        .end(doneIt);
+        request(app)
+          .post(restApiRoot + '/users')
+          .send(payload)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
 
       });
     });
@@ -69,7 +69,7 @@ describe('Users endpoints', function() {
         /* Verify response */
         function onResponse(err, res) {
           if (err) doneIt(err);
-          
+
           var body = res.body;
 
           /* User basic info */

@@ -22,6 +22,7 @@
   "dependencies": {
     "angular": "^1.4.2",
     "angular-ui-router": "^0.2.15",
+    "async": "^1.4.2",
     "browserify": "^10.2.6",
     "browserify-shim": "^3.8.9",
     "compression": "^1.0.3",
@@ -60,6 +61,7 @@
   "devDependencies": {
     "loopback-testing": "strongloop/loopback-testing",
     "mocha": "^2.3.3",
+    "rosie": "^1.2.0",
     "should": "^7.1.0",
     "supertest": "^1.1.0"
   }
