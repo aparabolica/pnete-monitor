@@ -1,13 +1,28 @@
 require('dotenv').load();
 
+/*
+ * Database config
+ */
+var dbOptions = {
+  connector: "mongodb",
+  url: process.env.MONGOLAB_URI ||
+        process.env.MONGOHQ_URL ||
+        process.env.MONGODB_URI ||
+        'mongodb://localhost/pnete-dev'
+};
+
+// user memory for testing
+if (process.env.NODE_ENV == 'test') {
+  dbOptions = {
+    connector: "memory"
+  }
+}
+
+/*
+ * Export settings
+ */
 module.exports = {
-  db: {
-    connector: "mongodb",
-    url: process.env.MONGOLAB_URI ||
-          process.env.MONGOHQ_URL ||
-          process.env.MONGODB_URI ||
-          'mongodb://localhost/pnete-dev'
-  },
+  db: dbOptions,
   emailDs: {
     name: "emailDs",
     connector: "mail",
@@ -28,5 +43,3 @@ module.exports = {
     ]
   }
 }
-
-// ,
