@@ -23,7 +23,7 @@
   "relations": {
     "organizations": {
       "type": "hasAndBelongsToMany",
-      "model": "organization",
+      "model": "Organization",
       "foreignKey": "organizationId"
     }
   },

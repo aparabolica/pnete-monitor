@@ -1,0 +1,34 @@
+{
+  "name": "Action",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "http": {
+    "path": "actions"
+  },
+  "properties": {
+    "publicId": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "axis": {
+      "type": "belongsTo",
+      "model": "Axis",
+      "foreignKey": "axisId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

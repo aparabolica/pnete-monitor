@@ -36,7 +36,7 @@
     "dataSource": "db",
     "public": false
   },
-  "organization": {
+  "Organization": {
     "dataSource": "db",
     "public": true
   },
@@ -44,11 +44,12 @@
     "dataSource": "db",
     "public": true
   },
-  "Invite": {
+  "Axis": {
     "dataSource": "db",
     "public": true
   },
-  "Email": {
-    "dataSource": "emailDs"
+  "Action": {
+    "dataSource": "db",
+    "public": true
   }
 }
