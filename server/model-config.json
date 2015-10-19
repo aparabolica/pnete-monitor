@@ -51,5 +51,17 @@
   "Action": {
     "dataSource": "db",
     "public": true
+  },
+  "Cicle": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Indicator": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Feedback": {
+    "dataSource": "db",
+    "public": true
   }
 }

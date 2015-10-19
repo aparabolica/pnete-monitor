@@ -1,35 +1,28 @@
 {
-  "name": "Organization",
+  "name": "Cicle",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "http": {
-    "path": "organizations"
+    "path": "cicles"
   },
   "properties": {
-    "id": {
-      "type": "number",
-      "required": true,
-      "format": "int64"
-    },
     "name": {
       "type": "string",
       "required": true
+    },
+    "description": {
+      "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "members": {
-      "type": "hasAndBelongsToMany",
-      "model": "user",
-      "foreignKey": "memberId"
-    },
     "indicators": {
-      "type": "hasAndBelongsToMany",
+      "type": "hasMany",
       "model": "Indicator",
-      "foreignKey": ""
+      "foreignKey": "indicatorId"
     }
   },
   "acls": [

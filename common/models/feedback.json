@@ -1,37 +1,26 @@
 {
-  "name": "Organization",
+  "name": "Feedback",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "http": {
-    "path": "organizations"
+    "path": "feedbacks"
   },
   "properties": {
-    "id": {
-      "type": "number",
-      "required": true,
-      "format": "int64"
+    "value": {
+      "type": "object"
     },
-    "name": {
-      "type": "string",
-      "required": true
+    "updatedAt": {
+      "type": "date"
+    },
+    "sentAt": {
+      "type": "date"
     }
   },
   "validations": [],
-  "relations": {
-    "members": {
-      "type": "hasAndBelongsToMany",
-      "model": "user",
-      "foreignKey": "memberId"
-    },
-    "indicators": {
-      "type": "hasAndBelongsToMany",
-      "model": "Indicator",
-      "foreignKey": ""
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "accessType": "*",

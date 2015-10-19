@@ -1,34 +1,43 @@
 {
-  "name": "Organization",
+  "name": "Indicator",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "http": {
-    "path": "organizations"
+    "path": "indicators"
   },
   "properties": {
-    "id": {
-      "type": "number",
-      "required": true,
-      "format": "int64"
-    },
-    "name": {
+    "description": {
       "type": "string",
       "required": true
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "string",
+      "required": true
+    },
+    "analysis": {
+      "type": "string"
+    },
+    "history": {
+      "type": "string"
     }
   },
   "validations": [],
   "relations": {
-    "members": {
-      "type": "hasAndBelongsToMany",
-      "model": "user",
-      "foreignKey": "memberId"
+    "cicle": {
+      "type": "belongsTo",
+      "model": "Cicle",
+      "foreignKey": ""
     },
-    "indicators": {
+    "organizations": {
       "type": "hasAndBelongsToMany",
-      "model": "Indicator",
+      "model": "Organization",
       "foreignKey": ""
     }
   },
