@@ -20,7 +20,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "organizations": {
+      "type": "hasAndBelongsToMany",
+      "model": "Organization",
+      "foreignKey": "organizationId"
+    }
+  },
   "acls": [
     {
       "accessType": "EXECUTE",
@@ -32,9 +38,15 @@
     {
       "accessType": "EXECUTE",
       "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "upsert"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
       "principalId": "admin",
-      "permission": "ALLOW",
-      "property": "create"
+      "permission": "ALLOW"
     }
   ],
   "methods": {}
