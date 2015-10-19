@@ -1,6 +1,6 @@
 var path = require('path');
 var crypto = require('crypto');
-var dsConfig = require('../datasources.json');
+var dsConfig = require('../../server/datasources.json');
 var loopback = require('loopback');
 
 module.exports = function(User) {
