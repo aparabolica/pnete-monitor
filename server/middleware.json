@@ -15,7 +15,9 @@
   "auth": {
     "loopback#token": {
       "params": {
-        "headers": ["authentication"]
+        "headers": [
+          "authentication"
+        ]
       }
     }
   },
@@ -32,9 +34,7 @@
     }
   },
   "final": {
-    "./middleware/client": {
-      "name": "routes"
-    },
+    "./middleware/client": {},
     "loopback#urlNotFound": {}
   },
   "final:after": {
