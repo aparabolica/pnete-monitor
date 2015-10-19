@@ -18,13 +18,20 @@ var restApiRoot = app.settings.restApiRoot;
  */
 var admin1 = app.settings.defaultAdmin;
 var admin1AccessToken;
-var user1Org1;
-var user1Org1AccessToken;
+var user1;
+var user1AccessToken;
+var user2;
+var user2AccessToken;
+var user3;
+var user3AccessToken;
+var organization1;
 
 describe('Users endpoints', function() {
 
 
   before(function(doneBefore) {
+    this.timeout(10000);
+
     async.series([
       function (doneEach){
         helper.login(admin1, function(err, token){
@@ -34,9 +41,27 @@ describe('Users endpoints', function() {
       }, function (doneEach){
         helper.createUser(function(err,usr){
           if (err) return doneBefore(err);
-          user1Org1 = usr;
-          helper.login(user1Org1, function(err, token){
-            user1Org1AccessToken = token;
+          user1 = usr;
+          helper.login(user1, function(err, token){
+            user1AccessToken = token;
+            doneEach(err);
+          });
+        });
+      }, function (doneEach){
+        helper.createUser(function(err,usr){
+          if (err) return doneBefore(err);
+          user2 = usr;
+          helper.login(user2, function(err, token){
+            user2AccessToken = token;
+            doneEach(err);
+          });
+        });
+      }, function (doneEach){
+        helper.createUser(function(err,usr){
+          if (err) return doneBefore(err);
+          user3 = usr;
+          helper.login(user3, function(err, token){
+            user3AccessToken = token;
             doneEach(err);
           });
         });
@@ -66,7 +91,7 @@ describe('Users endpoints', function() {
       it('should return 401', function(doneIt){
         request(app)
           .post(restApiRoot + '/users')
-          .set('Authorization', user1Org1AccessToken)
+          .set('Authorization', user1AccessToken)
           .send(payload)
           .expect(401)
           .expect('Content-Type', /json/)
@@ -76,11 +101,12 @@ describe('Users endpoints', function() {
 
     context('allow admin', function(){
       it('should return 200 and json', function(doneIt){
+
         request(app)
           .post(restApiRoot + '/organizations')
           .set('Authorization', admin1AccessToken)
           .send(payload)
-          // .expect(200)
+          .expect(200)
           .expect('Content-Type', /json/)
           .end(function(err, res){
             if (err) doneIt(err);
@@ -89,9 +115,84 @@ describe('Users endpoints', function() {
             body.should.have.property('name', payload.name);
             body.should.have.property('description', payload.description);
 
+            organization1 = body;
             doneIt();
           })
       });
     });
   });
+
+
+  describe('PUT /organizations/{organizationId}/members/rel/{userId}', function(){
+
+    var endpointUrl;
+    var payload;
+
+    before(function(doneBefore){
+      endpointUrl = restApiRoot
+                      + '/organizations/' + organization1.id
+                      +'/members/rel/'+user1.id;
+      payload = {
+      }
+      doneBefore();
+    });
+
+    context('deny anonymous', function(){
+      it('should return 401', function(doneIt){
+        request(app)
+          .put(endpointUrl)
+          .send(payload)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      });
+    });
+
+    context('deny not admin', function(){
+      it('should return 401', function(doneIt){
+        request(app)
+          .put(endpointUrl)
+          .set('Authorization', user2AccessToken)
+          .send(payload)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      });
+    });
+
+    context('allow admin', function(){
+      it('should return 200 and org json', function(doneIt){
+
+        request(app)
+          .put(endpointUrl)
+          .set('Authorization', admin1AccessToken)
+          .send(payload)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) doneIt(err);
+            var body = res.body;
+
+            body.should.have.property('organizationId', organization1.id);
+            body.should.have.property('userId', user1.id);
+
+            doneIt();
+          });
+      });
+    });
+
+    // context('deny orgazination member');
+    //
+  })
+
+  describe('GET /organizations', function(){
+    it('should be allowed to everyone, but hiding private data');
+  })
+
+  describe('GET /organizations/{organizationId}', function(){
+    it('should be allowed to everyone, with some data hidden');
+  })
+
+
+
 });

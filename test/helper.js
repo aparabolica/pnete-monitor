@@ -44,6 +44,7 @@ exports.createUser = function(callback){
 	var user = rosie.build('User');
 
 	User.create(user, function(err, dbUser){
+		user.id = dbUser.id;
 		callback(err, user);
 	});
 }
