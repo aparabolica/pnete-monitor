@@ -1,0 +1,12 @@
+form(ng-submit="submit(user)")
+  p
+    label(for="name_input") Nome
+    input(type="text" id="name_input" ng-model="user.name")
+  p
+    label(for="email_input") Email
+    input(type="email" id="email_input" ng-model="user.email")
+  p
+    label(for="pwd_input") Senha
+    input(type="password" id="pwd_input" ng-model="user.password")
+  p
+    input(type="submit" value="Enviar")

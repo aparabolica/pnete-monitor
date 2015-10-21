@@ -1,6 +1,38 @@
 module.exports = function(grunt) {
 
 	grunt.initConfig({
+		loopback_sdk_angular: {
+			options: {
+				input: 'server/server.js',
+				output: 'client-src/js/service.js',
+				ngModuleName: 'pnete.service'
+			},
+			staging: {
+				options: {
+					// apiUrl: '<%= buildProperties.site.baseUrl %>' + '<%= buildProperties.restApiRoot %>'
+				}
+			},
+			production: {
+				options: {
+					// apiUrl: '<%= buildProperties.site.baseUrl %>' + '<%= buildProperties.restApiRoot %>'
+				}
+			}
+		},
+		docular: {
+			groups: [
+				{
+					groupTitle: 'LoopBack',
+					groupId: 'loopback',
+					sections: [
+						{
+							id: 'lbServices',
+							title: 'LoopBack Services',
+							scripts: ['client-src/js/service.js']
+						}
+					]
+				}
+			]
+		},
 		browserify: {
 			all: {
 				options: {
@@ -77,10 +109,16 @@ module.exports = function(grunt) {
 			copy: {
 				files: ['client-src/**', '!client-src/css/**/*', '!client-src/**/*.jade', '!client-src/**/*.js'],
 				tasks: ['copy']
+			},
+			api: {
+				files: ['server/**/*.js'],
+				tasks: ['services']
 			}
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-loopback-sdk-angular');
+	grunt.loadNpmTasks('grunt-docular');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-jade');
@@ -89,9 +127,15 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask(
+		'services',
+		'Generate LoopBack Services',
+		['loopback_sdk_angular', 'docular']
+	);
+
+	grunt.registerTask(
 		'javascript',
 		'Compile scripts.',
-		['browserify', 'uglify']
+		['services', 'browserify', 'uglify']
 	);
 
 	grunt.registerTask(

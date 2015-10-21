@@ -8,9 +8,15 @@ moment.locale('pt-br');
 window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 require('angular-ui-router');
+require('angular-resource');
 require('ng-dialog');
 
+/* -- Loopback generated service -- */
+require('./service.js');
+/* -------------------------------- */
+
 var app = angular.module('pnete', [
+  'pnete.service',
   'ngDialog',
   'ui.router'
 ]);

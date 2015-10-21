@@ -9,7 +9,21 @@ module.exports = function(app) {
 
   app.controller('MainCtrl', [
     '$scope',
-    function($scope) {
+    'User',
+    function($scope, User) {
+
+      $scope.loggedIn = false;
+      $scope.$watch(function() {
+        return User.isAuthenticated();
+      }, function(auth) {
+        $scope.loggedIn = auth;
+      });
+      $scope.logout = function() {
+        User.logout(function() {
+          $scope.loggedIn = false;
+        });
+      };
+
       $scope.nav = false;
       $scope.toggleNav = function() {
         if($scope.nav) {

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "angular": "^1.4.2",
+    "angular-resource": "^1.4.7",
     "angular-ui-router": "^0.2.15",
     "async": "^1.4.2",
     "browserify": "^10.2.6",
@@ -36,6 +37,8 @@
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-docular": "^0.2.4",
+    "grunt-loopback-sdk-angular": "^1.1.2",
     "jquery": "^2.1.4",
     "loopback": "^2.22.2",
     "loopback-boot": "^2.13.0",

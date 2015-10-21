@@ -11,10 +11,10 @@ section.dashboard-inner-content(ui-view)
         th Editar
         th Remover
     tbody
-      tr
-        td Ministério do Trabalho e Emprego (Detrae/SIT)
-        td Confirmado
+      tr(ng-repeat="organization in organizations")
+        td {{organization.name}}
+        td {{organization.status}}
         td 
-          a.icon.icon-pencil(ui-sref="dashboard.organization.edit({'id': 1})")
+          a.icon.icon-pencil(ui-sref="dashboard.organization.edit({'id': organization.id})")
         td 
           a.icon.icon-cross(href="javascript:void(0);")

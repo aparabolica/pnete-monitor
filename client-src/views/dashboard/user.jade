@@ -11,10 +11,10 @@ section.dashboard-inner-content(ui-view)
         th Editar
         th Remover
     tbody
-      tr
-        td Miguel Peixe
-        td miguel@teste.com.br
+      tr(ng-repeat="user in users")
+        td {{user.name}}
+        td {{user.email}}
         td 
-          a.icon.icon-pencil(ui-sref="dashboard.user.edit({'id': 1})")
+          a.icon.icon-pencil(ui-sref="dashboard.user.edit({'id': user.id})")
         td 
           a.icon.icon-cross(href="javascript:void(0);")
