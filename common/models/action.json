@@ -1,7 +1,7 @@
 {
   "name": "Action",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -9,8 +9,9 @@
     "path": "actions"
   },
   "properties": {
-    "publicId": {
+    "id": {
       "type": "string",
+      "id": true,
       "required": true
     },
     "description": {

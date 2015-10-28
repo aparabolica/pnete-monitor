@@ -32,7 +32,7 @@
     "actions": {
       "type": "hasMany",
       "model": "Action",
-      "foreignKey": "actionId"
+      "foreignKey": "axisId"
     },
     "indicators": {
       "type": "hasMany",
