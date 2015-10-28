@@ -21,8 +21,8 @@
   },
   "validations": [],
   "relations": {
-    "organizations": {
-      "type": "hasAndBelongsToMany",
+    "organization": {
+      "type": "belongsTo",
       "model": "Organization",
       "foreignKey": "organizationId"
     }

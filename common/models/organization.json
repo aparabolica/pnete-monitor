@@ -9,11 +9,6 @@
     "path": "organizations"
   },
   "properties": {
-    "id": {
-      "type": "number",
-      "required": true,
-      "format": "int64"
-    },
     "name": {
       "type": "string",
       "required": true
@@ -22,9 +17,9 @@
   "validations": [],
   "relations": {
     "members": {
-      "type": "hasAndBelongsToMany",
+      "type": "hasMany",
       "model": "user",
-      "foreignKey": "memberId"
+      "foreignKey": "organizationId"
     },
     "indicators": {
       "type": "hasAndBelongsToMany",
