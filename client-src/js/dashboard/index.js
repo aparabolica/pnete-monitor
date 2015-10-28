@@ -74,7 +74,13 @@ module.exports = function(app) {
             'User',
             function($stateParams, User) {
               if($stateParams.id) {
-                return User.findOne({id: $stateParams.id}).$promise;
+                return User.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
               } else {
                 return {};
               }
@@ -96,11 +102,40 @@ module.exports = function(app) {
       })
       .state('dashboard.action', {
         url: 'acoes/',
-        templateUrl: '/views/dashboard/action.html'
+        controller: 'DashboardActionCtrl',
+        templateUrl: '/views/dashboard/action.html',
+        resolve: {
+          'Actions': [
+            'Action',
+            function(Action) {
+              return Action.find().$promise;
+            }
+          ]
+        }
       })
       .state('dashboard.action.edit', {
         url: 'editar/?id',
-        templateUrl: '/views/dashboard/action-edit.html'
+        controller: 'DashboardEditActionCtrl',
+        templateUrl: '/views/dashboard/action-edit.html',
+        resolve: {
+          'Edit': [
+            '$stateParams',
+            'Action',
+            function($stateParams, Action) {
+              if($stateParams.id) {
+                return Action.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
       })
       .state('dashboard.organization', {
         url: 'organizacoes/',
@@ -125,7 +160,13 @@ module.exports = function(app) {
             'Organization',
             function($stateParams, Organization) {
               if($stateParams.id) {
-                return Organization.findOne({id: $stateParams.id}).$promise;
+                return Organization.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
               } else {
                 return {};
               }
@@ -135,11 +176,40 @@ module.exports = function(app) {
       })
       .state('dashboard.eixo', {
         url: 'eixos/',
-        templateUrl: '/views/dashboard/eixo.html'
+        controller: 'DashboardEixoCtrl',
+        templateUrl: '/views/dashboard/eixo.html',
+        resolve: {
+          'Eixos': [
+            'Axis',
+            function(Axis) {
+              return Axis.find().$promise;
+            }
+          ]
+        }
       })
       .state('dashboard.eixo.edit', {
-        url: 'editar/',
-        templateUrl: '/views/dashboard/eixo-edit.html'
+        url: 'editar/?id',
+        controller: 'DashboardEditEixoCtrl',
+        templateUrl: '/views/dashboard/eixo-edit.html',
+        resolve: {
+          'Edit': [
+            '$stateParams',
+            'Axis',
+            function($stateParams, Axis) {
+              if($stateParams.id) {
+                return Axis.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
       });
 
     }

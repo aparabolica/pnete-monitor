@@ -3501,6 +3501,33 @@ module.factory(
           method: "PUT"
         },
 
+        // INTERNAL. Use Axis.indicators.findById() instead.
+        "prototype$__findById__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/axes/:id/indicators/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Axis.indicators.destroyById() instead.
+        "prototype$__destroyById__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/axes/:id/indicators/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Axis.indicators.updateById() instead.
+        "prototype$__updateById__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/axes/:id/indicators/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Axis.actions() instead.
         "prototype$__get__actions": {
           isArray: true,
@@ -3523,6 +3550,31 @@ module.factory(
         // INTERNAL. Use Axis.actions.count() instead.
         "prototype$__count__actions": {
           url: urlBase + "/axes/:id/actions/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Axis.indicators() instead.
+        "prototype$__get__indicators": {
+          isArray: true,
+          url: urlBase + "/axes/:id/indicators",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Axis.indicators.create() instead.
+        "prototype$__create__indicators": {
+          url: urlBase + "/axes/:id/indicators",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Axis.indicators.destroyAll() instead.
+        "prototype$__delete__indicators": {
+          url: urlBase + "/axes/:id/indicators",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Axis.indicators.count() instead.
+        "prototype$__count__indicators": {
+          url: urlBase + "/axes/:id/indicators/count",
           method: "GET"
         },
 
@@ -3948,6 +4000,12 @@ module.factory(
         // INTERNAL. Use Action.axis() instead.
         "::get::Action::axis": {
           url: urlBase + "/actions/:id/axis",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Indicator.axis() instead.
+        "::get::Indicator::axis": {
+          url: urlBase + "/indicators/:id/axis",
           method: "GET"
         },
       }
@@ -4387,6 +4445,307 @@ module.factory(
           var action = TargetResource["::updateById::Axis::actions"];
           return action.apply(R, arguments);
         };
+    /**
+     * @ngdoc object
+     * @name pnete.service.Axis.indicators
+     * @header pnete.service.Axis.indicators
+     * @object
+     * @description
+     *
+     * The object `Axis.indicators` groups methods
+     * manipulating `Indicator` instances related to `Axis`.
+     *
+     * Call {@link pnete.service.Axis#indicators Axis.indicators()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis#indicators
+         * @methodOf pnete.service.Axis
+         *
+         * @description
+         *
+         * Queries indicators of Axis.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::get::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis.indicators#count
+         * @methodOf pnete.service.Axis.indicators
+         *
+         * @description
+         *
+         * Counts indicators of Axis.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.indicators.count = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::count::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis.indicators#create
+         * @methodOf pnete.service.Axis.indicators
+         *
+         * @description
+         *
+         * Creates a new instance in indicators of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.create = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::create::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis.indicators#createMany
+         * @methodOf pnete.service.Axis.indicators
+         *
+         * @description
+         *
+         * Creates a new instance in indicators of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.createMany = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::createMany::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis.indicators#destroyAll
+         * @methodOf pnete.service.Axis.indicators
+         *
+         * @description
+         *
+         * Deletes all indicators of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.indicators.destroyAll = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::delete::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis.indicators#destroyById
+         * @methodOf pnete.service.Axis.indicators
+         *
+         * @description
+         *
+         * Delete a related item by id for indicators.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.indicators.destroyById = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::destroyById::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis.indicators#findById
+         * @methodOf pnete.service.Axis.indicators
+         *
+         * @description
+         *
+         * Find a related item by id for indicators.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.findById = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::findById::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Axis.indicators#updateById
+         * @methodOf pnete.service.Axis.indicators
+         *
+         * @description
+         *
+         * Update a related item by id for indicators.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.updateById = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::updateById::Axis::indicators"];
+          return action.apply(R, arguments);
+        };
 
     return R;
   }]);
@@ -4419,6 +4778,85 @@ module.factory(
         // INTERNAL. Use Action.axis() instead.
         "prototype$__get__axis": {
           url: urlBase + "/actions/:id/axis",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Action.indicators.findById() instead.
+        "prototype$__findById__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Action.indicators.destroyById() instead.
+        "prototype$__destroyById__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Action.indicators.updateById() instead.
+        "prototype$__updateById__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Action.indicators.link() instead.
+        "prototype$__link__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Action.indicators.unlink() instead.
+        "prototype$__unlink__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Action.indicators.exists() instead.
+        "prototype$__exists__indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/rel/:fk",
+          method: "HEAD"
+        },
+
+        // INTERNAL. Use Action.indicators() instead.
+        "prototype$__get__indicators": {
+          isArray: true,
+          url: urlBase + "/actions/:id/indicators",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Action.indicators.create() instead.
+        "prototype$__create__indicators": {
+          url: urlBase + "/actions/:id/indicators",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Action.indicators.destroyAll() instead.
+        "prototype$__delete__indicators": {
+          url: urlBase + "/actions/:id/indicators",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Action.indicators.count() instead.
+        "prototype$__count__indicators": {
+          url: urlBase + "/actions/:id/indicators/count",
           method: "GET"
         },
 
@@ -4899,6 +5337,92 @@ module.factory(
           url: urlBase + "/axes/:id/actions/count",
           method: "GET"
         },
+
+        // INTERNAL. Use Indicator.actions.findById() instead.
+        "::findById::Indicator::actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Indicator.actions.destroyById() instead.
+        "::destroyById::Indicator::actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Indicator.actions.updateById() instead.
+        "::updateById::Indicator::actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Indicator.actions.link() instead.
+        "::link::Indicator::actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Indicator.actions.unlink() instead.
+        "::unlink::Indicator::actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Indicator.actions.exists() instead.
+        "::exists::Indicator::actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/rel/:fk",
+          method: "HEAD"
+        },
+
+        // INTERNAL. Use Indicator.actions() instead.
+        "::get::Indicator::actions": {
+          isArray: true,
+          url: urlBase + "/indicators/:id/actions",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Indicator.actions.create() instead.
+        "::create::Indicator::actions": {
+          url: urlBase + "/indicators/:id/actions",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Indicator.actions.createMany() instead.
+        "::createMany::Indicator::actions": {
+          isArray: true,
+          url: urlBase + "/indicators/:id/actions",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Indicator.actions.destroyAll() instead.
+        "::delete::Indicator::actions": {
+          url: urlBase + "/indicators/:id/actions",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Indicator.actions.count() instead.
+        "::count::Indicator::actions": {
+          url: urlBase + "/indicators/:id/actions/count",
+          method: "GET"
+        },
       }
     );
 
@@ -5069,6 +5593,416 @@ module.factory(
         R.axis = function() {
           var TargetResource = $injector.get("Axis");
           var action = TargetResource["::get::Action::axis"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name pnete.service.Action.indicators
+     * @header pnete.service.Action.indicators
+     * @object
+     * @description
+     *
+     * The object `Action.indicators` groups methods
+     * manipulating `Indicator` instances related to `Action`.
+     *
+     * Call {@link pnete.service.Action#indicators Action.indicators()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action#indicators
+         * @methodOf pnete.service.Action
+         *
+         * @description
+         *
+         * Queries indicators of Action.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::get::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#count
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Counts indicators of Action.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.indicators.count = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::count::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#create
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Creates a new instance in indicators of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.create = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::create::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#createMany
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Creates a new instance in indicators of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.createMany = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::createMany::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#destroyAll
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Deletes all indicators of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.indicators.destroyAll = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::delete::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#destroyById
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Delete a related item by id for indicators.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.indicators.destroyById = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::destroyById::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#exists
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Check the existence of indicators relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.exists = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::exists::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#findById
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Find a related item by id for indicators.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.findById = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::findById::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#link
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Add a related item by id for indicators.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.link = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::link::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#unlink
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Remove the indicators relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.indicators.unlink = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::unlink::Action::indicators"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Action.indicators#updateById
+         * @methodOf pnete.service.Action.indicators
+         *
+         * @description
+         *
+         * Update a related item by id for indicators.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for indicators
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Indicator` object.)
+         * </em>
+         */
+        R.indicators.updateById = function() {
+          var TargetResource = $injector.get("Indicator");
+          var action = TargetResource["::updateById::Action::indicators"];
           return action.apply(R, arguments);
         };
 
@@ -6042,6 +6976,12 @@ module.factory(
       { 'id': '@id' },
       {
 
+        // INTERNAL. Use Indicator.axis() instead.
+        "prototype$__get__axis": {
+          url: urlBase + "/indicators/:id/axis",
+          method: "GET"
+        },
+
         // INTERNAL. Use Indicator.cicle() instead.
         "prototype$__get__cicle": {
           url: urlBase + "/indicators/:id/cicle",
@@ -6102,6 +7042,60 @@ module.factory(
           method: "HEAD"
         },
 
+        // INTERNAL. Use Indicator.actions.findById() instead.
+        "prototype$__findById__actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Indicator.actions.destroyById() instead.
+        "prototype$__destroyById__actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Indicator.actions.updateById() instead.
+        "prototype$__updateById__actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Indicator.actions.link() instead.
+        "prototype$__link__actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Indicator.actions.unlink() instead.
+        "prototype$__unlink__actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Indicator.actions.exists() instead.
+        "prototype$__exists__actions": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/indicators/:id/actions/rel/:fk",
+          method: "HEAD"
+        },
+
         // INTERNAL. Use Indicator.organizations() instead.
         "prototype$__get__organizations": {
           isArray: true,
@@ -6124,6 +7118,31 @@ module.factory(
         // INTERNAL. Use Indicator.organizations.count() instead.
         "prototype$__count__organizations": {
           url: urlBase + "/indicators/:id/organizations/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Indicator.actions() instead.
+        "prototype$__get__actions": {
+          isArray: true,
+          url: urlBase + "/indicators/:id/actions",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Indicator.actions.create() instead.
+        "prototype$__create__actions": {
+          url: urlBase + "/indicators/:id/actions",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Indicator.actions.destroyAll() instead.
+        "prototype$__delete__actions": {
+          url: urlBase + "/indicators/:id/actions",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Indicator.actions.count() instead.
+        "prototype$__count__actions": {
+          url: urlBase + "/indicators/:id/actions/count",
           method: "GET"
         },
 
@@ -6632,6 +7651,151 @@ module.factory(
           method: "GET"
         },
 
+        // INTERNAL. Use Axis.indicators.findById() instead.
+        "::findById::Axis::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/axes/:id/indicators/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Axis.indicators.destroyById() instead.
+        "::destroyById::Axis::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/axes/:id/indicators/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Axis.indicators.updateById() instead.
+        "::updateById::Axis::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/axes/:id/indicators/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Axis.indicators() instead.
+        "::get::Axis::indicators": {
+          isArray: true,
+          url: urlBase + "/axes/:id/indicators",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Axis.indicators.create() instead.
+        "::create::Axis::indicators": {
+          url: urlBase + "/axes/:id/indicators",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Axis.indicators.createMany() instead.
+        "::createMany::Axis::indicators": {
+          isArray: true,
+          url: urlBase + "/axes/:id/indicators",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Axis.indicators.destroyAll() instead.
+        "::delete::Axis::indicators": {
+          url: urlBase + "/axes/:id/indicators",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Axis.indicators.count() instead.
+        "::count::Axis::indicators": {
+          url: urlBase + "/axes/:id/indicators/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Action.indicators.findById() instead.
+        "::findById::Action::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Action.indicators.destroyById() instead.
+        "::destroyById::Action::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Action.indicators.updateById() instead.
+        "::updateById::Action::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Action.indicators.link() instead.
+        "::link::Action::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/rel/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Action.indicators.unlink() instead.
+        "::unlink::Action::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/rel/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Action.indicators.exists() instead.
+        "::exists::Action::indicators": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/actions/:id/indicators/rel/:fk",
+          method: "HEAD"
+        },
+
+        // INTERNAL. Use Action.indicators() instead.
+        "::get::Action::indicators": {
+          isArray: true,
+          url: urlBase + "/actions/:id/indicators",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Action.indicators.create() instead.
+        "::create::Action::indicators": {
+          url: urlBase + "/actions/:id/indicators",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Action.indicators.createMany() instead.
+        "::createMany::Action::indicators": {
+          isArray: true,
+          url: urlBase + "/actions/:id/indicators",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Action.indicators.destroyAll() instead.
+        "::delete::Action::indicators": {
+          url: urlBase + "/actions/:id/indicators",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Action.indicators.count() instead.
+        "::count::Action::indicators": {
+          url: urlBase + "/actions/:id/indicators/count",
+          method: "GET"
+        },
+
         // INTERNAL. Use Cicle.indicators.findById() instead.
         "::findById::Cicle::indicators": {
           params: {
@@ -6826,6 +7990,42 @@ module.factory(
     */
     R.modelName = "Indicator";
 
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator#axis
+         * @methodOf pnete.service.Indicator
+         *
+         * @description
+         *
+         * Fetches belongsTo relation axis.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Axis` object.)
+         * </em>
+         */
+        R.axis = function() {
+          var TargetResource = $injector.get("Axis");
+          var action = TargetResource["::get::Indicator::axis"];
+          return action.apply(R, arguments);
+        };
 
         /**
          * @ngdoc method
@@ -7270,6 +8470,416 @@ module.factory(
         R.organizations.updateById = function() {
           var TargetResource = $injector.get("Organization");
           var action = TargetResource["::updateById::Indicator::organizations"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name pnete.service.Indicator.actions
+     * @header pnete.service.Indicator.actions
+     * @object
+     * @description
+     *
+     * The object `Indicator.actions` groups methods
+     * manipulating `Action` instances related to `Indicator`.
+     *
+     * Call {@link pnete.service.Indicator#actions Indicator.actions()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator#actions
+         * @methodOf pnete.service.Indicator
+         *
+         * @description
+         *
+         * Queries actions of Indicator.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Action` object.)
+         * </em>
+         */
+        R.actions = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::get::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#count
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Counts actions of Indicator.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.actions.count = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::count::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#create
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Creates a new instance in actions of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Action` object.)
+         * </em>
+         */
+        R.actions.create = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::create::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#createMany
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Creates a new instance in actions of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Action` object.)
+         * </em>
+         */
+        R.actions.createMany = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::createMany::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#destroyAll
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Deletes all actions of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.actions.destroyAll = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::delete::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#destroyById
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Delete a related item by id for actions.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for actions
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.actions.destroyById = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::destroyById::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#exists
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Check the existence of actions relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for actions
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Action` object.)
+         * </em>
+         */
+        R.actions.exists = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::exists::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#findById
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Find a related item by id for actions.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for actions
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Action` object.)
+         * </em>
+         */
+        R.actions.findById = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::findById::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#link
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Add a related item by id for actions.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for actions
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Action` object.)
+         * </em>
+         */
+        R.actions.link = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::link::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#unlink
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Remove the actions relation to an item by id.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for actions
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.actions.unlink = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::unlink::Indicator::actions"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Indicator.actions#updateById
+         * @methodOf pnete.service.Indicator.actions
+         *
+         * @description
+         *
+         * Update a related item by id for actions.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for actions
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Action` object.)
+         * </em>
+         */
+        R.actions.updateById = function() {
+          var TargetResource = $injector.get("Action");
+          var action = TargetResource["::updateById::Indicator::actions"];
           return action.apply(R, arguments);
         };
 

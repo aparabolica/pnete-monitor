@@ -11,10 +11,10 @@ section.dashboard-inner-content(ui-view)
         th Editar
         th Remover
     tbody
-      tr
-        td 16
-        td Disponibilizar equipes de fiscalização móvel nacionais e regionais em número suficiente para atender as denúncias e demandas do planejamento anual da inspeção.
+      tr(ng-repeat="action in actions")
+        td {{action.id}}
+        td {{action.description}}
         td 
-          a.icon.icon-pencil(ui-sref="dashboard.action.edit({'id': 1})")
+          a.icon.icon-pencil(ui-sref="dashboard.action.edit({'id': action.id})")
         td 
           a.icon.icon-cross(href="javascript:void(0);")
