@@ -1,7 +1,7 @@
 {
   "name": "Axis",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
@@ -9,8 +9,9 @@
     "path": "axes"
   },
   "properties": {
-    "publicId": {
+    "id": {
       "type": "string",
+      "id": true,
       "required": true
     },
     "description": {
@@ -20,6 +21,10 @@
     "color": {
       "type": "string",
       "required": true
+    },
+    "blog": {
+      "type": "boolean",
+      "default": false
     }
   },
   "validations": [],
