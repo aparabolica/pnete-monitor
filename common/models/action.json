@@ -13,9 +13,6 @@
       "type": "string",
       "required": true
     },
-    "name": {
-      "type": "string"
-    },
     "description": {
       "type": "string",
       "required": true
@@ -27,6 +24,11 @@
       "type": "belongsTo",
       "model": "Axis",
       "foreignKey": "axisId"
+    },
+    "indicators": {
+      "type": "hasAndBelongsToMany",
+      "model": "Indicator",
+      "foreignKey": ""
     }
   },
   "acls": [],

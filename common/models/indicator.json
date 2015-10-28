@@ -30,6 +30,11 @@
   },
   "validations": [],
   "relations": {
+    "axis": {
+      "type": "belongsTo",
+      "model": "Axis",
+      "foreignKey": "axisId"
+    },    
     "cicle": {
       "type": "belongsTo",
       "model": "Cicle",
@@ -38,6 +43,11 @@
     "organizations": {
       "type": "hasAndBelongsToMany",
       "model": "Organization",
+      "foreignKey": ""
+    },
+    "actions": {
+      "type": "hasAndBelongsToMany",
+      "model": "Action",
       "foreignKey": ""
     }
   },

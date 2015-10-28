@@ -13,12 +13,13 @@
       "type": "string",
       "required": true
     },
-    "name": {
+    "description": {
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "string"
+    "color": {
+      "type": "string",
+      "required": true
     }
   },
   "validations": [],
@@ -27,6 +28,11 @@
       "type": "hasMany",
       "model": "Action",
       "foreignKey": "actionId"
+    },
+    "indicators": {
+      "type": "hasMany",
+      "model": "Indicator",
+      "foreignKey": "indicatorId"
     }
   },
   "acls": [
