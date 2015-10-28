@@ -12,6 +12,15 @@
     "name": {
       "type": "string",
       "required": true
+    },
+    "shortName": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
     }
   },
   "validations": [],

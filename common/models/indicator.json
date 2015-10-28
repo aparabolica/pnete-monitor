@@ -15,16 +15,13 @@
     },
     "type": {
       "type": "string",
+      "default": "discursive",
       "required": true
     },
-    "status": {
-      "type": "string",
-      "required": true
-    },
-    "analysis": {
+    "verificationMethod": {
       "type": "string"
     },
-    "history": {
+    "baseline": {
       "type": "string"
     }
   },
@@ -34,7 +31,7 @@
       "type": "belongsTo",
       "model": "Axis",
       "foreignKey": "axisId"
-    },    
+    },
     "cicle": {
       "type": "belongsTo",
       "model": "Cicle",
