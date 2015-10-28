@@ -111,33 +111,6 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use Organization.members.link() instead.
-        "prototype$__link__members": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/organizations/:id/members/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Organization.members.unlink() instead.
-        "prototype$__unlink__members": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/organizations/:id/members/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Organization.members.exists() instead.
-        "prototype$__exists__members": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/organizations/:id/members/rel/:fk",
-          method: "HEAD"
-        },
-
         // INTERNAL. Use Organization.indicators.findById() instead.
         "prototype$__findById__indicators": {
           params: {
@@ -661,89 +634,9 @@ module.factory(
           method: "POST"
         },
 
-        // INTERNAL. Use User.organizations.findById() instead.
-        "::findById::user::organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use User.organizations.destroyById() instead.
-        "::destroyById::user::organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use User.organizations.updateById() instead.
-        "::updateById::user::organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use User.organizations.link() instead.
-        "::link::user::organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use User.organizations.unlink() instead.
-        "::unlink::user::organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use User.organizations.exists() instead.
-        "::exists::user::organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/rel/:fk",
-          method: "HEAD"
-        },
-
-        // INTERNAL. Use User.organizations() instead.
-        "::get::user::organizations": {
-          isArray: true,
-          url: urlBase + "/users/:id/organizations",
-          method: "GET"
-        },
-
-        // INTERNAL. Use User.organizations.create() instead.
-        "::create::user::organizations": {
-          url: urlBase + "/users/:id/organizations",
-          method: "POST"
-        },
-
-        // INTERNAL. Use User.organizations.createMany() instead.
-        "::createMany::user::organizations": {
-          isArray: true,
-          url: urlBase + "/users/:id/organizations",
-          method: "POST"
-        },
-
-        // INTERNAL. Use User.organizations.destroyAll() instead.
-        "::delete::user::organizations": {
-          url: urlBase + "/users/:id/organizations",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use User.organizations.count() instead.
-        "::count::user::organizations": {
-          url: urlBase + "/users/:id/organizations/count",
+        // INTERNAL. Use User.organization() instead.
+        "::get::user::organization": {
+          url: urlBase + "/users/:id/organization",
           method: "GET"
         },
 
@@ -1196,42 +1089,6 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name pnete.service.Organization.members#exists
-         * @methodOf pnete.service.Organization.members
-         *
-         * @description
-         *
-         * Check the existence of members relation to an item by id.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for members
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `User` object.)
-         * </em>
-         */
-        R.members.exists = function() {
-          var TargetResource = $injector.get("User");
-          var action = TargetResource["::exists::Organization::members"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
          * @name pnete.service.Organization.members#findById
          * @methodOf pnete.service.Organization.members
          *
@@ -1263,79 +1120,6 @@ module.factory(
         R.members.findById = function() {
           var TargetResource = $injector.get("User");
           var action = TargetResource["::findById::Organization::members"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Organization.members#link
-         * @methodOf pnete.service.Organization.members
-         *
-         * @description
-         *
-         * Add a related item by id for members.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for members
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `User` object.)
-         * </em>
-         */
-        R.members.link = function() {
-          var TargetResource = $injector.get("User");
-          var action = TargetResource["::link::Organization::members"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Organization.members#unlink
-         * @methodOf pnete.service.Organization.members
-         *
-         * @description
-         *
-         * Remove the members relation to an item by id.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for members
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.members.unlink = function() {
-          var TargetResource = $injector.get("User");
-          var action = TargetResource["::unlink::Organization::members"];
           return action.apply(R, arguments);
         };
 
@@ -1932,58 +1716,10 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use User.organizations.findById() instead.
-        "prototype$__findById__organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/:fk",
+        // INTERNAL. Use User.organization() instead.
+        "prototype$__get__organization": {
+          url: urlBase + "/users/:id/organization",
           method: "GET"
-        },
-
-        // INTERNAL. Use User.organizations.destroyById() instead.
-        "prototype$__destroyById__organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use User.organizations.updateById() instead.
-        "prototype$__updateById__organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use User.organizations.link() instead.
-        "prototype$__link__organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use User.organizations.unlink() instead.
-        "prototype$__unlink__organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use User.organizations.exists() instead.
-        "prototype$__exists__organizations": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/users/:id/organizations/rel/:fk",
-          method: "HEAD"
         },
 
         /**
@@ -2120,31 +1856,6 @@ module.factory(
          */
         "prototype$__count__accessTokens": {
           url: urlBase + "/users/:id/accessTokens/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use User.organizations() instead.
-        "prototype$__get__organizations": {
-          isArray: true,
-          url: urlBase + "/users/:id/organizations",
-          method: "GET"
-        },
-
-        // INTERNAL. Use User.organizations.create() instead.
-        "prototype$__create__organizations": {
-          url: urlBase + "/users/:id/organizations",
-          method: "POST"
-        },
-
-        // INTERNAL. Use User.organizations.destroyAll() instead.
-        "prototype$__delete__organizations": {
-          url: urlBase + "/users/:id/organizations",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use User.organizations.count() instead.
-        "prototype$__count__organizations": {
-          url: urlBase + "/users/:id/organizations/count",
           method: "GET"
         },
 
@@ -2761,33 +2472,6 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use Organization.members.link() instead.
-        "::link::Organization::members": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/organizations/:id/members/rel/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Organization.members.unlink() instead.
-        "::unlink::Organization::members": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/organizations/:id/members/rel/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Organization.members.exists() instead.
-        "::exists::Organization::members": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/organizations/:id/members/rel/:fk",
-          method: "HEAD"
-        },
-
         // INTERNAL. Use Organization.members() instead.
         "::get::Organization::members": {
           isArray: true,
@@ -3035,108 +2719,21 @@ module.factory(
     */
     R.modelName = "User";
 
-    /**
-     * @ngdoc object
-     * @name pnete.service.User.organizations
-     * @header pnete.service.User.organizations
-     * @object
-     * @description
-     *
-     * The object `User.organizations` groups methods
-     * manipulating `Organization` instances related to `User`.
-     *
-     * Call {@link pnete.service.User#organizations User.organizations()}
-     * to query all related instances.
-     */
-
 
         /**
          * @ngdoc method
-         * @name pnete.service.User#organizations
+         * @name pnete.service.User#organization
          * @methodOf pnete.service.User
          *
          * @description
          *
-         * Queries organizations of user.
+         * Fetches belongsTo relation organization.
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - User id
          *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Organization` object.)
-         * </em>
-         */
-        R.organizations = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::get::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#count
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Counts organizations of user.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.organizations.count = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::count::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#create
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Creates a new instance in organizations of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
+         *  - `refresh` – `{boolean=}` - 
          *
          * @param {function(Object,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -3153,296 +2750,9 @@ module.factory(
          * This usually means the response is a `Organization` object.)
          * </em>
          */
-        R.organizations.create = function() {
+        R.organization = function() {
           var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::create::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#createMany
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Creates a new instance in organizations of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Organization` object.)
-         * </em>
-         */
-        R.organizations.createMany = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::createMany::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#destroyAll
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Deletes all organizations of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.organizations.destroyAll = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::delete::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#destroyById
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Delete a related item by id for organizations.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for organizations
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.organizations.destroyById = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::destroyById::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#exists
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Check the existence of organizations relation to an item by id.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for organizations
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Organization` object.)
-         * </em>
-         */
-        R.organizations.exists = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::exists::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#findById
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Find a related item by id for organizations.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for organizations
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Organization` object.)
-         * </em>
-         */
-        R.organizations.findById = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::findById::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#link
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Add a related item by id for organizations.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for organizations
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Organization` object.)
-         * </em>
-         */
-        R.organizations.link = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::link::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#unlink
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Remove the organizations relation to an item by id.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for organizations
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.organizations.unlink = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::unlink::user::organizations"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.User.organizations#updateById
-         * @methodOf pnete.service.User.organizations
-         *
-         * @description
-         *
-         * Update a related item by id for organizations.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - User id
-         *
-         *  - `fk` – `{*}` - Foreign key for organizations
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Organization` object.)
-         * </em>
-         */
-        R.organizations.updateById = function() {
-          var TargetResource = $injector.get("Organization");
-          var action = TargetResource["::updateById::user::organizations"];
+          var action = TargetResource["::get::user::organization"];
           return action.apply(R, arguments);
         };
 
