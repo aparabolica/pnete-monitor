@@ -12,4 +12,10 @@ form(ng-submit="submit(eixo)")
     label(for="description_input") Descrição
     textarea#description_input(ng-model="eixo.description")
   p
+    label(for="blog_input") Blog
+    span.checkbox-list.row
+      span.checkbox-item
+        input(id="blog_input" type="checkbox" ng-model="eixo.blog")
+        label(for="blog_input") Este eixo tem um formato de blog
+  p
     input(type="submit" value="Enviar")

@@ -1,31 +1,25 @@
-form
+form(ng-submit="submit(indicador)")
   p
     label(for="title_input") Título
-    input#title_input(type="text" ng-model="indicador.title")    
+    input#title_input(type="text" ng-model="indicador.description")
   p
     label(for="question_input") Pergunta
     textarea#question_input(ng-model="indicador.question")
   p
     label(for="eixo_input") Eixo
-    select#eixo_input(ng-model="indicador.eixo")
-      option(value="1") Enfrentamento e Repressão
+    select#eixo_input(ng-options="eixo as eixo.name for eixo in eixos track by eixo.id" ng-model="indicador.axisId")
   p
     label(for="actions_input") Ações
     span.checkbox-list.row
-      span.checkbox-item
-        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
-        label(for="actions_input_1") 1
-      span.checkbox-item
-        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
-        label(for="actions_input_1") 1
-      span.checkbox-item
-        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
-        label(for="actions_input_1") 1
-      span.checkbox-item
-        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
-        label(for="actions_input_1") 1
-      span.checkbox-item
-        input(id="actions_input_1" type="checkbox" name="actions_input" ng-model="indicador.actions" value="1")
-        label(for="actions_input_1") 1
+      span.checkbox-item(ng-repeat="action in actions")
+        input(id="actions_input_{{action.id}}" type="checkbox" name="actions_input[]" ng-model="indicador.actions" ng-value="action.id")
+        label(for="actions_input_{{action.id}}") {{action.id}}
+  h3 Verificação inicial
+  p
+    label(for="baseline_input") Linha de base
+    textarea#baseline_input(ng-model="indicador.baseline")
+  p
+    label(for="method_input") Método de verificação
+    textarea#method_input(ng-model="indicador.verificationMethod")
   p
     input(type="submit" value="Enviar")

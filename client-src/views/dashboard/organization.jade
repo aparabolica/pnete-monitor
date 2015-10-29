@@ -6,12 +6,14 @@ section.dashboard-inner-content(ui-view)
   table
     thead
       tr
+        th Nome curto
         th Nome
         th Status
         th Editar
         th Remover
     tbody
       tr(ng-repeat="organization in organizations")
+        td {{organization.shortName}}
         td {{organization.name}}
         td {{organization.status}}
         td 

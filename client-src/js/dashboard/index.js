@@ -48,6 +48,25 @@ module.exports = function(app) {
               });
               return deferred.promise;
             }
+          ],
+          ContentCount: [
+            '$q',
+            'Cicle',
+            'Axis',
+            'Action',
+            'Indicator',
+            'Organization',
+            'User',
+            function($q, Cicle, Axis, Action, Indicator, Organization, User) {
+              var promises = {};
+              promises.cicle = Cicle.count().$promise;
+              promises.axis = Axis.count().$promise;
+              promises.action = Action.count().$promise;
+              promises.indicator = Indicator.count().$promise;
+              promises.organization = Organization.count().$promise;
+              promises.user = User.count().$promise;
+              return $q.all(promises);
+            }
           ]
         }
       })
@@ -90,11 +109,52 @@ module.exports = function(app) {
       })
       .state('dashboard.indicador', {
         url: 'indicadores/',
-        templateUrl: '/views/dashboard/indicador.html'
+        controller: 'DashboardIndicadorCtrl',
+        templateUrl: '/views/dashboard/indicador.html',
+        resolve: {
+          Indicadores: [
+            'Indicator',
+            function(Indicator) {
+              return Indicator.find().$promise;
+            }
+          ]
+        }
       })
       .state('dashboard.indicador.edit', {
         url: 'editar/?id',
-        templateUrl: '/views/dashboard/indicador-edit.html'
+        controller: 'DashboardEditIndicadorCtrl',
+        templateUrl: '/views/dashboard/indicador-edit.html',
+        resolve: {
+          'Eixos': [
+            'Axis',
+            function(Axis) {
+              return Axis.find().$promise;
+            }
+          ],
+          'Actions': [
+            'Action',
+            function(Action) {
+              return Action.find().$promise;
+            }
+          ],
+          'Edit': [
+            '$stateParams',
+            'Indicator',
+            function($stateParams, Indicator) {
+              if($stateParams.id) {
+                return Indicator.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
       })
       .state('dashboard.indicador.review', {
         url: 'avaliar/?id',

@@ -11,9 +11,11 @@ section#dashboard
       nav#dashboard-nav
         ul
           li
-            a(ui-sref="dashboard.eixo" ui-sref-active="active") Eixos
+            a(ui-sref="dashboard.cicles" ui-sref-active="active") Ciclos
           li
             a(ui-sref="dashboard.action" ui-sref-active="active") Ações
+          li
+            a(ui-sref="dashboard.eixo" ui-sref-active="active") Eixos
           li
             a(ui-sref="dashboard.indicador" ui-sref-active="active") Indicadores
           li
@@ -27,6 +29,8 @@ section#dashboard
             a(href="#") Minhas perguntas
         ul
           li
+            a(ui-sref="dashboard.settings" ui-sref-active="active") Configurações da plataforma
+          li
             a(href="javascript:void(0);" ng-click="logout()") Sair
     .nine.columns
       section#dashboard-content(ui-view)
@@ -38,21 +42,24 @@ section#dashboard
                 th Tipo de conteúdo
                 th Quantidade
             tbody
-              tr
-                td Eixos
-                td 0
+              tr 
+                td Ciclos
+                td {{count.cicle.count}}
               tr
                 td Ações
-                td 0
+                td {{count.action.count}}
+              tr
+                td Eixos
+                td {{count.axis.count}}
               tr
                 td Indicadores
-                td 0
+                td {{count.indicator.count}}
               tr
                 td Organizações
-                td 0
+                td {{count.organization.count}}
               tr 
                 td Usuários
-                td 1
+                td {{count.user.count}}
         .six.columns.omega
           h2 Monitoramento
           .row

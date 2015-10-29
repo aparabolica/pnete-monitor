@@ -22,7 +22,8 @@ module.exports = function(app) {
     '$state',
     'Auth',
     'User',
-    function($scope, $state, Auth, User) {
+    'ContentCount',
+    function($scope, $state, Auth, User, Count) {
 
       $scope.user = Auth;
 
@@ -31,7 +32,9 @@ module.exports = function(app) {
       }, function(auth) {
         if(!auth)
           $state.go('login');
-      })
+      });
+
+      $scope.count = Count;
 
     }
   ]);
@@ -152,6 +155,41 @@ module.exports = function(app) {
           Axis.create(eixo, function(res) {
             console.log(res);
             $scope.eixo = res;
+          })
+        }
+      };
+    }
+  ]);
+
+  app.controller('DashboardIndicadorCtrl', [
+    '$scope',
+    'Indicadores',
+    function($scope, Indicadores) {
+      $scope.indicadores = Indicadores;
+    }
+  ]);
+
+  app.controller('DashboardEditIndicadorCtrl', [
+    '$scope',
+    'Indicator',
+    'Eixos',
+    'Actions',
+    'Edit',
+    function($scope, Indicator, Eixos, Actions, Edit) {
+      $scope.eixos = Eixos;
+      $scope.actions = Actions;
+      $scope.indicador = _.extend({}, Edit);
+      $scope.submit = function(indicador) {
+        console.log(Edit);
+        if(!_.isEmpty(Edit)) {
+          Indicator.update({where: {id: indicador.id}}, indicador, function(res) {
+            console.log(res);
+            $scope.indicador = res;
+          });
+        } else {
+          Indicator.create(indicador, function(res) {
+            console.log(res);
+            $scope.indicador = res;
           })
         }
       };
