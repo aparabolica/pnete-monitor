@@ -3,21 +3,25 @@ module.exports = function(app) {
   var fs = require('fs');
   var csv = require('csv');
 
-  var Action = app.models.Action;
-  var Axis = app.models.Axis;
-  var Indicator = app.models.Indicator;
-  var Organization = app.models.Organization;
 
-  async.series([importAxes, importActions, importOrganizations, importIndicators], function(err){
-    if (err) console.log(err);
-  })
+  if (process.env.NODE_ENV != 'test') {
+    var Action = app.models.Action;
+    var Axis = app.models.Axis;
+    var Indicator = app.models.Indicator;
+    var Organization = app.models.Organization;
+
+    async.series([importAxes, importActions, importOrganizations, importIndicators], function(err){
+      if (err) console.log(err);
+      else console.log('Database populated successfully.');
+    })
+  }
+
 
   function importAxes(doneImportAxes) {
-    // Axis.count(function(err, count){
-    Axis.remove(function(err, count){
+    Axis.count(function(err, count){
       if (err) return doneImportAxes(err);
 
-      // if (count == 0) {
+      if (count == 0) {
         rs = fs.createReadStream(__dirname+'/../../data/axes.csv');
         var parser = csv.parse({columns: true}, function(err, data){
           if (err) return doneImportAxes(err);
@@ -32,16 +36,15 @@ module.exports = function(app) {
 
         });
         rs.pipe(parser);
-      // } else doneImportAxes();
+      } else doneImportAxes();
     });
   }
 
   function importActions(doneImportActions){
-    // Action.count(function(err, count){
-    Action.remove(function(err, count){
+    Action.count(function(err, count){
       if (err) throw err;
 
-      // if (count == 0) {
+      if (count == 0) {
         rs = fs.createReadStream(__dirname+'/../../data/actions.csv');
         var parser = csv.parse({columns: true, trim: true}, function(err, data){
           if (err) return doneImportActions(err);
@@ -57,20 +60,19 @@ module.exports = function(app) {
 
         });
         rs.pipe(parser);
-      // } else doneImportActions();
+      } else doneImportActions();
     });
   }
 
   function importOrganizations(doneImportOrganizations){
     var Organization = app.models.Organization;
 
-    // Organization.count(function(err, count){
-    Organization.remove(function(err, count){
+    Organization.count(function(err, count){
       if (err) return doneImportOrganizations(err);
 
 
       // If no organizations are present
-      // if (count == 0) {
+      if (count == 0) {
         rs = fs.createReadStream(__dirname+'/../../data/organizations.csv');
         var parser = csv.parse({columns: true, trim: true}, function(err, data){
           if (err) return doneImportOrganizations(err);
@@ -85,17 +87,16 @@ module.exports = function(app) {
           });
         });
         rs.pipe(parser);
-      // } else doneImportOrganizations();
+      } else doneImportOrganizations();
     });
   }
 
 
   function importIndicators(doneImportIndicators) {
-    // Indicator.count(function(err, count){
-    Indicator.remove(function(err, count){
+    Indicator.count(function(err, count){
       if (err) throw err;
 
-      // if (count == 0) {
+      if (count == 0) {
         rs = fs.createReadStream(__dirname+'/../../data/indicators.csv');
         var parser = csv.parse({columns: true, trim: true}, function(err, data){
           if (err) throw err;
@@ -131,7 +132,7 @@ module.exports = function(app) {
 
         });
         rs.pipe(parser);
-      // } else doneImportIndicators();
+      } else doneImportIndicators();
     });
   }
 }
