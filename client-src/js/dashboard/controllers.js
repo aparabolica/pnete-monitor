@@ -175,10 +175,12 @@ module.exports = function(app) {
     'Eixos',
     'Actions',
     'Edit',
-    function($scope, Indicator, Eixos, Actions, Edit) {
+    'IndicatorOrganizations',
+    function($scope, Indicator, Eixos, Actions, Edit, IndicatorOrganizations) {
       $scope.eixos = Eixos;
       $scope.actions = Actions;
       $scope.indicador = _.extend({}, Edit);
+      $scope.indicatorOrganizations = IndicatorOrganizations;
       $scope.submit = function(indicador) {
         console.log(Edit);
         if(!_.isEmpty(Edit)) {

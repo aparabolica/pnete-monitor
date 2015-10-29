@@ -21,5 +21,16 @@ form(ng-submit="submit(indicador)")
   p
     label(for="method_input") Método de verificação
     textarea#method_input(ng-model="indicador.verificationMethod")
+  h3 Organizações
+  table
+    thead
+      tr
+        th Nome
+        th Remover
+    tbody
+      tr(ng-repeat="organization in indicatorOrganizations")
+        td {{organization.name}}
+        td
+          a.icon.icon-cross(href="javascript:void(0);")
   p
     input(type="submit" value="Enviar")

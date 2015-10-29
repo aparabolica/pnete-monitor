@@ -153,6 +153,13 @@ module.exports = function(app) {
                 return {};
               }
             }
+          ],
+          'IndicatorOrganizations': [
+            '$stateParams',
+            'Indicator',
+            function($stateParams, Indicator) {
+              return Indicator.organizations({id: $stateParams.id}).$promise;
+            }
           ]
         }
       })

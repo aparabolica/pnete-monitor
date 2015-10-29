@@ -15,7 +15,8 @@ section.dashboard-inner-content(ui-view)
       tr(ng-repeat="eixo in eixos")
         td {{eixo.id}}
         td {{eixo.name}}
-        td {{eixo.color}}
+        td 
+          span.color(style="background:{{eixo.color}};") {{eixo.color}}
         td 
           a.icon.icon-pencil(ui-sref="dashboard.eixo.edit({'id': eixo.id})")
         td 
