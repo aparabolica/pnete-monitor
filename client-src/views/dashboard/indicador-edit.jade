@@ -7,11 +7,11 @@ form(ng-submit="submit(indicador)")
     textarea#question_input(ng-model="indicador.question")
   p
     label(for="eixo_input") Eixo
-    select#eixo_input(ng-options="eixo as eixo.name for eixo in eixos track by eixo.id" ng-model="indicador.axisId")
+    select#eixo_input(ng-options="eixo.id as eixo.name for eixo in eixos" ng-model="indicador.axisId")
   p
     label(for="actions_input") Ações
     span.checkbox-list.row
-      span.checkbox-item(ng-repeat="action in actions")
+      span.checkbox-item(ng-repeat="action in actions" style="width:80px;")
         input(id="actions_input_{{action.id}}" type="checkbox" name="actions_input[]" ng-model="indicador.actions" ng-value="action.id")
         label(for="actions_input_{{action.id}}") {{action.id}}
   h3 Verificação inicial
