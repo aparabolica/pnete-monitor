@@ -2,16 +2,16 @@ article#indicador
   header.indicador-header
     .container
       .twelve.columns
-        h1 {{indicador.indicador}}
+        h1 {{indicador.description}}
   
   section#question
     .container
       .two.columns
-        a.eixo-icon.eixo-bg.blue(ui-sref="eixo({eixoId: 1})") {{indicador.category}}
+        a.eixo-icon.eixo-bg(ui-sref="eixo({eixoId: eixo.id})" style="background:{{eixo.color}};") {{eixo.name}}
         a.button(href="#") Veja as ações relacionadas
       .ten.columns
         .nine.columns
-          h2 {{indicador.pergunta}}
+          h2 {{indicador.question}}
         #overview.clearfix
           .nine.columns
             p.label Análise do gestor:
@@ -24,7 +24,7 @@ article#indicador
           .subheader.baseline-header
             h3 Conheça o histórico de dados disponíveis
           .baseline-content
-            p Nam id imperdiet sem. Nam non dui augue. Pellentesque eget tortor erat. Cras sed mattis nisi, at sagittis nibh. Nam feugiat dolor nec ornare semper. Proin elementum, arcu eget ultrices rhoncus, ipsum magna rutrum lectus, id auctor metus odio in libero. Mauris nec posuere diam.
+            p {{indicador.baseline}}
         .replies
           .subheader.replies-header
             .filters

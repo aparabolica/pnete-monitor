@@ -37,7 +37,15 @@ app.config([
     .state('home', {
       url: '/',
       controller: 'HomeCtrl',
-      templateUrl: '/views/home.html'
+      templateUrl: '/views/home.html',
+      resolve: {
+        Eixos: [
+          'Axis',
+          function(Axis) {
+            return Axis.find().$promise;
+          }
+        ]
+      }
     })
     .state('trabalho-escravo', {
       url: '/trabalho-escravo/',
@@ -63,12 +71,63 @@ app.config([
     .state('indicador', {
       url: '/indicador/:indicadorId/',
       controller: 'IndicadorCtrl',
-      templateUrl: '/views/indicador.html'
+      templateUrl: '/views/indicador.html',
+      resolve: {
+        Indicador: [
+          '$stateParams',
+          'Indicator',
+          function($stateParams, Indicator) {
+            return Indicator.findOne({
+              'filter': {
+                'where': {
+                  'id': $stateParams.indicadorId
+                }
+              }
+            }).$promise;
+          }
+        ],
+        Eixo: [
+          '$stateParams',
+          'Indicador',
+          'Axis',
+          function($stateParams, Indicador, Axis) {
+            return Axis.findOne({
+              'filter': {
+                'where': {
+                  'id': Indicador.axisId
+                }
+              }
+            }).$promise;
+          }
+        ]
+      }
     })
     .state('eixo', {
       url: '/eixo/:eixoId/',
       controller: 'EixoCtrl',
-      templateUrl: '/views/eixo.html'
+      templateUrl: '/views/eixo.html',
+      resolve: {
+        Eixo: [
+          '$stateParams',
+          'Axis',
+          function($stateParams, Axis) {
+            return Axis.findOne({
+              'filter': {
+                'where': {
+                  'id': $stateParams.eixoId
+                }
+              }
+            }).$promise;
+          }
+        ],
+        Indicadores: [
+          '$stateParams',
+          'Axis',
+          function($stateParams, Axis) {
+            return Axis.indicators({id: $stateParams.eixoId}).$promise;
+          }
+        ]
+      }
     })
     .state('rep', {
       url: '/rep/:repId/',

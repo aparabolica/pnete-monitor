@@ -2,7 +2,7 @@ article#eixo
   header.eixo-header
     .container
       .four.columns
-        h1.eixo-bg.blue Enfrentamento e repressão
+        h1.eixo-bg(style="background:{{eixo.color}};") {{eixo.name}}
         p.meta 
           span 10 
           | indicadores
@@ -15,10 +15,8 @@ article#eixo
             a(href="#")
               span.icon-download 
               | Baixar dados em CSV
-        .description.eixo-border.blue
-          p O eixo Ações de Enfrentamento e Repressão possui 16 ações previstas no II Plano Nacional para a Erradicação do Trabalho Escravo (II PNETE). A maioria delas estão sob responsabilidade do Ministério do Trabalho e Emprego (MTE), na figura de sua Divisão de Fiscalização para Erradicação do Trabalho Escravo, vinculada à ecretaria de Inspeção do Trabalho (Detrae/SIT).
-          p O Brasil tem avançado bastante nas as ações de fiscalização e resgate de trabalhadores em condições análogas à escravidão. Desde 1995 até 2014, mais de 48,7 mil pessoas já foram libertadas no país. Não por acaso, esse é o eixo que possui mais dados prévios disponíveis, inclusive com séries históricas.
-          p A maior dificuldade, aqui, tem sido a da responsabilização e punição (com condenações trabalhistas e penais) dos empregadores.
+        .description.eixo-border(style="border-color:{{eixo.color}};")
+          p {{eixo.description}}
   .container.row
     .six.columns
       aside#eixo-aside
@@ -89,10 +87,10 @@ article#eixo
               span.number 31 
               p Acompanhar os processos que versam sobre a utilização de trabalho escravo, que se encontram tramitando no Poder Judiciário, atuando no sentido de sensibilizar juízes, desembargadores e ministros para o problema. Anamatra, Ajufe, ANPT, ANPF, MPT e MPF
     .six.columns
-      section#indicadores(ng-controller="IndicadorCtrl")
+      section#indicadores
         h2 Indicadores
         ul.indicadores-list
           li
           article.indicador(ng-repeat="indicador in indicadores")
             h3 
-              a(ui-sref="indicador({indicadorId: 1})"){{indicador.indicador}}
+              a(ui-sref="indicador({indicadorId: {{indicador.id}}})") {{indicador.description}}

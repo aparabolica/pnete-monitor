@@ -15,30 +15,10 @@
         section#sections.row
           h2 Conheça os eixos do monitoramento II PNETE
           ul.eixo-list
-            li.eixo-bg.blue
+            li.eixo-bg(ng-repeat="eixo in eixos" style="background-color:{{eixo.color}};")
               .eixo-item-content
                 h3
-                  a(ui-sref="eixo({eixoId: 1})") Enfrentamento e repressão
-            li.eixo-bg.green
-              .eixo-item-content
-                h3
-                  a(ui-sref="eixo({eixoId: 1})") Reinserção e prevenção
-            li.eixo-bg.red
-              .eixo-item-content
-                h3 
-                  a(ui-sref="eixo({eixoId: 1})") Informação e capacitação
-            li.eixo-bg.purple
-              .eixo-item-content
-                h3 
-                  a(ui-sref="eixo({eixoId: 1})") Repressão econômica
-            li.eixo-bg.orange
-              .eixo-item-content
-                h3 
-                  a(ui-sref="eixo({eixoId: 1})") Ações gerais
-            li.eixo-bg.yellow
-              .eixo-item-content
-                h3 
-                  a(ui-sref="eixo({eixoId: 1})") Monitoramento legislativo
+                  a(ui-sref="eixo({eixoId: eixo.id})") {{eixo.name}}
   .container.row
     //- .six.columns
     //
