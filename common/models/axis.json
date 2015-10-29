@@ -14,9 +14,12 @@
       "id": true,
       "required": true
     },
-    "description": {
+    "name": {
       "type": "string",
       "required": true
+    },
+    "description": {
+      "type": "string"
     },
     "color": {
       "type": "string",

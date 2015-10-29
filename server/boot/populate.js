@@ -13,10 +13,11 @@ module.exports = function(app) {
   })
 
   function importAxes(doneImportAxes) {
-    Axis.count(function(err, count){
+    // Axis.count(function(err, count){
+    Axis.remove(function(err, count){
       if (err) return doneImportAxes(err);
 
-      if (count == 0) {
+      // if (count == 0) {
         rs = fs.createReadStream(__dirname+'/../../data/axes.csv');
         var parser = csv.parse({columns: true}, function(err, data){
           if (err) return doneImportAxes(err);
@@ -31,15 +32,16 @@ module.exports = function(app) {
 
         });
         rs.pipe(parser);
-      } else doneImportAxes();
+      // } else doneImportAxes();
     });
   }
 
   function importActions(doneImportActions){
-    Action.count(function(err, count){
+    // Action.count(function(err, count){
+    Action.remove(function(err, count){
       if (err) throw err;
 
-      if (count == 0) {
+      // if (count == 0) {
         rs = fs.createReadStream(__dirname+'/../../data/actions.csv');
         var parser = csv.parse({columns: true, trim: true}, function(err, data){
           if (err) return doneImportActions(err);
@@ -49,13 +51,13 @@ module.exports = function(app) {
             var action = new Action(item);
             action.save(doneEach);
           }, function(err){
-            if (err) return doneImportActions(err);
-            else console.log('Actions imported successfully')
+            if (!err) console.log('Actions imported successfully');
+            doneImportActions(err);
           });
 
         });
         rs.pipe(parser);
-      } else doneImportActions();
+      // } else doneImportActions();
     });
   }
 
@@ -66,9 +68,9 @@ module.exports = function(app) {
     Organization.remove(function(err, count){
       if (err) return doneImportOrganizations(err);
 
+
       // If no organizations are present
       // if (count == 0) {
-      if (true) {
         rs = fs.createReadStream(__dirname+'/../../data/organizations.csv');
         var parser = csv.parse({columns: true, trim: true}, function(err, data){
           if (err) return doneImportOrganizations(err);
@@ -83,7 +85,7 @@ module.exports = function(app) {
           });
         });
         rs.pipe(parser);
-      } else doneImportOrganizations();
+      // } else doneImportOrganizations();
     });
   }
 
@@ -94,7 +96,6 @@ module.exports = function(app) {
       if (err) throw err;
 
       // if (count == 0) {
-      if (true) {
         rs = fs.createReadStream(__dirname+'/../../data/indicators.csv');
         var parser = csv.parse({columns: true, trim: true}, function(err, data){
           if (err) throw err;
@@ -124,13 +125,13 @@ module.exports = function(app) {
 
             });
           }, function(err){
-            if (err) console.log('Error importing actions.');
+            if (!err) console.log('Indicators imported successfully.');
             doneImportIndicators(err);
           });
 
         });
         rs.pipe(parser);
-      } else doneImportIndicators();
+      // } else doneImportIndicators();
     });
   }
 }
