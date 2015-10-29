@@ -40,7 +40,7 @@
     "indicators": {
       "type": "hasMany",
       "model": "Indicator",
-      "foreignKey": "indicatorId"
+      "foreignKey": "axisId"
     }
   },
   "acls": [
