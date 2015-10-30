@@ -15,14 +15,19 @@
     },
     "description": {
       "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "required": true,
+      "default": false
     }
   },
   "validations": [],
   "relations": {
-    "indicators": {
+    "assessments": {
       "type": "hasMany",
-      "model": "Indicator",
-      "foreignKey": "indicatorId"
+      "model": "Assessment",
+      "foreignKey": "cicleId"
     }
   },
   "acls": [

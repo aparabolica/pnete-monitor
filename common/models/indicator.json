@@ -15,8 +15,8 @@
     },
     "type": {
       "type": "string",
-      "default": "discursive",
-      "required": true
+      "required": true,
+      "default": "discursive"
     },
     "verificationMethod": {
       "type": "string"
@@ -32,11 +32,6 @@
       "model": "Axis",
       "foreignKey": "axisId"
     },
-    "cicle": {
-      "type": "belongsTo",
-      "model": "Cicle",
-      "foreignKey": ""
-    },
     "organizations": {
       "type": "hasAndBelongsToMany",
       "model": "Organization",
@@ -46,6 +41,11 @@
       "type": "hasAndBelongsToMany",
       "model": "Action",
       "foreignKey": ""
+    },
+    "assessments": {
+      "type": "hasMany",
+      "model": "Assessment",
+      "foreignKey": "indicatorId"
     }
   },
   "acls": [

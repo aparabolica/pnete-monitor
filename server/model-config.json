@@ -63,5 +63,9 @@
   "Feedback": {
     "dataSource": "db",
     "public": true
+  },
+  "Assessment": {
+    "dataSource": null,
+    "public": true
   }
 }

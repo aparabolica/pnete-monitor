@@ -19,6 +19,11 @@
     "description": {
       "type": "string"
     },
+    "active": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
     "website": {
       "type": "string"
     }

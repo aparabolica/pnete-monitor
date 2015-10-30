@@ -1,0 +1,32 @@
+{
+  "name": "Assessment",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "diagnosis": {
+      "type": "string",
+      "required": true
+    },
+    "analysis": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "cicle": {
+      "type": "belongsTo",
+      "model": "Cicle",
+      "foreignKey": "cicleId"
+    },
+    "indicator": {
+      "type": "belongsTo",
+      "model": "Indicator",
+      "foreignKey": "indicatorId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
