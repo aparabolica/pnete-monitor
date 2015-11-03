@@ -215,7 +215,7 @@ module.exports = function(app) {
         }
         if(add.length) {
           _.each(add, function(a) {
-            Indicator.actions.link({id: $scope.indicador.id, fk: a});
+            Indicator.actions.link({id: $scope.indicador.id, fk: a}, null);
           });
         }
       };
