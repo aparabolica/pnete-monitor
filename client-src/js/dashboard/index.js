@@ -158,7 +158,22 @@ module.exports = function(app) {
             '$stateParams',
             'Indicator',
             function($stateParams, Indicator) {
-              return Indicator.organizations({id: $stateParams.id}).$promise;
+              if($stateParams.id) {
+                return Indicator.organizations({id: $stateParams.id}).$promise;
+              } else {
+                return [];
+              }
+            }
+          ],
+          'IndicatorActions': [
+            '$stateParams',
+            'Indicator',
+            function($stateParams, Indicator) {
+              if($stateParams.id) {
+                return Indicator.actions({id: $stateParams.id}).$promise;
+              } else {
+                return [];
+              }
             }
           ]
         }

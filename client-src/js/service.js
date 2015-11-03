@@ -5344,58 +5344,6 @@ module.factory(
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use Cicle.indicators.findById() instead.
-        "prototype$__findById__indicators": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/cicles/:id/indicators/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Cicle.indicators.destroyById() instead.
-        "prototype$__destroyById__indicators": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/cicles/:id/indicators/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Cicle.indicators.updateById() instead.
-        "prototype$__updateById__indicators": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/cicles/:id/indicators/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Cicle.indicators() instead.
-        "prototype$__get__indicators": {
-          isArray: true,
-          url: urlBase + "/cicles/:id/indicators",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Cicle.indicators.create() instead.
-        "prototype$__create__indicators": {
-          url: urlBase + "/cicles/:id/indicators",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Cicle.indicators.destroyAll() instead.
-        "prototype$__delete__indicators": {
-          url: urlBase + "/cicles/:id/indicators",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Cicle.indicators.count() instead.
-        "prototype$__count__indicators": {
-          url: urlBase + "/cicles/:id/indicators/count",
-          method: "GET"
-        },
-
         /**
          * @ngdoc method
          * @name pnete.service.Cicle#create
@@ -5814,12 +5762,6 @@ module.factory(
           url: urlBase + "/cicles/change-stream",
           method: "POST"
         },
-
-        // INTERNAL. Use Indicator.cicle() instead.
-        "::get::Indicator::cicle": {
-          url: urlBase + "/indicators/:id/cicle",
-          method: "GET"
-        },
       }
     );
 
@@ -5956,307 +5898,6 @@ module.factory(
     */
     R.modelName = "Cicle";
 
-    /**
-     * @ngdoc object
-     * @name pnete.service.Cicle.indicators
-     * @header pnete.service.Cicle.indicators
-     * @object
-     * @description
-     *
-     * The object `Cicle.indicators` groups methods
-     * manipulating `Indicator` instances related to `Cicle`.
-     *
-     * Call {@link pnete.service.Cicle#indicators Cicle.indicators()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle#indicators
-         * @methodOf pnete.service.Cicle
-         *
-         * @description
-         *
-         * Queries indicators of Cicle.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Indicator` object.)
-         * </em>
-         */
-        R.indicators = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::get::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle.indicators#count
-         * @methodOf pnete.service.Cicle.indicators
-         *
-         * @description
-         *
-         * Counts indicators of Cicle.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.indicators.count = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::count::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle.indicators#create
-         * @methodOf pnete.service.Cicle.indicators
-         *
-         * @description
-         *
-         * Creates a new instance in indicators of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Indicator` object.)
-         * </em>
-         */
-        R.indicators.create = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::create::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle.indicators#createMany
-         * @methodOf pnete.service.Cicle.indicators
-         *
-         * @description
-         *
-         * Creates a new instance in indicators of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Indicator` object.)
-         * </em>
-         */
-        R.indicators.createMany = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::createMany::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle.indicators#destroyAll
-         * @methodOf pnete.service.Cicle.indicators
-         *
-         * @description
-         *
-         * Deletes all indicators of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.indicators.destroyAll = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::delete::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle.indicators#destroyById
-         * @methodOf pnete.service.Cicle.indicators
-         *
-         * @description
-         *
-         * Delete a related item by id for indicators.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for indicators
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.indicators.destroyById = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::destroyById::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle.indicators#findById
-         * @methodOf pnete.service.Cicle.indicators
-         *
-         * @description
-         *
-         * Find a related item by id for indicators.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for indicators
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Indicator` object.)
-         * </em>
-         */
-        R.indicators.findById = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::findById::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Cicle.indicators#updateById
-         * @methodOf pnete.service.Cicle.indicators
-         *
-         * @description
-         *
-         * Update a related item by id for indicators.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for indicators
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Indicator` object.)
-         * </em>
-         */
-        R.indicators.updateById = function() {
-          var TargetResource = $injector.get("Indicator");
-          var action = TargetResource["::updateById::Cicle::indicators"];
-          return action.apply(R, arguments);
-        };
 
     return R;
   }]);
@@ -6289,12 +5930,6 @@ module.factory(
         // INTERNAL. Use Indicator.axis() instead.
         "prototype$__get__axis": {
           url: urlBase + "/indicators/:id/axis",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Indicator.cicle() instead.
-        "prototype$__get__cicle": {
-          url: urlBase + "/indicators/:id/cicle",
           method: "GET"
         },
 
@@ -7105,65 +6740,6 @@ module.factory(
           url: urlBase + "/actions/:id/indicators/count",
           method: "GET"
         },
-
-        // INTERNAL. Use Cicle.indicators.findById() instead.
-        "::findById::Cicle::indicators": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/cicles/:id/indicators/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Cicle.indicators.destroyById() instead.
-        "::destroyById::Cicle::indicators": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/cicles/:id/indicators/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Cicle.indicators.updateById() instead.
-        "::updateById::Cicle::indicators": {
-          params: {
-          'fk': '@fk'
-          },
-          url: urlBase + "/cicles/:id/indicators/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Cicle.indicators() instead.
-        "::get::Cicle::indicators": {
-          isArray: true,
-          url: urlBase + "/cicles/:id/indicators",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Cicle.indicators.create() instead.
-        "::create::Cicle::indicators": {
-          url: urlBase + "/cicles/:id/indicators",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Cicle.indicators.createMany() instead.
-        "::createMany::Cicle::indicators": {
-          isArray: true,
-          url: urlBase + "/cicles/:id/indicators",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Cicle.indicators.destroyAll() instead.
-        "::delete::Cicle::indicators": {
-          url: urlBase + "/cicles/:id/indicators",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Cicle.indicators.count() instead.
-        "::count::Cicle::indicators": {
-          url: urlBase + "/cicles/:id/indicators/count",
-          method: "GET"
-        },
       }
     );
 
@@ -7334,42 +6910,6 @@ module.factory(
         R.axis = function() {
           var TargetResource = $injector.get("Axis");
           var action = TargetResource["::get::Indicator::axis"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name pnete.service.Indicator#cicle
-         * @methodOf pnete.service.Indicator
-         *
-         * @description
-         *
-         * Fetches belongsTo relation cicle.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Cicle` object.)
-         * </em>
-         */
-        R.cicle = function() {
-          var TargetResource = $injector.get("Cicle");
-          var action = TargetResource["::get::Indicator::cicle"];
           return action.apply(R, arguments);
         };
     /**
@@ -8774,6 +8314,589 @@ module.factory(
     * i.e. `Feedback`.
     */
     R.modelName = "Feedback";
+
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name pnete.service.Assessment
+ * @header pnete.service.Assessment
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `Assessment` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "Assessment",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/Assessments/:id",
+      { 'id': '@id' },
+      {
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#create
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Assessments",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#createMany
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        "createMany": {
+          isArray: true,
+          url: urlBase + "/Assessments",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#upsert
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Assessments",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#exists
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Assessments/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#findById
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `filter` – `{object=}` - Filter defining fields and include
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Assessments/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#find
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/Assessments",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#findOne
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, include, order, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Assessments/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#updateAll
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/Assessments/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#deleteById
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/Assessments/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#count
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/Assessments/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#prototype$updateAttributes
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/Assessments/:id",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#createChangeStream
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Create a change stream.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `options` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `changes` – `{ReadableStream=}` - 
+         */
+        "createChangeStream": {
+          url: urlBase + "/Assessments/change-stream",
+          method: "POST"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#updateOrCreate
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Assessment` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#update
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#destroyById
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name pnete.service.Assessment#removeById
+         * @methodOf pnete.service.Assessment
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name pnete.service.Assessment#modelName
+    * @propertyOf pnete.service.Assessment
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `Assessment`.
+    */
+    R.modelName = "Assessment";
 
 
     return R;

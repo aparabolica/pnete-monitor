@@ -176,25 +176,73 @@ module.exports = function(app) {
     'Actions',
     'Edit',
     'IndicatorOrganizations',
-    function($scope, Indicator, Eixos, Actions, Edit, IndicatorOrganizations) {
+    'IndicatorActions',
+    function($scope, Indicator, Eixos, Actions, Edit, IndicatorOrganizations, IndicatorActions) {
+
       $scope.eixos = Eixos;
       $scope.actions = Actions;
+
       $scope.indicador = _.extend({}, Edit);
-      $scope.indicatorOrganizations = IndicatorOrganizations;
+
+      /*
+       * Indicator Actions
+       */
+      // Init checkbox model
+      $scope.indicadorActions = {};
+      // Watch checkbox model
+      var actions;
+      $scope.$watch('indicadorActions', function(a) {
+        actions = _.filter($scope.actions, function(action) {
+          return a[action.id];
+        });
+      }, true);
+      // Populate checkbox model with indicator data
+      _.each(IndicatorActions, function(action) {
+        $scope.indicadorActions[action.id] = true;
+      });
+      $scope.indicadorOrganizations = IndicatorOrganizations.slice(0);
+      var updateActions = function(indicator) {
+        var prevIds = _.map(IndicatorActions, function(a) { return a.id; });
+        var newIds = _.map(actions, function(a) { return a.id; });
+        var rm = _.difference(prevIds, newIds);
+        var add = _.difference(newIds, prevIds);
+        console.log('rm', rm);
+        console.log('add', add);
+        if(rm.length) {
+          _.each(rm, function(a) {
+            Indicator.actions.unlink({id: $scope.indicador.id, fk: a});
+          });
+        }
+        if(add.length) {
+          _.each(add, function(a) {
+            Indicator.actions.link({id: $scope.indicador.id, fk: a});
+          });
+        }
+      };
+
+      var afterSave = function(res) {
+        updateActions(res);
+      };
+
       $scope.submit = function(indicador) {
-        console.log(Edit);
         if(!_.isEmpty(Edit)) {
           Indicator.update({where: {id: indicador.id}}, indicador, function(res) {
-            console.log(res);
             $scope.indicador = res;
+            afterSave(res);
           });
         } else {
           Indicator.create(indicador, function(res) {
-            console.log(res);
             $scope.indicador = res;
+            afterSave(res);
           })
         }
       };
+
+      $scope.removeOrganization = function(id) {
+        if(confirm('Você tem certeza?'))
+          $scope.indicatorOrganizations = _.filter($scope.indicatorOrganizations, function(org) { return org.id !== id; });
+      };
+
     }
   ]);
 

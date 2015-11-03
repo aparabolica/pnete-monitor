@@ -12,7 +12,7 @@ form(ng-submit="submit(indicador)")
     label(for="actions_input") Ações
     span.checkbox-list.row
       span.checkbox-item(ng-repeat="action in actions" style="width:80px;")
-        input(id="actions_input_{{action.id}}" type="checkbox" name="actions_input[]" ng-model="indicador.actions" ng-value="action.id")
+        input(id="actions_input_{{action.id}}" type="checkbox" ng-model="indicadorActions[action.id]" ng-value="action.id")
         label(for="actions_input_{{action.id}}") {{action.id}}
   h3 Verificação inicial
   p
@@ -22,15 +22,15 @@ form(ng-submit="submit(indicador)")
     label(for="method_input") Método de verificação
     textarea#method_input(ng-model="indicador.verificationMethod")
   h3 Organizações
-  table
+  table(ng-show="indicatorOrganizations.length")
     thead
       tr
         th Nome
         th Remover
     tbody
-      tr(ng-repeat="organization in indicatorOrganizations")
+      tr(ng-repeat="organization in indicadorOrganizations")
         td {{organization.name}}
         td
-          a.icon.icon-cross(href="javascript:void(0);")
+          a.icon.icon-cross(href="javascript:void(0);" ng-click="removeOrganization(organization.id)")
   p
     input(type="submit" value="Enviar")
