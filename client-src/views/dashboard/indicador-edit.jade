@@ -12,7 +12,7 @@ form(ng-submit="submit(indicador)")
     label(for="actions_input") Ações
     span.checkbox-list.row
       span.checkbox-item(ng-repeat="action in actions" style="width:80px;")
-        input(id="actions_input_{{action.id}}" type="checkbox" ng-model="indicadorActions[action.id]" ng-value="action.id")
+        input(id="actions_input_{{action.id}}" type="checkbox" ng-model="selectedActions[action.id]" ng-value="action.id")
         label(for="actions_input_{{action.id}}") {{action.id}}
   h3 Verificação inicial
   p
@@ -21,16 +21,32 @@ form(ng-submit="submit(indicador)")
   p
     label(for="method_input") Método de verificação
     textarea#method_input(ng-model="indicador.verificationMethod")
-  h3 Organizações
-  table(ng-show="indicatorOrganizations.length")
-    thead
-      tr
-        th Nome
-        th Remover
-    tbody
-      tr(ng-repeat="organization in indicadorOrganizations")
-        td {{organization.name}}
-        td
-          a.icon.icon-cross(href="javascript:void(0);" ng-click="removeOrganization(organization.id)")
+  section#organizations
+    h3 Organizações
+    .organization-search.live-add
+      .input-container
+        input(type="text" ng-model="orgSearch" placeholder="Buscar organizações")
+      table.results-table(ng-show="organizations.length")
+        thead
+          tr
+            th Nome
+            th Adicionar à lista
+        tbody
+          tr(ng-repeat="organization in organizations" ng-hide="organizationListed(organization)")
+            td {{organization.name}}
+            td
+              a.icon.icon-add-to-list(href="javascript:void(0);" ng-click="addOrganization(organization)")
+    p(ng-show="indicadorOrganizations.length")
+      strong Organizações responsáveis:
+    table(ng-show="indicadorOrganizations.length")
+      thead
+        tr
+          th Nome
+          th Remover
+      tbody
+        tr(ng-repeat="organization in indicadorOrganizations")
+          td {{organization.name}}
+          td
+            a.icon.icon-cross(href="javascript:void(0);" ng-click="removeOrganization(organization)")
   p
     input(type="submit" value="Enviar")

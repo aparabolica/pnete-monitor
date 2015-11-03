@@ -172,62 +172,119 @@ module.exports = function(app) {
   app.controller('DashboardEditIndicadorCtrl', [
     '$scope',
     'Indicator',
+    'Organization',
     'Eixos',
     'Actions',
     'Edit',
     'IndicatorOrganizations',
     'IndicatorActions',
-    function($scope, Indicator, Eixos, Actions, Edit, IndicatorOrganizations, IndicatorActions) {
+    function($scope, Indicator, Organization, Eixos, Actions, Edit, IndicatorOrganizations, IndicatorActions) {
 
       $scope.eixos = Eixos;
       $scope.actions = Actions;
 
       $scope.indicador = _.extend({}, Edit);
 
-      /*
-       * Indicator Actions
-       */
-      // Init checkbox model
-      $scope.indicadorActions = {};
-      // Watch checkbox model
-      var actions;
-      $scope.$watch('indicadorActions', function(a) {
-        actions = _.filter($scope.actions, function(action) {
-          return a[action.id];
-        });
-      }, true);
-      // Populate checkbox model with indicator data
-      _.each(IndicatorActions, function(action) {
-        $scope.indicadorActions[action.id] = true;
-      });
-      var updateActions = function(indicator) {
-        var prevIds = _.map(IndicatorActions, function(a) { return a.id; });
-        var newIds = _.map(actions, function(a) { return a.id; });
+      var updateActions = function(actions, indicator) {
+        var prevIds = _.map(IndicatorActions, function(action) { return action.id; });
+        var newIds = _.map(actions, function(action) { return action.id; });
         var rm = _.difference(prevIds, newIds);
         var add = _.difference(newIds, prevIds);
-        console.log('rm', rm);
-        console.log('add', add);
         if(rm.length) {
-          _.each(rm, function(a) {
-            Indicator.actions.unlink({id: $scope.indicador.id, fk: a}, function() {
+          _.each(rm, function(actionId) {
+            Indicator.actions.unlink({id: indicator.id, fk: actionId}, function() {
               IndicatorActions = _.filter(IndicatorActions, function(action) {
-                return action.id !== a; });
+                return action.id !== actionId; });
             });
           });
         }
         if(add.length) {
-          _.each(add, function(a) {
-            Indicator.actions.link({id: $scope.indicador.id, fk: a}, null, function(data) {
+          _.each(add, function(actionId) {
+            Indicator.actions.link({id: indicator.id, fk: actionId}, null, function(data) {
               IndicatorActions.push(_.find($scope.actions, function(action) { return action.id == data.actionId; }));
             });
           });
         }
       };
 
+      var updateOrganizations = function(organizations, indicator) {
+        var prevIds = _.map(IndicatorOrganizations, function(organization) { return organization.id; });
+        var newIds = _.map(organizations, function(organization) { return organization.id; });
+        var rm = _.difference(prevIds, newIds);
+        var add = _.difference(newIds, prevIds);
+        if(rm.length) {
+          _.each(rm, function(organizationId) {
+            Indicator.organizations.unlink({id: indicator.id, fk: organizationId}, function() {
+              IndicatorOrganizations = _.filter(IndicatorOrganizations, function(organization) {
+                return organization.id !== organizationId; });
+            });
+          });
+        }
+        if(add.length) {
+          _.each(add, function(organizationId) {
+            Indicator.organizations.link({id: indicator.id, fk: organizationId}, null, function(data) {
+              IndicatorOrganizations.push(_.find($scope.organizations, function(organization) { return organization.id == data.organizationId; }));
+            });
+          });
+        }
+      };
+
+      /*
+       * Indicator Actions Model
+       */
+      // Init checkbox model
+      $scope.selectedActions = {};
+      // Populate checkbox model with indicator data
+      _.each(IndicatorActions, function(action) {
+        $scope.selectedActions[action.id] = true;
+      });
+
+      /*
+       * Indicator Organizations Model
+       */
       $scope.indicadorOrganizations = IndicatorOrganizations.slice(0);
+      $scope.orgSearch = '';
+      var doOrgSearch = _.debounce(function(search) {
+        if(search) {
+          Organization.find({
+            filter: {
+              where: {
+                name: { regexp: '' + search.replace(' ', '|') + '' },
+                id: { nin: _.map($scope.indicadorOrganizations, function(organization) {
+                  return organization.id;
+                }) }
+              },
+            limit: 5
+            }
+          }, function(organizations) {
+            $scope.organizations = organizations;
+          });
+        }
+      }, 500);
+      $scope.$watch('orgSearch', function(search) {
+        if(!search) {
+          $scope.organizations = [];
+        } else {
+          doOrgSearch(search);
+        }
+      });
+      $scope.removeOrganization = function(organization) {
+        if(confirm('Você tem certeza?'))
+          $scope.indicadorOrganizations = _.filter($scope.indicadorOrganizations, function(org) { return org.id !== organization.id; });
+      };
+      $scope.addOrganization = function(organization) {
+        $scope.indicadorOrganizations.push(organization);
+      };
+      $scope.organizationListed = function(organization) {
+        return _.find($scope.indicadorOrganizations, function(org) { return org.id == organization.id; });
+      };
 
       var afterSave = function(res) {
-        updateActions(res);
+        var actions = _.filter($scope.actions, function(action) {
+          return $scope.selectedActions[action.id];
+        });
+        updateActions(actions, res);
+        updateOrganizations($scope.indicadorOrganizations, res);
       };
 
       $scope.submit = function(indicador) {
@@ -242,11 +299,6 @@ module.exports = function(app) {
             afterSave(res);
           })
         }
-      };
-
-      $scope.removeOrganization = function(id) {
-        if(confirm('Você tem certeza?'))
-          $scope.indicatorOrganizations = _.filter($scope.indicatorOrganizations, function(org) { return org.id !== id; });
       };
 
     }
