@@ -200,7 +200,6 @@ module.exports = function(app) {
       _.each(IndicatorActions, function(action) {
         $scope.indicadorActions[action.id] = true;
       });
-      $scope.indicadorOrganizations = IndicatorOrganizations.slice(0);
       var updateActions = function(indicator) {
         var prevIds = _.map(IndicatorActions, function(a) { return a.id; });
         var newIds = _.map(actions, function(a) { return a.id; });
@@ -210,15 +209,22 @@ module.exports = function(app) {
         console.log('add', add);
         if(rm.length) {
           _.each(rm, function(a) {
-            Indicator.actions.unlink({id: $scope.indicador.id, fk: a});
+            Indicator.actions.unlink({id: $scope.indicador.id, fk: a}, function() {
+              IndicatorActions = _.filter(IndicatorActions, function(action) {
+                return action.id !== a; });
+            });
           });
         }
         if(add.length) {
           _.each(add, function(a) {
-            Indicator.actions.link({id: $scope.indicador.id, fk: a}, null);
+            Indicator.actions.link({id: $scope.indicador.id, fk: a}, null, function(data) {
+              IndicatorActions.push(_.find($scope.actions, function(action) { return action.id == data.actionId; }));
+            });
           });
         }
       };
+
+      $scope.indicadorOrganizations = IndicatorOrganizations.slice(0);
 
       var afterSave = function(res) {
         updateActions(res);
