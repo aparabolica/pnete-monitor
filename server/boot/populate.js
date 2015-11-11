@@ -12,7 +12,6 @@ module.exports = function(app) {
 
     async.series([importAxes, importActions, importOrganizations, importIndicators], function(err){
       if (err) console.log(err);
-      else console.log('Database populated successfully.');
     })
   }
 

@@ -26,7 +26,7 @@ var user3;
 var user3AccessToken;
 var organization1;
 
-describe('Users endpoints', function() {
+describe('Endpoints for "Users":', function() {
 
 
   before(function(doneBefore) {
@@ -90,7 +90,7 @@ describe('Users endpoints', function() {
     context('deny not admin', function(){
       it('should return 401', function(doneIt){
         request(app)
-          .post(restApiRoot + '/users')
+          .post(restApiRoot + '/organizations')
           .set('Authorization', user1AccessToken)
           .send(payload)
           .expect(401)
@@ -123,93 +123,18 @@ describe('Users endpoints', function() {
   });
 
 
-  describe('PUT /organizations/{organizationId}/members/rel/{userId}', function(){
+  describe('set organization for a user', function(){
 
     var endpointUrl;
-    var payload;
+    var payload = user1;
 
     before(function(doneBefore){
       endpointUrl = restApiRoot
-                      + '/organizations/' + organization1.id
-                      +'/members/rel/'+user1.id;
+                      +'/users/'+user1.id;
       payload = {
-      }
-      doneBefore();
-    });
+        organizationId: organization1.id
+      };
 
-    context('deny anonymous', function(){
-      it('should return 401', function(doneIt){
-        request(app)
-          .put(endpointUrl)
-          .send(payload)
-          .expect(401)
-          .expect('Content-Type', /json/)
-          .end(doneIt);
-      });
-    });
-
-    context('deny not admin', function(){
-      it('should return 401', function(doneIt){
-        request(app)
-          .put(endpointUrl)
-          .set('Authorization', user2AccessToken)
-          .send(payload)
-          .expect(401)
-          .expect('Content-Type', /json/)
-          .end(doneIt);
-      });
-    });
-
-    context('allow admin', function(){
-      it('should return 200 and org json', function(doneIt){
-
-        request(app)
-          .put(endpointUrl)
-          .set('Authorization', admin1AccessToken)
-          .send(payload)
-          .expect(200)
-          .expect('Content-Type', /json/)
-          .end(function(err, res){
-            if (err) doneIt(err);
-            var body = res.body;
-
-            body.should.have.property('organizationId', organization1.id);
-            body.should.have.property('userId', user1.id);
-
-            doneIt();
-          });
-      });
-    });
-
-    context('deny organization member', function(){
-      it('should return 401', function(doneIt){
-        endpointUrl = restApiRoot
-                        + '/organizations/' + organization1.id
-                        +'/members/rel/'+user2.id;
-
-        request(app)
-          .put(endpointUrl)
-          .set('Authorization', user1AccessToken)
-          .send(payload)
-          .expect(401)
-          .expect('Content-Type', /json/)
-          .end(doneIt);
-      });
-    });
-
-  });
-
-  describe('PUT /users/{userId}/organizations/rel/{organizationId}', function(){
-
-    var endpointUrl;
-    var payload;
-
-    before(function(doneBefore){
-      endpointUrl = restApiRoot
-                      +'/users/'+user2.id
-                      + '/organizations/rel/' + organization1.id;
-      payload = {
-      }
       doneBefore();
     });
 
@@ -228,7 +153,7 @@ describe('Users endpoints', function() {
       it('should return 401', function(doneIt){
         request(app)
           .put(endpointUrl)
-          .set('Authorization', user1AccessToken)
+          .set('Authorization', user2AccessToken)
           .send(payload)
           .expect(401)
           .expect('Content-Type', /json/)
@@ -240,7 +165,7 @@ describe('Users endpoints', function() {
       it('should return 401', function(doneIt){
         request(app)
           .put(endpointUrl)
-          .set('Authorization', user2AccessToken)
+          .set('Authorization', user1AccessToken)
           .send(payload)
           .expect(401)
           .expect('Content-Type', /json/)
@@ -262,24 +187,11 @@ describe('Users endpoints', function() {
             var body = res.body;
 
             body.should.have.property('organizationId', organization1.id);
-            body.should.have.property('userId', user2.id);
-
             doneIt();
           });
       });
     });
   });
-
-
-
-
-  describe('GET /organizations', function(){
-    it('should be allowed to everyone, but hiding private data');
-  })
-
-  describe('GET /organizations/{organizationId}', function(){
-    it('should be allowed to everyone, with some data hidden');
-  })
 
 
 

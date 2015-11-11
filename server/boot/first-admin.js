@@ -26,7 +26,7 @@ module.exports = function(app) {
             principalType: RoleMapping.USER,
             principalId: firstAdmin.id
           }, function(err, principal) {
-            if (err) throw err;
+            if (err) console.log(err);
 
             console.log('Default admin created (credentials at server/config.js).');
           });
