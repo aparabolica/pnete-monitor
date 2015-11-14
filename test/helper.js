@@ -1,6 +1,7 @@
 /*
  * Module dependencies
  */
+var async = require('async');
 var rosie = require('rosie').Factory;
 var request = require('supertest');
 var should = require('should');
@@ -12,17 +13,7 @@ var app = require('../server/server');
 var restApiRoot = app.settings.restApiRoot;
 
 /**
- * User factory
- **/
-rosie.define('User')
-	.sequence('name', function(i) { return 'user' + i })
-	.sequence('email', function(i) { return 'email' + i + '@example.com' })
-	.attr('password', '123456')
-	.attr('emailVerified', true)
-
-
-/**
- * Helper function to log in a user
+ * User login
  **/
 exports.login = function(credentials, callback){
 	request(app)
@@ -36,15 +27,39 @@ exports.login = function(credentials, callback){
 		});
 }
 
+/**
+ * Factories
+ **/
+rosie.define('User')
+	.sequence('name', function(i) { return 'user' + i })
+	.sequence('email', function(i) { return 'email' + i + '@example.com' })
+	.attr('password', '123456')
+	.attr('emailVerified', true)
 
+rosie.define('Indicator')
+	.sequence('description', function(i) { return 'description for ' + i })
+	.attr('type', 'integer')
+
+rosie.define('Cicle')
+	.sequence('name', function(i) { return 'Cicle ' + i })
+	.attr('active', true)
 
 exports.createUser = function(callback){
-	var User = app.models.User;
-
 	var user = rosie.build('User');
-
-	User.create(user, function(err, dbUser){
-		user.id = dbUser.id;
+	app.models.User.create(user, function(err, newUser){
+		user.id = newUser.id;
 		callback(err, user);
 	});
+}
+
+exports.createIndicator = function(doneCreateIndicator){
+	var indicator = rosie.build('Indicator');
+	app.models.Indicator.create(indicator, doneCreateIndicator);
+}
+
+exports.createCicles = function(n, doneCreateCicles){
+	async.timesSeries(n, function(i, doneEach){
+		var cicle = rosie.build('Cicle');
+		app.models.Cicle.create(cicle, doneEach);
+	}, doneCreateCicles);
 }

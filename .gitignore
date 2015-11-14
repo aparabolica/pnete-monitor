@@ -21,3 +21,4 @@ arquivos
 datasources.local.json
 .env
 docular_generated
+tmp

@@ -65,7 +65,7 @@
     "public": true
   },
   "Assessment": {
-    "dataSource": null,
+    "dataSource": "db",
     "public": true
   }
 }
