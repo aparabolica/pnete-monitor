@@ -5,8 +5,33 @@ form(ng-submit="submit(user)")
   p
     label(for="email_input") Email
     input(type="email" id="email_input" ng-model="user.email")
-  p
-    label(for="pwd_input") Senha
-    input(type="password" id="pwd_input" ng-model="user.password")
+  section#organizations
+    h3 Organização
+    .organization-search.live-add
+      .input-container
+        input(type="text" ng-model="orgSearch" placeholder="Buscar organizações")
+      table.results-table(ng-show="organizations.length")
+        thead
+          tr
+            th Nome
+            th.action Selecionar
+        tbody
+          tr(ng-repeat="organization in organizations" ng-hide="organizationListed(organization)")
+            td {{organization.name}}
+            td
+              a.icon.icon-add-to-list(href="javascript:void(0);" ng-click="addOrganization(organization)")
+    p(ng-show="user.organizationId")
+      strong Organização do usuário:
+    table(ng-show="user.organizationId")
+      thead
+        tr
+          th Nome
+          th.action Remover
+      tbody
+        tr
+          td {{userOrganization.name}}
+          td
+            a.icon.icon-cross(href="javascript:void(0);" ng-click="removeOrganization()")
+
   p
     input(type="submit" value="Enviar")

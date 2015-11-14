@@ -41,21 +41,74 @@ module.exports = function(app) {
 
   app.controller('DashboardUserCtrl', [
     '$scope',
+    'User',
     'Users',
-    function($scope, Users) {
+    function($scope, User, Users) {
       $scope.users = Users;
+      _.each($scope.users, function(user) {
+        User.organization({id: user.id}, function(organization) {
+          user.organization = organization;
+        });
+      });
     }
   ]);
 
   app.controller('DashboardEditUserCtrl', [
     '$scope',
     'User',
+    'Organization',
     'Edit',
-    function($scope, User, Edit) {
+    'UserOrganization',
+    function($scope, User, Organization, Edit, UserOrganization) {
       $scope.user = _.extend({}, Edit);
+      $scope.userOrganization = _.extend({}, UserOrganization);
+
+      console.log($scope.userOrganization);
+
+      /*
+       * User Organization
+       */
+      $scope.orgSearch = '';
+      $scope.organizations = [];
+      var doOrgSearch = _.debounce(function(search) {
+        if(search) {
+          Organization.find({
+            filter: {
+              where: {
+                name: { regexp: '' + search.replace(' ', '|') + '' },
+                id: { nin: [$scope.userOrganization.id] }
+              },
+            limit: 5
+            }
+          }, function(organizations) {
+            $scope.organizations = organizations;
+          });
+        }
+      }, 500);
+      $scope.$watch('orgSearch', function(search) {
+        if(!search) {
+          $scope.organizations = [];
+        } else {
+          doOrgSearch(search);
+        }
+      });
+      $scope.removeOrganization = function() {
+        if(confirm('Você tem certeza?')) {
+          $scope.user.organizationId = null;
+          $scope.userOrganization = {};
+        }
+      };
+      $scope.addOrganization = function(organization) {
+        $scope.user.organizationId = organization.id;
+        $scope.userOrganization = organization;
+      };
+      $scope.organizationListed = function(organization) {
+        return $scope.userOrganization.id == organization.id;
+      };
+
       $scope.submit = function(user) {
-        if(!_.isEmpty(user)) {
-          User.update({where: {id: user.id}}, user, function(res) {
+        if(!_.isEmpty(Edit)) {
+          User['prototype$updateAttributes']({id: user.id}, user, function(res) {
             console.log(res);
             $scope.user = res;
           });
@@ -83,6 +136,7 @@ module.exports = function(app) {
     'Edit',
     function($scope, Cicle, Edit) {
       $scope.ciclo = _.extend({}, Edit);
+
       $scope.submit = function(ciclo) {
         if(!_.isEmpty(Edit)) {
           Cicle.update({where: {id: ciclo.id}}, ciclo, function(res) {

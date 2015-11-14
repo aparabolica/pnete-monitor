@@ -104,6 +104,17 @@ module.exports = function(app) {
                 return {};
               }
             }
+          ],
+          'UserOrganization': [
+            '$stateParams',
+            'User',
+            function($stateParams, User) {
+              if($stateParams.id) {
+                return User.organization({id: $stateParams.id}).$promise;
+              } else {
+                return {};
+              }
+            }
           ]
         }
       })

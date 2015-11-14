@@ -30,7 +30,7 @@ form(ng-submit="submit(indicador)")
         thead
           tr
             th Nome
-            th Adicionar à lista
+            th.action Adicionar à lista
         tbody
           tr(ng-repeat="organization in organizations" ng-hide="organizationListed(organization)")
             td {{organization.name}}
@@ -42,7 +42,7 @@ form(ng-submit="submit(indicador)")
       thead
         tr
           th Nome
-          th Remover
+          th.action Remover
       tbody
         tr(ng-repeat="organization in indicadorOrganizations")
           td {{organization.name}}
