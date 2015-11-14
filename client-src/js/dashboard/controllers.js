@@ -39,6 +39,18 @@ module.exports = function(app) {
     }
   ]);
 
+  app.controller('DashboardProfileCtrl', [
+    '$scope',
+    'Profile',
+    'UserOrganization',
+    'OrganizationIndicators',
+    function($scope, Profile, UserOrganization, OrganizationIndicators) {
+      $scope.user = Profile;
+      $scope.organization = UserOrganization;
+      $scope.indicadores = OrganizationIndicators;
+    }
+  ]);
+
   app.controller('DashboardUserCtrl', [
     '$scope',
     'User',

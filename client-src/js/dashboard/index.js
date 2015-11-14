@@ -70,6 +70,33 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('dashboard.profile', {
+        url: 'perfil/',
+        controller: 'DashboardProfileCtrl',
+        templateUrl: '/views/dashboard/profile.html',
+        resolve: {
+          Profile: [
+            'User',
+            function(User) {
+              return User.getCurrent().$promise;
+            }
+          ],
+          UserOrganization: [
+            'Profile',
+            'User',
+            function(Profile, User) {
+              return User.organization({id: Profile.id}).$promise;
+            }
+          ],
+          OrganizationIndicators: [
+            'UserOrganization',
+            'Organization',
+            function(UserOrganization, Organization) {
+              return Organization.indicators({id: UserOrganization.id}).$promise;
+            }
+          ]
+        }
+      })
       .state('dashboard.user', {
         url: 'usuarios/',
         controller: 'DashboardUserCtrl',

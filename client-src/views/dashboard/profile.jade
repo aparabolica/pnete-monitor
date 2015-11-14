@@ -1,0 +1,25 @@
+header.dashboard-inner-header
+  h2 Meu perfil
+section.dashboard-inner-content(ui-view)
+  h3 Organização: {{organization.name}}
+  form(ng-submit="submit(user)")
+    p
+      label(for="name_input") Nome
+      input(type="text" id="name_input" ng-model="user.name")
+    p
+      label(for="email_input") Email
+      input(type="email" id="email_input" ng-model="user.email")
+    p
+      input(type="submit" value="Enviar")
+  section#indicadores(ng-show="indicadores.length")
+    h3 Meus indicadores
+    table
+      thead
+        tr
+          th Título
+          th.action Responder
+      tbody
+        tr(ng-repeat="indicador in indicadores")
+          td {{indicador.description}}
+          td 
+            a.icon.icon-pencil(ui-sref="")
