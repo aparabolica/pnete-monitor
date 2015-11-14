@@ -8,8 +8,8 @@ section.dashboard-inner-content(ui-view)
       tr
         th Nome
         th Email
-        th Editar
-        th Remover
+        th.action Editar
+        th.action Remover
     tbody
       tr(ng-repeat="user in users")
         td {{user.name}}

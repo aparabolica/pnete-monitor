@@ -107,6 +107,43 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('dashboard.cicle', {
+        url: 'ciclos/',
+        controller: 'DashboardCicleCtrl',
+        templateUrl: '/views/dashboard/ciclo.html',
+        resolve: {
+          Ciclos: [
+            'Cicle',
+            function(Cicle) {
+              return Cicle.find().$promise;
+            }
+          ]
+        }
+      })
+      .state('dashboard.cicle.edit', {
+        url: 'editar/?id',
+        controller: 'DashboardEditCicleCtrl',
+        templateUrl: '/views/dashboard/ciclo-edit.html',
+        resolve: {
+          Edit: [
+            '$stateParams',
+            'Cicle',
+            function($stateParams, Cicle) {
+              if($stateParams.id) {
+                return Cicle.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
+      })
       .state('dashboard.indicador', {
         url: 'indicadores/',
         controller: 'DashboardIndicadorCtrl',

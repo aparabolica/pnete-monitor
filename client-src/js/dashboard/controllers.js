@@ -69,6 +69,36 @@ module.exports = function(app) {
     }
   ]);
 
+  app.controller('DashboardCicleCtrl', [
+    '$scope',
+    'Ciclos',
+    function($scope, Ciclos) {
+      $scope.ciclos = Ciclos;
+    }
+  ]);
+
+  app.controller('DashboardEditCicleCtrl', [
+    '$scope',
+    'Cicle',
+    'Edit',
+    function($scope, Cicle, Edit) {
+      $scope.ciclo = _.extend({}, Edit);
+      $scope.submit = function(ciclo) {
+        if(!_.isEmpty(Edit)) {
+          Cicle.update({where: {id: ciclo.id}}, ciclo, function(res) {
+            console.log(res);
+            $scope.ciclo = res;
+          });
+        } else {
+          Cicle.create(ciclo, function(res) {
+            console.log(res);
+            $scope.ciclo = res;
+          });
+        }
+      };
+    }
+  ])
+
   app.controller('DashboardOrganizationCtrl', [
     '$scope',
     'Organizations',
@@ -84,7 +114,7 @@ module.exports = function(app) {
     function($scope, Organization, Edit) {
       $scope.organization = _.extend({}, Edit);
       $scope.submit = function(organization) {
-        if(!_.isEmpty(organization)) {
+        if(!_.isEmpty(Edit)) {
           Organization.update({where: {id: organization.id}}, organization, function(res) {
             console.log(res);
             $scope.organization = res;

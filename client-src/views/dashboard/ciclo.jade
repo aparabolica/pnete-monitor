@@ -1,0 +1,18 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.cicle") Ciclos
+  a(ui-sref="dashboard.cicle.edit") + Novo ciclo
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th Ano
+        th.action Editar
+        th.action Remover
+    tbody
+      tr(ng-repeat="ciclo in ciclos")
+        td {{ciclo.name}}
+        td 
+          a.icon.icon-pencil(ui-sref="dashboard.cicle.edit({'id': ciclo.id})")
+        td 
+          a.icon.icon-cross(href="javascript:void(0);")
