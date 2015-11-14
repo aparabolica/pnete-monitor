@@ -2,6 +2,26 @@ var async = require('async');
 
 module.exports = function(Cicle) {
 
+  /*
+   * Disable/enable endpoints
+   */
+
+  // Cicle.disableRemoteMethod("create", true);
+  // Cicle.disableRemoteMethod("upsert", true);
+  Cicle.disableRemoteMethod("updateAll", true);
+  // Cicle.disableRemoteMethod("updateAttributes", false);
+
+  // Cicle.disableRemoteMethod("find", true);
+  // Cicle.disableRemoteMethod("findById", true);
+  // Cicle.disableRemoteMethod("findOne", true);
+
+  Cicle.disableRemoteMethod("createChangeStream", true);
+  // Cicle.disableRemoteMethod("deleteById", true);
+
+  // Cicle.disableRemoteMethod("confirm", true);
+  // Cicle.disableRemoteMethod("count", true);
+  // Cicle.disableRemoteMethod("exists", true);
+  // Cicle.disableRemoteMethod("resetPassword", true);
 
   Cicle.status = function(doneStatus){
     var Feedback = Cicle.app.models.Feedback;
