@@ -75,9 +75,11 @@ module.exports = function(User) {
   User.beforeRemote('*.updateAttributes', function (ctx, unused, next) {
 
     var body = ctx.req.body;
+    var requestUserId = ctx.req.accessToken.userId;
+    var targetUser = ctx.instance;
 
     if (body && body['organizationId']) {
-      var currentUserId = ctx.req.accessToken.userId;
+      var currentUserId = requestUserId;
       var Role = ctx.req.app.models.Role;
       var RoleMapping = ctx.req.app.models.RoleMapping;
 
@@ -98,7 +100,28 @@ module.exports = function(User) {
           }
         });
       })
+
+    // only admins can make admins
+    } else if (body && body['isAdmin']) {
+
+      // check if user is changing its admin status
+      if (targetUser.id == requestUserId) {
+        err = new Error('User can\'t change its own admin status.');
+        err.statusCode = 401;
+        next(err);
+
+      // check if user is admin
+      } else {
+        User.findById(requestUserId, function(err, user){
+          if (user && !user.isAdmin) {
+            err = new Error('Only admins can change admin role.');
+            err.statusCode = 401;
+          }
+          next(err);
+        });
+      }
+
+    // user is not changing sensitive information
     } else next();
   });
-
 };

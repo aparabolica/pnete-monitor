@@ -19,6 +19,7 @@ module.exports = function(app) {
 
       // Create if it doesn't exists
       if (admins.length == 0) {
+        app.settings.defaultAdmin.isAdmin = true;
         User.create(app.settings.defaultAdmin, function(err, firstAdmin) {
           if (err) console.log(err);
 

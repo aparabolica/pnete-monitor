@@ -13,6 +13,11 @@
     "name": {
       "type": "string"
     },
+    "isAdmin": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
     "emailVerified": {
       "type": "boolean",
       "required": true,
