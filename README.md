@@ -2,23 +2,37 @@ A platform to monitor the execution of National Plan to Erradicate Slave Labor *
 
 # Getting started
 
-Install Node.js and MongoDB. Then clone this repository and run:
+Install the following dependencies:
 
-    npm install
-    node .
+- [Node.js](nodejs.org)
+- [MongoDB](mongodb.org)
 
-A admin account will be set using credentials from `server/config.json` file.
-
-## Setup
-
-Create a .env from example:
+Clone this repository locally and create a `.env` based on example:
 
     cp .env.example .env
 
-Change the file with options for MongoDB and e-mail services.
+Install dependency modules:
+
+    npm install
+
+Run:
+
+    npm start
 
 ## Development
 
-This application is built upon [Loopback API framework](https://docs.strongloop.com/display/public/LB/LoopBack) and uses [AngularJS Javascript SDK](https://docs.strongloop.com/display/public/LB/AngularJS+JavaScript+SDK) for the client app.
+Install `grunt-cli`:
+
+    sudo npm install -g grunt-cli
+
+If you made changes to the client, recompile it:
+
+    grunt build
+
+A "watch" task is also available:
+
+    grunt watch
+
+This application uses [Loopback API framework](https://docs.strongloop.com/display/public/LB/LoopBack) and [AngularJS Javascript SDK](https://docs.strongloop.com/display/public/LB/AngularJS+JavaScript+SDK) for the client app.
 
 Coding style is defined following [EditorConfig](http://editorconfig.org) conventions. If you use [Atom](atom.io), install [editorconfig package](https://atom.io/packages/editorconfig).
