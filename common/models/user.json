@@ -4,7 +4,7 @@
   "strict": true,
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": false
   },
   "properties": {
     "email": {
@@ -35,7 +35,7 @@
   },
   "mixins": {
     "TimeStamp" : true
-  },  
+  },
   "acls": [
     {
       "accessType": "EXECUTE",

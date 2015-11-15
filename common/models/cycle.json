@@ -4,7 +4,7 @@
   "idInjection": true,
   "strict": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": false
   },
   "http": {
     "path": "cycles"

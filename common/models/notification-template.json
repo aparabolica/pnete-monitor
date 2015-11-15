@@ -5,7 +5,7 @@
   "strict": true,
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": false
   },
   "http": {
     "path": "notifications/templates"
