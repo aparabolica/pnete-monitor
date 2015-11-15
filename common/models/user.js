@@ -48,6 +48,8 @@ module.exports = function(User) {
 
   User.afterRemote('create', function(ctx, user, next){
 
+
+
     if (process.env.NODE_ENV != 'test') {
 
       var Email = User.app.models.Email;
@@ -107,6 +109,13 @@ module.exports = function(User) {
           next(err);
         });
       }
+
+    // emailVerified can't be changed via this endpoint
+    } else if (body && body['emailVerified']) {
+
+      err = new Error('Can\'t change emailVerified.');
+      err.statusCode = 401;
+      next(err);
 
     // user is not changing sensitive information
     } else next();

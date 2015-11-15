@@ -13,6 +13,7 @@ module.exports = function(app) {
     // Create if it doesn't exists
     if (admins.length == 0) {
       app.settings.defaultAdmin.isAdmin = true;
+      app.settings.defaultAdmin.emailVerified = true;
       User.create(app.settings.defaultAdmin, function(err, firstAdmin) {
         if (err) console.log(err);
         else console.log('Default admin created (credentials at server/config.js).');
