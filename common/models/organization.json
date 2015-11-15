@@ -36,6 +36,11 @@
       "model": "user",
       "foreignKey": "organizationId"
     },
+    "feedbacks": {
+      "type": "hasMany",
+      "model": "Feedback",
+      "foreignKey": ""
+    },
     "indicators": {
       "type": "hasAndBelongsToMany",
       "model": "Indicator",

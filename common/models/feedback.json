@@ -21,7 +21,23 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "organization": {
+      "type": "belongsTo",
+      "model": "Organization",
+      "foreignKey": ""
+    },
+    "cycle": {
+      "type": "belongsTo",
+      "model": "Cycle",
+      "foreignKey": ""
+    },
+    "indicator": {
+      "type": "belongsTo",
+      "model": "Indicator",
+      "foreignKey": ""
+    }
+  },
   "mixins": {
     "TimeStamp" : true
   },
