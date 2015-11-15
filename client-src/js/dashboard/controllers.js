@@ -349,6 +349,7 @@ module.exports = function(app) {
         Assessment.findOne({
           filter: {
             where: {
+              cycleId: ActiveCycle.id,
               indicatorId: indicador.id
             }
           }
@@ -508,6 +509,8 @@ module.exports = function(app) {
         indicatorId: $stateParams.id,
         cycleId: ReviewCycle.id
       }, Review);
+
+      console.log($scope.review);
 
       $scope.submit = function(review) {
         if(!_.isEmpty(Review)) {

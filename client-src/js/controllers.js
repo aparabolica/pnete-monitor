@@ -58,13 +58,15 @@ module.exports = function(app) {
 
   app.controller('IndicadorCtrl', [
     '$scope',
+    'Cycles',
     'Indicador',
     'Eixo',
     'ActiveCycle',
     'Analise',
     'Organizations',
-    function($scope, Indicador, Eixo, ActiveCycle, Analise, Organizations) {
+    function($scope, Cycles, Indicador, Eixo, ActiveCycle, Analise, Organizations) {
 
+      $scope.ciclos = Cycles;
       $scope.indicador = Indicador;
       $scope.eixo = Eixo;
       $scope.ciclo = ActiveCycle;

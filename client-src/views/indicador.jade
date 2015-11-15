@@ -28,22 +28,20 @@ article#indicador
             p {{indicador.baseline}}
         #replies.clearfix
           .subheader.replies-header
-            .filters
-              span.main-label Visualizando: 
+            .filters(ng-hide="ciclos.length == 1")
+              span.main-label Visualizando ciclo: 
               .filter.dropdown.period
-                //- span.label Período
-                span.current 2014 
+                span.current {{ciclo.name}} 
                 span.icon.icon-chevron-down
                 ul
-                  li 2011
-                  li 2012
-                  li 2013
+                  li(ng-repeat="ciclo in ciclos" ui-sref-active="active") 
+                    a(ui-sref="indicador({'ciclo': ciclo.name})") {{ciclo.name}}
             h3 Respostas das organizações responsáveis
           ul.reply-list
             li.reply.no-response.clearfix(ng-repeat="organization in organizations")
               .five.columns
                 .avatar-container
-                  .avatar(style="background-color:{{pastelColr()}}")
+                  .avatar(style="background-color:{{pastelColor()}}")
                     a(ui-sref="organization({organizationId: organization.id})") {{organization.shortName}}
                 h4
                   a(ui-sref="organization({organizationId: organization.id})") {{organization.name}}

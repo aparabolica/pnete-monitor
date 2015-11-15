@@ -73,6 +73,12 @@ app.config([
       controller: 'IndicadorCtrl',
       templateUrl: '/views/indicador.html',
       resolve: {
+        Cycles: [
+          'Cycle',
+          function(Cycle) {
+            return Cycle.find().$promise;
+          }
+        ],
         Indicador: [
           '$stateParams',
           'Indicator',
