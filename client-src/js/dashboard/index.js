@@ -44,28 +44,35 @@ module.exports = function(app) {
               User.getCurrent(function(val) {
                 deferred.resolve(val);
               }, function(err) {
+                deferred.resolve({});
                 $state.go('login');
               });
               return deferred.promise;
             }
           ],
+          // Admin data
           ContentCount: [
             '$q',
+            'Auth',
             'Cicle',
             'Axis',
             'Action',
             'Indicator',
             'Organization',
             'User',
-            function($q, Cicle, Axis, Action, Indicator, Organization, User) {
-              var promises = {};
-              promises.cicle = Cicle.count().$promise;
-              promises.axis = Axis.count().$promise;
-              promises.action = Action.count().$promise;
-              promises.indicator = Indicator.count().$promise;
-              promises.organization = Organization.count().$promise;
-              promises.user = User.count().$promise;
-              return $q.all(promises);
+            function($q, Auth, Cicle, Axis, Action, Indicator, Organization, User) {
+              if(Auth.isAdmin) {
+                var promises = {};
+                promises.cicle = Cicle.count().$promise;
+                promises.axis = Axis.count().$promise;
+                promises.action = Action.count().$promise;
+                promises.indicator = Indicator.count().$promise;
+                promises.organization = Organization.count().$promise;
+                promises.user = User.count().$promise;
+                return $q.all(promises);
+              } else {
+                return {};
+              }
             }
           ]
         }
@@ -75,24 +82,25 @@ module.exports = function(app) {
         controller: 'DashboardProfileCtrl',
         templateUrl: '/views/dashboard/profile.html',
         resolve: {
-          Profile: [
-            'User',
-            function(User) {
-              return User.getCurrent().$promise;
-            }
-          ],
           UserOrganization: [
-            'Profile',
+            '$q',
+            'Auth',
             'User',
-            function(Profile, User) {
-              return User.organization({id: Profile.id}).$promise;
+            function($q, Profile, User) {
+              var deferred = $q.defer();
+              User.organization({id: Profile.id}, function(data) {
+                deferred.resolve(data);
+              }, function() {
+                deferred.resolve({});
+              });
+              return deferred.promise;
             }
           ],
           OrganizationIndicators: [
-            'UserOrganization',
+            'Auth',
             'Organization',
-            function(UserOrganization, Organization) {
-              return Organization.indicators({id: UserOrganization.id}).$promise;
+            function(Auth, Organization) {
+              return Organization.indicators({id: Auth.organizationId}).$promise;
             }
           ]
         }

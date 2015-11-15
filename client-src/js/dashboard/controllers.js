@@ -41,7 +41,7 @@ module.exports = function(app) {
 
   app.controller('DashboardProfileCtrl', [
     '$scope',
-    'Profile',
+    'Auth',
     'UserOrganization',
     'OrganizationIndicators',
     function($scope, Profile, UserOrganization, OrganizationIndicators) {

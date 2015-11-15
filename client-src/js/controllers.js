@@ -86,8 +86,6 @@ module.exports = function(app) {
       $scope.eixo = Eixo;
       $scope.indicadores = Indicadores;
 
-      console.log(Indicadores);
-
     }
   ]);
 
