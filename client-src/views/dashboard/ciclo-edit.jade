@@ -3,4 +3,11 @@ form(ng-submit="submit(ciclo)")
     label(for="year_input") Ano
     input#year_input(type="text" ng-model="ciclo.name")
   p
+    label(for="active_input") Ativo
+    span.checkbox-list.row
+      span.checkbox-item
+        input#active_input(type="checkbox" ng-model="ciclo.active")
+        label(for="active_input") Marcar como ciclo vigente
+    
+  p
     input(type="submit" value="Enviar")

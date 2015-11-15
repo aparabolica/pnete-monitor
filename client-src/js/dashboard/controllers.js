@@ -151,7 +151,7 @@ module.exports = function(app) {
 
       $scope.submit = function(ciclo) {
         if(!_.isEmpty(Edit)) {
-          Cicle.update({where: {id: ciclo.id}}, ciclo, function(res) {
+          Cicle['prototype$updateAttributes']({id: ciclo.id}, ciclo, function(res) {
             console.log(res);
             $scope.ciclo = res;
           });
@@ -375,29 +375,55 @@ module.exports = function(app) {
         return _.find($scope.indicadorOrganizations, function(org) { return org.id == organization.id; });
       };
 
-      var afterSave = function(res) {
+      $scope.$on('saved', function(ev, res) {
         var actions = _.filter($scope.actions, function(action) {
           return $scope.selectedActions[action.id];
         });
         updateActions(actions, res);
         updateOrganizations($scope.indicadorOrganizations, res);
-      };
+      });
 
       $scope.submit = function(indicador) {
         if(!_.isEmpty(Edit)) {
-          Indicator.update({where: {id: indicador.id}}, indicador, function(res) {
-            $scope.indicador = res;
-            afterSave(res);
-          });
+          Indicator.update({where: {id: indicador.id}}, indicador, saveCb);
         } else {
-          Indicator.create(indicador, function(res) {
-            $scope.indicador = res;
-            afterSave(res);
-          })
+          Indicator.create(indicador, saveCb);
         }
       };
 
+      var saveCb = function(res) {
+        $scope.indicador = res;
+        $scope.$emit('saved', res);
+      }
+
     }
   ]);
+
+  app.controller('DashboardAssessIndicadorCtrl', [
+    '$scope',
+    '$stateParams',
+    'Review',
+    'Assessment',
+    function($scope, $stateParams, Review, Assessment) {
+
+      $scope.review = _.extend({
+        indicatorId: $stateParams.id,
+        cicleId: $stateParams.ciclo
+      }, Review);
+
+      $scope.submit = function(review) {
+        if(!_.isEmpty(Review)) {
+          Assessment.update({where: {indicatorId: review.id}}, review, saveCb);
+        } else {
+          Assessment.create(review, saveCb);
+        }
+      };
+
+      var saveCb = function(res) {
+        $scope.review = res;
+        $scope.$emit('saved', res);
+      }
+    }
+  ])
 
 };

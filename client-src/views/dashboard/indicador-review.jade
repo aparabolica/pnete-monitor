@@ -1,20 +1,20 @@
 .dashboard-review
   h3 Avaliando "Quantidade de fiscais do trabalho para cada dez mil pessoas ocupadas"
-form
+form(ng-submit="submit(review)")
   p
-    label(for="grade_input") Avaliação geral
+    label(for="status_input") Avaliação geral
     span.radio-list.row
       span.radio-item
-        input#grade_input_2(type="radio" ng-model="indicador.grade" value="2")
-        label(for="grade_input_2") Cumprido
+        input#status_input_2(type="radio" ng-model="review.status" value="complete")
+        label(for="status_input_2") Cumprido
       span.radio-item
-        input#grade_input_1(type="radio" ng-model="indicador.grade" value="1")
-        label(for="grade_input_1") Parcialmente cumprido
+        input#status_input_1(type="radio" ng-model="review.status" value="partial")
+        label(for="status_input_1") Parcialmente cumprido
       span.radio-item
-        input#grade_input_0(type="radio" ng-model="indicador.grade" value="0")
-        label(for="grade_input_0") Não cumprido
+        input#status_input_0(type="radio" ng-model="review.status" value="incomplete")
+        label(for="status_input_0") Não cumprido
   p
     label(for="review_input") Análise do gestor
-    textarea#review_input(ng-model="indicador.review")
+    textarea#review_input(ng-model="review.analysis")
   p
     input(type="submit" value="Enviar")

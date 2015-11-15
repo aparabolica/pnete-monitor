@@ -254,8 +254,54 @@ module.exports = function(app) {
         }
       })
       .state('dashboard.indicador.review', {
-        url: 'avaliar/?id',
-        templateUrl: '/views/dashboard/indicador-review.html'
+        url: 'avaliar/?id&ciclo',
+        controller: 'DashboardAssessIndicadorCtrl',
+        templateUrl: '/views/dashboard/indicador-review.html',
+        resolve: {
+          'ActiveCicle': [
+            '$stateParams',
+            'Cicle',
+            function($stateParams, Cicle) {
+              var where;
+              if($stateParams.ciclo) {
+                where = {
+                  id: $stateParams.ciclo
+                };
+              } else {
+                where = {
+                  active: true
+                };
+              }
+              return Cicle.findOne({
+                filter: {
+                  where: where
+                }
+              }).$promise;
+            }
+          ],
+          'Review': [
+            '$stateParams',
+            '$q',
+            'ActiveCicle',
+            'Assessment',
+            function($stateParams, $q, ActiveCicle, Assessment) {
+              var deferred = $q.defer();
+              Assessment.findOne({
+                filter: {
+                  where: {
+                    cicleId: ActiveCicle.id,
+                    indicatorId: $stateParams.id
+                  }
+                }
+              }, function(data) {
+                deferred.resolve(data);
+              }, function() {
+                deferred.resolve({});
+              });
+              return deferred.promise;
+            }
+          ]
+        }
       })
       .state('dashboard.action', {
         url: 'acoes/',

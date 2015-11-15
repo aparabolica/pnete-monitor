@@ -11,12 +11,6 @@ form(ng-submit="submit(user)")
       span.checkbox-item
         input#admin_input(type="checkbox" ng-model="user.isAdmin")
         label(for="admin_input") Este usuário é administrador
-  p
-    label(for="actions_input") Ações
-    span.checkbox-list.row
-      span.checkbox-item(ng-repeat="action in actions" style="width:80px;")
-        input(id="actions_input_{{action.id}}" type="checkbox" ng-model="selectedActions[action.id]" ng-value="action.id")
-        label(for="actions_input_{{action.id}}") {{action.id}}
 
   section#organizations
     h3 Organização
