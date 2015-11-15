@@ -1,8 +1,8 @@
 {
   "name": "Axis",
   "base": "PersistedModel",
+  "strict": true,
   "idInjection": false,
-  "strict": true,  
   "options": {
     "validateUpsert": true
   },

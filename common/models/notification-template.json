@@ -2,8 +2,8 @@
   "name": "notificationTemplate",
   "plural": "notificationTemplates",
   "base": "PersistedModel",
+  "strict": true,
   "idInjection": true,
-  "strict": true,  
   "options": {
     "validateUpsert": true
   },
