@@ -10,8 +10,9 @@ article#indicador
         a.eixo-icon.eixo-bg(ui-sref="eixo({eixoId: eixo.id})" style="background:{{eixo.color}};") {{eixo.name}}
         a.button(href="#") Veja as ações relacionadas
       .ten.columns
-        .nine.columns
-          h2 {{indicador.question}}
+        .clearfix
+          .nine.columns
+            h2 {{indicador.question}}
         #overview.clearfix(ng-show="analise")
           .nine.columns
             p.label Análise do gestor:
@@ -20,12 +21,12 @@ article#indicador
             #status
               .icon(class="icon-{{getStatusClass(analise)}}")
               p {{getStatus(analise)}}
-        #baseline
+        #baseline.clearfix
           .subheader.baseline-header
             h3 Conheça o histórico de dados disponíveis
           .baseline-content
             p {{indicador.baseline}}
-        .replies
+        #replies.clearfix
           .subheader.replies-header
             .filters
               span.main-label Visualizando: 
