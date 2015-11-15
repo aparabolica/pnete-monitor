@@ -8,6 +8,23 @@ module.exports = function(app) {
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
       $stateProvider
+      .state('confirmUser', {
+        url: '/confirmar-email/?token&uid',
+        controller: 'ConfirmUserCtrl',
+        templateUrl: '/views/dashboard/user-confirm.html',
+        resolve: {
+          Validate: [
+            '$stateParams',
+            '$state',
+            function($stateParams, $state) {
+              if(!$stateParams.token || !$stateParams.uid) {
+                $state.go('login');
+              }
+              return true;
+            }
+          ]
+        }
+      })
       .state('login', {
         url: '/login/',
         controller: 'LoginCtrl',
@@ -46,6 +63,20 @@ module.exports = function(app) {
               }, function(err) {
                 deferred.resolve({});
                 $state.go('login');
+              });
+              return deferred.promise;
+            }
+          ],
+          UserOrganization: [
+            '$q',
+            'Auth',
+            'User',
+            function($q, Profile, User) {
+              var deferred = $q.defer();
+              User.organization({id: Profile.id}, function(data) {
+                deferred.resolve(data);
+              }, function() {
+                deferred.resolve({});
               });
               return deferred.promise;
             }
@@ -118,22 +149,6 @@ module.exports = function(app) {
         url: 'perfil/',
         controller: 'DashboardProfileCtrl',
         templateUrl: '/views/dashboard/profile.html',
-        resolve: {
-          UserOrganization: [
-            '$q',
-            'Auth',
-            'User',
-            function($q, Profile, User) {
-              var deferred = $q.defer();
-              User.organization({id: Profile.id}, function(data) {
-                deferred.resolve(data);
-              }, function() {
-                deferred.resolve({});
-              });
-              return deferred.promise;
-            }
-          ]
-        }
       })
       .state('dashboard.user', {
         url: 'usuarios/',
@@ -474,5 +489,6 @@ module.exports = function(app) {
   ]);
 
   require('./controllers')(app);
+  require('./directives')(app);
 
 };

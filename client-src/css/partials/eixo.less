@@ -1,47 +1,5 @@
 @import '../colors';
 
-.eixo-bg {
-  &.blue {
-    background: @blue;
-  }
-  &.orange {
-    background: @orange;
-  }
-  &.green {
-    background: @green;
-  }
-  &.red {
-    background: @red;
-  }
-  &.purple {
-    background: @purple;
-  }
-  &.yellow {
-    background: @yellow;
-  }
-}
-
-.eixo-border {
-  &.blue {
-    border-color: @blue;
-  }
-  &.orange {
-    border-color: @orange;
-  }
-  &.green {
-    border-color: @green;
-  }
-  &.red {
-    border-color: @red;
-  }
-  &.purple {
-    border-color: @purple;
-  }
-  &.yellow {
-    border-color: @yellow;
-  }
-}
-
 article#eixo {
   .eixo-header {
     h1 {
@@ -68,6 +26,7 @@ article#eixo {
       font-size: 14px;
       margin-top: 15px;
       text-align: right;
+      color: #999;
       p {
         margin: 0;
       }
@@ -107,28 +66,30 @@ article#eixo {
         margin: 0 0 40px;
         .number {
           display: block;
-          width: 100%;
+          width: 90%;
+          margin: 0 auto;
           height: 0;
-          font-size: 32px;
-          padding-top: 27%;
-          padding-bottom: 67%;
-          background: #f0f0f0;
+          font-size: 20px;
+          padding-top: 25%;
+          padding-bottom: 60%;
+          background: #f5f5f5;
           color: #333;
           text-align: center;
           .border-radius(100%);
           margin-bottom: 10px;
-          border: 3px solid #ddd;
+          border: 1px solid #ddd;
+          .box-shadow(0 0 10px rgba(0,0,0,0.1));
           .box-sizing(border-box);
           .transition(all .2s ease-in-out);
           cursor: default;
         }
         p {
-          font-size: 12px;
+          font-size: 10px;
           margin: 0;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          background: #f0f0f0;
+          background: #f5f5f5;
           color: #333;
           padding: 5px;
           .border-radius(4px);
@@ -155,7 +116,7 @@ article#eixo {
           top: calc(~"100% - 5px");
           left: 50%;
           margin-left: -5px;
-          background: #f0f0f0;
+          background: #f5f5f5;
           .transition(all .2s ease-in-out);
           border-color: #ddd;
         }
@@ -165,11 +126,12 @@ article#eixo {
             background: #fff;
           }
           p {
+            font-size: 12px;
             white-space: normal;
             overflow: visible;
             text-overflow: clip;
-            left: -40px;
-            right: -40px;
+            left: -60px;
+            right: -60px;
             margin-top: -2px;
             padding: 10px;
             border: 2px solid #ddd;

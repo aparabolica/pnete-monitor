@@ -26,19 +26,42 @@ section#dashboard
           li
             a(ui-sref="dashboard.profile" ui-sref-active="active") Meu perfil
           li
-            a(href="#") Minhas perguntas
-        ul
-          li
             a(href="javascript:void(0);" ng-click="logout()") Sair
     .nine.columns
-      section#dashboard-content(ui-view)
-        .row
-          .six.columns.alpha
+      section#dashboard-content.row(ui-view)
+        .clearfix
+          .twelve.columns
             .widget.welcome-widget
               h2 Olá {{user.name}}
               p(ng-show="activeCycle") O ciclo ativo no monitoramento atual é {{activeCycle.name}}.
+              p(ng-show="activeCycle.endDate") {{endCycleText}} 
+                strong {{endCycleFromNow}} 
+                | ({{endCycleDate}})
               p.warning(ng-show="user.isAdmin && !activeCycle") Nenhum ciclo está ativo! 
                 a(ui-sref="dashboard.cycle") Clique aqui para editar os ciclos
+        .clearfix
+          .four.columns
+            //- .widget.organization-widget(ng-show="userOrganization")
+            .widget.organization-widget(ng-hide="user.isAdmin")
+              h2 Nome da organização
+              p Sua organização deve responder a 
+                strong 2 
+                | indicadores.
+          .eight.columns
+            .widget.indicator-widget(ng-show="userIndicators.length")
+              h2 Indicadores da minha organização
+              table
+                thead
+                  tr
+                    th Título
+                    th.action Responder
+                tbody
+                  tr(ng-repeat="indicador in userIndicators")
+                    td {{indicador.description}}
+                    td 
+                      a.icon.icon-pencil(href="#")
+        .clearfix
+          .six.columns
             .widget.content-widget(ng-show="user.isAdmin")
               h2 Conteúdo
               table
@@ -71,10 +94,10 @@ section#dashboard
                     td
                       a(ui-sref="dashboard.user") Usuários
                     td {{count.user.count}}
-          .six.columns.omega
-            .widget.status-widget
+          .six.columns
+            .widget.status-widget(ng-show="user.isAdmin")
               h2 Monitoramento {{activeCycle.name}}
               replied-percent(ratio="{'questions':130,'replied':60}")
-            .widget.organizations-widget
+            .widget.organizations-widget(ng-show="user.isAdmin")
               .row
                 h3 Organizações pendentes

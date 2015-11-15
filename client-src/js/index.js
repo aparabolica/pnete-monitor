@@ -120,6 +120,13 @@ app.config([
             }).$promise;
           }
         ],
+        Actions: [
+          '$stateParams',
+          'Axis',
+          function($stateParams, Axis) {
+            return Axis.actions({id: $stateParams.eixoId}).$promise;
+          }
+        ],
         Indicadores: [
           '$stateParams',
           'Axis',

@@ -1,5 +1,20 @@
 module.exports = function(app) {
 
+  app.controller('ConfirmUserCtrl', [
+    '$scope',
+    '$stateParams',
+    'User',
+    function($scope, $stateParams, User) {
+      $scope.user = {
+        token: $stateParams.token,
+        uid: $stateParams.uid
+      };
+      $scope.confirm = function(user) {
+
+      };
+    }
+  ]);
+
   app.controller('LoginCtrl', [
     '$scope',
     '$state',
@@ -19,12 +34,31 @@ module.exports = function(app) {
     'Auth',
     'ActiveCycle',
     'User',
+    'UserOrganization',
+    'UserIndicators',
     'ContentCount',
-    function($scope, $state, Auth, ActiveCycle, User, Count) {
+    function($scope, $state, Auth, ActiveCycle, User, UserOrganization, UserIndicators, Count) {
 
       $scope.user = Auth;
 
+      if(UserOrganization && !_.isEmpty(UserOrganization)) {
+        $scope.userOrganization = UserOrganization;
+      }
+
+      $scope.userIndicators = UserIndicators;
+
       $scope.activeCycle = ActiveCycle;
+
+      if(ActiveCycle.endDate) {
+        var m = moment(ActiveCycle.endDate).utc();
+        if(m < moment().utc()) {
+          $scope.endCycleText = 'O monitoramento deste ciclo foi concluído para análise final'
+        } else {
+          $scope.endCycleText = 'O monitoramento deste ciclo será concluído para análise final';
+        }
+        $scope.endCycleFromNow = m.fromNow();
+        $scope.endCycleDate = m.format('DD/MM/YYYY');
+      }
 
       $scope.$watch(function() {
         return User.isAuthenticated();
@@ -136,6 +170,15 @@ module.exports = function(app) {
     'Ciclos',
     function($scope, Ciclos) {
       $scope.ciclos = Ciclos;
+      _.each($scope.ciclos, function(ciclo) {
+        if(ciclo.endDate) {
+          var m = moment(ciclo.endDate).utc();
+          ciclo.formattedDate = {
+            fromNow: m.fromNow(),
+            date: m.format('DD/MM/YYYY')
+          };
+        }
+      });
     }
   ]);
 

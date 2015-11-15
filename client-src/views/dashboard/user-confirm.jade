@@ -1,0 +1,13 @@
+section#confirmation.mastform
+  h1 Confirmação de email
+  .main
+    p Para confirmar sua conta defina uma senha abaixo.
+  form(ng-submit="confirm(user)")
+    p
+      label(for="pwd_input") Digite uma senha
+      input#pwd_input(type="password" ng-model="user.pwd")
+    p
+      label(for="pwd_repeat_input") Confirme a senha
+      input#pwd_repeat_input(type="password" ng-model="user.pwd_repeat")
+    p
+      input(type="submit" value="Entrar")

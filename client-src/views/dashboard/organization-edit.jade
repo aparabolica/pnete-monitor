@@ -3,16 +3,14 @@ form(ng-submit="submit(organization)")
     label(for="name_input") Nome
     input#name_input(type="text" ng-model="organization.name")
   p
+    label(for="shortname_input") Nome curto
+    input#shortname_input(type="text" ng-model="organization.shortName")
+  p
     label(for="website_input") Website
     input#website_input(type="text" ng-model="organization.website")
   p
     label(for="description_input") Descrição
     textarea#description_input(ng-model="organization.description")
-  p
-    label(for="status_input") Status
-    select#status_input(ng-model="organization.status")
-      option(value="confirmed") Confirmado
-      option(value="confirmed") Não confirmado
   p
     label(for="active_input") Atividade
     span.checkbox-list.row

@@ -1,3 +1,41 @@
+.mastform {
+  h1,
+  h2 {
+    text-align: left;
+    color: #999;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+  }
+  .main {
+    margin-bottom: 40px;
+  }
+  width: 40%;
+  max-width: 500px;
+  min-width: 300px;
+  margin: 7% auto 0;
+  border: 1px solid #ddd;
+  .box-shadow(0 0 10px rgba(0,0,0,0.1));
+  .border-radius(4px);
+  padding: 40px 7% 20px;
+  p {
+    margin: 0 0 20px;
+    label {
+      font-size: 16px;
+    }
+  }
+  input[type=text],
+  input[type=email],
+  input[type=password],
+  input[type=submit],
+  button {
+    font-size: 16px;
+    width: 100%;
+    margin: 0;
+  }
+}
+
 #dashboard {
   font-size: 16px;
   h1 {
@@ -70,11 +108,21 @@
     border-top: 1px solid #ddd;
     padding-top: 5px;
     .widget {
-      margin: 0 0 40px;
+      margin: -6px 0 40px;
       &.welcome-widget {
+        padding: 20px;
+        border: 1px solid #ddd;
+        .box-shadow(0 0 10px rgba(0,0,0,0.1));
+        .border-radius(4px);
         h2 {
           font-size: 28px;
           font-weight: 600;
+          border: 0;
+        }
+        p {
+          max-width: 500px;
+          font-size: 18px;
+          margin: 0 0 10px;
         }
       }
     }

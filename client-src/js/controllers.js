@@ -80,10 +80,12 @@ module.exports = function(app) {
   app.controller('EixoCtrl', [
     '$scope',
     'Eixo',
+    'Actions',
     'Indicadores',
-    function($scope, Eixo, Indicadores) {
+    function($scope, Eixo, Actions, Indicadores) {
 
       $scope.eixo = Eixo;
+      $scope.actions = Actions;
       $scope.indicadores = Indicadores;
 
     }

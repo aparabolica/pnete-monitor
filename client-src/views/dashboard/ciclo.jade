@@ -7,11 +7,14 @@ section.dashboard-inner-content(ui-view)
     thead
       tr
         th Ano
+        th Prazo
         th.action Editar
         th.action Remover
     tbody
       tr(ng-repeat="ciclo in ciclos")
         td {{ciclo.name}}
+        td 
+          span(ng-show="ciclo.endDate") {{ciclo.formattedDate.fromNow}} ({{ciclo.formattedDate.date}})
         td 
           a.icon.icon-pencil(ui-sref="dashboard.cycle.edit({'id': ciclo.id})")
         td 
