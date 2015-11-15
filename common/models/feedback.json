@@ -22,6 +22,9 @@
   },
   "validations": [],
   "relations": {},
+  "mixins": {
+    "TimeStamp" : true
+  },
   "acls": [
     {
       "accessType": "*",

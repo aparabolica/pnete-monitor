@@ -44,6 +44,9 @@
       "foreignKey": "axisId"
     }
   },
+  "mixins": {
+    "TimeStamp" : true
+  },
   "acls": [
     {
       "accessType": "*",

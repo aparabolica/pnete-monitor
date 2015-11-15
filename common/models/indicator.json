@@ -49,6 +49,9 @@
       "foreignKey": "indicatorId"
     }
   },
+  "mixins": {
+    "TimeStamp" : true
+  },
   "acls": [
     {
       "accessType": "*",

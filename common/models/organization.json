@@ -53,6 +53,9 @@
       "through": "CycleEnrollment"
     }
   },
+  "mixins": {
+    "TimeStamp" : true
+  },    
   "acls": [
     {
       "accessType": "*",

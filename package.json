@@ -46,6 +46,7 @@
     "loopback-component-explorer": "^2.1.1",
     "loopback-connector-mongodb": "^1.13.0",
     "loopback-datasource-juggler": "^2.41.0",
+    "loopback-ds-timestamp-mixin": "^3.2.2",
     "moment": "^2.10.3",
     "ng-dialog": "^0.4.0",
     "serve-favicon": "^2.0.1",
