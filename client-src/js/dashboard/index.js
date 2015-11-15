@@ -318,7 +318,7 @@ module.exports = function(app) {
               var where;
               if($stateParams.ciclo) {
                 where = {
-                  id: $stateParams.ciclo
+                  name: $stateParams.ciclo
                 };
               } else {
                 where = {

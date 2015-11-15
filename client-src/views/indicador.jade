@@ -40,46 +40,14 @@ article#indicador
                   li 2013
             h3 Respostas das organizações responsáveis
           ul.reply-list
-            li.reply.clearfix(ng-repeat="response in indicador.responses" ng-class="{'no-response': !response.response}")
+            li.reply.no-response.clearfix(ng-repeat="organization in organizations")
               .five.columns
                 .avatar-container
-                  .avatar(style="background-color:{{pastelColor()}}") 
-                    a(ui-sref="rep({repId: 1})"){{response.slug}}
-                h4 
-                  a(ui-sref="rep({repId: 1})") {{response.responsible}}
-                p.reply {{response.means}}
+                  .avatar(style="background-color:{{pastelColr()}}")
+                    a(ui-sref="organization({organizationId: organization.id})") {{organization.shortName}}
+                h4
+                  a(ui-sref="organization({organizationId: organization.id})") {{organization.name}}
+                p.reply Em desenvolvimento
               .seven.columns
                 .response
-                  p {{response.response}}
-            li.reply.no-response.clearfix
-              .five.columns
-                .avatar-container
-                  .avatar(style="background-color:{{pastelColor()}}") MTE DETRAE
-                h4 Ministério do Trabalho e Emprego (DETRAE)
-                p.reply.not Não respondeu
-              .seven.columns
-                .response
-                  p Solicitação enviada 
-                    span.since {{since}}, 
-                    span.date {{date}}
-            li.reply.clearfix
-              .five.columns
-                .avatar-container
-                  .avatar(style="background-color:{{pastelColor()}}") MTE DETRAE
-                h4 Ministério do Trabalho e Emprego (DETRAE)
-                p.reply Respondeu {{since}} 
-                  br
-                  span.date ({{date_}})
-              .seven.columns
-                .response
-                  p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vestibulum felis purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis vitae ligula quis lobortis. Nunc hendrerit fermentum malesuada. Quisque lobortis fringilla lectus et viverra. Praesent dignissim, sapien et mattis aliquam, odio lorem gravida orci, at pellentesque erat nulla sed lorem. Nunc tempus cursus tellus sit amet cursus. Maecenas interdum eros at diam faucibus egestas. Nam ac finibus mi, id rhoncus felis. Vivamus quis ultrices magna. Vivamus blandit mi vitae neque pulvinar, sed suscipit eros bibendum.
-                    
-            li.reply.no-response.clearfix
-              .five.columns
-                .avatar-container
-                  .avatar(style="background-color:{{pastelColor()}}") MTE DETRAE
-                h4 Ministério do Trabalho e Emprego (DETRAE)
-                p.reply.not Não respondeu
-              .seven.columns
-                .response
-                  p Solicitação não enviada
+                  p Em desenvolvimento

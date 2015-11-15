@@ -107,7 +107,7 @@ app.config([
             var where;
             if($stateParams.ciclo) {
               where = {
-                id: $stateParams.ciclo
+                name: $stateParams.ciclo
               };
             } else {
               where = {
@@ -142,6 +142,13 @@ app.config([
             });
             return deferred.promise;
           }
+        ],
+        Organizations: [
+          '$stateParams',
+          'Indicator',
+          function($stateParams, Indicator) {
+            return Indicator.organizations({ id: $stateParams.indicadorId }).$promise;
+          }
         ]
       }
     })
@@ -175,6 +182,13 @@ app.config([
           'Axis',
           function($stateParams, Axis) {
             return Axis.indicators({id: $stateParams.eixoId}).$promise;
+          }
+        ],
+        Organizations: [
+          '$stateParams',
+          'Axis',
+          function($stateParams, Axis) {
+            return Axis.organizations({id: $stateParams.eixoId}).$promise;
           }
         ]
       }

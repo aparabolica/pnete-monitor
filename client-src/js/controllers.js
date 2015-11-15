@@ -62,12 +62,14 @@ module.exports = function(app) {
     'Eixo',
     'ActiveCycle',
     'Analise',
-    function($scope, Indicador, Eixo, ActiveCycle, Analise) {
+    'Organizations',
+    function($scope, Indicador, Eixo, ActiveCycle, Analise, Organizations) {
 
       $scope.indicador = Indicador;
       $scope.eixo = Eixo;
       $scope.ciclo = ActiveCycle;
       $scope.analise = Analise;
+      $scope.organizations = Organizations;
 
       $scope.getStatus = function(analise) {
         if(analise.status == 'partial')
@@ -96,6 +98,7 @@ module.exports = function(app) {
         return getPastelColor();
       });
 
+
     }
   ]);
 
@@ -104,11 +107,13 @@ module.exports = function(app) {
     'Eixo',
     'Actions',
     'Indicadores',
-    function($scope, Eixo, Actions, Indicadores) {
+    'Organizations',
+    function($scope, Eixo, Actions, Indicadores, Organizations) {
 
       $scope.eixo = Eixo;
       $scope.actions = Actions;
       $scope.indicadores = Indicadores;
+      $scope.organizations = Organizations.organizations;
 
     }
   ]);
