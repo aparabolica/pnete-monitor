@@ -124,7 +124,8 @@ module.exports = function(app) {
       };
 
       var saveCb = function(res) {
-        $scope.user = res;
+        Edit = res;
+        $scope.user = _.extend({}, Edit);
         $scope.$emit('saved', res);
       };
     }
@@ -154,11 +155,12 @@ module.exports = function(app) {
       };
 
       var saveCb = function(res) {
-        $scope.ciclo = res;
+        Edit = res;
+        $scope.ciclo = _.extend({}, res);
         $scope.$emit('saved', res);
       }
     }
-  ])
+  ]);
 
   app.controller('DashboardOrganizationCtrl', [
     '$scope',
@@ -183,7 +185,8 @@ module.exports = function(app) {
       };
 
       var saveCb = function(res) {
-        $scope.organization = res;
+        Edit = res;
+        $scope.organization = _.extend({}, res);
         $scope.$emit('saved', res);
       }
     }
@@ -211,7 +214,8 @@ module.exports = function(app) {
         }
       };
       var saveCb = function(res) {
-        $scope.action = res;
+        Edit = res;
+        $scope.action = _.extend({}, Edit);
         $scope.$emit('saved', res);
       }
     }
@@ -284,7 +288,8 @@ module.exports = function(app) {
         }
       };
       var saveCb = function(res) {
-        $scope.eixo = res;
+        Edit = res;
+        $scope.eixo = _.extend({}, Edit);
         $scope.$emit('saved', res);
       }
     }
@@ -438,7 +443,8 @@ module.exports = function(app) {
       };
 
       var saveCb = function(res) {
-        $scope.indicador = res;
+        Edit = res;
+        $scope.indicador = _.extend({}, Edit);
         $scope.$emit('saved', res);
       }
 
@@ -469,10 +475,11 @@ module.exports = function(app) {
       };
 
       var saveCb = function(res) {
-        $scope.review = res;
+        Edit = res;
+        $scope.review = _.extend({}, Edit);
         $scope.$emit('saved', res);
       }
     }
-  ])
+  ]);
 
 };
