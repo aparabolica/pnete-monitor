@@ -1,5 +1,12 @@
 module.exports = function(Assessment) {
 
+  /*
+   * Disable unwanted endpoints
+   */
+  Assessment.disableRemoteMethod("upsert", true);
+  Assessment.disableRemoteMethod("updateAll", true);
+  Assessment.disableRemoteMethod("createChangeStream", true);
+
   Assessment.validatesInclusionOf('status', {in: ['complete', 'partial', 'incomplete']});
 
   /**

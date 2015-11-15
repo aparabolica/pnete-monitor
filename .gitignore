@@ -22,3 +22,4 @@ datasources.local.json
 .env
 docular_generated
 tmp
+client-src/js/service.js
