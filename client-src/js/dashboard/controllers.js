@@ -1,5 +1,20 @@
 module.exports = function(app) {
 
+  app.controller('ConfirmUserCtrl', [
+    '$scope',
+    '$stateParams',
+    'User',
+    function($scope, $stateParams, User) {
+      $scope.user = {
+        token: $stateParams.token,
+        uid: $stateParams.uid
+      };
+      $scope.confirm = function(user) {
+        
+      };
+    }
+  ]);
+
   app.controller('LoginCtrl', [
     '$scope',
     '$state',
@@ -28,6 +43,11 @@ module.exports = function(app) {
 
       if(ActiveCycle.endDate) {
         var m = moment(ActiveCycle.endDate).utc();
+        if(m < moment().utc()) {
+          $scope.endCycleText = 'O monitoramento deste ciclo foi concluído para análise final'
+        } else {
+          $scope.endCycleText = 'O monitoramento deste ciclo será concluído para análise final';
+        }
         $scope.endCycleFromNow = m.fromNow();
         $scope.endCycleDate = m.format('DD/MM/YYYY');
       }

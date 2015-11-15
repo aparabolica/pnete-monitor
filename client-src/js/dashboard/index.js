@@ -8,6 +8,23 @@ module.exports = function(app) {
     function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
       $stateProvider
+      .state('confirmUser', {
+        url: '/confirmar-email/?token&uid',
+        controller: 'ConfirmUserCtrl',
+        templateUrl: '/views/dashboard/user-confirm.html',
+        resolve: {
+          Validate: [
+            '$stateParams',
+            '$state',
+            function($stateParams, $state) {
+              if(!$stateParams.token || !$stateParams.uid) {
+                $state.go('login');
+              }
+              return true;
+            }
+          ]
+        }
+      })
       .state('login', {
         url: '/login/',
         controller: 'LoginCtrl',

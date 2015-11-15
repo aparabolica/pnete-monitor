@@ -37,7 +37,7 @@ section#dashboard
             .widget.welcome-widget
               h2 Olá {{user.name}}
               p(ng-show="activeCycle") O ciclo ativo no monitoramento atual é {{activeCycle.name}}.
-              p(ng-show="activeCycle.endDate") O monitoramento deste ciclo será concluído para análise final 
+              p(ng-show="activeCycle.endDate") {{endCycleText}} 
                 strong {{endCycleFromNow}} 
                 | ({{endCycleDate}})
               p.warning(ng-show="user.isAdmin && !activeCycle") Nenhum ciclo está ativo! 
@@ -75,9 +75,9 @@ section#dashboard
                       a(ui-sref="dashboard.user") Usuários
                     td {{count.user.count}}
           .six.columns.omega
-            .widget.status-widget
+            .widget.status-widget(ng-show="user.isAdmin")
               h2 Monitoramento {{activeCycle.name}}
               replied-percent(ratio="{'questions':130,'replied':60}")
-            .widget.organizations-widget
+            .widget.organizations-widget(ng-show="user.isAdmin")
               .row
                 h3 Organizações pendentes
