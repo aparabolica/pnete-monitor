@@ -67,6 +67,20 @@ module.exports = function(app) {
               return deferred.promise;
             }
           ],
+          UserOrganization: [
+            '$q',
+            'Auth',
+            'User',
+            function($q, Profile, User) {
+              var deferred = $q.defer();
+              User.organization({id: Profile.id}, function(data) {
+                deferred.resolve(data);
+              }, function() {
+                deferred.resolve({});
+              });
+              return deferred.promise;
+            }
+          ],
           UserIndicators: [
             '$q',
             'Auth',
@@ -135,22 +149,6 @@ module.exports = function(app) {
         url: 'perfil/',
         controller: 'DashboardProfileCtrl',
         templateUrl: '/views/dashboard/profile.html',
-        resolve: {
-          UserOrganization: [
-            '$q',
-            'Auth',
-            'User',
-            function($q, Profile, User) {
-              var deferred = $q.defer();
-              User.organization({id: Profile.id}, function(data) {
-                deferred.resolve(data);
-              }, function() {
-                deferred.resolve({});
-              });
-              return deferred.promise;
-            }
-          ]
-        }
       })
       .state('dashboard.user', {
         url: 'usuarios/',

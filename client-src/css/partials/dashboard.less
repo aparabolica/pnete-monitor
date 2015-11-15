@@ -108,11 +108,21 @@
     border-top: 1px solid #ddd;
     padding-top: 5px;
     .widget {
-      margin: 0 0 40px;
+      margin: -6px 0 40px;
       &.welcome-widget {
+        padding: 20px;
+        border: 1px solid #ddd;
+        .box-shadow(0 0 10px rgba(0,0,0,0.1));
+        .border-radius(4px);
         h2 {
           font-size: 28px;
           font-weight: 600;
+          border: 0;
+        }
+        p {
+          max-width: 500px;
+          font-size: 18px;
+          margin: 0 0 10px;
         }
       }
     }

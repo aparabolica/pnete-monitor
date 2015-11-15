@@ -10,7 +10,7 @@ module.exports = function(app) {
         uid: $stateParams.uid
       };
       $scope.confirm = function(user) {
-        
+
       };
     }
   ]);
@@ -34,10 +34,18 @@ module.exports = function(app) {
     'Auth',
     'ActiveCycle',
     'User',
+    'UserOrganization',
+    'UserIndicators',
     'ContentCount',
-    function($scope, $state, Auth, ActiveCycle, User, Count) {
+    function($scope, $state, Auth, ActiveCycle, User, UserOrganization, UserIndicators, Count) {
 
       $scope.user = Auth;
+
+      if(UserOrganization && !_.isEmpty(UserOrganization)) {
+        $scope.userOrganization = UserOrganization;
+      }
+
+      $scope.userIndicators = UserIndicators;
 
       $scope.activeCycle = ActiveCycle;
 

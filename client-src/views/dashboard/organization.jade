@@ -8,14 +8,12 @@ section.dashboard-inner-content(ui-view)
       tr
         th Nome curto
         th Nome
-        th Status
         th.action Editar
         th.action Remover
     tbody
       tr(ng-repeat="organization in organizations")
         td {{organization.shortName}}
         td {{organization.name}}
-        td {{organization.status}}
         td 
           a.icon.icon-pencil(ui-sref="dashboard.organization.edit({'id': organization.id})")
         td 
