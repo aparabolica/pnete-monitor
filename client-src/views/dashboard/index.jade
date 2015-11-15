@@ -9,7 +9,7 @@ section#dashboard
   .container
     .three.columns
       nav#dashboard-nav
-        ul
+        ul(ng-show="user.isAdmin")
           li
             a(ui-sref="dashboard.cicle" ui-sref-active="active") Ciclos
           li
@@ -32,35 +32,39 @@ section#dashboard
             a(href="javascript:void(0);" ng-click="logout()") Sair
     .nine.columns
       section#dashboard-content(ui-view)
-        .six.columns.alpha
-          h2 Conteúdo
-          table
-            thead
-              tr
-                th Tipo de conteúdo
-                th Quantidade
-            tbody
-              tr 
-                td Ciclos
-                td {{count.cicle.count}}
-              tr
-                td Ações
-                td {{count.action.count}}
-              tr
-                td Eixos
-                td {{count.axis.count}}
-              tr
-                td Indicadores
-                td {{count.indicator.count}}
-              tr
-                td Organizações
-                td {{count.organization.count}}
-              tr 
-                td Usuários
-                td {{count.user.count}}
-        .six.columns.omega
-          h2 Monitoramento
-          .row
-            replied-percent(ratio="{'questions':130,'replied':60}")
-          .row
-            h3 Organizações pendentes
+        .row
+          .six.columns.alpha
+            h2 Olá {{user.name}}
+        div(ng-show="user.isAdmin")
+          .six.columns.alpha
+            h2 Conteúdo
+            table
+              thead
+                tr
+                  th Tipo de conteúdo
+                  th Quantidade
+              tbody
+                tr 
+                  td Ciclos
+                  td {{count.cicle.count}}
+                tr
+                  td Ações
+                  td {{count.action.count}}
+                tr
+                  td Eixos
+                  td {{count.axis.count}}
+                tr
+                  td Indicadores
+                  td {{count.indicator.count}}
+                tr
+                  td Organizações
+                  td {{count.organization.count}}
+                tr 
+                  td Usuários
+                  td {{count.user.count}}
+          .six.columns.omega
+            h2 Monitoramento
+            .row
+              replied-percent(ratio="{'questions':130,'replied':60}")
+            .row
+              h3 Organizações pendentes
