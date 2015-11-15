@@ -79,27 +79,14 @@ module.exports = function(User) {
     var targetUser = ctx.instance;
 
     if (body && body['organizationId']) {
-      var currentUserId = requestUserId;
-      var Role = ctx.req.app.models.Role;
-      var RoleMapping = ctx.req.app.models.RoleMapping;
 
-      // get admin role id
-      Role.findOne({name: 'admin'}, function(err, adminRole){
-        if (err) return next(err);
-
-        // check if user is admin
-        RoleMapping.find({ where: {
-          principalType: 'USER', principalId: currentUserId, roleId: adminRole.id
-        }}, function(err, roles){
-
-          if ((!err) && (roles.length > 0)) next()
-          else {
-            err = new Error('Only admins can change user\'s organization.');
-            err.statusCode = 401;
-            next(err);
-          }
-        });
-      })
+      User.findById(requestUserId, function(err, user){
+        if (user && !user.isAdmin) {
+          err = new Error('Only admins can change admin role.');
+          err.statusCode = 401;
+        }
+        next(err);
+      });
 
     // only admins can make admins
     } else if (body && body['isAdmin']) {

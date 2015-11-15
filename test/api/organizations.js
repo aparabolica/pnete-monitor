@@ -149,7 +149,7 @@ describe('Endpoints for "Users":', function() {
       });
     });
 
-    context('deny another user', function(){
+    context('deny regular user', function(){
       it('should return 401', function(doneIt){
         request(app)
           .put(endpointUrl)
