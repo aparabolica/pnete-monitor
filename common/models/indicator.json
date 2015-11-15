@@ -24,6 +24,9 @@
     },
     "baseline": {
       "type": "string"
+    },
+    "question": {
+      "type": "string"
     }
   },
   "validations": [],
