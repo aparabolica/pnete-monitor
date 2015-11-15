@@ -22,6 +22,7 @@ var user1;
 var user1AccessToken;
 var user2;
 var user2AccessToken;
+var user3;
 
 
 describe('Users endpoints', function() {
@@ -63,7 +64,8 @@ describe('Users endpoints', function() {
   describe('POST /users', function(){
 
     var payload = {
-      email: 'theveryfirstuser@email.com'
+      email: 'theveryfirstuser@email.com',
+      password: 'mypassword'
     }
 
     context('deny anonymous', function(){
@@ -100,18 +102,20 @@ describe('Users endpoints', function() {
           .expect('Content-Type', /json/)
           .end(onResponse);
 
-        /* Verify response */
+        // Verify response
         function onResponse(err, res) {
           if (err) doneIt(err);
 
           var body = res.body;
 
-          /* User basic info */
+          // User basic info
           body.should.have.property('id');
           body.should.have.property('email', payload.email);
           body.should.not.have.property('password');
 
-          org1Member1 = body;
+          // keep user3 info
+          user3 = body;
+          user3.password = payload.password;
 
           doneIt();
         }
@@ -178,6 +182,78 @@ describe('Users endpoints', function() {
           .end(doneIt);
       });
     });
+  });
+
+  describe('enforce email confirmation', function(){
+
+    context('logging before confirmation', function(){
+      it('returns 401', function(doneIt){
+        var payload = {
+          "email": user3.email,
+          "password": user3.password,
+        }
+
+        request(app)
+          .post(restApiRoot + '/users/login')
+          .send(payload)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            res.body.error.should.have.property('message', 'login failed as the email has not been verified');
+            doneIt();
+
+          });
+      });
+    });
+
+    context('missing password while confirming', function(){
+      it('returns 422', function(doneIt){
+        var payload = {
+          "uid": user3.id,
+          "token": user3.verificationToken
+        }
+
+        request(app)
+          .get(restApiRoot + '/users/confirm')
+          .send(payload)
+          .expect(422)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            res.body.error.should.have.property('message', 'A password is needed to enable user account.')
+            doneIt();
+          });
+      });
+    });
+
+    context('new password is set', function(){
+      it('returns 204 and can login properly', function(doneIt){
+
+        user3.password = "anewpassword";
+
+        var payload = {
+          "uid": user3.id,
+          "token": user3.verificationToken,
+          "password": user3.password
+        }
+
+        request(app)
+          .get(restApiRoot + '/users/confirm')
+          .send(payload)
+          .expect(204)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            helper.login({
+              email: user3.email,
+              password: user3.password
+            }, doneIt)
+          });
+      });
+    });
+
+
   });
 
 });

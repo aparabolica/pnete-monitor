@@ -4,7 +4,8 @@
   "strict": true,
   "idInjection": true,
   "options": {
-    "validateUpsert": false
+    "validateUpsert": false,
+    "emailVerificationRequired": true
   },
   "properties": {
     "email": {
