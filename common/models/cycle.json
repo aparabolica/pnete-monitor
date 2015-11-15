@@ -38,6 +38,11 @@
       "model": "Organization",
       "foreignKey": "organizationId",
       "through": "CycleEnrollment"
+    },
+    "feedbacks": {
+      "type": "hasMany",
+      "model": "Feedback",
+      "foreignKey": ""
     }
   },
   "mixins": {

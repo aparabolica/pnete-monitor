@@ -50,7 +50,12 @@
       "type": "hasMany",
       "model": "Assessment",
       "foreignKey": "indicatorId"
-    }
+    },
+    "feedbacks": {
+      "type": "hasMany",
+      "model": "Feedback",
+      "foreignKey": ""
+    }    
   },
   "mixins": {
     "TimeStamp" : true
