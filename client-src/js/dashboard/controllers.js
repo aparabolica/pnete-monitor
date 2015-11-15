@@ -27,8 +27,9 @@ module.exports = function(app) {
       $scope.activeCycle = ActiveCycle;
 
       if(ActiveCycle.endDate) {
-        $scope.endCycleFromNow = moment(ActiveCycle.endDate).fromNow();
-        $scope.endCycleDate = moment(ActiveCycle.endDate).format('DD/MM/YYYY');
+        var m = moment(ActiveCycle.endDate).utc();
+        $scope.endCycleFromNow = m.fromNow();
+        $scope.endCycleDate = m.format('DD/MM/YYYY');
       }
 
       $scope.$watch(function() {
@@ -141,6 +142,15 @@ module.exports = function(app) {
     'Ciclos',
     function($scope, Ciclos) {
       $scope.ciclos = Ciclos;
+      _.each($scope.ciclos, function(ciclo) {
+        if(ciclo.endDate) {
+          var m = moment(ciclo.endDate).utc();
+          ciclo.formattedDate = {
+            fromNow: m.fromNow(),
+            date: m.format('DD/MM/YYYY')
+          };
+        }
+      });
     }
   ]);
 
