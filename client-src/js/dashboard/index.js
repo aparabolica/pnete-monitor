@@ -74,6 +74,24 @@ module.exports = function(app) {
                 return {};
               }
             }
+          ],
+          UserIndicators: [
+            '$q',
+            'Auth',
+            'Organization',
+            function($q, Auth, Organization) {
+              if(Auth.organizationId) {
+                var deferred = $q.defer();
+                Organization.indicators({id: Auth.organizationId}, function(data) {
+                  deferred.resolve(data);
+                }, function() {
+                  deferred.resolve([]);
+                });
+                return deferred.promise;
+              } else {
+                return [];
+              }
+            }
           ]
         }
       })
@@ -94,13 +112,6 @@ module.exports = function(app) {
                 deferred.resolve({});
               });
               return deferred.promise;
-            }
-          ],
-          OrganizationIndicators: [
-            'Auth',
-            'Organization',
-            function(Auth, Organization) {
-              return Organization.indicators({id: Auth.organizationId}).$promise;
             }
           ]
         }

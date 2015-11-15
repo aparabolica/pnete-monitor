@@ -43,11 +43,11 @@ module.exports = function(app) {
     '$scope',
     'Auth',
     'UserOrganization',
-    'OrganizationIndicators',
-    function($scope, Profile, UserOrganization, OrganizationIndicators) {
+    'UserIndicators',
+    function($scope, Profile, UserOrganization, UserIndicators) {
       $scope.user = Profile;
       $scope.organization = UserOrganization;
-      $scope.indicadores = OrganizationIndicators;
+      $scope.indicadores = UserIndicators;
     }
   ]);
 
@@ -177,7 +177,7 @@ module.exports = function(app) {
       $scope.organization = _.extend({}, Edit);
       $scope.submit = function(organization) {
         if(!_.isEmpty(Edit)) {
-          Organization.update({where: {id: organization.id}}, organization, saveCb);
+          Organization['prototype$updateAttributes']({id: organization.id}, organization, saveCb);
         } else {
           Organization.create(organization, saveCb);
         }
@@ -206,7 +206,7 @@ module.exports = function(app) {
       $scope.action = _.extend({}, Edit);
       $scope.submit = function(action) {
         if(!_.isEmpty(Edit)) {
-          Action.update({where: {id: action.id}}, action, saveCb);
+          Action['prototype$updateAttributes']({id: action.id}, action, saveCb);
         } else {
           Action.create(action, saveCb);
         }
@@ -279,7 +279,7 @@ module.exports = function(app) {
 
       $scope.submit = function(eixo) {
         if(!_.isEmpty(Edit)) {
-          Axis.update({where: {id: eixo.id}}, eixo, saveCb);
+          Axis['prototype$updateAttributes']({id: eixo.id}, eixo, saveCb);
         } else {
           Axis.create(eixo, saveCb);
         }
@@ -419,7 +419,7 @@ module.exports = function(app) {
 
       $scope.submit = function(indicador) {
         if(!_.isEmpty(Edit)) {
-          Indicator.update({where: {id: indicador.id}}, indicador, saveCb);
+          Indicator['prototype$updateAttributes']({id: indicador.id}, indicador, saveCb);
         } else {
           Indicator.create(indicador, saveCb);
         }
@@ -447,7 +447,7 @@ module.exports = function(app) {
 
       $scope.submit = function(review) {
         if(!_.isEmpty(Review)) {
-          Assessment.update({where: {indicatorId: review.id}}, review, saveCb);
+          Assessment['prototype$updateAttributes']({id: review.id}, review, saveCb);
         } else {
           Assessment.create(review, saveCb);
         }

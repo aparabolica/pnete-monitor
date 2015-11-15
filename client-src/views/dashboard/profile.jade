@@ -1,7 +1,7 @@
 header.dashboard-inner-header
   h2 Meu perfil
 section.dashboard-inner-content(ui-view)
-  h3 Organização: {{organization.name}}
+  h3 Organização: {{organization.name || 'Não encontrada'}}
   form(ng-submit="submit(user)")
     p
       label(for="name_input") Nome
