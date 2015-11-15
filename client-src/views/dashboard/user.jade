@@ -1,7 +1,7 @@
 header.dashboard-inner-header
   h2
     a(ui-sref="dashboard.user") Usuários
-  a(ui-sref="dashboard.user.edit") + Novo usuário
+  a(ui-sref="dashboard.user.edit({'id': null})") + Novo usuário
 section.dashboard-inner-content(ui-view)
   table
     thead

@@ -1,7 +1,7 @@
 header.dashboard-inner-header
   h2
     a(ui-sref="dashboard.indicador") Indicadores
-  a(ui-sref="dashboard.indicador.edit") + Novo indicador
+  a(ui-sref="dashboard.indicador.edit({id: null})") + Novo indicador
 section.dashboard-inner-content(ui-view)
   table
     thead

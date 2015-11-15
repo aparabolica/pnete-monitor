@@ -1,7 +1,7 @@
 header.dashboard-inner-header
   h2
     a(ui-sref="dashboard.eixo") Eixos
-  a(ui-sref="dashboard.eixo.edit") + Novo eixo
+  a(ui-sref="dashboard.eixo.edit({id: null})") + Novo eixo
 section.dashboard-inner-content(ui-view)
   table
     thead

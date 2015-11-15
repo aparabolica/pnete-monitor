@@ -75,8 +75,6 @@ module.exports = function(app) {
       $scope.user = _.extend({}, Edit);
       $scope.userOrganization = _.extend({}, UserOrganization);
 
-      console.log($scope.userOrganization);
-
       /*
        * User Organization
        */
@@ -120,16 +118,15 @@ module.exports = function(app) {
 
       $scope.submit = function(user) {
         if(!_.isEmpty(Edit)) {
-          User['prototype$updateAttributes']({id: user.id}, user, function(res) {
-            console.log(res);
-            $scope.user = res;
-          });
+          User['prototype$updateAttributes']({id: user.id}, user, saveCb);
         } else {
-          User.create(user, function(res) {
-            console.log(res);
-            $scope.user = res;
-          })
+          User.create(user, saveCb);
         }
+      };
+
+      var saveCb = function(res) {
+        $scope.user = res;
+        $scope.$emit('saved', res);
       };
     }
   ]);
@@ -151,17 +148,16 @@ module.exports = function(app) {
 
       $scope.submit = function(ciclo) {
         if(!_.isEmpty(Edit)) {
-          Cicle['prototype$updateAttributes']({id: ciclo.id}, ciclo, function(res) {
-            console.log(res);
-            $scope.ciclo = res;
-          });
+          Cicle['prototype$updateAttributes']({id: ciclo.id}, ciclo, saveCb);
         } else {
-          Cicle.create(ciclo, function(res) {
-            console.log(res);
-            $scope.ciclo = res;
-          });
+          Cicle.create(ciclo, saveCb);
         }
       };
+
+      var saveCb = function(res) {
+        $scope.ciclo = res;
+        $scope.$emit('saved', res);
+      }
     }
   ])
 
@@ -181,17 +177,16 @@ module.exports = function(app) {
       $scope.organization = _.extend({}, Edit);
       $scope.submit = function(organization) {
         if(!_.isEmpty(Edit)) {
-          Organization.update({where: {id: organization.id}}, organization, function(res) {
-            console.log(res);
-            $scope.organization = res;
-          });
+          Organization.update({where: {id: organization.id}}, organization, saveCb);
         } else {
-          Organization.create(organization, function(res) {
-            console.log(res);
-            $scope.organization = res;
-          })
+          Organization.create(organization, saveCb);
         }
       };
+
+      var saveCb = function(res) {
+        $scope.organization = res;
+        $scope.$emit('saved', res);
+      }
     }
   ]);
 
@@ -210,19 +205,16 @@ module.exports = function(app) {
     function($scope, Action, Edit) {
       $scope.action = _.extend({}, Edit);
       $scope.submit = function(action) {
-        console.log(Edit);
         if(!_.isEmpty(Edit)) {
-          Action.update({where: {id: action.id}}, action, function(res) {
-            console.log(res);
-            $scope.action = res;
-          });
+          Action.update({where: {id: action.id}}, action, saveCb);
         } else {
-          Action.create(action, function(res) {
-            console.log(res);
-            $scope.action = res;
-          })
+          Action.create(action, saveCb);
         }
       };
+      var saveCb = function(res) {
+        $scope.action = res;
+        $scope.$emit('saved', res);
+      }
     }
   ]);
 
@@ -236,24 +228,66 @@ module.exports = function(app) {
 
   app.controller('DashboardEditEixoCtrl', [
     '$scope',
+    'Actions',
     'Axis',
     'Edit',
-    function($scope, Axis, Edit) {
+    'AxisActions',
+    function($scope, Actions, Axis, Edit, AxisActions) {
+
+      $scope.actions = Actions;
       $scope.eixo = _.extend({}, Edit);
-      $scope.submit = function(eixo) {
-        console.log(Edit);
-        if(!_.isEmpty(Edit)) {
-          Axis.update({where: {id: eixo.id}}, eixo, function(res) {
-            console.log(res);
-            $scope.eixo = res;
+
+      var updateActions = function(actions, axis) {
+        var prevIds = _.map(AxisActions, function(action) { return action.id; });
+        var newIds = _.map(actions, function(action) { return action.id; });
+        var rm = _.difference(prevIds, newIds);
+        var add = _.difference(newIds, prevIds);
+        if(rm.length) {
+          _.each(rm, function(actionId) {
+            Axis.actions.unlink({id: axis.id, fk: actionId}, function() {
+              AxisActions = _.filter(AxisActions, function(action) {
+                return action.id !== actionId; });
+            });
           });
-        } else {
-          Axis.create(eixo, function(res) {
-            console.log(res);
-            $scope.eixo = res;
-          })
+        }
+        if(add.length) {
+          _.each(add, function(actionId) {
+            Axis.actions.link({id: axis.id, fk: actionId}, null, function(data) {
+              AxisActions.push(_.find($scope.actions, function(action) { return action.id == data.actionId; }));
+            });
+          });
         }
       };
+
+      /*
+       * Indicator Actions Model
+       */
+      // Init checkbox model
+      $scope.selectedActions = {};
+      // Populate checkbox model with indicator data
+      _.each(AxisActions, function(action) {
+        $scope.selectedActions[action.id] = true;
+      });
+
+
+      $scope.$on('saved', function(ev, res) {
+        var actions = _.filter($scope.actions, function(action) {
+          return $scope.selectedActions[action.id];
+        });
+        updateActions(actions, res);
+      });
+
+      $scope.submit = function(eixo) {
+        if(!_.isEmpty(Edit)) {
+          Axis.update({where: {id: eixo.id}}, eixo, saveCb);
+        } else {
+          Axis.create(eixo, saveCb);
+        }
+      };
+      var saveCb = function(res) {
+        $scope.eixo = res;
+        $scope.$emit('saved', res);
+      }
     }
   ]);
 

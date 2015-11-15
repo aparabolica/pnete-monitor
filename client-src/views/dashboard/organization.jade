@@ -1,7 +1,7 @@
 header.dashboard-inner-header
   h2
     a(ui-sref="dashboard.organization") Organizações
-  a(ui-sref="dashboard.organization.edit") + Nova organização
+  a(ui-sref="dashboard.organization.edit({id: null})") + Nova organização
 section.dashboard-inner-content(ui-view)
   table
     thead

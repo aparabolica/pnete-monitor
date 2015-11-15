@@ -395,6 +395,12 @@ module.exports = function(app) {
         controller: 'DashboardEditEixoCtrl',
         templateUrl: '/views/dashboard/eixo-edit.html',
         resolve: {
+          'Actions': [
+            'Action',
+            function(Action) {
+              return Action.find().$promise;
+            }
+          ],
           'Edit': [
             '$stateParams',
             'Axis',
@@ -409,6 +415,17 @@ module.exports = function(app) {
                 }).$promise;
               } else {
                 return {};
+              }
+            }
+          ],
+          'AxisActions': [
+            '$stateParams',
+            'Axis',
+            function($stateParams, Axis) {
+              if($stateParams.id) {
+                return Axis.actions({id: $stateParams.id}).$promise;
+              } else {
+                return [];
               }
             }
           ]

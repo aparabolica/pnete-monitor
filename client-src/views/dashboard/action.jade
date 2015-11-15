@@ -1,7 +1,7 @@
 header.dashboard-inner-header
   h2
     a(ui-sref="dashboard.action") Ações
-  a(ui-sref="dashboard.action.edit") + Nova ação
+  a(ui-sref="dashboard.action.edit({id: null})") + Nova ação
 section.dashboard-inner-content(ui-view)
   table
     thead
