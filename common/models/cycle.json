@@ -17,6 +17,9 @@
     "description": {
       "type": "string"
     },
+    "endDate": {
+      "type": "date"
+    },
     "active": {
       "type": "boolean",
       "required": true,
