@@ -2,6 +2,7 @@
   "name": "Assessment",
   "base": "PersistedModel",
   "idInjection": true,
+  "strict": true,  
   "options": {
     "validateUpsert": true
   },

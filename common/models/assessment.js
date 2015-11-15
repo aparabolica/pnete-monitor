@@ -7,6 +7,9 @@ module.exports = function(Assessment) {
   Assessment.disableRemoteMethod("updateAll", true);
   Assessment.disableRemoteMethod("createChangeStream", true);
 
+  /*
+   * Validation
+   */
   Assessment.validatesInclusionOf('status', {in: ['complete', 'partial', 'incomplete']});
 
   /**

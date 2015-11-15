@@ -2,6 +2,7 @@
   "name": "Axis",
   "base": "PersistedModel",
   "idInjection": false,
+  "strict": true,  
   "options": {
     "validateUpsert": true
   },
