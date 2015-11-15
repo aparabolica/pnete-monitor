@@ -3,6 +3,9 @@ form(ng-submit="submit(ciclo)")
     label(for="year_input") Ano
     input#year_input(type="text" ng-model="ciclo.name")
   p
+    label(for="end_input") Data do fim do monitoramento deste ciclo
+    input#end_input(type="text" date-input="ciclo.endDate" input-format="'DD/MM/YYYY'" output-format="'YYYY-MM-DD'" placeholder="DD/MM/AAAA")
+  p
     label(for="active_input") Ativo
     span.checkbox-list.row
       span.checkbox-item

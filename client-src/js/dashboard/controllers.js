@@ -26,6 +26,9 @@ module.exports = function(app) {
 
       $scope.activeCycle = ActiveCycle;
 
+      $scope.endCycleFromNow = moment(ActiveCycle.endDate).fromNow();
+      $scope.endCycleDate = moment(ActiveCycle.endDate).format('DD/MM/YYYY');
+
       $scope.$watch(function() {
         return User.isAuthenticated();
       }, function(auth) {

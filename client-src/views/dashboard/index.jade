@@ -37,6 +37,9 @@ section#dashboard
             .widget.welcome-widget
               h2 Olá {{user.name}}
               p(ng-show="activeCycle") O ciclo ativo no monitoramento atual é {{activeCycle.name}}.
+              p(ng-show="activeCycle.endDate") O monitoramento deste ciclo será concluído para análise final 
+                strong {{endCycleFromNow}} 
+                | ({{endCycleDate}})
               p.warning(ng-show="user.isAdmin && !activeCycle") Nenhum ciclo está ativo! 
                 a(ui-sref="dashboard.cycle") Clique aqui para editar os ciclos
             .widget.content-widget(ng-show="user.isAdmin")
