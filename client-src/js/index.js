@@ -193,10 +193,10 @@ app.config([
         ]
       }
     })
-    .state('rep', {
-      url: '/rep/:repId/',
-      controller: 'RepCtrl',
-      templateUrl: '/views/rep.html'
+    .state('organization', {
+      url: '/organization/:organizationId/',
+      controller: 'OrganizationCtrl',
+      templateUrl: '/views/organization.html'
     });
 
     /*

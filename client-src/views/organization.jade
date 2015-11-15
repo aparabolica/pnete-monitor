@@ -1,0 +1,13 @@
+article#organization
+  header.organization-header
+    .container.row
+      .twelve.columns
+        h1 {{organization.name}}
+    .container
+      .six.columns
+        #organization-meta
+          replied-percent(ratio="organization.ratio")
+          h2 Perguntas
+          p {{organization.ratio.questions}}
+          h2 Perguntas respondidas
+          p {{organization.ratio.replied}}

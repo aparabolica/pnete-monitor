@@ -118,11 +118,11 @@ module.exports = function(app) {
     }
   ]);
 
-  app.controller('RepCtrl', [
+  app.controller('OrganizationCtrl', [
     '$scope',
     function($scope) {
 
-      $scope.rep = {
+      $scope.organization = {
         name: 'Ministério do Trabalho e Emprego (Detrae/SIT)',
         slug: 'MTE DETRAE',
         ratio: {
