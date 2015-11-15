@@ -52,7 +52,7 @@
     "dataSource": "db",
     "public": true
   },
-  "Cicle": {
+  "Cycle": {
     "dataSource": "db",
     "public": true
   },
@@ -73,7 +73,11 @@
     "public": true
   },
   "notificationTemplate": {
-    "dataSource": null,
+    "dataSource": "db",
+    "public": true
+  },
+  "CycleEnrollment": {
+    "dataSource": "db",
     "public": true
   }
 }

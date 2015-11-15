@@ -20,10 +20,10 @@
   },
   "validations": [],
   "relations": {
-    "cicle": {
+    "cycle": {
       "type": "belongsTo",
-      "model": "Cicle",
-      "foreignKey": "cicleId"
+      "model": "Cycle",
+      "foreignKey": "cycleId"
     },
     "indicator": {
       "type": "belongsTo",

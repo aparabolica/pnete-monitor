@@ -1,34 +1,37 @@
 {
-  "name": "Cicle",
+  "name": "CycleEnrollment",
+  "plural": "CycleEnrollments",
   "base": "PersistedModel",
-  "strict": true,
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "http": {
-    "path": "cicles"
+    "path": "cycle/enrollments"
   },
   "properties": {
-    "name": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string"
-    },
     "active": {
       "type": "boolean",
       "required": true,
       "default": false
+    },
+    "confirmed": {
+      "type": "boolean",
+      "required": true,
+      "default": true
     }
   },
   "validations": [],
   "relations": {
-    "assessments": {
-      "type": "hasMany",
-      "model": "Assessment",
-      "foreignKey": "cicleId"
+    "cycle": {
+      "type": "belongsTo",
+      "model": "Cycle",
+      "foreignKey": "cycleId"
+    },
+    "organization": {
+      "type": "belongsTo",
+      "model": "Organization",
+      "foreignKey": "organizationId"
     }
   },
   "acls": [

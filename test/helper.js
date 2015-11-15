@@ -40,8 +40,8 @@ rosie.define('Indicator')
 	.sequence('description', function(i) { return 'description for ' + i })
 	.attr('type', 'integer')
 
-rosie.define('Cicle')
-	.sequence('name', function(i) { return 'Cicle ' + i })
+rosie.define('Cycle')
+	.sequence('name', function(i) { return 'Cycle ' + i })
 	.attr('active', true)
 
 exports.createUser = function(callback){
@@ -57,9 +57,9 @@ exports.createIndicator = function(doneCreateIndicator){
 	app.models.Indicator.create(indicator, doneCreateIndicator);
 }
 
-exports.createCicles = function(n, doneCreateCicles){
+exports.createCycles = function(n, doneCreateCycles){
 	async.timesSeries(n, function(i, doneEach){
-		var cicle = rosie.build('Cicle');
-		app.models.Cicle.create(cicle, doneEach);
-	}, doneCreateCicles);
+		var cycle = rosie.build('Cycle');
+		app.models.Cycle.create(cycle, doneEach);
+	}, doneCreateCycles);
 }

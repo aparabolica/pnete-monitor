@@ -1,21 +1,18 @@
 {
-  "name": "Organization",
+  "name": "Cycle",
   "base": "PersistedModel",
-  "strict": true,
   "idInjection": true,
+  "strict": true,
   "options": {
     "validateUpsert": true
   },
   "http": {
-    "path": "organizations"
+    "path": "cycles"
   },
   "properties": {
     "name": {
       "type": "string",
       "required": true
-    },
-    "shortName": {
-      "type": "string"
     },
     "description": {
       "type": "string"
@@ -23,33 +20,20 @@
     "active": {
       "type": "boolean",
       "required": true,
-      "default": true
-    },
-    "website": {
-      "type": "string"
+      "default": false
     }
   },
   "validations": [],
   "relations": {
-    "members": {
+    "assessments": {
       "type": "hasMany",
-      "model": "user",
-      "foreignKey": "organizationId"
+      "model": "Assessment",
+      "foreignKey": "cycleId"
     },
-    "indicators": {
-      "type": "hasAndBelongsToMany",
-      "model": "Indicator",
-      "foreignKey": ""
-    },
-    "notifications": {
-      "type": "hasAndBelongsToMany",
-      "model": "Notification",
-      "foreignKey": ""
-    },
-    "cycles": {
+    "enrollees": {
       "type": "hasMany",
-      "model": "Cycle",
-      "foreignKey": "cycleId",
+      "model": "Organization",
+      "foreignKey": "organizationId",
       "through": "CycleEnrollment"
     }
   },

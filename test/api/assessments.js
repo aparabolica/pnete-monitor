@@ -21,7 +21,7 @@ var admin1AccessToken;
 var user1;
 var user1AccessToken;
 var indicator1;
-var cicles = [];
+var cycles = [];
 var organization1;
 
 describe('Endpoints for "Users":', function() {
@@ -53,9 +53,9 @@ describe('Endpoints for "Users":', function() {
           doneEach(err);
         });
       }, function (doneEach){
-        helper.createCicles(2, function(err,cicles){
+        helper.createCycles(2, function(err,cycles){
           if (err) return doneBefore(err);
-          cicles = cicles;
+          cycles = cycles;
           doneEach(err);
         });
       }
@@ -98,13 +98,13 @@ describe('Endpoints for "Users":', function() {
       });
     });
 
-    context('adds to current cicle', function(){
+    context('adds to current cycle', function(){
       it('should return 200', function(doneIt){
 
-        // get active cicle
-        app.models.Cicle.find({where: {active: true}}, function(err, cicles){
-          cicles.should.have.lengthOf(1);
-          var activeCicle = cicles[0];
+        // get active cycle
+        app.models.Cycle.find({where: {active: true}}, function(err, cycles){
+          cycles.should.have.lengthOf(1);
+          var activeCycle = cycles[0];
           request(app)
             .post(restApiRoot + '/assesments')
             .set('Authorization', admin1AccessToken)
@@ -116,7 +116,7 @@ describe('Endpoints for "Users":', function() {
 
               var body = res.body;
 
-              body.should.have.property('cicleId', activeCicle.id);
+              body.should.have.property('cycleId', activeCycle.id);
               body.should.have.property('status', payload.status);
               body.should.have.property('indicatorId', payload.indicatorId);
 

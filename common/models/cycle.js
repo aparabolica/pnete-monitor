@@ -1,18 +1,18 @@
 var async = require('async');
 
-module.exports = function(Cicle) {
+module.exports = function(Cycle) {
 
   /*
    * Disable unwanted endpoints
    */
-  Cicle.disableRemoteMethod("upsert", true);
-  Cicle.disableRemoteMethod("updateAll", true);
-  Cicle.disableRemoteMethod("createChangeStream", true);
+  Cycle.disableRemoteMethod("upsert", true);
+  Cycle.disableRemoteMethod("updateAll", true);
+  Cycle.disableRemoteMethod("createChangeStream", true);
 
 
-  Cicle.status = function(doneStatus){
-    var Feedback = Cicle.app.models.Feedback;
-    var Indicator = Cicle.app.models.Indicator;
+  Cycle.status = function(doneStatus){
+    var Feedback = Cycle.app.models.Feedback;
+    var Indicator = Cycle.app.models.Indicator;
 
     function getIndicatorsCount(doneGetIndicatorsCount){
       Indicator.find({}, function(err, indicators){
@@ -37,19 +37,19 @@ module.exports = function(Cicle) {
     });
   }
 
-  Cicle.remoteMethod('status',{
+  Cycle.remoteMethod('status',{
     http: {verb: 'get'},
     returns: {name: 'status', type: 'Object'}
   });
 
 
   /**
-   * Only one cicle can be active
+   * Only one cycle can be active
    **/
-  Cicle.observe('after save', function(ctx, next) {
+  Cycle.observe('after save', function(ctx, next) {
     var instance = ctx.instance;
     if (instance && instance.active) {
-      Cicle.updateAll({
+      Cycle.updateAll({
         active: true,
         id: { neq: instance.id }
       }, {active: false}, next);

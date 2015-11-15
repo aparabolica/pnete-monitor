@@ -13,13 +13,13 @@ module.exports = function(Assessment) {
   Assessment.validatesInclusionOf('status', {in: ['complete', 'partial', 'incomplete']});
 
   /**
-   * Include assesment on active cicle
+   * Include assesment on active cycle
    **/
   Assessment.observe('before save', function(ctx, next) {
     if (ctx.instance && ctx.isNewInstance) {
-      Assessment.app.models.Cicle.findOne({where: {active: true}}, function(err, cicle){
+      Assessment.app.models.Cycle.findOne({where: {active: true}}, function(err, cycle){
         if (err) return next(err);
-        ctx.instance.cicleId = cicle.id;
+        ctx.instance.cycleId = cycle.id;
         next();
       });
     } else next();
