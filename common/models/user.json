@@ -71,6 +71,13 @@
       "principalType": "ROLE",
       "principalId": "admin",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "property": "__get__organization",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW"
     }
   ],
   "methods": {}

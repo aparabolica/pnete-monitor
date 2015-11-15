@@ -256,4 +256,17 @@ describe('Users endpoints', function() {
 
   });
 
+  describe('GET /user/:id/organization', function(){
+    context('allow owner', function(){
+      it('should return 200', function(doneIt){
+        request(app)
+          .get(restApiRoot + '/users/'+user2.id+'/organization')
+          .set('Authorization', user2AccessToken)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      })
+    })
+  })
+
 });
