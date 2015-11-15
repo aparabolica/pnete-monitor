@@ -1,5 +1,6 @@
 .dashboard-review
-  h3 Avaliando "Quantidade de fiscais do trabalho para cada dez mil pessoas ocupadas"
+  h3 Avaliando "{{indicador.name}}" em 
+    strong {{cycle.name}}
 form(ng-submit="submit(review)")
   p
     label(for="status_input") Avaliação geral

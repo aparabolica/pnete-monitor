@@ -50,31 +50,6 @@ module.exports = function(app) {
               return deferred.promise;
             }
           ],
-          // Admin data
-          ContentCount: [
-            '$q',
-            'Auth',
-            'Cicle',
-            'Axis',
-            'Action',
-            'Indicator',
-            'Organization',
-            'User',
-            function($q, Auth, Cicle, Axis, Action, Indicator, Organization, User) {
-              if(Auth.isAdmin) {
-                var promises = {};
-                promises.cicle = Cicle.count().$promise;
-                promises.axis = Axis.count().$promise;
-                promises.action = Action.count().$promise;
-                promises.indicator = Indicator.count().$promise;
-                promises.organization = Organization.count().$promise;
-                promises.user = User.count().$promise;
-                return $q.all(promises);
-              } else {
-                return {};
-              }
-            }
-          ],
           UserIndicators: [
             '$q',
             'Auth',
@@ -90,6 +65,50 @@ module.exports = function(app) {
                 return deferred.promise;
               } else {
                 return [];
+              }
+            }
+          ],
+          ActiveCycle: [
+            '$q',
+            'Cycle',
+            function($q, Cycle) {
+              var deferred = $q.defer();
+              Cycle.findOne({
+                filter: {
+                  where: {
+                    active: true
+                  }
+                }
+              }, function(data) {
+                deferred.resolve(data);
+              }, function() {
+                deferred.resolve(false);
+              });
+              return deferred.promise;
+            }
+          ],
+          // Admin data
+          ContentCount: [
+            '$q',
+            'Auth',
+            'Cycle',
+            'Axis',
+            'Action',
+            'Indicator',
+            'Organization',
+            'User',
+            function($q, Auth, Cycle, Axis, Action, Indicator, Organization, User) {
+              if(Auth.isAdmin) {
+                var promises = {};
+                promises.cycle = Cycle.count().$promise;
+                promises.axis = Axis.count().$promise;
+                promises.action = Action.count().$promise;
+                promises.indicator = Indicator.count().$promise;
+                promises.organization = Organization.count().$promise;
+                promises.user = User.count().$promise;
+                return $q.all(promises);
+              } else {
+                return {};
               }
             }
           ]
@@ -164,30 +183,30 @@ module.exports = function(app) {
           ]
         }
       })
-      .state('dashboard.cicle', {
+      .state('dashboard.cycle', {
         url: 'ciclos/',
-        controller: 'DashboardCicleCtrl',
+        controller: 'DashboardCycleCtrl',
         templateUrl: '/views/dashboard/ciclo.html',
         resolve: {
           Ciclos: [
-            'Cicle',
-            function(Cicle) {
-              return Cicle.find().$promise;
+            'Cycle',
+            function(Cycle) {
+              return Cycle.find().$promise;
             }
           ]
         }
       })
-      .state('dashboard.cicle.edit', {
+      .state('dashboard.cycle.edit', {
         url: 'editar/?id',
-        controller: 'DashboardEditCicleCtrl',
+        controller: 'DashboardEditCycleCtrl',
         templateUrl: '/views/dashboard/ciclo-edit.html',
         resolve: {
           Edit: [
             '$stateParams',
-            'Cicle',
-            function($stateParams, Cicle) {
+            'Cycle',
+            function($stateParams, Cycle) {
               if($stateParams.id) {
-                return Cicle.findOne({
+                return Cycle.findOne({
                   filter: {
                     where: {
                       id: $stateParams.id
@@ -277,10 +296,10 @@ module.exports = function(app) {
         controller: 'DashboardAssessIndicadorCtrl',
         templateUrl: '/views/dashboard/indicador-review.html',
         resolve: {
-          'ActiveCicle': [
+          'ReviewCycle': [
             '$stateParams',
-            'Cicle',
-            function($stateParams, Cicle) {
+            'Cycle',
+            function($stateParams, Cycle) {
               var where;
               if($stateParams.ciclo) {
                 where = {
@@ -291,7 +310,7 @@ module.exports = function(app) {
                   active: true
                 };
               }
-              return Cicle.findOne({
+              return Cycle.findOne({
                 filter: {
                   where: where
                 }
@@ -301,14 +320,14 @@ module.exports = function(app) {
           'Review': [
             '$stateParams',
             '$q',
-            'ActiveCicle',
+            'ReviewCycle',
             'Assessment',
-            function($stateParams, $q, ActiveCicle, Assessment) {
+            function($stateParams, $q, ReviewCycle, Assessment) {
               var deferred = $q.defer();
               Assessment.findOne({
                 filter: {
                   where: {
-                    cicleId: ActiveCicle.id,
+                    cycleId: ReviewCycle.id,
                     indicatorId: $stateParams.id
                   }
                 }

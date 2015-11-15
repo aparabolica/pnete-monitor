@@ -11,7 +11,7 @@ section#dashboard
       nav#dashboard-nav
         ul(ng-show="user.isAdmin")
           li
-            a(ui-sref="dashboard.cicle" ui-sref-active="active") Ciclos
+            a(ui-sref="dashboard.cycle" ui-sref-active="active") Ciclos
           li
             a(ui-sref="dashboard.action" ui-sref-active="active") Ações
           li
@@ -34,37 +34,47 @@ section#dashboard
       section#dashboard-content(ui-view)
         .row
           .six.columns.alpha
-            h2 Olá {{user.name}}
-        div(ng-show="user.isAdmin")
-          .six.columns.alpha
-            h2 Conteúdo
-            table
-              thead
-                tr
-                  th Tipo de conteúdo
-                  th Quantidade
-              tbody
-                tr 
-                  td Ciclos
-                  td {{count.cicle.count}}
-                tr
-                  td Ações
-                  td {{count.action.count}}
-                tr
-                  td Eixos
-                  td {{count.axis.count}}
-                tr
-                  td Indicadores
-                  td {{count.indicator.count}}
-                tr
-                  td Organizações
-                  td {{count.organization.count}}
-                tr 
-                  td Usuários
-                  td {{count.user.count}}
+            .widget.welcome-widget
+              h2 Olá {{user.name}}
+              p(ng-show="activeCycle") O ciclo ativo no monitoramento atual é {{activeCycle.name}}.
+              p.warning(ng-show="user.isAdmin && !activeCycle") Nenhum ciclo está ativo! 
+                a(ui-sref="dashboard.cycle") Clique aqui para editar os ciclos
+            .widget.content-widget(ng-show="user.isAdmin")
+              h2 Conteúdo
+              table
+                thead
+                  tr
+                    th Tipo de conteúdo
+                    th Quantidade
+                tbody
+                  tr 
+                    td 
+                      a(ui-sref="dashboard.cycle") Ciclos
+                    td {{count.cycle.count}}
+                  tr
+                    td
+                      a(ui-sref="dashboard.action") Ações
+                    td {{count.action.count}}
+                  tr
+                    td
+                      a(ui-sref="dashboard.eixo") Eixos
+                    td {{count.axis.count}}
+                  tr
+                    td
+                      a(ui-sref="dashboard.indicador") Indicadores
+                    td {{count.indicator.count}}
+                  tr
+                    td
+                      a(ui-sref="dashboard.organization") Organizações
+                    td {{count.organization.count}}
+                  tr 
+                    td
+                      a(ui-sref="dashboard.user") Usuários
+                    td {{count.user.count}}
           .six.columns.omega
-            h2 Monitoramento
-            .row
+            .widget.status-widget
+              h2 Monitoramento {{activeCycle.name}}
               replied-percent(ratio="{'questions':130,'replied':60}")
-            .row
-              h3 Organizações pendentes
+            .widget.organizations-widget
+              .row
+                h3 Organizações pendentes

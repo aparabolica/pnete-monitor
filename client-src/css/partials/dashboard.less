@@ -29,6 +29,13 @@
   h3 {
     font-size: 18px;
   }
+  p {
+    margin: 0 0 20px;
+  }
+  .warning {
+    color: #f00;
+    font-weight: 600;
+  }
   #dashboard-nav {
     ul {
       border: 1px solid #ddd;
@@ -62,6 +69,15 @@
   #dashboard-content {
     border-top: 1px solid #ddd;
     padding-top: 5px;
+    .widget {
+      margin: 0 0 40px;
+      &.welcome-widget {
+        h2 {
+          font-size: 28px;
+          font-weight: 600;
+        }
+      }
+    }
     table {
       width: 100%;
       tr {
@@ -85,6 +101,7 @@
             &.icon-cross {
               color: #f00;
             }
+            &.icon-check,
             &.icon-add-to-list {
               color: #0f0;
             }
@@ -150,9 +167,6 @@
           margin-top: 20px;
           border-bottom: 1px solid #ddd;
           font-size: 22px;
-        }
-        p {
-          margin: 0 0 20px;
         }
         input[type=text],
         input[type=email],

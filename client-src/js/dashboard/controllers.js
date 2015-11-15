@@ -5,15 +5,11 @@ module.exports = function(app) {
     '$state',
     'User',
     function($scope, $state, User) {
-
       $scope.login = function() {
-
         User.login($scope.credentials, function() {
           $state.go('dashboard');
         });
-
       }
-
     }
   ]);
 
@@ -21,11 +17,14 @@ module.exports = function(app) {
     '$scope',
     '$state',
     'Auth',
+    'ActiveCycle',
     'User',
     'ContentCount',
-    function($scope, $state, Auth, User, Count) {
+    function($scope, $state, Auth, ActiveCycle, User, Count) {
 
       $scope.user = Auth;
+
+      $scope.activeCycle = ActiveCycle;
 
       $scope.$watch(function() {
         return User.isAuthenticated();
@@ -88,7 +87,7 @@ module.exports = function(app) {
                 name: { regexp: '' + search.replace(' ', '|') + '' },
                 id: { nin: [$scope.userOrganization.id] }
               },
-            limit: 5
+              limit: 5
             }
           }, function(organizations) {
             $scope.organizations = organizations;
@@ -131,7 +130,7 @@ module.exports = function(app) {
     }
   ]);
 
-  app.controller('DashboardCicleCtrl', [
+  app.controller('DashboardCycleCtrl', [
     '$scope',
     'Ciclos',
     function($scope, Ciclos) {
@@ -139,18 +138,18 @@ module.exports = function(app) {
     }
   ]);
 
-  app.controller('DashboardEditCicleCtrl', [
+  app.controller('DashboardEditCycleCtrl', [
     '$scope',
-    'Cicle',
+    'Cycle',
     'Edit',
-    function($scope, Cicle, Edit) {
+    function($scope, Cycle, Edit) {
       $scope.ciclo = _.extend({}, Edit);
 
       $scope.submit = function(ciclo) {
         if(!_.isEmpty(Edit)) {
-          Cicle['prototype$updateAttributes']({id: ciclo.id}, ciclo, saveCb);
+          Cycle['prototype$updateAttributes']({id: ciclo.id}, ciclo, saveCb);
         } else {
-          Cicle.create(ciclo, saveCb);
+          Cycle.create(ciclo, saveCb);
         }
       };
 
@@ -294,8 +293,21 @@ module.exports = function(app) {
   app.controller('DashboardIndicadorCtrl', [
     '$scope',
     'Indicadores',
-    function($scope, Indicadores) {
+    'ActiveCycle',
+    'Assessment',
+    function($scope, Indicadores, ActiveCycle, Assessment) {
       $scope.indicadores = Indicadores;
+      _.each($scope.indicadores, function(indicador) {
+        Assessment.findOne({
+          filter: {
+            where: {
+              indicatorId: indicador.id
+            }
+          }
+        }, function(data) {
+          indicador.assessed = true;
+        });
+      });
     }
   ]);
 
@@ -437,12 +449,15 @@ module.exports = function(app) {
     '$scope',
     '$stateParams',
     'Review',
+    'ReviewCycle',
     'Assessment',
-    function($scope, $stateParams, Review, Assessment) {
+    function($scope, $stateParams, Review, ReviewCycle, Assessment) {
+
+      $scope.cycle = ReviewCycle;
 
       $scope.review = _.extend({
         indicatorId: $stateParams.id,
-        cicleId: $stateParams.ciclo
+        cycleId: ReviewCycle.id
       }, Review);
 
       $scope.submit = function(review) {

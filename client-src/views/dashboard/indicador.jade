@@ -17,7 +17,9 @@ section.dashboard-inner-content(ui-view)
         td 
           a.button(ui-sref="dashboard.eixo.edit({'id': indicador.axisId})") {{indicador.axisId}}
         td 
-          a.icon.icon-eye(ui-sref="dashboard.indicador.review({'id': indicador.id})")
+          a.icon(ui-sref="dashboard.indicador.review({'id': indicador.id})" title="Editar")
+            span.icon.icon-eye(ng-hide="indicador.assessed")
+            span.icon.icon-check(ng-show="indicador.assessed")
         td 
           a.icon.icon-pencil(ui-sref="dashboard.indicador.edit({'id': indicador.id})")
         td 
