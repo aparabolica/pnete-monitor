@@ -43,10 +43,16 @@ article#indicador {
       font-size: 4vw;
       padding-top: 30%;
       padding-bottom: 70%;
-      background: green;
       .border-radius(100%);
       color: #fff;
       margin-bottom: 20px;
+      background: green;
+      &.yellow {
+        background: darken(yellow, 5%);
+      }
+      &.red {
+        background: red;
+      }
     }
     p {
       font-style: italic;

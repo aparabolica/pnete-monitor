@@ -69,7 +69,7 @@ app.config([
       templateUrl: '/views/pages/reports.html'
     })
     .state('indicador', {
-      url: '/indicador/:indicadorId/',
+      url: '/indicador/:indicadorId/?ciclo',
       controller: 'IndicadorCtrl',
       templateUrl: '/views/indicador.html',
       resolve: {
@@ -98,6 +98,49 @@ app.config([
                 }
               }
             }).$promise;
+          }
+        ],
+        ActiveCycle: [
+          '$stateParams',
+          'Cycle',
+          function($stateParams, Cycle) {
+            var where;
+            if($stateParams.ciclo) {
+              where = {
+                id: $stateParams.ciclo
+              };
+            } else {
+              where = {
+                active: true
+              };
+            }
+            return Cycle.findOne({
+              filter: {
+                where: where
+              }
+            }).$promise;
+          }
+        ],
+        Analise: [
+          '$q',
+          '$stateParams',
+          'ActiveCycle',
+          'Assessment',
+          function($q, $stateParams, ActiveCycle, Assessment) {
+            var deferred = $q.defer();
+            Assessment.findOne({
+              filter: {
+                where: {
+                  cycleId: ActiveCycle.id,
+                  indicatorId: $stateParams.indicadorId
+                }
+              }
+            }, function(data) {
+              deferred.resolve(data);
+            }, function() {
+              deferred.resolve(false);
+            });
+            return deferred.promise;
           }
         ]
       }

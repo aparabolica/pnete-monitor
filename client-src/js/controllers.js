@@ -60,10 +60,32 @@ module.exports = function(app) {
     '$scope',
     'Indicador',
     'Eixo',
-    function($scope, Indicador, Eixo) {
+    'ActiveCycle',
+    'Analise',
+    function($scope, Indicador, Eixo, ActiveCycle, Analise) {
 
       $scope.indicador = Indicador;
       $scope.eixo = Eixo;
+      $scope.ciclo = ActiveCycle;
+      $scope.analise = Analise;
+
+      $scope.getStatus = function(analise) {
+        if(analise.status == 'partial')
+          return 'Parcialmente cumprido';
+        else if(analise.status == 'complete')
+          return 'Cumprido';
+        else if(analise.status == 'incomplete')
+          return 'Não cumprido';
+      };
+
+      $scope.getStatusClass = function(analise) {
+        if(analise.status == 'partial')
+          return 'cross yellow';
+        else if(analise.status == 'complete')
+          return 'check';
+        else if(analise.status == 'incomplete')
+          return 'cross red';
+      }
 
       // Fake data
       var date = moment('2015-06-05')

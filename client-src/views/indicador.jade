@@ -12,14 +12,14 @@ article#indicador
       .ten.columns
         .nine.columns
           h2 {{indicador.question}}
-        #overview.clearfix
+        #overview.clearfix(ng-show="analise")
           .nine.columns
             p.label Análise do gestor:
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus neque, laoreet interdum blandit quis, scelerisque nec erat. Vestibulum urna tortor, tincidunt quis diam in, dapibus varius metus. In neque dui, accumsan non purus et, dapibus porttitor erat. Donec dictum sollicitudin viverra. Curabitur vitae felis eget leo convallis malesuada. Integer quis ipsum luctus, vestibulum justo ut, ultricies orci. Aliquam scelerisque metus sit amet mattis aliquam. Sed tincidunt, purus vitae pulvinar volutpat, leo nisi lacinia neque, quis cursus sem enim eget arcu. Mauris efficitur eu augue nec efficitur. Nulla at ultricies mauris, a dictum erat.
+            p {{analise.analysis}}
           .two.columns.offset-by-one
             #status
-              .icon.icon-check
-              p Cumprido
+              .icon(class="icon-{{getStatusClass(analise)}}")
+              p {{getStatus(analise)}}
         #baseline
           .subheader.baseline-header
             h3 Conheça o histórico de dados disponíveis
