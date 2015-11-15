@@ -39,6 +39,11 @@
       "type": "hasAndBelongsToMany",
       "model": "Indicator",
       "foreignKey": ""
+    },
+    "notifications": {
+      "type": "hasAndBelongsToMany",
+      "model": "Notification",
+      "foreignKey": ""
     }
   },
   "acls": [

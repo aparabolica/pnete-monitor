@@ -67,5 +67,13 @@
   "Assessment": {
     "dataSource": "db",
     "public": true
+  },
+  "notification": {
+    "dataSource": "db",
+    "public": true
+  },
+  "notificationTemplate": {
+    "dataSource": null,
+    "public": true
   }
 }
