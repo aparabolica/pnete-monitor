@@ -142,6 +142,33 @@ module.exports = function(app) {
                 return {};
               }
             }
+          ],
+          PendingOrganizations: [
+            '$q',
+            'Auth',
+            'CycleEnrollment',
+            'ActiveCycle',
+            function($q, Auth, CycleEnrollment, ActiveCycle) {
+              if(Auth.isAdmin) {
+                var deferred = $q.defer();
+                CycleEnrollment.find({
+                  filter: {
+                    where: {
+                      cycleId: ActiveCycle.id,
+                      confirmed: false
+                    },
+                    include: 'organization'
+                  }
+                }, function(data) {
+                  deferred.resolve(data);
+                }, function() {
+                  deferred.resolve([]);
+                });
+                return deferred.promise;
+              } else {
+                return [];
+              }
+            }
           ]
         }
       })

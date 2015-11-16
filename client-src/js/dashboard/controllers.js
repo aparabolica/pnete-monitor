@@ -49,7 +49,8 @@ module.exports = function(app) {
     'UserOrganization',
     'UserIndicators',
     'ContentCount',
-    function($scope, $state, Auth, ActiveCycle, User, UserOrganization, UserIndicators, Count) {
+    'PendingOrganizations',
+    function($scope, $state, Auth, ActiveCycle, User, UserOrganization, UserIndicators, Count, PendingOrganizations) {
 
       $scope.user = Auth;
 
@@ -79,6 +80,7 @@ module.exports = function(app) {
       });
 
       $scope.count = Count;
+      $scope.pendingOrganizations = PendingOrganizations;
 
     }
   ]);
