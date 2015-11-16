@@ -10,7 +10,7 @@ module.exports = function(Axis) {
   Axis.disableRemoteMethod("createChangeStream", true);
 
   Axis.organizations = function(id, doneOrganizations){
-    Axis.find({id: id, include: {"indicators": "organizations"}}, function(err, axes){
+    Axis.find({where: {id: id}, include: {"indicators": "organizations"}}, function(err, axes){
       if (err || !axes) return doneOrganizations(err);
       else {
 
