@@ -6,6 +6,9 @@ form(ng-submit="submit(user)")
     label(for="email_input") Email
     input#email_input(type="email" ng-model="user.email")
   p
+    label(for="pwd_input") Senha
+    input#pwd_input(type="password" ng-model="user.password")
+  p
     label(for="admin_input") Administrador
     span.checkbox-list.row
       span.checkbox-item
