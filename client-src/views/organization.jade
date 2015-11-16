@@ -16,6 +16,6 @@ article#organization
           h2 Indicadores
           ul.indicador-list
             li.indicador-item.clearfix(ng-repeat="indicador in indicadores")
-              a.axis-info.eixo-bg(ui-sref="{eixo: indicador.axisId}" style="background-color: {{indicador.axis.color}};" title="{{indicador.axis.name}}") {{indicador.axisId}}
+              a.axis-info.eixo-bg(ui-sref="eixo({eixoId: indicador.axisId})" style="background-color: {{indicador.axis.color}};" title="{{indicador.axis.name}}") {{indicador.axisId}}
               h3
                 a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}
