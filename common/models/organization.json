@@ -59,6 +59,11 @@
       "model": "Cycle",
       "foreignKey": "",
       "through": "CycleEnrollment"
+    },
+    "enrollments": {
+      "type": "hasMany",
+      "model": "CycleEnrollment",
+      "foreignKey": ""
     }
   },
   "acls": [
