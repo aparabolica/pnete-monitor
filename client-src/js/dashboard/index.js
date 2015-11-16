@@ -270,6 +270,11 @@ module.exports = function(app) {
           Indicadores: [
             'Indicator',
             function(Indicator) {
+              // return Indicator.find({
+              //   filter: {
+              //     include: {'organizations': 'feedbacks'}
+              //   }
+              // }).$promise;
               return Indicator.find().$promise;
             }
           ]
@@ -367,7 +372,7 @@ module.exports = function(app) {
                 Feedback.findOne({
                   filter: {
                     where: {
-                      indicadorId: $stateParams.id,
+                      indicatorId: $stateParams.id,
                       cycleId: ActiveCycle.id,
                       organizationId: UserOrganization.id
                     }

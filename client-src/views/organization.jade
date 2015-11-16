@@ -1,13 +1,14 @@
 article#organization
   header.organization-header
     .container.row
-      .twelve.columns
+      .eight.columns
         h1 {{organization.name}}
     .container
       .six.columns
         #organization-meta
-          replied-percent(ratio="organization.ratio")
-          h2 Perguntas
-          p {{organization.ratio.questions}}
-          h2 Perguntas respondidas
-          p {{organization.ratio.replied}}
+          //- replied-percent(ratio="organization.ratio")
+          h2 Indicadores
+          ul.indicador-list
+            li.indicador-item(ng-repeat="indicador in indicadores")
+              h3
+                a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}

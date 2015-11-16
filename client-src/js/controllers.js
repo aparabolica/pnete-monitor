@@ -122,81 +122,31 @@ module.exports = function(app) {
 
   app.controller('OrganizationCtrl', [
     '$scope',
-    function($scope) {
+    'Organizacao',
+    'Indicadores',
+    function($scope, Organizacao, Indicadores) {
 
-      $scope.organization = {
-        name: 'Ministério do Trabalho e Emprego (Detrae/SIT)',
-        slug: 'MTE DETRAE',
-        ratio: {
-          'questions': 50,
-          'replied': 20
-        }
-      }
-
+      $scope.organization = Organizacao;
+      $scope.indicadores = Indicadores;
     }
   ]);
 
   app.controller('StatusCtrl', [
     '$scope',
-    function($scope) {
+    'Organizations',
+    'Eixos',
+    function($scope, Organizations, Eixos) {
 
       $scope.ratio = {
         'questions': 120,
         'replied': 80
       }
 
-      $scope.label = '{{ratio.replied}}/{{ratio.questions}} respondidas'
+      $scope.label = '{{ratio.replied}}/{{ratio.questions}} respondidas';
 
-      $scope.orgs = [
-        {
-          id: 1,
-          title: 'Lorem ipsum',
-          ratio: {
-            'questions': 30,
-            'replied': 19
-          }
-        },
-        {
-          id: 1,
-          title: 'Lorem ipsum',
-          ratio: {
-            'questions': 30,
-            'replied': 19
-          }
-        },
-        {
-          id: 1,
-          title: 'Lorem ipsum',
-          ratio: {
-            'questions': 30,
-            'replied': 19
-          }
-        },
-        {
-          id: 1,
-          title: 'Lorem ipsum',
-          ratio: {
-            'questions': 30,
-            'replied': 19
-          }
-        },
-        {
-          id: 1,
-          title: 'Lorem ipsum',
-          ratio: {
-            'questions': 30,
-            'replied': 19
-          }
-        },
-        {
-          id: 1,
-          title: 'Lorem ipsum',
-          ratio: {
-            'questions': 30,
-            'replied': 19
-          }
-        }
-      ]
+      $scope.organizations = Organizations;
+      $scope.eixos = Eixos;
+
     }
   ]);
 

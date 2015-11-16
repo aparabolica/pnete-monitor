@@ -58,7 +58,21 @@ app.config([
     .state('status', {
       url: '/status/',
       controller: 'StatusCtrl',
-      templateUrl: '/views/status.html'
+      templateUrl: '/views/status.html',
+      resolve: {
+        Organizations: [
+          'Organization',
+          function(Organization) {
+            return Organization.find().$promise;
+          }
+        ],
+        Eixos: [
+          'Axis',
+          function(Axis) {
+            return Axis.find().$promise;
+          }
+        ]
+      }
     })
     .state('dados', {
       url: '/dados/',
@@ -202,7 +216,23 @@ app.config([
     .state('organization', {
       url: '/organization/:organizationId/',
       controller: 'OrganizationCtrl',
-      templateUrl: '/views/organization.html'
+      templateUrl: '/views/organization.html',
+      resolve: {
+        Organizacao: [
+          '$stateParams',
+          'Organization',
+          function($stateParams, Organization) {
+            return Organization.findById({id: $stateParams.organizationId}).$promise;
+          }
+        ],
+        Indicadores: [
+          '$stateParams',
+          'Organization',
+          function($stateParams, Organization) {
+            return Organization.indicators({id: $stateParams.organizationId}).$promise;
+          }
+        ]
+      }
     });
 
     /*

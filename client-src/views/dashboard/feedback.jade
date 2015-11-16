@@ -1,0 +1,22 @@
+.dashboard-feedback
+  h3 Respondendo "
+    strong {{indicador.description}}
+    | " para o ciclo 
+    strong {{cycle.name}} 
+    | em nome de 
+    strong {{organization.name}}
+form(ng-submit="submit(feedback)")
+  h3 {{indicador.question}}
+  p(ng-show="indicador.type == 'integer'")
+    label(for="feedback_value") Insira o valor abaixo
+    input#feedback_value(type="text" ng-model="feedback.value.value")
+    
+  p(ng-show="indicador.type == 'percentual'")
+    label(for="feedback_percentage") Insira a porcentagem abaixo (apenas números)
+    input#feedback_percentage(type="text" ng-model="feedback.value.percentage")
+    
+  p
+    label(for="feedback_comment") Comentários
+    textarea#feedback_comment(ng-model="feedback.value.comments")
+  p
+    input(type="submit" value="Enviar")
