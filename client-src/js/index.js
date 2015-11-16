@@ -244,19 +244,43 @@ app.config([
             return Organization.findById({id: $stateParams.organizationId}).$promise;
           }
         ],
+        ActiveCycle: [
+          'Cycle',
+          function(Cycle) {
+            return Cycle.findOne({
+              filter: {
+                where: {
+                  active: true
+                }
+              }
+            }).$promise;
+          }
+        ],
         Indicadores: [
           '$stateParams',
+          'ActiveCycle',
           'Organization',
-          function($stateParams, Organization) {
+          function($stateParams, ActiveCycle, Organization) {
             return Organization.indicators({
               id: $stateParams.organizationId,
               filter: {
-                include: {
-                  relation: 'axis',
-                  scope: {
-                    fields: ['name', 'color']
+                include: [
+                  {
+                    relation: 'axis',
+                    scope: {
+                      fields: ['name', 'color']
+                    }
+                  },
+                  {
+                    relation: 'feedbacks',
+                    scope: {
+                      where: {
+                        cycleId: ActiveCycle.id,
+                        organizationId: $stateParams.organizationId
+                      }
+                    }
                   }
-                }
+                ]
               }
             }).$promise;
           }
