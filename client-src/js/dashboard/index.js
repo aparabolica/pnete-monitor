@@ -262,6 +262,35 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('dashboard.cycle.enrollees', {
+        url: 'organizacoes/?id',
+        controller: 'DashboardCycleEnrolleesCtrl',
+        templateUrl: '/views/dashboard/ciclo-organizations.html',
+        resolve: {
+          Ciclo: [
+            '$stateParams',
+            'Cycle',
+            function($stateParams, Cycle) {
+              return Cycle.findById({id: $stateParams.id}).$promise;
+            }
+          ],
+          Enrollees: [
+            '$stateParams',
+            'CycleEnrollment',
+            'Organization',
+            function($stateParams, CycleEnrollment, Organization) {
+              return CycleEnrollment.find({
+                filter: {
+                  where: {
+                    cycleId: $stateParams.id
+                  },
+                  include: 'organization'
+                }
+              }).$promise;
+            }
+          ]
+        }
+      })
       .state('dashboard.indicador', {
         url: 'indicadores/',
         controller: 'DashboardIndicadorCtrl',

@@ -247,6 +247,50 @@ module.exports = function(app) {
     }
   ]);
 
+  app.controller('DashboardCycleEnrolleesCtrl', [
+    '$scope',
+    '$state',
+    'MessageService',
+    'Ciclo',
+    'Enrollees',
+    'CycleEnrollment',
+    function($scope, $state, Message, Ciclo, Enrollees, CycleEnrollment) {
+      $scope.ciclo = Ciclo;
+      $scope.enrollees = Enrollees;
+
+      var update = function(enrollee, data, message) {
+          CycleEnrollment['prototype$updateAttributes']({id: enrollee.id}, data, function(res) {
+            _.extend(enrollee, res);
+            Message.add(message);
+          });
+      };
+
+      $scope.confirm = function(enrollee) {
+        if(enrollee.confirmed) {
+          update(enrollee, {confirmed: false}, 'Confirmação removida para ' + enrollee.organization.name);
+        } else {
+          update(enrollee, {confirmed: true}, enrollee.organization.name + ' maracada como confirmada!');
+        }
+      };
+
+      $scope.activate = function(enrollee) {
+        if(enrollee.active) {
+          update(enrollee, {active: false}, enrollee.organization.name +  ' marcada como inativa!');
+        } else {
+          update(enrollee, {active: true}, enrollee.organization.name + ' maracada como ativa!');
+        }
+      };
+
+      $scope.delete = function(enrollee) {
+        if(confirm('Você tem certeza?')) {
+          CycleEnrollment.deleteById({id: enrollee.id}, function() {
+            $state.go($state.current, {}, {reload: true});
+          });
+        }
+      }
+    }
+  ])
+
   app.controller('DashboardOrganizationCtrl', [
     '$scope',
     '$state',

@@ -8,6 +8,7 @@ section.dashboard-inner-content(ui-view)
       tr
         th Ano
         th Prazo
+        th.action Organizações
         th.action Editar
         th.action Remover
     tbody
@@ -15,6 +16,8 @@ section.dashboard-inner-content(ui-view)
         td {{ciclo.name}}
         td 
           span(ng-show="ciclo.endDate") {{ciclo.formattedDate.fromNow}} ({{ciclo.formattedDate.date}})
+        td 
+          a.icon.icon-users(ui-sref="dashboard.cycle.enrollees({'id': ciclo.id})")
         td 
           a.icon.icon-pencil(ui-sref="dashboard.cycle.edit({'id': ciclo.id})")
         td 
