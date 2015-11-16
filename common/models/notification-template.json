@@ -8,7 +8,7 @@
     "validateUpsert": false
   },
   "http": {
-    "path": "notifications/templates"
+    "path": "notification-templates"
   },
   "properties": {
     "name": {
