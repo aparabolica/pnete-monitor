@@ -8,10 +8,12 @@ module.exports = function(app, donePopulate) {
   var Indicator = app.models.Indicator;
   var Organization = app.models.Organization;
 
-  async.series([
-    populate.importAxes,
-    populate.importActions,
-    populate.importOrganizations,
-    populate.importIndicators
-  ], donePopulate)
+  if (proccess.env.NODE_ENV == 'development') {    
+    async.series([
+      populate.importAxes,
+      populate.importActions,
+      populate.importOrganizations,
+      populate.importIndicators
+    ], donePopulate)
+  }
 }
