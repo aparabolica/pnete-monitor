@@ -33,13 +33,14 @@ module.exports = function(User) {
     if (process.env.NODE_ENV != 'test' ) {
 
       var Email = User.app.models.Email;
+      var hostname = ctx.req.headers.host;
 
       var options = {
         type: 'email',
         to: user.email,
-        from: dsConfig.emailDs.transports[0].auth.user,
+        from: "Monitor do PNETE <naoresponda@monitoramentopnete.org>",
         subject: 'Bem-vindo ao Monitor do PNETE',
-        activationLink: 'http://localhost:3000/confirmar-email?token=' + user.verificationToken
+        activationLink: 'http://' + hostname + '/confirmar-email?token=' + user.verificationToken
           + '&uid=' + user.id,
         template: path.resolve(__dirname, '../../server/views/welcome.ejs')
       }
