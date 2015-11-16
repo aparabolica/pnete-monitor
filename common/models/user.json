@@ -7,6 +7,9 @@
     "validateUpsert": false,
     "emailVerificationRequired": true
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "email": {
       "type": "string",
@@ -33,9 +36,6 @@
       "model": "Organization",
       "foreignKey": "organizationId"
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {
@@ -81,10 +81,10 @@
     },
     {
       "accessType": "READ",
-      "property": "__get__organization",
       "principalType": "ROLE",
       "principalId": "$owner",
-      "permission": "ALLOW"
+      "permission": "ALLOW",
+      "property": "__get__organization"
     }
   ],
   "methods": {}

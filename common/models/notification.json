@@ -6,6 +6,9 @@
   "options": {
     "validateUpsert": false
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "subject": {
       "type": "string",
@@ -23,9 +26,6 @@
       "model": "Organization",
       "foreignKey": ""
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {

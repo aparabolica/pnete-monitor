@@ -9,6 +9,9 @@
   "http": {
     "path": "actions"
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "id": {
       "type": "number",
@@ -32,9 +35,6 @@
       "model": "Indicator",
       "foreignKey": ""
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {

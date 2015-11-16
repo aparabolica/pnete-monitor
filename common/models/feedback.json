@@ -9,6 +9,9 @@
   "http": {
     "path": "feedbacks"
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "value": {
       "type": "object"
@@ -37,9 +40,6 @@
       "model": "Indicator",
       "foreignKey": ""
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {
@@ -73,6 +73,13 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW",
+      "property": "updateAttributes"
     }
   ],
   "methods": {}

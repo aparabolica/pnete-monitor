@@ -9,6 +9,9 @@
   "http": {
     "path": "axes"
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "id": {
       "type": "number",
@@ -43,9 +46,6 @@
       "model": "Indicator",
       "foreignKey": "axisId"
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {

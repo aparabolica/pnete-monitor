@@ -9,6 +9,9 @@
   "http": {
     "path": "organizations"
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "name": {
       "type": "string",
@@ -57,9 +60,6 @@
       "foreignKey": "cycleId",
       "through": "CycleEnrollment"
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {

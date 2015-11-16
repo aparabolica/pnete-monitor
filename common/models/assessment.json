@@ -9,6 +9,9 @@
   "http": {
     "path": "assesments"
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "status": {
       "type": "string",
@@ -30,9 +33,6 @@
       "model": "Indicator",
       "foreignKey": "indicatorId"
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {

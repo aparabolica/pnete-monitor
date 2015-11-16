@@ -23,6 +23,8 @@ var user1AccessToken;
 var indicator1;
 var organization1;
 var cycle1;
+var feedback1;
+
 
 describe('Endpoints for "Users":', function() {
 
@@ -109,6 +111,54 @@ describe('Endpoints for "Users":', function() {
 
             body.should.have.property('cycleId', payload.cycleId);
             body.should.have.property('indicatorId', payload.indicatorId);
+            body.should.have.property('organizationId', organization1.id);
+            body.should.have.property('value', payload.value);
+
+            feedback1 = body;
+
+            doneIt();
+          });
+      });
+    });
+  });
+
+  describe('PUT /feedbacks/:id', function(){
+
+    var payload;
+
+    before(function(){
+      payload = {
+        value: "incomplete"
+      }
+    });
+
+    context('deny anonymous', function(){
+      it('should return 401', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/feedbacks/'+feedback1.id)
+          .send(payload)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      });
+    });
+
+    context('logged user', function(){
+
+      it('should return 200', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/feedbacks/'+feedback1.id)
+          .set('Authorization', user1AccessToken)
+          .send(payload)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+
+            var body = res.body;
+
+            body.should.have.property('cycleId', cycle1.id);
+            body.should.have.property('indicatorId', indicator1.id);
             body.should.have.property('organizationId', organization1.id);
             body.should.have.property('value', payload.value);
 

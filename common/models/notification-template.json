@@ -10,6 +10,9 @@
   "http": {
     "path": "notification-templates"
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "name": {
       "type": "string",
@@ -26,9 +29,6 @@
   },
   "validations": [],
   "relations": {},
-  "mixins": {
-    "TimeStamp" : true
-  },
   "acls": [
     {
       "accessType": "*",

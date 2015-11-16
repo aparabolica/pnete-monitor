@@ -9,6 +9,9 @@
   "http": {
     "path": "cycle/enrollments"
   },
+  "mixins": {
+    "TimeStamp": true
+  },
   "properties": {
     "active": {
       "type": "boolean",
@@ -33,9 +36,6 @@
       "model": "Organization",
       "foreignKey": "organizationId"
     }
-  },
-  "mixins": {
-    "TimeStamp" : true
   },
   "acls": [
     {
