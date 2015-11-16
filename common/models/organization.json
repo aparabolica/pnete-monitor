@@ -57,7 +57,7 @@
     "cycles": {
       "type": "hasMany",
       "model": "Cycle",
-      "foreignKey": "cycleId",
+      "foreignKey": "",
       "through": "CycleEnrollment"
     }
   },
