@@ -4,13 +4,25 @@ module.exports = function(app) {
     '$scope',
     '$stateParams',
     'User',
-    function($scope, $stateParams, User) {
+    '$state',
+    function($scope, $stateParams, User, $state) {
       $scope.user = {
         token: $stateParams.token,
         uid: $stateParams.uid
       };
       $scope.confirm = function(user) {
-
+        if(user.pwd && user.pwd == user.pwd_repeat) {
+          user.password = user.pwd;
+          delete user.pwd;
+          delete user.pwd_repeat;
+          User.confirmEmail({}, user, function() {
+            $state.go('login');
+          }, function() {
+            // message here
+          });
+        } else {
+          // message here
+        }
       };
     }
   ]);
@@ -527,5 +539,15 @@ module.exports = function(app) {
       }
     }
   ]);
+
+  app.controller('DashboardNotificationCtrl', [
+    '$scope',
+    'Notifications',
+    'NotificationTemplates',
+    function(Notifications, NotificationTemplates) {
+      $scope.notifications = Notifications;
+      $scope.notificationTemplates = NotificationTemplates;
+    }
+  ])
 
 };

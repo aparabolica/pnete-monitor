@@ -483,6 +483,54 @@ module.exports = function(app) {
             }
           ]
         }
+      })
+      .state('dashboard.notification', {
+        url: 'notificacoes/',
+        controller: 'DashboardNotificationCtrl',
+        templateUrl: '/views/dashboard/notification.html',
+        resolve: {
+          'Notifications': [
+            'Notification',
+            function(Notification) {
+              return Notification.find().$promise;
+            }
+          ],
+          'NotificationTemplates': [
+            'NotificationTemplate',
+            function(NotificationTemplate) {
+              return NotificationTemplate.find().$promise;
+            }
+          ]
+        }
+      })
+      .state('dashboard.notification.send', {
+        url: 'enviar/',
+        controller: 'DashboardSendNotificationCtrl',
+        templateUrl: '/views/dashboard/notification-send.html',
+      })
+      .state('dashboard.notification.template', {
+        url: 'template/?id',
+        controller: 'DashboardNotificationTemplateCtrl',
+        templateUrl: '/views/dashboard/notification-template.html',
+        resolve: {
+          'Edit': [
+            '$stateParams',
+            'NotificationTemplate',
+            function($stateParams, NotificationTemplate) {
+              if($stateParams.id) {
+                return NotificationTemplate.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
       });
 
     }

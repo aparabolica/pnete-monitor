@@ -22,6 +22,8 @@ section#dashboard
             a(ui-sref="dashboard.organization" ui-sref-active="active") Organizações
           li
             a(ui-sref="dashboard.user" ui-sref-active="active") Usuários
+          li
+            a(ui-sref="dashboard.notification" ui-sref-active="active") Notificações
         ul
           li
             a(ui-sref="dashboard.profile" ui-sref-active="active") Meu perfil
@@ -41,11 +43,10 @@ section#dashboard
                 a(ui-sref="dashboard.cycle") Clique aqui para editar os ciclos
         .clearfix
           .four.columns
-            //- .widget.organization-widget(ng-show="userOrganization")
-            .widget.organization-widget(ng-hide="user.isAdmin")
-              h2 Nome da organização
+            .widget.organization-widget(ng-show="userOrganization")
+              h2 {{userOrganization.name}}
               p Sua organização deve responder a 
-                strong 2 
+                strong {{userIndicators.length}} 
                 | indicadores.
           .eight.columns
             .widget.indicator-widget(ng-show="userIndicators.length")

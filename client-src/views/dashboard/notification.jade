@@ -1,0 +1,28 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.notification") Notificações
+  a(ui-sref="dashboard.notification.send") + Enviar notificação
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th Assunto
+        th Mensagem
+    tbody
+      tr(ng-repeat="notification in notifications")
+        td {{notification.subject}}
+        td {{notification.text}}
+  section#templates
+    h3 Templates de mensagem
+    a(ui-sref="dashboard.notification.template({id: null})") + Novo template
+    table
+      thead
+        tr
+          th Mensagem
+          th.action Editar
+          th.action Remover
+      tbody
+        tr(ng-repeat="template in notificationTemplates")
+          td {{template.text}}
+          td
+            a(ui-sref="dashboard.notification.template({id: template.id})")
