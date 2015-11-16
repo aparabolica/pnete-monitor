@@ -10,7 +10,7 @@ section.dashboard-inner-content(ui-view)
         th Email
         th Organização
         th.action Editar
-        th.action Remover
+        //- th.action Remover
     tbody
       tr(ng-repeat="user in users")
         td {{user.name}}
@@ -18,5 +18,5 @@ section.dashboard-inner-content(ui-view)
         td {{user.organization.name}}
         td 
           a.icon.icon-pencil(ui-sref="dashboard.user.edit({'id': user.id})")
-        td 
-          a.icon.icon-cross(href="javascript:void(0);")
+        //- td 
+        //-   a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(user)")

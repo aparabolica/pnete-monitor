@@ -14,7 +14,7 @@ module.exports = function(app) {
   	function($q, Message) {
   		return {
   			responseError: function(rejection) {
-  				if(rejection.data && rejection.data.error && rejection.data.error.message) {
+  				if(rejection.status != 404 && rejection.data && rejection.data.error && rejection.data.error.message) {
             Message.add(rejection.data.error.message);
   				}
   				return $q.reject(rejection);

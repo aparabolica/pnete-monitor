@@ -23,4 +23,4 @@ section.dashboard-inner-content(ui-view)
         td 
           a.icon.icon-pencil(ui-sref="dashboard.indicador.edit({'id': indicador.id})")
         td 
-          a.icon.icon-cross(href="javascript:void(0);")
+          a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(indicador)")

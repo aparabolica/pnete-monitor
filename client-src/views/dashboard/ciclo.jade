@@ -18,4 +18,4 @@ section.dashboard-inner-content(ui-view)
         td 
           a.icon.icon-pencil(ui-sref="dashboard.cycle.edit({'id': ciclo.id})")
         td 
-          a.icon.icon-cross(href="javascript:void(0);")
+          a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(ciclo)")

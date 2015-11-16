@@ -97,25 +97,37 @@ module.exports = function(app) {
 
   app.controller('DashboardUserCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'User',
     'Users',
-    function($scope, User, Users) {
+    function($scope, $state, Message, User, Users) {
       $scope.users = Users;
       _.each($scope.users, function(user) {
         User.organization({id: user.id}, function(organization) {
           user.organization = organization;
         });
       });
+      $scope.delete = function(cycle) {
+        if(confirm('Você tem certeza?')) {
+          User.deleteById({id: cycle.id}, function() {
+            Message.add('Usuário removido');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
     }
   ]);
 
   app.controller('DashboardEditUserCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'User',
     'Organization',
     'Edit',
     'UserOrganization',
-    function($scope, User, Organization, Edit, UserOrganization) {
+    function($scope, $state, Message, User, Organization, Edit, UserOrganization) {
       $scope.user = _.extend({}, Edit);
       $scope.userOrganization = _.extend({}, UserOrganization);
 
@@ -172,14 +184,19 @@ module.exports = function(app) {
         Edit = res;
         $scope.user = _.extend({}, Edit);
         $scope.$emit('saved', res);
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Usuário enviado com sucesso');
       };
     }
   ]);
 
   app.controller('DashboardCycleCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
+    'Cycle',
     'Ciclos',
-    function($scope, Ciclos) {
+    function($scope, $state, Message, Cycle, Ciclos) {
       $scope.ciclos = Ciclos;
       _.each($scope.ciclos, function(ciclo) {
         if(ciclo.endDate) {
@@ -190,14 +207,24 @@ module.exports = function(app) {
           };
         }
       });
+      $scope.delete = function(cycle) {
+        if(confirm('Você tem certeza?')) {
+          Cycle.deleteById({id: cycle.id}, function() {
+            Message.add('Ciclo removido');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
     }
   ]);
 
   app.controller('DashboardEditCycleCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'Cycle',
     'Edit',
-    function($scope, Cycle, Edit) {
+    function($scope, $state, Message, Cycle, Edit) {
       $scope.ciclo = _.extend({}, Edit);
 
       $scope.submit = function(ciclo) {
@@ -212,23 +239,40 @@ module.exports = function(app) {
         Edit = res;
         $scope.ciclo = _.extend({}, res);
         $scope.$emit('saved', res);
-      }
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Ciclo enviado com sucesso');
+      };
     }
   ]);
 
   app.controller('DashboardOrganizationCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
+    'Organization',
     'Organizations',
-    function($scope, Organizations) {
+    function($scope, $state, Message, Organization, Organizations) {
       $scope.organizations = Organizations;
+
+      $scope.delete = function(cycle) {
+        if(confirm('Você tem certeza?')) {
+          Organization.deleteById({id: cycle.id}, function() {
+            Message.add('Organização removida');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
+
     }
   ]);
 
   app.controller('DashboardEditOrganizationCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'Organization',
     'Edit',
-    function($scope, Organization, Edit) {
+    function($scope, $state, Message, Organization, Edit) {
       $scope.organization = _.extend({}, Edit);
       $scope.submit = function(organization) {
         if(!_.isEmpty(Edit)) {
@@ -242,23 +286,38 @@ module.exports = function(app) {
         Edit = res;
         $scope.organization = _.extend({}, res);
         $scope.$emit('saved', res);
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Organização enviada com sucesso');
       }
     }
   ]);
 
   app.controller('DashboardActionCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
+    'Action',
     'Actions',
-    function($scope, Actions) {
+    function($scope, $state, Message, Action, Actions) {
       $scope.actions = Actions;
+      $scope.delete = function(cycle) {
+        if(confirm('Você tem certeza?')) {
+          Action.deleteById({id: cycle.id}, function() {
+            Message.add('Ação removida');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
     }
   ]);
 
   app.controller('DashboardEditActionCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'Action',
     'Edit',
-    function($scope, Action, Edit) {
+    function($scope, $state, Message, Action, Edit) {
       $scope.action = _.extend({}, Edit);
       $scope.submit = function(action) {
         if(!_.isEmpty(Edit)) {
@@ -271,25 +330,40 @@ module.exports = function(app) {
         Edit = res;
         $scope.action = _.extend({}, Edit);
         $scope.$emit('saved', res);
-      }
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Ação enviada com sucesso');
+      };
     }
   ]);
 
   app.controller('DashboardEixoCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
+    'Axis',
     'Eixos',
-    function($scope, Eixos) {
+    function($scope, $state, Message, Axis, Eixos) {
       $scope.eixos = Eixos;
+      $scope.delete = function(cycle) {
+        if(confirm('Você tem certeza?')) {
+          Axis.deleteById({id: cycle.id}, function() {
+            Message.add('Eixo removido');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
     }
   ]);
 
   app.controller('DashboardEditEixoCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'Actions',
     'Axis',
     'Edit',
     'AxisActions',
-    function($scope, Actions, Axis, Edit, AxisActions) {
+    function($scope, $state, Message, Actions, Axis, Edit, AxisActions) {
 
       $scope.actions = Actions;
       $scope.eixo = _.extend({}, Edit);
@@ -345,16 +419,21 @@ module.exports = function(app) {
         Edit = res;
         $scope.eixo = _.extend({}, Edit);
         $scope.$emit('saved', res);
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Eixo enviado com sucesso');
       }
     }
   ]);
 
   app.controller('DashboardIndicadorCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
+    'Indicator',
     'Indicadores',
     'ActiveCycle',
     'Assessment',
-    function($scope, Indicadores, ActiveCycle, Assessment) {
+    function($scope, $state, Message, Indicator, Indicadores, ActiveCycle, Assessment) {
       $scope.indicadores = Indicadores;
       _.each($scope.indicadores, function(indicador) {
         Assessment.findOne({
@@ -368,11 +447,20 @@ module.exports = function(app) {
           indicador.assessed = true;
         });
       });
+      $scope.delete = function(cycle) {
+        if(confirm('Você tem certeza?')) {
+          Indicator.deleteById({id: cycle.id}, function() {
+            Message.add('Indicador removido');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
     }
   ]);
 
   app.controller('DashboardEditIndicadorCtrl', [
     '$scope',
+    '$state',
     'Indicator',
     'Organization',
     'Eixos',
@@ -380,7 +468,7 @@ module.exports = function(app) {
     'Edit',
     'IndicatorOrganizations',
     'IndicatorActions',
-    function($scope, Indicator, Organization, Eixos, Actions, Edit, IndicatorOrganizations, IndicatorActions) {
+    function($scope, $state, Indicator, Organization, Eixos, Actions, Edit, IndicatorOrganizations, IndicatorActions) {
 
       $scope.eixos = Eixos;
       $scope.actions = Actions;
@@ -501,6 +589,7 @@ module.exports = function(app) {
         Edit = res;
         $scope.indicador = _.extend({}, Edit);
         $scope.$emit('saved', res);
+        $state.go($state.current, {}, {reload:true});
       }
 
     }
@@ -508,11 +597,12 @@ module.exports = function(app) {
 
   app.controller('DashboardAssessIndicadorCtrl', [
     '$scope',
+    '$state',
     '$stateParams',
     'Review',
     'ReviewCycle',
     'Assessment',
-    function($scope, $stateParams, Review, ReviewCycle, Assessment) {
+    function($scope, $state, $stateParams, Review, ReviewCycle, Assessment) {
 
       $scope.cycle = ReviewCycle;
 
@@ -533,6 +623,7 @@ module.exports = function(app) {
         Edit = res;
         $scope.review = _.extend({}, Edit);
         $scope.$emit('saved', res);
+        $state.go($state.current, {}, {reload:true});
       }
     }
   ]);
@@ -541,7 +632,7 @@ module.exports = function(app) {
     '$scope',
     'Notifications',
     'NotificationTemplates',
-    function(Notifications, NotificationTemplates) {
+    function($scope, Notifications, NotificationTemplates) {
       $scope.notifications = Notifications;
       $scope.notificationTemplates = NotificationTemplates;
     }

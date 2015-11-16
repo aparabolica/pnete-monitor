@@ -6,15 +6,18 @@ section.dashboard-inner-content(ui-view)
   table
     thead
       tr
+        th Data de envio
         th Assunto
         th Mensagem
     tbody
       tr(ng-repeat="notification in notifications")
+        td {{notification.createdAt}}
         td {{notification.subject}}
         td {{notification.text}}
   section#templates
-    h3 Templates de mensagem
-    a(ui-sref="dashboard.notification.template({id: null})") + Novo template
+    header.dashboard-inner-header
+      h3 Mensagens pré-definidas
+      a(ui-sref="dashboard.notification.template({id: null})") + Nova mensagem
     table
       thead
         tr
