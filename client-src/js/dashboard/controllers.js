@@ -605,13 +605,15 @@ module.exports = function(app) {
     '$stateParams',
     'MessageService',
     'Indicador',
+    'Feedbacks',
     'Edit',
     'ReviewCycle',
     'Assessment',
-    function($scope, $state, $stateParams, Message, Indicador, Edit, ReviewCycle, Assessment) {
+    function($scope, $state, $stateParams, Message, Indicador, Feedbacks, Edit, ReviewCycle, Assessment) {
 
       $scope.indicador = Indicador;
       $scope.cycle = ReviewCycle;
+      $scope.feedbacks = Feedbacks;
 
       $scope.review = _.extend({
         indicatorId: $stateParams.id,

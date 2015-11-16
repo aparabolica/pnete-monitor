@@ -423,6 +423,22 @@ module.exports = function(app) {
               return Indicator.findById({id: $stateParams.id}).$promise;
             }
           ],
+          'Feedbacks': [
+            '$stateParams',
+            'ReviewCycle',
+            'Feedback',
+            function($stateParams, ReviewCycle, Feedback) {
+              return Feedback.find({
+                filter: {
+                  where: {
+                    cycleId: ReviewCycle.id,
+                    indicatorId: $stateParams.id
+                  },
+                  include: 'organization'
+                }
+              }).$promise;
+            }
+          ],
           'Edit': [
             '$stateParams',
             '$q',

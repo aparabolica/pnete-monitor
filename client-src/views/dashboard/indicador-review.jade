@@ -3,21 +3,36 @@
     strong {{indicador.description}}
     | " em 
     strong {{cycle.name}}
-form(ng-submit="submit(review)")
-  p
-    label(for="status_input") Avaliação geral
-    span.radio-list.row
-      span.radio-item
-        input#status_input_2(type="radio" ng-model="review.status" value="complete")
-        label(for="status_input_2") Cumprido
-      span.radio-item
-        input#status_input_1(type="radio" ng-model="review.status" value="partial")
-        label(for="status_input_1") Parcialmente cumprido
-      span.radio-item
-        input#status_input_0(type="radio" ng-model="review.status" value="incomplete")
-        label(for="status_input_0") Não cumprido
-  p
-    label(for="review_input") Análise do gestor
-    textarea#review_input(ng-model="review.analysis")
-  p
-    input(type="submit" value="Enviar")
+  .feedbacks(ng-show="feedbacks.length")
+    p Respostas das organizações para este ciclo
+    table
+      thead
+        tr 
+          th Organização
+          th(ng-show="indicador.type == 'integer'") Valor
+          th(ng-show="indicador.type == 'percentual'") Percentual
+          th Comentário
+      tbody
+        tr(ng-repeat="feedback in feedbacks")
+          td {{feedback.organization.name}}
+          td(ng-show="indicador.type == 'integer'") {{feedback.value.value}}
+          td(ng-show="indicador.type == 'percentual'") {{feedback.value.percentual}}
+          td {{feedback.value.comments}}
+  form(ng-submit="submit(review)")
+    p
+      label(for="status_input") Avaliação geral
+      span.radio-list.row
+        span.radio-item
+          input#status_input_2(type="radio" ng-model="review.status" value="complete")
+          label(for="status_input_2") Cumprido
+        span.radio-item
+          input#status_input_1(type="radio" ng-model="review.status" value="partial")
+          label(for="status_input_1") Parcialmente cumprido
+        span.radio-item
+          input#status_input_0(type="radio" ng-model="review.status" value="incomplete")
+          label(for="status_input_0") Não cumprido
+    p
+      label(for="review_input") Análise do gestor
+      textarea#review_input(ng-model="review.analysis")
+    p
+      input(type="submit" value="Enviar")
