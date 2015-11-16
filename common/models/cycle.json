@@ -23,7 +23,7 @@
     "active": {
       "type": "boolean",
       "required": true,
-      "default": false
+      "default": true
     }
   },
   "validations": [],
@@ -36,7 +36,7 @@
     "enrollees": {
       "type": "hasMany",
       "model": "Organization",
-      "foreignKey": "organizationId",
+      "foreignKey": "",
       "through": "CycleEnrollment"
     },
     "feedbacks": {

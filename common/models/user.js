@@ -141,6 +141,4 @@ module.exports = function(User) {
     next(err)
   });
 
-
-
 };

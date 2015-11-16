@@ -6,7 +6,7 @@ var lt = require('loopback-testing');
 var assert = require('assert');
 var app = require('../../server/server.js'); //path to app.js or server.js
 var request = require('supertest');
-var helper = require('../helper');
+var helper = require('../../lib/helpers');
 
 /*
  * Config
