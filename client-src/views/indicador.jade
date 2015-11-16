@@ -38,7 +38,7 @@ article#indicador
                     a(ui-sref="indicador({'ciclo': ciclo.name})") {{ciclo.name}}
             h3 Respostas das organizações responsáveis
           ul.reply-list
-            li.reply.clearfix(ng-repeat="organization in organizations" ng-class="{'no-response': !organization.feedbacks.length}")
+            li.reply.clearfix(ng-repeat="organization in organizations" ng-class="{'no-response': !organization.feedbacks.length}" ng-show="organization.enrollments.length")
               .five.columns
                 .avatar-container
                   .avatar(style="background-color:{{pastelColor(organization.id)}}")
