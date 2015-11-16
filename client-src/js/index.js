@@ -183,6 +183,14 @@ app.config([
                   },
                   {
                     relation: 'notifications'
+                  },
+                  {
+                    relation: 'enrollments',
+                    scope: {
+                      where: {
+                        cycleId: ActiveCycle.id
+                      }
+                    }
                   }
                 ]
               }
