@@ -5,18 +5,27 @@
     strong {{cycle.name}} 
     | em nome de 
     strong {{organization.name}}
-form(ng-submit="submit(feedback)")
-  h3 {{indicador.question}}
-  p(ng-show="indicador.type == 'integer'")
-    label(for="feedback_value") Insira o valor abaixo
-    input#feedback_value(type="text" ng-model="feedback.value.value")
-    
-  p(ng-show="indicador.type == 'percentual'")
-    label(for="feedback_percentage") Insira a porcentagem abaixo (apenas números)
-    input#feedback_percentage(type="text" ng-model="feedback.value.percentage")
-    
-  p
-    label(for="feedback_comment") Comentários
-    textarea#feedback_comment(ng-model="feedback.value.comments")
-  p
-    input(type="submit" value="Enviar")
+  form(ng-submit="submit(feedback)")
+    h3 {{indicador.question}}
+    p(ng-show="indicador.type == 'integer'")
+      label(for="feedback_value") Insira o valor abaixo
+      input#feedback_value(type="text" ng-model="feedback.value.value")
+      
+    p(ng-show="indicador.type == 'boolean'")
+      span.radio-list.row
+        span.radio-item
+          input(id="bool_input_true" type="radio" ng-model="feedback.value.bool" name="bool_input" value="1")
+          label(for="bool_input_true") Sim
+        span.radio-item
+          input(id="bool_input_false" type="radio" ng-model="feedback.value.bool" name="bool_input_false" value="0")
+          label(for="bool_input_false") Não
+      
+    p(ng-show="indicador.type == 'percentual'")
+      label(for="feedback_percentage") Insira a porcentagem abaixo (apenas números)
+      input#feedback_percentage(type="text" ng-model="feedback.value.percentage")
+      
+    p
+      label(for="feedback_comment") Comentários
+      textarea#feedback_comment(ng-model="feedback.value.comments")
+    p
+      input(type="submit" value="Enviar")
