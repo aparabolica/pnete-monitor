@@ -38,7 +38,7 @@ module.exports = function(User) {
       var options = {
         type: 'email',
         to: user.email,
-        from: "Monitor do PNETE <naoresponda@monitoramentopnete.org>",
+        from: "Monitor do PNETE <naoresponda@monitoramentopnete.org.br>",
         subject: 'Bem-vindo ao Monitor do PNETE',
         activationLink: 'http://' + hostname + '/confirmar-email?token=' + user.verificationToken
           + '&uid=' + user.id,
