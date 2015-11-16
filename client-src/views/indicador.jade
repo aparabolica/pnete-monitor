@@ -38,14 +38,17 @@ article#indicador
                     a(ui-sref="indicador({'ciclo': ciclo.name})") {{ciclo.name}}
             h3 Respostas das organizações responsáveis
           ul.reply-list
-            li.reply.no-response.clearfix(ng-repeat="organization in organizations")
+            li.reply.clearfix(ng-repeat="organization in organizations" ng-class="{'no-response': !organization.feedbacks.length}")
               .five.columns
                 .avatar-container
-                  .avatar(style="background-color:{{pastelColor()}}")
+                  .avatar(style="background-color:{{pastelColor(organization.id)}}")
                     a(ui-sref="organization({organizationId: organization.id})") {{organization.shortName}}
                 h4
                   a(ui-sref="organization({organizationId: organization.id})") {{organization.name}}
-                p.reply Em desenvolvimento
+                p.reply(ng-show="organization.feedbacks.length") Respondido {{organization.feedbacks[0].createdAt | fromNow}} ({{organization.feedbacks[0].createdAt | formatDate:'DD/MM/YYYY'}})
+                p.reply.not(ng-hide="organization.feedbacks.length") ...
               .seven.columns
-                .response
-                  p Em desenvolvimento
+                .response(ng-show="organization.feedbacks.length")
+                  p.value(ng-show="organization.feedbacks[0].value.value") {{organization.feedbacks[0].value.value}}
+                  p.percentage(ng-show="organization.feedbacks[0].value.percentage") {{organization.feedbacks[0].value.percentage}}%
+                  p {{organization.feedbacks[0].value.comments}}

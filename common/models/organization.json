@@ -51,7 +51,7 @@
     },
     "notifications": {
       "type": "hasAndBelongsToMany",
-      "model": "Notification",
+      "model": "notification",
       "foreignKey": ""
     },
     "cycles": {

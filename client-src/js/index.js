@@ -166,8 +166,27 @@ app.config([
         Organizations: [
           '$stateParams',
           'Indicator',
-          function($stateParams, Indicator) {
-            return Indicator.organizations({ id: $stateParams.indicadorId }).$promise;
+          'ActiveCycle',
+          function($stateParams, Indicator, ActiveCycle) {
+            return Indicator.organizations({
+              id: $stateParams.indicadorId,
+              filter: {
+                include: [
+                  {
+                    relation: 'feedbacks',
+                    scope: {
+                      where: {
+                        indicatorId: $stateParams.indicadorId,
+                        cycleId: ActiveCycle.id
+                      }
+                    }
+                  },
+                  {
+                    relation: 'notifications'
+                  }
+                ]
+              }
+            }).$promise;
           }
         ]
       }
@@ -214,7 +233,7 @@ app.config([
       }
     })
     .state('organization', {
-      url: '/organization/:organizationId/',
+      url: '/organizacao/:organizationId/',
       controller: 'OrganizationCtrl',
       templateUrl: '/views/organization.html',
       resolve: {
@@ -287,6 +306,7 @@ app.config([
 
 require('./controllers.js')(app);
 require('./directives.js')(app);
+require('./filters.js')(app);
 
 require('./dashboard')(app);
 

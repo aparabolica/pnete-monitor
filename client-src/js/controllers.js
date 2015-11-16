@@ -96,7 +96,7 @@ module.exports = function(app) {
       $scope.since = date.fromNow();
       $scope.date = date.format('LLLL');
       $scope.date_ = date.format('L');
-      $scope.pastelColor = _.memoize(function() {
+      $scope.pastelColor = _.memoize(function(hash) {
         return getPastelColor();
       });
 

@@ -94,6 +94,10 @@ module.exports = function(grunt) {
 			options: {
 				livereload: true
 			},
+			documentation: {
+				files: ['server/**/*', 'common/**/*', 'lib/**/*'],
+				tasks: ['docular']
+			},
 			css: {
 				files: 'client-src/css/**/*',
 				tasks: ['less']
