@@ -5,7 +5,8 @@ module.exports = function(app) {
     '$stateParams',
     'User',
     '$state',
-    function($scope, $stateParams, User, $state) {
+    'MessageService',
+    function($scope, $stateParams, User, $state, Message) {
       $scope.user = {
         token: $stateParams.token,
         uid: $stateParams.uid
@@ -16,12 +17,11 @@ module.exports = function(app) {
           delete user.pwd;
           delete user.pwd_repeat;
           User.confirmEmail({}, user, function() {
+            Message.add('Conta de usuário confirmada!');
             $state.go('login');
-          }, function() {
-            // message here
           });
         } else {
-          // message here
+          Message.add('Verifique se você digitou uma senha e que ambas são idênticas');
         }
       };
     }
@@ -53,9 +53,8 @@ module.exports = function(app) {
 
       $scope.user = Auth;
 
-      if(UserOrganization && !_.isEmpty(UserOrganization)) {
+      if(UserOrganization.id)
         $scope.userOrganization = UserOrganization;
-      }
 
       $scope.userIndicators = UserIndicators;
 
@@ -521,8 +520,6 @@ module.exports = function(app) {
         indicatorId: $stateParams.id,
         cycleId: ReviewCycle.id
       }, Review);
-
-      console.log($scope.review);
 
       $scope.submit = function(review) {
         if(!_.isEmpty(Review)) {
