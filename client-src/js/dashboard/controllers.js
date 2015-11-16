@@ -143,7 +143,7 @@ module.exports = function(app) {
           Organization.find({
             filter: {
               where: {
-                name: { regexp: '' + search.replace(' ', '|') + '' },
+                name: { like: search.replace(' ', '.*') + '.*', options: 'i' },
                 id: { nin: [$scope.userOrganization.id] }
               },
               limit: 5
@@ -586,7 +586,7 @@ module.exports = function(app) {
           Organization.find({
             filter: {
               where: {
-                name: { regexp: '' + search.replace(' ', '|') + '' },
+                name: { like: search.replace(' ', '.*') + '.*', options: 'i' },
                 id: { nin: _.map($scope.indicadorOrganizations, function(organization) {
                   return organization.id;
                 }) }
