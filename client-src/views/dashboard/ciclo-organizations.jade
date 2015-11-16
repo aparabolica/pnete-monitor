@@ -1,11 +1,11 @@
-h3 Organizações de {{ciclo.name}}
+h3 Organizações do ciclo {{ciclo.name}}
 table
   thead
     tr
       th Nome
       th.action Confirmada
       th.action Ativa
-      th.action Remover do ciclo
+      //- th.action Remover do ciclo
   tbody
     tr(ng-repeat="enrollee in enrollees")
       td {{enrollee.organization.name}}
@@ -13,5 +13,5 @@ table
         a.icon.icon-check(href="javascript:void(0);" ng-click="confirm(enrollee)" ng-class="{inactive: !enrollee.confirmed}")
       td
         a.icon.icon-check(href="javascript:void(0);" ng-click="activate(enrollee)" ng-class="{inactive: !enrollee.active}")
-      td
-        a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(enrollee)")
+      //- td
+      //-   a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(enrollee)")
