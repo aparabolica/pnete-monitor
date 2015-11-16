@@ -18,4 +18,17 @@ module.exports = function(Feedback) {
     });
   });
 
+  // protect immutable properties
+  var FILTERED_PROPERTIES = ['organizationId', 'cycleId', 'indicatorId'];
+  Feedback.observe('before save', function filterProperties(ctx, next) {
+    if (ctx.isNewInstance) return next();
+    if (ctx.options && ctx.options.skipPropertyFilter) return next();
+    if (ctx.instance) {
+      FILTERED_PROPERTIES.forEach(function(p) { ctx.instance.unsetAttribute(p); });
+    } else {
+      FILTERED_PROPERTIES.forEach(function(p) { delete ctx.data[p]; });
+    }
+    next();
+  });
+
 };
