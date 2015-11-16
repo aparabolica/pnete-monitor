@@ -187,7 +187,7 @@ describe('Users endpoints', function() {
   describe('enforce email confirmation', function(){
 
     context('logging before confirmation', function(){
-      it('returns 401', function(doneIt){
+      it('is forbidden', function(doneIt){
         var payload = {
           "email": user3.email,
           "password": user3.password,
@@ -207,8 +207,8 @@ describe('Users endpoints', function() {
       });
     });
 
-    context('missing password while confirming', function(){
-      it('returns 422', function(doneIt){
+    context('access to /confirm', function(){
+      it('is forbidden', function(doneIt){
         var payload = {
           "uid": user3.id,
           "token": user3.verificationToken
@@ -217,11 +217,31 @@ describe('Users endpoints', function() {
         request(app)
           .get(restApiRoot + '/users/confirm')
           .send(payload)
-          .expect(422)
+          .expect(403)
           .expect('Content-Type', /json/)
           .end(function(err, res){
             if (err) return doneIt(err);
-            res.body.error.should.have.property('message', 'A password is needed to enable user account.')
+            res.body.error.should.have.property('message', 'Invalid route.')
+            doneIt();
+          });
+      });
+    });
+
+    context('missing password while confirming', function(){
+      it('returns 422', function(doneIt){
+        var payload = {
+          "uid": user3.id,
+          "token": user3.verificationToken
+        }
+
+        request(app)
+          .post(restApiRoot + '/users/confirm-email')
+          .send(payload)
+          .expect(400)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            res.body.error.should.have.property('message', 'password is a required arg')
             doneIt();
           });
       });
@@ -239,10 +259,9 @@ describe('Users endpoints', function() {
         }
 
         request(app)
-          .get(restApiRoot + '/users/confirm')
+          .post(restApiRoot + '/users/confirm-email')
           .send(payload)
           .expect(204)
-          .expect('Content-Type', /json/)
           .end(function(err, res){
             if (err) return doneIt(err);
             helper.login({

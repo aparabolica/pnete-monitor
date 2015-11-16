@@ -105,25 +105,40 @@ module.exports = function(User) {
   /*
    * "Confirm user" remote hooks
    */
-  User.beforeRemote('confirm', function(ctx, modelInstance, next){
-    var password = ctx.req.body.password;
 
-    // user should set a password
-    if (!password) {
-      var err = new Error('A password is needed to enable user account.');
-      err.statusCode = 422;
-      next(err)
-    } else next();
+  User.remoteMethod('confirmEmail',{
+   http: {
+     path: '/confirm-email',
+     verb: 'post',
+     status: 204
+   },
+   accepts: [
+     {arg: 'uid', type: 'string', description: 'user id', required: true},
+     {arg: 'token', type: 'string', description: 'verification token', required: true},
+     {arg: 'password', type: 'string', description: 'new user password', required: true}
+   ],
+   returns: {name: 'status', type: 'Object'}
   });
 
-  User.afterRemote('confirm', function(ctx, modelInstance, next){
-    var body = ctx.req.body;
+  User.confirmEmail = function(id, token, password, next){
 
-    User.findById(body.uid, function(err, user){
-      if (err) return next(err);
-      user.password = body.password;
-      user.save(next);
+    User.findById(id, function(err, user){
+      if (token != user.verificationToken) {
+        var err = new Error('Invalid verification token.');
+        err.statusCode = 401;
+        next(err)
+      } else {
+        user.password = password;
+        user.emailVerified = true;
+        user.save(next);
+      }
     });
+  }
+
+  User.beforeRemote('confirm', function(ctx, modelInstance, next){
+    var err = new Error('Invalid route.');
+    err.statusCode = 403;
+    next(err)
   });
 
 
