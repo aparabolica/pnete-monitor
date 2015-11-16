@@ -1,4 +1,8 @@
+require('dotenv').load();
+
 module.exports = function(grunt) {
+
+	var env = process.env.NODE_ENV;
 
 	grunt.initConfig({
 		loopback_sdk_angular: {
@@ -130,10 +134,16 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
+	var servicesTasks = ['loopback_sdk_angular'];
+
+	if(typeof env == 'undefined' || env == 'development') {
+		servicesTasks.push('docular');
+	}
+
 	grunt.registerTask(
 		'services',
 		'Generate LoopBack Services',
-		['loopback_sdk_angular', 'docular']
+		servicesTasks
 	);
 
 	grunt.registerTask(
