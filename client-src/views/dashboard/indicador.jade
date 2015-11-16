@@ -1,7 +1,10 @@
 header.dashboard-inner-header
-  h2
-    a(ui-sref="dashboard.indicador") Indicadores
-  a(ui-sref="dashboard.indicador.edit({id: null})") + Novo indicador
+  div(ng-show="user.isAdmin")
+    h2
+      a(ui-sref="dashboard.indicador") Indicadores
+    a(ui-sref="dashboard.indicador.edit({id: null})") + Novo indicador
+  div(ng-hide="user.isAdmin")
+    h2 Indicadores
 section.dashboard-inner-content(ui-view)
   table
     thead

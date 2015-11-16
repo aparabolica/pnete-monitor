@@ -6,6 +6,18 @@ form(ng-submit="submit(indicador)")
     label(for="question_input") Pergunta
     textarea#question_input(ng-model="indicador.question")
   p
+    label(for="actions_input") Tipo
+    span.radio-list.row
+      span.radio-item
+        input(id="type_input_discursive" type="radio" ng-model="indicador.type" name="type_input" value="discursive")
+        label(for="type_input_discursive") Discursivo
+      span.radio-item
+        input(id="type_input_percentual" type="radio" ng-model="indicador.type" name="type_input" value="percentual")
+        label(for="type_input_percentual") Percentual
+      span.radio-item
+        input(id="type_input_integer" type="radio" ng-model="indicador.type" name="type_input" value="integer")
+        label(for="type_input_integer") Numérico
+  p
     label(for="eixo_input") Eixo
     select#eixo_input(ng-options="eixo.id as eixo.name for eixo in eixos" ng-model="indicador.axisId")
   p

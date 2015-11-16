@@ -1,5 +1,7 @@
 .dashboard-review
-  h3 Avaliando "{{indicador.name}}" em 
+  h3 Avaliando "
+    strong {{indicador.description}}
+    | " em 
     strong {{cycle.name}}
 form(ng-submit="submit(review)")
   p

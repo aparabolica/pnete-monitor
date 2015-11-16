@@ -333,6 +333,58 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('dashboard.indicador.feedback', {
+        url: 'feedback/?id',
+        controller: 'DashboardFeedbackCtrl',
+        templateUrl: '/views/dashboard/feedback.html',
+        resolve: {
+          Indicador: [
+            '$stateParams',
+            'Indicator',
+            function($stateParams, Indicator) {
+              if($stateParams.id) {
+                return Indicator.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return false;
+              }
+            }
+          ],
+          Edit: [
+            '$q',
+            '$stateParams',
+            'UserOrganization',
+            'ActiveCycle',
+            'Feedback',
+            function($q, $stateParams, UserOrganization, ActiveCycle, Feedback) {
+              var deferred = $q.defer();
+              if($stateParams.id) {
+                Feedback.findOne({
+                  filter: {
+                    where: {
+                      indicadorId: $stateParams.id,
+                      cycleId: ActiveCycle.id,
+                      organizationId: UserOrganization.id
+                    }
+                  }
+                }, function(data) {
+                  deferred.resolve(data);
+                }, function() {
+                  deferred.resolve({});
+                });
+              } else {
+                deferred.reject('Indicador não encontrado');
+              }
+              return deferred.promise;
+            }
+          ]
+        }
+      })
       .state('dashboard.indicador.review', {
         url: 'avaliar/?id&ciclo',
         controller: 'DashboardAssessIndicadorCtrl',
@@ -359,7 +411,14 @@ module.exports = function(app) {
               }).$promise;
             }
           ],
-          'Review': [
+          'Indicador': [
+            '$stateParams',
+            'Indicator',
+            function($stateParams, Indicator) {
+              return Indicator.findById({id: $stateParams.id}).$promise;
+            }
+          ],
+          'Edit': [
             '$stateParams',
             '$q',
             'ReviewCycle',

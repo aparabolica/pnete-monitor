@@ -60,7 +60,7 @@ section#dashboard
                   tr(ng-repeat="indicador in userIndicators")
                     td {{indicador.description}}
                     td 
-                      a.icon.icon-pencil(href="#")
+                      a.icon.icon-pencil(ui-sref="dashboard.indicador.feedback({id: indicador.id})")
         .clearfix
           .six.columns
             .widget.content-widget(ng-show="user.isAdmin")

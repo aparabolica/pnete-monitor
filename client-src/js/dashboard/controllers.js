@@ -463,6 +463,7 @@ module.exports = function(app) {
   app.controller('DashboardEditIndicadorCtrl', [
     '$scope',
     '$state',
+    'MessageService',
     'Indicator',
     'Organization',
     'Eixos',
@@ -470,7 +471,7 @@ module.exports = function(app) {
     'Edit',
     'IndicatorOrganizations',
     'IndicatorActions',
-    function($scope, $state, Indicator, Organization, Eixos, Actions, Edit, IndicatorOrganizations, IndicatorActions) {
+    function($scope, $state, Message, Indicator, Organization, Eixos, Actions, Edit, IndicatorOrganizations, IndicatorActions) {
 
       $scope.eixos = Eixos;
       $scope.actions = Actions;
@@ -591,7 +592,8 @@ module.exports = function(app) {
         Edit = res;
         $scope.indicador = _.extend({}, Edit);
         $scope.$emit('saved', res);
-        $state.go($state.current, {}, {reload:true});
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Indicador enviado com sucesso');
       }
 
     }
@@ -601,20 +603,23 @@ module.exports = function(app) {
     '$scope',
     '$state',
     '$stateParams',
-    'Review',
+    'MessageService',
+    'Indicador',
+    'Edit',
     'ReviewCycle',
     'Assessment',
-    function($scope, $state, $stateParams, Review, ReviewCycle, Assessment) {
+    function($scope, $state, $stateParams, Message, Indicador, Edit, ReviewCycle, Assessment) {
 
+      $scope.indicador = Indicador;
       $scope.cycle = ReviewCycle;
 
       $scope.review = _.extend({
         indicatorId: $stateParams.id,
         cycleId: ReviewCycle.id
-      }, Review);
+      }, Edit);
 
       $scope.submit = function(review) {
-        if(!_.isEmpty(Review)) {
+        if(!_.isEmpty(Edit)) {
           Assessment['prototype$updateAttributes']({id: review.id}, review, saveCb);
         } else {
           Assessment.create(review, saveCb);
@@ -626,9 +631,51 @@ module.exports = function(app) {
         $scope.review = _.extend({}, Edit);
         $scope.$emit('saved', res);
         $state.go($state.current, {}, {reload:true});
+        Message.add('Análise enviada com sucesso');
       }
     }
   ]);
+
+  app.controller('DashboardFeedbackCtrl', [
+    '$scope',
+    '$stateParams',
+    '$state',
+    'MessageService',
+    'Indicador',
+    'ActiveCycle',
+    'UserOrganization',
+    'Edit',
+    'Feedback',
+    function($scope, $stateParams, $state, Message, Indicador, Cycle, Organization, Edit, Feedback) {
+
+      $scope.indicador = Indicador;
+      $scope.organization = Organization;
+      $scope.cycle = Cycle;
+
+      $scope.feedback = _.extend({
+        organizationId: Organization.id,
+        cycleId: Cycle.id,
+        indicatorId: Indicador.id
+      }, Edit);
+
+      $scope.submit = function(feedback) {
+        if(!_.isEmpty(Edit)) {
+          Feedback['prototype$updateAttributes']({id: feedback.id}, feedback, saveCb);
+        } else {
+          Feedback.create(feedback, saveCb);
+        }
+      };
+
+      var saveCb = function(res) {
+        Edit = res;
+        $scope.feedback = _.extend({}, Edit);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {}, {reload:true});
+        Message.add('Resposta enviada com sucesso');
+      }
+
+    }
+  ])
 
   app.controller('DashboardNotificationCtrl', [
     '$scope',
