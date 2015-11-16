@@ -1,14 +1,21 @@
 article#organization
-  header.organization-header
+  header.organization-header.row
     .container.row
       .eight.columns
+        p.tagline Perfil da organização
         h1 {{organization.name}}
+  section.organization-content
     .container
       .six.columns
-        #organization-meta
-          //- replied-percent(ratio="organization.ratio")
+        #organization-status
+          replied-percent(ratio="ratio")
+        #organization-feedbacks
+          
+      .six.columns
+        #organization-indicadores
           h2 Indicadores
           ul.indicador-list
-            li.indicador-item(ng-repeat="indicador in indicadores")
+            li.indicador-item.clearfix(ng-repeat="indicador in indicadores")
+              a.axis-info.eixo-bg(ui-sref="{eixo: indicador.axisId}" style="background-color: {{indicador.axis.color}};" title="{{indicador.axis.name}}") {{indicador.axisId}}
               h3
                 a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}

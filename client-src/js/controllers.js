@@ -125,7 +125,10 @@ module.exports = function(app) {
     'Organizacao',
     'Indicadores',
     function($scope, Organizacao, Indicadores) {
-
+      $scope.ratio = {
+        'questions': 130,
+        'replied': 60
+      };
       $scope.organization = Organizacao;
       $scope.indicadores = Indicadores;
     }

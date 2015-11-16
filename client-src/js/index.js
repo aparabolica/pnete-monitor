@@ -248,7 +248,17 @@ app.config([
           '$stateParams',
           'Organization',
           function($stateParams, Organization) {
-            return Organization.indicators({id: $stateParams.organizationId}).$promise;
+            return Organization.indicators({
+              id: $stateParams.organizationId,
+              filter: {
+                include: {
+                  relation: 'axis',
+                  scope: {
+                    fields: ['name', 'color']
+                  }
+                }
+              }
+            }).$promise;
           }
         ]
       }
