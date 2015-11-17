@@ -19,7 +19,8 @@
           "authentication"
         ]
       }
-    }
+    },
+    "./middleware/current-user": {}
   },
   "routes": {
     "loopback#rest": {

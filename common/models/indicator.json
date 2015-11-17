@@ -30,6 +30,9 @@
     },
     "question": {
       "type": "string"
+    },
+    "comments": {
+      "type": "string"
     }
   },
   "validations": [],

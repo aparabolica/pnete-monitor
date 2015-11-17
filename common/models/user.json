@@ -29,6 +29,7 @@
       "default": false
     }
   },
+  "hidden": ["password"],
   "validations": [],
   "relations": {
     "organization": {
