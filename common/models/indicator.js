@@ -8,7 +8,7 @@ module.exports = function(Indicator) {
   Indicator.disableRemoteMethod("createChangeStream", true);
 
 
-  Indicator.validatesInclusionOf('type', {in: ['integer', 'percentual', 'discursive']});
+  Indicator.validatesInclusionOf('type', {in: ['boolean', 'integer', 'percentual', 'discursive']});
 
   var ADMIN_FIELDS = ['comments'];
   Indicator.afterRemote('**', function(ctx, modelInstance, next) {
