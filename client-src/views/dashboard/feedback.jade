@@ -7,6 +7,7 @@
     strong {{organization.name}}
   form(ng-submit="submit(feedback)")
     h3 {{indicador.question}}
+    p(ng.show="indicador.comments") {{indicador.comments}}
     p(ng-show="indicador.type == 'integer'")
       label(for="feedback_value") Insira o valor abaixo
       input#feedback_value(type="text" ng-model="feedback.value.value")

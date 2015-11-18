@@ -6,6 +6,9 @@ form(ng-submit="submit(indicador)")
     label(for="question_input") Pergunta
     textarea#question_input(ng-model="indicador.question")
   p
+    label(for="comments_input") Sugestões/requerimentos específicos à organização (não é exibido na visualização do indicador)
+    textarea#comments_input(ng-model="indicador.comments")
+  p
     label(for="actions_input") Tipo
     span.radio-list.row
       span.radio-item
