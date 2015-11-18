@@ -35,7 +35,7 @@ describe('Endpoints for "Users":', function() {
     async.series([
       function (doneEach){
         helper.login(admin1, function(err, token){
-          admin1AccessToken = token;
+          admin1AccessToken = token.id;
           doneEach(err);
         });
       }, function (doneEach){
@@ -43,7 +43,7 @@ describe('Endpoints for "Users":', function() {
           if (err) return doneBefore(err);
           user1 = usr;
           helper.login(user1, function(err, token){
-            user1AccessToken = token;
+            user1AccessToken = token.id;
             doneEach(err);
           });
         });
@@ -52,7 +52,7 @@ describe('Endpoints for "Users":', function() {
           if (err) return doneBefore(err);
           user2 = usr;
           helper.login(user2, function(err, token){
-            user2AccessToken = token;
+            user2AccessToken = token.id;
             doneEach(err);
           });
         });
@@ -61,7 +61,7 @@ describe('Endpoints for "Users":', function() {
           if (err) return doneBefore(err);
           user3 = usr;
           helper.login(user3, function(err, token){
-            user3AccessToken = token;
+            user3AccessToken = token.id;
             doneEach(err);
           });
         });

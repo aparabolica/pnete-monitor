@@ -35,7 +35,7 @@ describe('Endpoints for "Users":', function() {
       function (doneEach){
         helper.login(admin1, function(err, token){
           if (err) return doneBefore(err);
-          admin1AccessToken = token;
+          admin1AccessToken = token.id;
           doneEach(err);
         });
       }, function (doneEach){
@@ -44,7 +44,7 @@ describe('Endpoints for "Users":', function() {
           user1 = usr;
           helper.login(user1, function(err, token){
             if (err) return doneBefore(err);
-            user1AccessToken = token;
+            user1AccessToken = token.id;
             doneEach(err);
           });
         });

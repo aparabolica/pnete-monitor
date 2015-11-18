@@ -34,7 +34,8 @@ describe('Users endpoints', function() {
       function (doneEach){
         helper.login(admin1, function(err, token){
           if (err) return doneBefore(err);
-          admin1AccessToken = token;
+          admin1AccessToken = token.id;
+          admin1.id = token.userId
           doneEach(err);
         });
       }, function (doneEach){
@@ -43,7 +44,7 @@ describe('Users endpoints', function() {
           user1 = usr;
           helper.login(user1, function(err, token){
             if (err) return doneBefore(err);
-            user1AccessToken = token;
+            user1AccessToken = token.id;
             doneEach(err);
           });
         });
@@ -53,7 +54,7 @@ describe('Users endpoints', function() {
           user2 = usr;
           helper.login(user2, function(err, token){
             if (err) return doneBefore(err);
-            user2AccessToken = token;
+            user2AccessToken = token.id;
             doneEach(err);
           });
         });
@@ -272,7 +273,6 @@ describe('Users endpoints', function() {
       });
     });
 
-
   });
 
   describe('GET /user/:id/organization', function(){
@@ -284,8 +284,93 @@ describe('Users endpoints', function() {
           .expect(200)
           .expect('Content-Type', /json/)
           .end(doneIt);
-      })
-    })
-  })
+      });
+    });
+  });
 
+  describe('when changing password', function(){
+    var payload = {
+      password: 'sombra'
+    }
+
+    context('not authenticated', function(){
+      it('should return an error', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/users/'+user2.id)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      });
+    });
+
+    context('a regular user', function(){
+      it('can change its own', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/users/'+user2.id)
+          .send(payload)
+          .set('Authorization', user2AccessToken)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err){
+            if (err) return doneIt(err);
+            user2.password = payload.password;
+            helper.login(user2, function(err, token){
+              if (err) return doneBefore(err);
+              user2AccessToken = token.id;
+              doneIt();
+          });
+        });
+      });
+
+      it('can\'t change others', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/users/'+user1.id)
+          .send(payload)
+          .set('Authorization', user2AccessToken)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      });
+    });
+
+    context('an admin user', function(){
+      it('can change its own', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/users/'+admin1.id)
+          .send(payload)
+          .set('Authorization', admin1AccessToken)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err){
+            if (err) return doneIt(err);
+            admin1.password = payload.password;
+            helper.login(admin1, function(err, token){
+              if (err) return doneBefore(err);
+              admin1AccessToken = token.id;
+              doneIt();
+          });
+        });
+      });
+
+
+      it('can change others', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/users/'+user1.id)
+          .send(payload)
+          .set('Authorization', admin1AccessToken)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err){
+            if (err) return doneIt(err);
+            user1.password = payload.password;
+            helper.login(user1, function(err, token){
+              if (err) return doneBefore(err);
+              user1AccessToken = token.id;
+              doneIt();
+            });
+        });
+      });
+    });
+
+  });
 });
