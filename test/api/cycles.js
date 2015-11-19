@@ -62,8 +62,7 @@ describe('Cycle endpoints, ', function(){
     context('first cycle', function(){
       var payload = {
         name: '2014',
-        description: 'Cycle 2014',
-        includeAllOrgs: true
+        description: 'Cycle 2014'
       }
 
       it('should be active', function(doneIt){

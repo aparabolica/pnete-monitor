@@ -193,6 +193,82 @@ describe('Endpoints for "Users":', function() {
     });
   });
 
+  describe('DEL /organization', function(){
+    var orgToDelete = {};
+
+    // create relations to a cycle
+    before(function(doneBefore){
+      var CycleEnrollment = app.models.CycleEnrollment;
+
+      var payload = {
+        name: '2015',
+        description: 'Cycle 2015'
+      }
+
+      request(app)
+        .post(restApiRoot + '/cycles')
+        .set('Authorization', admin1AccessToken)
+        .send(payload)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res){
+          if (err) return doneBefore(err);
+          CycleEnrollment.findOne({}, function(err, enrollment){
+            if (err) return doneBefore(err);
+            orgToDelete.id = enrollment.organizationId;
+            doneBefore();
+          });
+        });
+    });
+
+    context('deny anonymous', function(){
+      it('should return 401', function(doneIt){
+        request(app)
+          .del(restApiRoot + '/organizations/'+orgToDelete.id)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      });
+    });
+
+    context('deny regular user', function(){
+      it('should return 401', function(doneIt){
+        request(app)
+          .del(restApiRoot + '/organizations/'+orgToDelete.id)
+          .set('Authorization', user2AccessToken)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(doneIt);
+      });
+    });
+
+
+    context('allow admin', function(){
+      it('should return 200 and org json', function(doneIt){
+
+        request(app)
+          .del(restApiRoot + '/organizations/'+orgToDelete.id)
+          .set('Authorization', admin1AccessToken)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) doneIt(err);
+            var body = res.body;
+
+            body.should.have.property('count');
+            body['count'].should.be.above(0);
+
+            // remove relation to cycles
+            app.models.CycleEnrollment.find({where: {id: orgToDelete.id}}, function(err, enrollments){
+              if (err) return doneIt(err);
+              enrollments.should.have.length(0);
+              doneIt();
+            });
+
+          });
+      });
+    });
+  });
 
 
 });
