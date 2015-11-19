@@ -23,9 +23,10 @@ var user1AccessToken;
 var user2;
 var user2AccessToken;
 var user3;
+var userNotConfirmed;
 
 
-describe('Users endpoints', function() {
+describe('Users: ', function() {
 
   before(function(doneBefore) {
     this.timeout(10000);
@@ -55,6 +56,16 @@ describe('Users endpoints', function() {
           helper.login(user2, function(err, token){
             if (err) return doneBefore(err);
             user2AccessToken = token.id;
+            doneEach(err);
+          });
+        });
+      }, function (doneEach){
+        helper.createUser(function(err,usr){
+          if (err) return doneBefore(err);
+          user3 = usr;
+          helper.login(user3, function(err, token){
+            if (err) return doneBefore(err);
+            user3AccessToken = token.id;
             doneEach(err);
           });
         });
@@ -114,9 +125,7 @@ describe('Users endpoints', function() {
           body.should.have.property('email', payload.email);
           body.should.not.have.property('password');
 
-          // keep user3 info
-          user3 = body;
-          user3.password = payload.password;
+          userNotConfirmed = body;
 
           doneIt();
         }
@@ -124,13 +133,13 @@ describe('Users endpoints', function() {
     });
   });
 
-  describe('promote user to admin', function(){
+  describe('when promoting to admin,', function(){
     var payload = {
       isAdmin: true
     }
 
-    context('deny anonymous', function(){
-      it('returns 401', function(doneIt){
+    context('while anonymous user,', function(){
+      it('should return 401.', function(doneIt){
         request(app)
           .put(restApiRoot + '/users/' + user1.id)
           .send(payload)
@@ -172,11 +181,11 @@ describe('Users endpoints', function() {
       });
     });
 
-    context('deny own user', function(){
-      it('returns 401', function(doneIt){
+    context('while user changing itself,', function(){
+      it('should return 401', function(doneIt){
         request(app)
-          .put(restApiRoot + '/users/' + user1.id)
-          .set('Authorization', user1AccessToken)
+          .put(restApiRoot + '/users/' + user2.id)
+          .set('Authorization', user2AccessToken)
           .send(payload)
           .expect(401)
           .expect('Content-Type', /json/)
@@ -185,13 +194,13 @@ describe('Users endpoints', function() {
     });
   });
 
-  describe('enforce email confirmation', function(){
+  describe('enforce email confirmation: ', function(){
 
     context('logging before confirmation', function(){
       it('is forbidden', function(doneIt){
         var payload = {
-          "email": user3.email,
-          "password": user3.password,
+          "email": userNotConfirmed.email,
+          "password": userNotConfirmed.password,
         }
 
         request(app)
@@ -201,7 +210,7 @@ describe('Users endpoints', function() {
           .expect('Content-Type', /json/)
           .end(function(err, res){
             if (err) return doneIt(err);
-            res.body.error.should.have.property('message', 'login failed as the email has not been verified');
+            res.body.error.should.have.property('message', 'login failed');
             doneIt();
 
           });
@@ -211,8 +220,8 @@ describe('Users endpoints', function() {
     context('access to /confirm', function(){
       it('is forbidden', function(doneIt){
         var payload = {
-          "uid": user3.id,
-          "token": user3.verificationToken
+          "uid": userNotConfirmed.id,
+          "token": userNotConfirmed.verificationToken
         }
 
         request(app)
@@ -231,8 +240,8 @@ describe('Users endpoints', function() {
     context('missing password while confirming', function(){
       it('returns 422', function(doneIt){
         var payload = {
-          "uid": user3.id,
-          "token": user3.verificationToken
+          "uid": userNotConfirmed.id,
+          "token": userNotConfirmed.verificationToken
         }
 
         request(app)
@@ -251,12 +260,12 @@ describe('Users endpoints', function() {
     context('new password is set', function(){
       it('returns 204 and can login properly', function(doneIt){
 
-        user3.password = "anewpassword";
+        userNotConfirmed.password = "anewpassword";
 
         var payload = {
-          "uid": user3.id,
-          "token": user3.verificationToken,
-          "password": user3.password
+          "uid": userNotConfirmed.id,
+          "token": userNotConfirmed.verificationToken,
+          "password": userNotConfirmed.password
         }
 
         request(app)
@@ -266,8 +275,8 @@ describe('Users endpoints', function() {
           .end(function(err, res){
             if (err) return doneIt(err);
             helper.login({
-              email: user3.email,
-              password: user3.password
+              email: userNotConfirmed.email,
+              password: userNotConfirmed.password
             }, doneIt)
           });
       });
@@ -288,7 +297,7 @@ describe('Users endpoints', function() {
     });
   });
 
-  describe('when changing password', function(){
+  describe('when changing password ', function(){
     var payload = {
       password: 'sombra'
     }
@@ -303,20 +312,35 @@ describe('Users endpoints', function() {
       });
     });
 
-    context('a regular user', function(){
-      it('can change its own', function(doneIt){
+    context('with a regular user,', function(){
+      it('returns error when current password is missing', function(doneIt){
         request(app)
-          .put(restApiRoot + '/users/'+user2.id)
+          .put(restApiRoot + '/users/'+user3.id)
           .send(payload)
-          .set('Authorization', user2AccessToken)
+          .set('Authorization', user3AccessToken)
+          .expect(401)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            res.body.error.should.have.property('message', 'missing current password.');
+            doneIt();
+          });
+      });
+
+      it('must provide current password to perform change', function(doneIt){
+        payload.currentPassword = user3.password;
+        request(app)
+          .put(restApiRoot + '/users/'+user3.id)
+          .send(payload)
+          .set('Authorization', user3AccessToken)
           .expect(200)
           .expect('Content-Type', /json/)
           .end(function(err){
             if (err) return doneIt(err);
-            user2.password = payload.password;
-            helper.login(user2, function(err, token){
+            user3.password = payload.password;
+            helper.login(user3, function(err, token){
               if (err) return doneBefore(err);
-              user2AccessToken = token.id;
+              user3AccessToken = token.id;
               doneIt();
           });
         });
@@ -324,9 +348,9 @@ describe('Users endpoints', function() {
 
       it('can\'t change others', function(doneIt){
         request(app)
-          .put(restApiRoot + '/users/'+user1.id)
+          .put(restApiRoot + '/users/'+user2.id)
           .send(payload)
-          .set('Authorization', user2AccessToken)
+          .set('Authorization', user3AccessToken)
           .expect(401)
           .expect('Content-Type', /json/)
           .end(doneIt);

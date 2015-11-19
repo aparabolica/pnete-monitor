@@ -59,45 +59,46 @@ module.exports = function(User) {
 
     var err;
     var body = ctx.req.body;
-    var requestUserId = ctx.req.accessToken.userId;
+    var currentUser = ctx.req.currentUser;
     var targetUser = ctx.instance;
 
-    if (body && body['organizationId']) {
+    var ADMIN_ONLY = ['organizationId', 'isAdmin', 'emailVerified']
+    ADMIN_ONLY.forEach(function(key){
+      if (body[key] && !currentUser.isAdmin) {
+        var e = new Error('only admins can change organizationId')
+        e.statusCode = 401
+        return next(e);
+      }
+    });
 
-      User.findById(requestUserId, function(err, user){
-        if (user && !user.isAdmin) {
-          err = new Error('Only admins can change admin role.');
-          err.statusCode = 401;
-        }
-        next(err);
-      });
+    // when changing password, must provide current
+    if (body['password']) {
 
-    // only admins can make admins
-    } else if (body && body['isAdmin']) {
-
-      // check if user is changing its admin status
-      if (targetUser.id == requestUserId) {
-        err = new Error('User can\'t change its own admin status.');
-        err.statusCode = 401;
-        next(err);
-
-      // check if user is admin
-      } else {
-        User.findById(requestUserId, function(err, user){
-          if (user && !user.isAdmin) {
-            err = new Error('Only admins can change admin role.');
-            err.statusCode = 401;
-          }
-          next(err);
-        });
+      // only admins can change others passwords
+      if (currentUser.id != targetUser.id && !currentUser.isAdmin) {
+        err = new Error('only admins can change password from others')
+        err.statusCode = 401
+        return next(e);
       }
 
-    // emailVerified can't be changed via this endpoint
-    } else if (body && body['emailVerified']) {
+      if (!currentUser.isAdmin) {
 
-      err = new Error('Can\'t change emailVerified.');
-      err.statusCode = 401;
-      next(err);
+        if (!body['currentPassword']){
+          err = new Error('missing current password.')
+          err.statusCode = 401;
+          return next(err);
+        }
+
+        targetUser.hasPassword(body['currentPassword'], function(err, isMatch){
+          if (err) return next(err);
+
+          if (!isMatch) {
+            err = new Error('invalid current password.')
+            err.statusCode = 401;
+          }
+          return next(err);
+        });
+      } else next()
 
     // user is not changing sensitive information
     } else next();
