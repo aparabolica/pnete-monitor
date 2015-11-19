@@ -23,10 +23,11 @@ var user1AccessToken;
 var indicator1;
 var organization1;
 var cycle1;
+var cycle2;
 var feedback1;
 
 
-describe('Endpoints for "Users":', function() {
+describe('Feedbacks:', function() {
 
   before(function(doneBefore) {
     this.timeout(10000);
@@ -61,9 +62,10 @@ describe('Endpoints for "Users":', function() {
           doneEach(err);
         });
       }, function (doneEach){
-        helper.createCycles(1, function(err,cycles){
+        helper.createCycles(2, function(err,cycles){
           if (err) return doneBefore(err);
           cycle1 = cycles[0];
+          cycle2 = cycles[1];
           doneEach(err);
         });
       }
@@ -102,17 +104,20 @@ describe('Endpoints for "Users":', function() {
           .post(restApiRoot + '/feedbacks')
           .set('Authorization', user1AccessToken)
           .send(payload)
-          .expect(200)
+          // .expect(200)
           .expect('Content-Type', /json/)
           .end(function(err, res){
+            // console.log(res.text);
             if (err) return doneIt(err);
 
             var body = res.body;
 
-            body.should.have.property('cycleId', payload.cycleId);
             body.should.have.property('indicatorId', payload.indicatorId);
             body.should.have.property('organizationId', organization1.id);
             body.should.have.property('value', payload.value);
+
+            // enforce feedback on active cycle
+            body.should.have.property('cycleId', cycle2.id);
 
             feedback1 = body;
 
@@ -157,10 +162,12 @@ describe('Endpoints for "Users":', function() {
 
             var body = res.body;
 
-            body.should.have.property('cycleId', cycle1.id);
             body.should.have.property('indicatorId', indicator1.id);
             body.should.have.property('organizationId', organization1.id);
             body.should.have.property('value', payload.value);
+
+
+            body.should.have.property('cycleId', cycle2.id);
 
             doneIt();
           });

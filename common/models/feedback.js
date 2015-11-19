@@ -9,12 +9,17 @@ module.exports = function(Feedback) {
   Feedback.disableRemoteMethod("createChangeStream", true);
 
   Feedback.beforeRemote('create', function(ctx, instance, next){
-    var User = Feedback.app.models.user;
-    var requestUserId = ctx.req.accessToken.userId;
-    User.findById(requestUserId, function(err, user){
-      if (err) return next(err);
-      ctx.req.body.organizationId = user.organizationId;
-      next();
+    var Cycle = Feedback.app.models.Cycle;
+
+    var requestingUser = ctx.currentUser;
+
+    // enforce user organizationId
+    ctx.req.body.organizationId = ctx.req.currentUser.organizationId;
+
+    // enforce active cycle
+    Cycle.findOne({where:{active: true}}, function(err, cycle){
+      ctx.req.body.cycleId = cycle.id;
+      next(err);
     });
   });
 
@@ -22,7 +27,6 @@ module.exports = function(Feedback) {
   var FILTERED_PROPERTIES = ['organizationId', 'cycleId', 'indicatorId'];
   Feedback.observe('before save', function filterProperties(ctx, next) {
     if (ctx.isNewInstance) return next();
-    if (ctx.options && ctx.options.skipPropertyFilter) return next();
     if (ctx.instance) {
       FILTERED_PROPERTIES.forEach(function(p) { ctx.instance.unsetAttribute(p); });
     } else {
