@@ -1,3 +1,4 @@
+var _ = require('underscore');
 var async = require('async');
 
 module.exports = function(Cycle) {
@@ -10,38 +11,75 @@ module.exports = function(Cycle) {
   Cycle.disableRemoteMethod("createChangeStream", true);
 
   /*
-   * Cycle status
+   * Remote methods
    */
-  Cycle.remoteMethod('status',{
-   http: {path: '/:id/status', verb: 'get'},
-   accepts: {arg: 'id', type: 'string', required: true},
-   returns: {name: 'status', type: 'Object'}
-  });
 
   Cycle.status = function(doneStatus){
-    var Feedback = Cycle.app.models.Feedback;
+    var self = this;
     var Indicator = Cycle.app.models.Indicator;
+    var Feedback = Cycle.app.models.Feedback;
+    var enrollees = {};
+    var counts = {
+      feedbacks: {
+        needed: 0,
+        given: 0
+      }
+    }
 
-    function getIndicatorsCount(doneGetIndicatorsCount){
-      Indicator.find({}, function(err, indicators){
-        async.each(indicators, function(indicator, doneEachIndicator){
-          indicator.organizations.count(function(err, count){
-            doneEachIndicator();
-          });
-        },doneGetIndicatorsCount);
+    /*
+      Feedback counts are made in four steps:
+
+      1 - get all enrollees of active cycle
+      2 - for each indicator, count related organizations which are enrollees
+      3 - count givin feedbacks of active cycle
+     */
+
+    async.series([ function(doneEachSeries){
+      // get organizations enrolled in active cycle
+      Cycle.findOne({
+        where: {
+          active: true
+        },
+        include: {
+          relation: 'enrollees'
+        }
+      }, function(err, cycle) {
+        if (err) return doneStatus(err);
+        cycle = cycle.toJSON();
+        _.each(cycle.enrollees, function(org){
+          enrollees[org.id] = org;
+        });
+        doneEachSeries();
       });
-    }
+    }, function(doneEachSeries){
+      // get indicators, performing count discarding non-enrollees orgs
+      Indicator.find({
+        include: {
+          relation: 'organizations'
+        }
+      }, function(err, indicators) {
+        _.each(indicators, function(indicator){
+          indicator = indicator.toJSON();
+          _.each(indicator.organizations, function(org){
+            if (enrollees[org.id]) counts.feedbacks.needed += 1;
+          })
+        });
 
-    function getFeedbackCount(doneGetFeedbackCount){
-      Feedback.count({}, doneGetFeedbackCount);
-    }
-
-    async.parallel([
-      getIndicatorsCount,
-      getFeedbackCount,
-    ], function(err, counts){
-      doneStatus(null, counts);
+        doneEachSeries();
+      });
+    }, function(doneEachSeries){
+      // get indicators, performing count discarding non-enrollees orgs
+      Feedback.count({
+        cycleId: self.id
+      }, function(err, count) {
+        if (err) return doneEachSeries(err);
+        counts.feedbacks.given = count;
+        doneEachSeries();
+      });
+    }], function(errs, doneEachSeries){
+      doneStatus(errs, counts);
     });
+
   }
 
   /**

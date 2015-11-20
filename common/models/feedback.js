@@ -8,6 +8,10 @@ module.exports = function(Feedback) {
   Feedback.disableRemoteMethod("updateAll", true);
   Feedback.disableRemoteMethod("createChangeStream", true);
 
+  /**
+   * Remote hooks
+   **/
+
   Feedback.beforeRemote('create', function(ctx, instance, next){
     var Cycle = Feedback.app.models.Cycle;
 
@@ -34,5 +38,4 @@ module.exports = function(Feedback) {
     }
     next();
   });
-
 };

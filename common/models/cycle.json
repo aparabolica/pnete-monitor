@@ -68,5 +68,11 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {
+    "status": {
+      "isStatic": true,
+      "http": {"path": "/status", "verb": "get"},
+      "returns": {"name": "status", "type": "Object"}
+    }
+  }
 }
