@@ -22,22 +22,24 @@ var counts = {
     needed: 0,
     given: 0
   }
+
 };
 var admin1 = app.settings.defaultAdmin;
 var admin1AccessToken;
 var user1;
 var user1AccessToken;
-var cicle1;
-var cicle2;
+var cycle1;
+var cycle2;
 
 
 /*
  * Models
  */
-var Organization;
-var Indicator;
 var Axis;
+var CycleEnrollment;
+var Indicator;
 var Feedback;
+var Organization;
 
 /*
  * The tests
@@ -50,10 +52,11 @@ describe('Cycle endpoints, ', function(){
   before(function(doneBefore) {
     this.timeout(10000);
 
-    Organization = app.models.Organization;
     Axis = app.models.Axis;
-    Indicator = app.models.Indicator;
+    CycleEnrollment = app.models.CycleEnrollment;
     Feedback = app.models.Feedback;
+    Indicator = app.models.Indicator;
+    Organization = app.models.Organization;
 
 
     async.series([
@@ -114,7 +117,7 @@ describe('Cycle endpoints, ', function(){
                 Organization.count(function(err, count){
                   count.should.not.equal(0);
                   enrollees.should.have.length(count);
-                  cicle1 = body;
+                  cycle1 = body;
                   doneIt();
                 })
               });
@@ -145,13 +148,16 @@ describe('Cycle endpoints, ', function(){
             body.should.have.property('description', payload.description);
             body.should.have.property('active', true);
 
-            cicle2 = body;
+            cycle2 = body;
 
-            doneIt();
-          })
+            // remove some orgs from active cycle to test feedback count properly
+            CycleEnrollment.destroyAll({
+              cycleId: cycle2.id,
+              organizationId: {lt: 5}
+            }, doneIt);
+          });
       });
     });
-
   });
 
   describe('GET /cycle/status,', function(){
@@ -166,7 +172,6 @@ describe('Cycle endpoints, ', function(){
         // create up to 2 feedbacks to each org
         if (err) return doneBefore(err);
 
-
         async.eachSeries(indicators, function(indicator, doneEachIndicator){
           indicator = indicator.toJSON();
           var organizations = indicator.organizations;
@@ -174,18 +179,26 @@ describe('Cycle endpoints, ', function(){
           counts.indicators = counts.indicators + 1;
 
           var indicatorOrgsCount = organizations.length;
-          counts.feedbacks.needed = counts.feedbacks.needed + indicatorOrgsCount;
+
+          organizations.forEach(function(org){
+            if (org.id >= 5) {
+              counts.feedbacks.needed = counts.feedbacks.needed + 1;
+            }
+          });
+
 
           // random number of feedbacks
           var feedbacksToCreateCount = Math.floor((Math.random() * indicatorOrgsCount));
           async.timesSeries(feedbacksToCreateCount, function(i, doneEachFeedback){
 
-            counts.feedbacks.given += 1;
-
-            Feedback.create({
-              organizationId: organizations[i].id,
-              indicatorId: indicator.id
-            }, doneEachFeedback);
+            // organizations with id lower than 5 are not in active cycle
+            if (organizations[i].id >= 5) {
+              counts.feedbacks.given += 1;
+              Feedback.create({
+                organizationId: organizations[i].id,
+                indicatorId: indicator.id
+              }, doneEachFeedback);
+            } else doneEachFeedback();
           }, doneEachIndicator);
         }, doneBefore);
       });
@@ -202,8 +215,6 @@ describe('Cycle endpoints, ', function(){
             var body = res.body;
 
             body.should.have.property('status');
-
-
             body['status'].should.have.property('feedbacks');
             body['status']['feedbacks'].should.have.property('needed', counts.feedbacks.needed);
             body['status']['feedbacks'].should.have.property('given', counts.feedbacks.given);
@@ -215,15 +226,96 @@ describe('Cycle endpoints, ', function(){
     });
 
     context('when axis filter is set', function(){
-      it('return all and only feedback counts for specific axis');
+      var payload = {axisId: 1};
+      it('return all and only feedback counts for specific axis', function(doneIt){
+        request(app)
+          .get(restApiRoot + '/cycles/status')
+          .send(payload)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) doneIt(err);
+            var body = res.body;
+
+            body.should.have.property('status');
+            body['status'].should.have.property('feedbacks');
+
+            Feedback.count({
+              axisId: payload.axisId,
+              cycleId: cycle2.id
+            }, function(err, count){
+              if (err) return doneIt(err);
+
+              body['status']['feedbacks']['needed'].
+                should.be.below(counts.feedbacks.needed);
+              body['status']['feedbacks']['given']
+                .should.be.below(counts.feedbacks.given);
+              doneIt();
+            });
+          });
+      });
     })
 
     context('when organization filter is set', function(){
-      it('return all and only feedback counts for specific organization');
+      var payload = {organizationId: 6};
+      it('return all and only feedback counts for specific axis', function(doneIt){
+        request(app)
+          .get(restApiRoot + '/cycles/status')
+          .send(payload)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) doneIt(err);
+            var body = res.body;
+
+            body.should.have.property('status');
+            body['status'].should.have.property('feedbacks');
+
+            Feedback.count({
+              axisId: payload.axisId,
+              cycleId: cycle2.id
+            }, function(err, count){
+              if (err) return doneIt(err);
+
+              body['status']['feedbacks']['needed'].
+                should.be.below(counts.feedbacks.needed);
+              body['status']['feedbacks']['given']
+                .should.be.below(counts.feedbacks.given);
+              doneIt();
+            });
+          });
+      });
     })
 
     context('when indicator filter is set', function(){
-      it('return all and only feedback counts for specific organization');
+      var payload = {indicatorId: 5};
+      it('return all and only feedback counts for specific axis', function(doneIt){
+        request(app)
+          .get(restApiRoot + '/cycles/status')
+          .send(payload)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) doneIt(err);
+            var body = res.body;
+
+            body.should.have.property('status');
+            body['status'].should.have.property('feedbacks');
+
+            Feedback.count({
+              axisId: payload.axisId,
+              cycleId: cycle2.id
+            }, function(err, count){
+              if (err) return doneIt(err);
+
+              body['status']['feedbacks']['needed'].
+                should.be.below(counts.feedbacks.needed);
+              body['status']['feedbacks']['given']
+                .should.be.below(counts.feedbacks.given);
+              doneIt();
+            });
+          });
+      });
     })
   });
 

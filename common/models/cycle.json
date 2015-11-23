@@ -72,6 +72,11 @@
     "status": {
       "isStatic": true,
       "http": {"path": "/status", "verb": "get"},
+      "accepts": [
+        {"arg": "axisId", "type": "string"},
+        {"arg": "indicatorId", "type": "string"},
+        {"arg": "organizationId", "type": "string"}
+      ],
       "returns": {"name": "status", "type": "Object"}
     }
   }

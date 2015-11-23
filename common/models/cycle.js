@@ -14,11 +14,12 @@ module.exports = function(Cycle) {
    * Remote methods
    */
 
-  Cycle.status = function(doneStatus){
+  Cycle.status = function(axisId, indicatorId, organizationId, doneStatus){
     var self = this;
     var Indicator = Cycle.app.models.Indicator;
     var Feedback = Cycle.app.models.Feedback;
     var enrollees = {};
+    var indicatorIds = [];
     var counts = {
       feedbacks: {
         needed: 0,
@@ -47,30 +48,41 @@ module.exports = function(Cycle) {
         if (err) return doneStatus(err);
         cycle = cycle.toJSON();
         _.each(cycle.enrollees, function(org){
-          enrollees[org.id] = org;
+          // filter by org
+          if ((organizationId && org.id == organizationId) || (!organizationId)) {
+            enrollees[org.id] = org;
+          }
         });
         doneEachSeries();
       });
     }, function(doneEachSeries){
       // get indicators, performing count discarding non-enrollees orgs
       Indicator.find({
+        where: {
+          id: indicatorId,
+          axisId: axisId
+        },
         include: {
           relation: 'organizations'
         }
       }, function(err, indicators) {
         _.each(indicators, function(indicator){
           indicator = indicator.toJSON();
+
+          indicatorIds.push(indicator.id);
+
           _.each(indicator.organizations, function(org){
             if (enrollees[org.id]) counts.feedbacks.needed += 1;
           })
         });
-
         doneEachSeries();
       });
     }, function(doneEachSeries){
       // get indicators, performing count discarding non-enrollees orgs
       Feedback.count({
-        cycleId: self.id
+        cycleId: self.id,
+        indicatorId: {inq: indicatorIds},
+        organizationId: organizationId
       }, function(err, count) {
         if (err) return doneEachSeries(err);
         counts.feedbacks.given = count;
