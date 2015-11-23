@@ -1,13 +1,16 @@
 {
   "name": "Cycle",
   "base": "PersistedModel",
-  "idInjection": true,
   "strict": true,
+  "idInjection": true,
   "options": {
     "validateUpsert": false
   },
   "http": {
     "path": "cycles"
+  },
+  "mixins": {
+    "TimeStamp": true
   },
   "properties": {
     "name": {
@@ -45,9 +48,6 @@
       "foreignKey": ""
     }
   },
-  "mixins": {
-    "TimeStamp" : true
-  },
   "acls": [
     {
       "accessType": "*",
@@ -71,13 +71,28 @@
   "methods": {
     "status": {
       "isStatic": true,
-      "http": {"path": "/status", "verb": "get"},
       "accepts": [
-        {"arg": "axisId", "type": "string"},
-        {"arg": "indicatorId", "type": "string"},
-        {"arg": "organizationId", "type": "string"}
+        {
+          "arg": "axisId",
+          "type": "string"
+        },
+        {
+          "arg": "indicatorId",
+          "type": "string"
+        },
+        {
+          "arg": "organizationId",
+          "type": "string"
+        }
       ],
-      "returns": {"name": "status", "type": "Object"}
+      "returns": {
+        "name": "status",
+        "type": "Object"
+      },
+      "http": {
+        "path": "/status",
+        "verb": "get"
+      }
     }
   }
 }

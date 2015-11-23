@@ -10,6 +10,9 @@
   "mixins": {
     "TimeStamp": true
   },
+  "hidden": [
+    "password"
+  ],
   "properties": {
     "email": {
       "type": "string",
@@ -29,7 +32,6 @@
       "default": false
     }
   },
-  "hidden": ["password"],
   "validations": [],
   "relations": {
     "organization": {
