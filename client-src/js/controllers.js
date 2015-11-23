@@ -44,7 +44,6 @@ module.exports = function(app) {
 
       Cycle.status(function(data) {
         $scope.status = data.status.feedbacks;
-        console.log($scope.status);
       });
 
     }
