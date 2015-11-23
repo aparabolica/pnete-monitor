@@ -258,6 +258,13 @@ app.config([
             return Organization.findById({id: $stateParams.organizationId}).$promise;
           }
         ],
+        Status: [
+          '$stateParams',
+          'Cycle',
+          function($stateParams, Cycle) {
+            return Cycle.status({organizationId: $stateParams.organizationId}).$promise;
+          }
+        ],
         ActiveCycle: [
           'Cycle',
           function(Cycle) {

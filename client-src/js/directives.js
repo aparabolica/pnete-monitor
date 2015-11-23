@@ -41,7 +41,7 @@ module.exports = function(app) {
 
           scope.percent = 0;
 
-          scope.label = scope.label || '{{ratio.given}}/{{ratio.needed}} das perguntas foram respondidas';
+          scope.label = scope.label || '{{ratio.given}}/{{ratio.needed}} perguntas foram respondidas';
 
           scope.$watch('label', function(label) {
             scope.text = $interpolate(label)(scope);

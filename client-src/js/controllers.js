@@ -124,12 +124,10 @@ module.exports = function(app) {
   app.controller('OrganizationCtrl', [
     '$scope',
     'Organizacao',
+    'Status',
     'Indicadores',
-    function($scope, Organizacao, Indicadores) {
-      $scope.ratio = {
-        'questions': 130,
-        'replied': 60
-      };
+    function($scope, Organizacao, Status, Indicadores) {
+      $scope.status = Status.status.feedbacks;
       $scope.organization = Organizacao;
       $scope.indicadores = Indicadores;
     }
