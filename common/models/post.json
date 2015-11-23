@@ -4,14 +4,14 @@
   "strict": true,
   "idInjection": true,
   "options": {
-    "validateUpsert": true
+    "validateUpsert": false
   },
   "http": {
     "path": "posts"
   },
   "mixins": {
     "TimeStamp": true
-  },  
+  },
   "properties": {
     "title": {
       "type": "string",
