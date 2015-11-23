@@ -10,7 +10,8 @@ module.exports = function(app) {
   app.controller('MainCtrl', [
     '$scope',
     'User',
-    function($scope, User) {
+    'Cycle',
+    function($scope, User, Cycle) {
 
       $scope.loggedIn = false;
       $scope.$watch(function() {
@@ -41,10 +42,11 @@ module.exports = function(app) {
           $scope.isHome = false;
       });
 
-      $scope.ratio = {
-        'questions': 130,
-        'replied': 60
-      };
+      Cycle.status(function(data) {
+        $scope.status = data.status.feedbacks;
+        console.log($scope.status);
+      });
+
     }
   ]);
 
@@ -138,17 +140,58 @@ module.exports = function(app) {
     '$scope',
     'Organizations',
     'Eixos',
-    function($scope, Organizations, Eixos) {
+    'Status',
+    'Cycle',
+    function($scope, Organizations, Eixos, Status, Cycle) {
 
-      $scope.ratio = {
-        'questions': 120,
-        'replied': 80
-      }
+      $scope.status = Status.status.feedbacks;
 
-      $scope.label = '{{ratio.replied}}/{{ratio.questions}} respondidas';
+      $scope.label = '{{ratio.given}}/{{ratio.needed}} respondidas';
 
       $scope.organizations = Organizations;
       $scope.eixos = Eixos;
+
+      _.each($scope.organizations, function(organization) {
+        Cycle.status({organizationId: organization.id}, function(data) {
+          organization.status = data.status.feedbacks;
+          organization.percent = (organization.status.given / organization.status.needed) * 100;
+        });
+      });
+
+      _.each($scope.eixos, function(eixo) {
+        Cycle.status({axisId: eixo.id}, function(data) {
+          eixo.status = data.status.feedbacks;
+        });
+      });
+
+      $scope.orgSorts = [
+        {
+          label: 'Nome',
+          key: 'name'
+        },
+        {
+          label: 'Porcentagem',
+          key: function(item) {
+            return -item.percent;
+          }
+        },
+        {
+          label: 'Nº de indicadores',
+          key: function(item) {
+            return -item.status.needed;
+          }
+        },
+        {
+          label: 'Nº de respostas',
+          key: function(item) {
+            return -item.status.given;
+          }
+        }
+      ];
+      $scope.setSort = function(sort) {
+        $scope.activeSort = angular.copy(sort);
+      };
+      $scope.setSort($scope.orgSorts[0]);
 
     }
   ]);

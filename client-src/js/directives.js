@@ -41,7 +41,7 @@ module.exports = function(app) {
 
           scope.percent = 0;
 
-          scope.label = scope.label || '{{ratio.replied}}/{{ratio.questions}} das perguntas foram respondidas';
+          scope.label = scope.label || '{{ratio.given}}/{{ratio.needed}} das perguntas foram respondidas';
 
           scope.$watch('label', function(label) {
             scope.text = $interpolate(label)(scope);
@@ -51,11 +51,13 @@ module.exports = function(app) {
 
           angular.element(completeNode).css({'width': '0%'});
           scope.$watch('ratio', function(ratio) {
-            $timeout(function() {
-              scope.percent = (ratio.replied / ratio.questions) * 100;
-              angular.element(completeNode).css({'width': scope.percent + '%'});
-            }, 100);
-            scope.text = $interpolate(scope.label)(scope);
+            if(ratio) {
+              $timeout(function() {
+                scope.percent = (ratio.given / ratio.needed) * 100;
+                angular.element(completeNode).css({'width': scope.percent + '%'});
+              }, 100);
+              scope.text = $interpolate(scope.label)(scope);
+            }
           });
 
         }

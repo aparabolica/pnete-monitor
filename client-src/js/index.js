@@ -60,6 +60,12 @@ app.config([
       controller: 'StatusCtrl',
       templateUrl: '/views/status.html',
       resolve: {
+        Status: [
+          'Cycle',
+          function(Cycle) {
+            return Cycle.status().$promise;
+          }
+        ],
         Organizations: [
           'Organization',
           function(Organization) {

@@ -5,7 +5,7 @@
   .container
     .twelve.columns
       .row
-        replied-percent(ratio="ratio")
+        replied-percent(ratio="status")
   .container
     .eight.columns
       #orgs
@@ -14,17 +14,15 @@
           .filters 
             span.main-label Ordenar por:
             .filter.dropdown.order
-              span.current Nome 
+              span.current {{activeSort.label}} 
               span.icon.icon-chevron-down
               ul
-                li Porcentagem
-                li Nº de Indicadores
-                li Nº de Respostas
+                li(ng-repeat="sort in orgSorts" ng-hide="sort.label == activeSort.label" ng-click="setSort(sort)") {{sort.label}}
         ul.status-list.org-list
-          li(ng-repeat="org in organizations")
+          li(ng-repeat="org in organizations | orderBy:activeSort.key")
             h3 
               a(ui-sref="organization({organizationId: org.id})") {{org.name}}
-            replied-percent(ratio="ratio" label="label")
+            replied-percent(ratio="org.status" label="label")
     .four.columns
       #eixos
         .subheader.row
@@ -33,4 +31,5 @@
           li.eixo-bg(ng-repeat="eixo in eixos" style="background-color: {{eixo.color}};")
             h3
               a(ui-sref="eixo({eixoId: eixo.id})") {{eixo.name}}
-            replied-percent(ratio="ratio" label="label")
+            replied-percent(ratio="eixo.status" label="label" ng-hide="eixo.blog")
+            replied-percent(label="'Não se aplica'" ng-show="eixo.blog")
