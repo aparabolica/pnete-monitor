@@ -159,6 +159,16 @@ module.exports = function(app) {
               }
             }
           ],
+          Status: [
+            'Auth',
+            'Cycle',
+            function(Auth, Cycle) {
+              if(Auth.isAdmin)
+                return Cycle.status().$promise;
+              else
+                return {};
+            }
+          ],
           PendingOrganizations: [
             '$q',
             'Auth',
@@ -188,10 +198,30 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('dashboard.settings', {
+        url: 'config/',
+        controller: 'DashboardSettingsCtrl',
+        templateUrl: '/views/dashboard/settings.html',
+        resolve: {
+          Edit: [
+            '$q',
+            'Settings',
+            function($q, Settings) {
+              var deferred = $q.defer();
+              Settings.findOne(function(data) {
+                deferred.resolve(data);
+              }, function() {
+                deferred.resolve({});
+              });
+              return deferred.promise;
+            }
+          ]
+        }
+      })
       .state('dashboard.profile', {
         url: 'perfil/',
         controller: 'DashboardProfileCtrl',
-        templateUrl: '/views/dashboard/profile.html',
+        templateUrl: '/views/dashboard/profile.html'
       })
       .state('dashboard.user', {
         url: 'usuarios/',

@@ -49,8 +49,9 @@ module.exports = function(app) {
     'UserOrganization',
     'UserIndicators',
     'ContentCount',
+    'Status',
     'PendingOrganizations',
-    function($scope, $state, Auth, ActiveCycle, User, UserOrganization, UserIndicators, Count, PendingOrganizations) {
+    function($scope, $state, Auth, ActiveCycle, User, UserOrganization, UserIndicators, Count, Status, PendingOrganizations) {
 
       $scope.user = Auth;
 
@@ -79,11 +80,39 @@ module.exports = function(app) {
           $state.go('login');
       });
 
+      $scope.status = Status.status.feedbacks;
+
       $scope.count = Count;
       $scope.pendingOrganizations = PendingOrganizations;
 
     }
   ]);
+
+  app.controller('DashboardSettingsCtrl', [
+    '$scope',
+    'Edit',
+    'Settings',
+    function($scope, Edit, Settings) {
+      $scope.settings = _.extend({}, Edit);
+
+      $scope.submit = function(settings) {
+        if(!_.isEmpty(Edit)) {
+          Settings.update({id: settings.id}, settings, saveCb);
+        } else {
+          Settings.create(settings, saveCb);
+        }
+      };
+
+      var saveCb = function(res) {
+        Edit = res;
+        $scope.settings = _.extend({}, Edit);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {}, {reload: true});
+        Message.add('Configurações atualizadas');
+      };
+
+    }
+  ])
 
   app.controller('DashboardProfileCtrl', [
     '$scope',

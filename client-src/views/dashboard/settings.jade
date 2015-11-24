@@ -1,0 +1,9 @@
+header.dashboard-inner-header
+  h2 Configurações da plataforma
+section.dashboard-inner-content
+  form(ng-submit="submit(settings)")
+    p
+      label(for="welcome_input") Mensagem de boas vindas
+      textarea#welcome_input(ng-model="settings.welcomeText")
+    p
+      input(type="submit" value="Enviar")

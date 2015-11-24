@@ -25,6 +25,8 @@ section#dashboard
           li
             a(ui-sref="dashboard.notification" ui-sref-active="active") Notificações
         ul
+          li(ng-show="user.isAdmin")
+            a(ui-sref="dashboard.settings" ui-sref-active="active") Configurações da plataforma
           li
             a(ui-sref="dashboard.profile" ui-sref-active="active") Meu perfil
           li
@@ -101,7 +103,7 @@ section#dashboard
           .six.columns
             .widget.status-widget(ng-show="user.isAdmin")
               h2 Monitoramento {{activeCycle.name}}
-              replied-percent(ratio="{'questions':130,'replied':60}")
+              replied-percent(ratio="status")
             .widget.organizations-widget(ng-show="user.isAdmin && pendingOrganizations.length")
               .row
                 h3 Organizações pendentes para este ciclo
