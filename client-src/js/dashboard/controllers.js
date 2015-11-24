@@ -183,9 +183,9 @@ module.exports = function(app) {
           user.organization = organization;
         });
       });
-      $scope.delete = function(cycle) {
+      $scope.delete = function(user) {
         if(confirm('Você tem certeza?')) {
-          User.deleteById({id: cycle.id}, function() {
+          User.deleteById({id: user.id}, function() {
             Message.add('Usuário removido');
             $state.go($state.current, {}, {reload:true});
           });
@@ -392,9 +392,9 @@ module.exports = function(app) {
     function($scope, $state, Message, Organization, Organizations) {
       $scope.organizations = Organizations;
 
-      $scope.delete = function(cycle) {
+      $scope.delete = function(organization) {
         if(confirm('Você tem certeza?')) {
-          Organization.deleteById({id: cycle.id}, function() {
+          Organization.deleteById({id: organization.id}, function() {
             Message.add('Organização removida');
             $state.go($state.current, {}, {reload:true});
           });
@@ -438,9 +438,9 @@ module.exports = function(app) {
     'Actions',
     function($scope, $state, Message, Action, Actions) {
       $scope.actions = Actions;
-      $scope.delete = function(cycle) {
+      $scope.delete = function(action) {
         if(confirm('Você tem certeza?')) {
-          Action.deleteById({id: cycle.id}, function() {
+          Action.deleteById({id: action.id}, function() {
             Message.add('Ação removida');
             $state.go($state.current, {}, {reload:true});
           });
@@ -482,9 +482,9 @@ module.exports = function(app) {
     'Eixos',
     function($scope, $state, Message, Axis, Eixos) {
       $scope.eixos = Eixos;
-      $scope.delete = function(cycle) {
+      $scope.delete = function(eixo) {
         if(confirm('Você tem certeza?')) {
-          Axis.deleteById({id: cycle.id}, function() {
+          Axis.deleteById({id: eixo.id}, function() {
             Message.add('Eixo removido');
             $state.go($state.current, {}, {reload:true});
           });
@@ -585,9 +585,9 @@ module.exports = function(app) {
           indicador.assessed = true;
         });
       });
-      $scope.delete = function(cycle) {
+      $scope.delete = function(indicator) {
         if(confirm('Você tem certeza?')) {
-          Indicator.deleteById({id: cycle.id}, function() {
+          Indicator.deleteById({id: indicator.id}, function() {
             Message.add('Indicador removido');
             $state.go($state.current, {}, {reload:true});
           });
@@ -743,11 +743,13 @@ module.exports = function(app) {
     'Indicador',
     'Feedbacks',
     'Edit',
+    'ActiveCycle',
     'ReviewCycle',
     'Assessment',
-    function($scope, $state, $stateParams, Message, Indicador, Feedbacks, Edit, ReviewCycle, Assessment) {
+    function($scope, $state, $stateParams, Message, Indicador, Feedbacks, Edit, ActiveCycle, ReviewCycle, Assessment) {
 
       $scope.indicador = Indicador;
+      $scope.activeCycle = ActiveCycle;
       $scope.cycle = ReviewCycle;
       $scope.feedbacks = Feedbacks;
 
@@ -770,7 +772,17 @@ module.exports = function(app) {
         $scope.$emit('saved', res);
         $state.go($state.current, {}, {reload:true});
         Message.add('Análise enviada com sucesso');
-      }
+      };
+
+      $scope.delete = function(review) {
+        if(confirm('Você tem certeza?')) {
+          Assessment.deleteById({id: review.id}, function() {
+            Message.add('Avaliação removida');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
+
     }
   ]);
 

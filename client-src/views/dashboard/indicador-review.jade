@@ -36,3 +36,5 @@
       textarea#review_input(ng-model="review.analysis")
     p
       input(type="submit" value="Enviar")
+    p
+      button(href="javascript:void(0);" ng-click="delete(review)" ng-show="review.id && activeCycle.id == cycle.id") Remover avaliação
