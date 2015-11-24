@@ -42,25 +42,28 @@ section#dashboard
               p.warning(ng-show="user.isAdmin && !activeCycle") Nenhum ciclo está ativo! 
                 a(ui-sref="dashboard.cycle") Clique aqui para editar os ciclos
         .clearfix
-          .four.columns
-            .widget.organization-widget(ng-show="userOrganization")
-              h2 {{userOrganization.name}}
-              p Sua organização deve responder a 
-                strong {{userIndicators.length}} 
-                | indicadores.
-          .eight.columns
-            .widget.indicator-widget(ng-show="userIndicators.length")
-              h2 Indicadores da minha organização
-              table
-                thead
-                  tr
-                    th Título
-                    th.action Responder
-                tbody
-                  tr(ng-repeat="indicador in userIndicators")
-                    td {{indicador.description}}
-                    td 
-                      a.icon.icon-pencil(ui-sref="dashboard.indicador.feedback({id: indicador.id})")
+          .twelve.columns
+            .widget.welcome-widget
+              .row(ng-show="userOrganization")
+                h2 {{userOrganization.name}}
+                p Sua organização deve responder a 
+                  strong {{userIndicators.length}} 
+                  | indicadores.
+                p Até o encerramento do prazo de monitoramento, indicado pelo ciclo, você pode responder e editar as respostas já enviadas.
+              .org-indicators(ng-show="userIndicators.length")
+                h3 Indicadores da minha organização
+                table
+                  thead
+                    tr
+                      th Título
+                      th.action Responder
+                  tbody
+                    tr(ng-repeat="indicador in userIndicators")
+                      td {{indicador.description}}
+                      td 
+                        a.icon(ui-sref="dashboard.indicador.feedback({id: indicador.id})")
+                          span.icon.icon-pencil(ng-hide="indicador.feedbacks.length")
+                          span.icon.icon-check(ng-show="indicador.feedbacks.length")
         .clearfix
           .six.columns
             .widget.content-widget(ng-show="user.isAdmin")

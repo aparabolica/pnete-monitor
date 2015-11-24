@@ -24,15 +24,3 @@ section.dashboard-inner-content(ui-view)
       input#new_pwd_repeat_input(type="password" ng-model="pwd.password_repeat")
     p
       input(type="submit" value="Enviar")
-  section#indicadores(ng-show="indicadores.length")
-    h3 Indicadores da minha organização
-    table
-      thead
-        tr
-          th Título
-          th.action Responder
-      tbody
-        tr(ng-repeat="indicador in indicadores")
-          td {{indicador.description}}
-          td 
-            a.icon.icon-pencil(ui-sref="dashboard.indicador.feedback({id: indicador.id})")

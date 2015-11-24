@@ -84,11 +84,27 @@ module.exports = function(app) {
           UserIndicators: [
             '$q',
             'Auth',
+            'ActiveCycle',
             'Organization',
-            function($q, Auth, Organization) {
+            function($q, Auth, ActiveCycle, Organization) {
               if(Auth.organizationId) {
                 var deferred = $q.defer();
-                Organization.indicators({id: Auth.organizationId}, function(data) {
+                Organization.indicators({
+                  id: Auth.organizationId,
+                  filter: {
+                    include: [
+                      {
+                        relation: 'feedbacks',
+                        scope: {
+                          where: {
+                            organizationId: Auth.organizationId,
+                            cycleId: ActiveCycle.id
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }, function(data) {
                   deferred.resolve(data);
                 }, function() {
                   deferred.resolve([]);
