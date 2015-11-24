@@ -843,6 +843,20 @@ module.exports = function(app) {
       $scope.notifications = Notifications;
       $scope.notificationTemplates = NotificationTemplates;
     }
-  ])
+  ]);
+
+  app.controller('DashboardSendNotificationCtrl', [
+    '$scope',
+    function($scope) {
+
+    }
+  ]);
+  
+  app.controller('DashboardNotificationTemplateCtrl', [
+    '$scope',
+    function($scope) {
+
+    }
+  ]);
 
 };
