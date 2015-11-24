@@ -1,4 +1,4 @@
-A platform to monitor the execution of National Plan to Erradicate Slave Labor *(Plano Nacional de Erradicação do Trabalho Escravo - PNETE)*.
+A platform to monitor the execution of National Plan to Erradicate Slave Labor *(Plano Nacional para Erradicação do Trabalho Escravo - PNETE)*.
 
 # Getting started
 
