@@ -80,7 +80,8 @@ module.exports = function(app) {
           $state.go('login');
       });
 
-      $scope.status = Status.status.feedbacks;
+      if(Status.status)
+        $scope.status = Status.status.feedbacks;
 
       $scope.count = Count;
       $scope.pendingOrganizations = PendingOrganizations;
@@ -798,6 +799,8 @@ module.exports = function(app) {
     'Feedback',
     function($scope, $stateParams, $state, Message, Indicador, Cycle, Organization, Edit, Feedback) {
 
+      $scope.replied = false;
+
       $scope.indicador = Indicador;
       $scope.organization = Organization;
       $scope.cycle = Cycle;
@@ -807,6 +810,10 @@ module.exports = function(app) {
         cycleId: Cycle.id,
         indicatorId: Indicador.id
       }, Edit);
+
+      $scope.$on('saved', function() {
+        $scope.replied = true;
+      });
 
       $scope.submit = function(feedback) {
         if(!_.isEmpty(Edit)) {
@@ -820,9 +827,9 @@ module.exports = function(app) {
         Edit = res;
         $scope.feedback = _.extend({}, Edit);
         $scope.$emit('saved', res);
-        $state.go($state.current, {}, {reload:true});
+        // $state.go($state.current, {}, {reload:true});
         Message.add('Resposta enviada com sucesso');
-      }
+      };
 
     }
   ])
