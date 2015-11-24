@@ -827,7 +827,6 @@ module.exports = function(app) {
         Edit = res;
         $scope.feedback = _.extend({}, Edit);
         $scope.$emit('saved', res);
-        // $state.go($state.current, {}, {reload:true});
         Message.add('Resposta enviada com sucesso');
       };
 

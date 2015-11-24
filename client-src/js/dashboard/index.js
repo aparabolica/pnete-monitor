@@ -345,12 +345,19 @@ module.exports = function(app) {
           Indicadores: [
             'Indicator',
             function(Indicator) {
-              // return Indicator.find({
-              //   filter: {
-              //     include: {'organizations': 'feedbacks'}
-              //   }
-              // }).$promise;
-              return Indicator.find().$promise;
+              return Indicator.find({
+                filter: {
+                  include: [
+                    {
+                      relation: 'organizations'
+                    },
+                    {
+                      relation: 'feedbacks'
+                    }
+                  ]
+                }
+              }).$promise;
+              // return Indicator.find().$promise;
             }
           ]
         }

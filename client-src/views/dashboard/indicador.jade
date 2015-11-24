@@ -11,6 +11,7 @@ section.dashboard-inner-content(ui-view)
       tr
         th Título
         th Eixo
+        th.action Status
         th.action Avaliar
         th.action Editar
         th.action Remover
@@ -19,6 +20,8 @@ section.dashboard-inner-content(ui-view)
         td {{indicador.description}}
         td 
           a.button(ui-sref="dashboard.eixo.edit({'id': indicador.axisId})") {{indicador.axisId}}
+        td.center
+          span.status(ng-class="{complete: indicador.feedbacks.length == indicador.organizations.length}") {{indicador.feedbacks.length}}/{{indicador.organizations.length}}
         td 
           a.icon(ui-sref="dashboard.indicador.review({'id': indicador.id})" title="Editar")
             span.icon.icon-eye(ng-hide="indicador.assessed")
