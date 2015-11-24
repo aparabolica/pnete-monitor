@@ -1,15 +1,43 @@
 article#organization {
-  .tagline {
-    margin: 0;
-    color: #999;
-    font-style: italic;
-  }
-  h1 {
-    font-size: 42px;
-    margin: 0;
-  }
   .organization-header {
     border-bottom: 1px solid #ddd;
+    h1 {
+      font-size: 42px;
+      margin: 0;
+    }
+    .tagline {
+      margin: 0;
+      color: #999;
+      font-style: italic;
+    }
+    .enrollment {
+      padding-top: 40px;
+      p {
+        margin: 0;
+        color: #666;
+        font-style: italic;
+        font-size: 16px;
+        line-height: 40px;
+        text-align: right;
+        .icon {
+          float: right;
+          width: 40px;
+          height: 40px;
+          margin-left: 20px;
+          line-height: 40px;
+          text-align: center;
+          background: #666;
+          .border-radius(100%);
+          color: #fff;
+        }
+        &.active .icon {
+          background: green;
+        }
+        &.not-active .icon {
+          background: red;
+        }
+      }
+    }
   }
   h2 {
     font-size: 30px;
@@ -25,24 +53,43 @@ article#organization {
       margin: 0 0 20px;
       padding: 0 0 20px;
       border-bottom: 1px solid #ddd;
-      .axis-info {
-        float: left;
-        display: block;
-        color: #fff;
-        .border-radius(100%);
-        .box-sizing(border-box);
-        font-size: 12px;
-        text-decoration: none;
-        margin: 10px 20px 15px 0;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-      }
-      h3 {
-        margin: 0;
-        a {
-          text-decoration: none;
+      .indicador-meta {
+        display: table;
+        width: 100%;
+        .axis-info {
+          display: table-cell;
+          vertical-align: middle;
+          a {
+            display: block;
+            color: #fff;
+            .border-radius(100%);
+            .box-sizing(border-box);
+            font-size: 12px;
+            text-decoration: none;
+            margin: 0 40px 0 0;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+          }
+        }
+        .indicador-info {
+          display: table-cell;
+          h3 {
+            margin: 0 0 10px;
+            a {
+              text-decoration: none;
+            }
+          }
+          .reply {
+            font-style: italic;
+            color: green;
+            font-size: 12px;
+            margin: 0;
+            &.not {
+              color: red;
+            }
+          }
         }
       }
       .feedback {
@@ -53,7 +100,16 @@ article#organization {
           }
         }
         p {
-          font-size: 16px;
+          &.value,
+          &.percentage,
+          &.bool {
+            font-size: 24px;
+            margin: 0 0 10px;
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+            text-transform: uppercase;
+          }
+          font-size: 18px;
         }
       }
     }

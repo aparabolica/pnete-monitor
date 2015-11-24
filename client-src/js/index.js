@@ -277,6 +277,21 @@ app.config([
             }).$promise;
           }
         ],
+        OrganizationEnrollment: [
+          '$stateParams',
+          'ActiveCycle',
+          'CycleEnrollment',
+          function($stateParams, ActiveCycle, CycleEnrollment) {
+            return CycleEnrollment.findOne({
+              filter: {
+                where: {
+                  organizationId: $stateParams.organizationId,
+                  cycleId: ActiveCycle.id
+                }
+              }
+            }).$promise;
+          }
+        ],
         Indicadores: [
           '$stateParams',
           'ActiveCycle',

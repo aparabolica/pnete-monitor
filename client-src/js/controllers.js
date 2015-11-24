@@ -126,10 +126,12 @@ module.exports = function(app) {
     'Organizacao',
     'Status',
     'Indicadores',
-    function($scope, Organizacao, Status, Indicadores) {
+    'OrganizationEnrollment',
+    function($scope, Organizacao, Status, Indicadores, OrganizationEnrollment) {
       $scope.status = Status.status.feedbacks;
       $scope.organization = Organizacao;
       $scope.indicadores = Indicadores;
+      $scope.enrollment = OrganizationEnrollment;
     }
   ]);
 

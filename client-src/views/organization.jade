@@ -1,9 +1,20 @@
 article#organization
   header.organization-header.row
     .container.row
-      .eight.columns
+      .seven.columns
         p.tagline Perfil da organização
         h1 {{organization.name}}
+      .five.columns
+        .enrollment
+          p.active(ng-show="enrollment.confirmed && enrollment.active")
+            span.icon.icon-check
+            | Organização confirmou participação neste ciclo
+          p.not-active(ng-show="enrollment.confirmed && !enrollment.active")
+            span.icon.icon-cross
+            | Organização não está participando deste ciclo
+          p.not-confirmed(ng-show="!enrollment.confirmed")
+            span.icon.icon-cross
+            | Organização ainda não confirmou participação neste ciclo
   section.organization-content
     .container
       .twelve.columns
@@ -14,11 +25,26 @@ article#organization
           h2 Indicadores e suas respostas
           ul.indicador-list
             li.indicador-item.clearfix(ng-repeat="indicador in indicadores")
-              .six.columns
+              .five.columns
                 .indicador-meta
-                  a.axis-info.eixo-bg(ui-sref="eixo({eixoId: indicador.axisId})" style="background-color: {{indicador.axis.color}};" title="{{indicador.axis.name}}") {{indicador.axisId}}
-                  h3
-                    a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}
-              .six.columns
-                .feedback.no-response
-                  p Resposta ainda não enviada pela organização
+                  .axis-info
+                    a.eixo-bg(ui-sref="eixo({eixoId: indicador.axisId})" style="background-color: {{indicador.axis.color}};" title="{{indicador.axis.name}}") {{indicador.axisId}}
+                  .indicador-info
+                    h3
+                      a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}
+                    p.reply(ng-show="indicador.feedbacks.length") Respondido {{indicador.feedbacks[0].createdAt | fromNow}} ({{indicador.feedbacks[0].createdAt | formatDate:'DD/MM/YYYY'}})
+                    p.reply.not(ng-hide="indicador.feedbacks.length") 
+                      span(ng-hide="enrollment.confirmed") Organização ainda não confirmou participação no monitoramento deste ciclo
+                      span(ng-show="enrollment.confirmed")
+                        span(ng-hide="enrollment.active") Organização não participará deste ciclo
+                        span(ng-show="enrollment.active") Ainda não obtivemos resposta
+              .seven.columns
+                .feedback(ng-show="indicador.feedbacks.length")
+                  p.bool(ng-show="indicador.type == 'boolean'") {{indicador.feedbacks[0].value.bool ? 'Sim' : 'Não'}}
+                  p.value(ng-show="indicador.feedbacks[0].value.value") {{indicador.feedbacks[0].value.value}}
+                  p.percentage(ng-show="indicador.feedbacks[0].value.percentage") {{indicador.feedbacks[0].value.percentage}}%
+                  p {{indicador.feedbacks[0].value.comments}}
+                .feedback.no-response(ng-hide="indicador.feedbacks.length")
+                  p(ng-show="enrollment.confirmed && enrollment.active") Ainda não obtivemos resposta
+                  p(ng-show="enrollment.confirmed && !enrollment.active") Organização não participará deste ciclo
+                  p(ng-show="!enrollment.confirmed") Organização ainda não confirmou participação no monitoramento deste ciclo
