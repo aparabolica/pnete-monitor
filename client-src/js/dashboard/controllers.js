@@ -87,13 +87,56 @@ module.exports = function(app) {
 
   app.controller('DashboardProfileCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'Auth',
     'UserOrganization',
     'UserIndicators',
-    function($scope, Profile, UserOrganization, UserIndicators) {
-      $scope.user = Profile;
+    'User',
+    function($scope, $state, Message, Profile, UserOrganization, UserIndicators, User) {
+
+      $scope.user = _.extend({}, Profile);
       $scope.organization = UserOrganization;
       $scope.indicadores = UserIndicators;
+
+      $scope.submit = function(user) {
+        delete user.isAdmin;
+        delete user.emailVerified;
+        delete user.verificationToken;
+        delete user.createdAt;
+        delete user.updatedAt;
+        User['prototype$updateAttributes']({id: user.id}, user, saveCb);
+      };
+
+      $scope.pwd = {};
+      $scope.updatePwd = function(pwd) {
+        if(!pwd.currentPassword) {
+          Message.add('Você deve digitar sua senha atual');
+        } else if(!pwd.password) {
+          Message.add('Você deve digitar uma nova senha');
+        } else if(pwd.password !== pwd.password_repeat) {
+          Message.add('Verifique se as duas senhas digitadas são iguais');
+        } else {
+          User['prototype$updateAttributes']({
+            id: Profile.id
+          }, {
+            currentPassword: pwd.currentPassword,
+            password: pwd.password
+          }, function(res) {
+            $scope.pwd = {};
+          }, function() {
+            $scope.pwd = {};
+          });
+        }
+      }
+
+      var saveCb = function(res) {
+        Profile = res;
+        $scope.user = _.extend({}, Profile);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {}, {reload:true});
+        Message.add('Perfil atualizado com sucesso');
+      };
     }
   ]);
 

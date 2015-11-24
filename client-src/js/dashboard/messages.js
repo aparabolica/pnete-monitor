@@ -15,7 +15,6 @@ module.exports = function(app) {
   	function($q, Message, Collection) {
   		return {
   			responseError: function(rejection) {
-          console.log(rejection);
   				if(rejection.status != 404 && rejection.data && rejection.data.error && rejection.data.error.message) {
             Message.add(Collection.get(rejection.data.error.message));
   				}

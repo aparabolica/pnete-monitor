@@ -5,10 +5,23 @@ section.dashboard-inner-content(ui-view)
   form(ng-submit="submit(user)")
     p
       label(for="name_input") Nome
-      input(type="text" id="name_input" ng-model="user.name")
+      input#name_input(type="text" ng-model="user.name")
     p
       label(for="email_input") Email
-      input(type="email" id="email_input" ng-model="user.email")
+      input#email_input(type="email" ng-model="user.email")
+    p
+      input(type="submit" value="Enviar")
+  form(ng-submit="updatePwd(pwd)")
+    h3 Atualização de senha
+    p
+      label(for="cur_pwd_input") Senha atual
+      input#cur_pwd_input(type="password" ng-model="pwd.currentPassword")
+    p
+      label(for="new_pwd_input") Nova senha
+      input#new_pwd_input(type="password" ng-model="pwd.password")
+    p
+      label(for="new_pwd_repeat_input") Repetir nova senha
+      input#new_pwd_repeat_input(type="password" ng-model="pwd.password_repeat")
     p
       input(type="submit" value="Enviar")
   section#indicadores(ng-show="indicadores.length")
