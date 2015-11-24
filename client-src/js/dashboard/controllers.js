@@ -91,14 +91,16 @@ module.exports = function(app) {
 
   app.controller('DashboardSettingsCtrl', [
     '$scope',
+    '$state',
+    'MessageService',
     'Edit',
     'Settings',
-    function($scope, Edit, Settings) {
+    function($scope, $state, Message, Edit, Settings) {
       $scope.settings = _.extend({}, Edit);
 
       $scope.submit = function(settings) {
         if(!_.isEmpty(Edit)) {
-          Settings.update({id: settings.id}, settings, saveCb);
+          Settings.update({where: {id: settings.id}}, settings, saveCb);
         } else {
           Settings.create(settings, saveCb);
         }
