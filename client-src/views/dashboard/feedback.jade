@@ -1,32 +1,43 @@
 .dashboard-feedback
-  h3 Respondendo "
-    strong {{indicador.description}}
-    | " para o ciclo 
-    strong {{cycle.name}} 
-    | em nome de 
-    strong {{organization.name}}
-  form(ng-submit="submit(feedback)")
-    h3 {{indicador.question}}
-    p(ng.show="indicador.comments") {{indicador.comments}}
-    p(ng-show="indicador.type == 'integer'")
-      label(for="feedback_value") Insira o valor abaixo
-      input#feedback_value(type="text" ng-model="feedback.value.value")
-      
-    p(ng-show="indicador.type == 'boolean'")
-      span.radio-list.row
-        span.radio-item
-          input(id="bool_input_true" type="radio" ng-model="feedback.value.bool" name="bool_input" value="1")
-          label(for="bool_input_true") Sim
-        span.radio-item
-          input(id="bool_input_false" type="radio" ng-model="feedback.value.bool" name="bool_input_false" value="0")
-          label(for="bool_input_false") Não
-      
-    p(ng-show="indicador.type == 'percentual'")
-      label(for="feedback_percentage") Insira a porcentagem abaixo (apenas números)
-      input#feedback_percentage(type="text" ng-model="feedback.value.percentage")
-      
+  .feedback-thanks(ng-show="replied")
+    h3 Obrigado pela participação!
+    p Os dados foram enviados com sucesso.
+    p Você pode continuar editando sua resposta até o dia 
+      strong {{cycle.endDate | formatDate:'DD/MM/YYYY'}}
+      | .
     p
-      label(for="feedback_comment") Comentários
-      textarea#feedback_comment(ng-model="feedback.value.comments")
-    p
-      input(type="submit" value="Enviar")
+      a.button(ui-sref="dashboard.indicador.feedback({id: indicador.id})" ui-sref-opts="{reload: true}") Continuar editando 
+      | &nbsp;
+      a.button(ui-sref="dashboard" ui-sref-opts="{reload: true}") Ver meus indicadores 
+  .feedback-form(ng-hide="replied")
+    h3 Respondendo "
+      strong {{indicador.description}}
+      | " para o ciclo 
+      strong {{cycle.name}} 
+      | em nome de 
+      strong {{organization.name}}
+    form(ng-submit="submit(feedback)")
+      h3 {{indicador.question}}
+      p(ng.show="indicador.comments") {{indicador.comments}}
+      p(ng-show="indicador.type == 'integer'")
+        label(for="feedback_value") Insira o valor abaixo
+        input#feedback_value(type="text" ng-model="feedback.value.value")
+        
+      p(ng-show="indicador.type == 'boolean'")
+        span.radio-list.row
+          span.radio-item
+            input(id="bool_input_true" type="radio" ng-model="feedback.value.bool" name="bool_input" value="1")
+            label(for="bool_input_true") Sim
+          span.radio-item
+            input(id="bool_input_false" type="radio" ng-model="feedback.value.bool" name="bool_input_false" value="0")
+            label(for="bool_input_false") Não
+        
+      p(ng-show="indicador.type == 'percentual'")
+        label(for="feedback_percentage") Insira a porcentagem abaixo (apenas números)
+        input#feedback_percentage(type="text" ng-model="feedback.value.percentage")
+        
+      p
+        label(for="feedback_comment") Comentários
+        textarea#feedback_comment(ng-model="feedback.value.comments")
+      p
+        input(type="submit" value="Enviar")
