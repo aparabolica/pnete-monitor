@@ -8,13 +8,16 @@ module.exports = function(app, donePopulate) {
   var Indicator = app.models.Indicator;
   var Organization = app.models.Organization;
 
+  var tasks = [populate.initSettings];
+
   if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
-    async.series([
-      populate.initSettings,
-      populate.importAxes,
+    tasks.push(populate.importAxes,
       populate.importActions,
       populate.importOrganizations,
       populate.importIndicators
-    ], donePopulate)
-  } else donePopulate();
+    );
+  }
+
+  async.series(tasks, donePopulate)
+
 }
