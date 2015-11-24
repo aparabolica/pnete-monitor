@@ -75,10 +75,10 @@ module.exports = function(User) {
     if (body['password']) {
 
       // only admins can change others passwords
-      if (currentUser.id != targetUser.id && !currentUser.isAdmin) {
+      if ((currentUser.id.toString() != targetUser.id.toString()) && !currentUser.isAdmin) {
         err = new Error('only admins can change password from others')
         err.statusCode = 401
-        return next(e);
+        return next(err);
       }
 
       if (!currentUser.isAdmin) {

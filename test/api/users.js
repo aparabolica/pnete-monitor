@@ -353,7 +353,11 @@ describe('Users: ', function() {
           .set('Authorization', user3AccessToken)
           .expect(401)
           .expect('Content-Type', /json/)
-          .end(doneIt);
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            res.body.error.should.have.property('message', 'Authorization Required');
+            doneIt();
+          });
       });
     });
 
