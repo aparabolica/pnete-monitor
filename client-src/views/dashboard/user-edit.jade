@@ -6,8 +6,11 @@ form(ng-submit="submit(user)")
     label(for="email_input") Email
     input#email_input(type="email" ng-model="user.email")
   p
-    label(for="pwd_input") Senha
-    input#pwd_input(type="password" ng-model="user.password")
+    label(for="verified_input") Email verificado
+    span.checkbox-list.row
+      span.checkbox-item
+        input#verified_input(type="checkbox" ng-model="user.emailVerified")
+        label(for="verified_input") Email já está verificado
   p
     label(for="admin_input") Administrador
     span.checkbox-list.row
@@ -42,6 +45,16 @@ form(ng-submit="submit(user)")
           td {{userOrganization.name}}
           td
             a.icon.icon-cross(href="javascript:void(0);" ng-click="removeOrganization()")
+  p
+    input(type="submit" value="Enviar")
 
+form(ng-submit="updatePwd(pwd)" ng-show="user.id")
+  h3 Atualizar senha do usuário
+  p
+    label(for="pwd_input") Senha
+    input#pwd_input(type="password" ng-model="pwd.password")
+  p
+    label(for="pwd_repeat_input") Repetir senha
+    input#pwd_repeat_input(type="password" ng-model="pwd.password_repeat")
   p
     input(type="submit" value="Enviar")

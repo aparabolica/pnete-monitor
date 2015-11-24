@@ -108,6 +108,14 @@ module.exports = function(app) {
         User['prototype$updateAttributes']({id: user.id}, user, saveCb);
       };
 
+      var saveCb = function(res) {
+        Profile = res;
+        $scope.user = _.extend({}, Profile);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {}, {reload:true});
+        Message.add('Perfil atualizado com sucesso');
+      };
+
       $scope.pwd = {};
       $scope.updatePwd = function(pwd) {
         if(!pwd.currentPassword) {
@@ -124,18 +132,11 @@ module.exports = function(app) {
             password: pwd.password
           }, function(res) {
             $scope.pwd = {};
+            Message.add('Senha atualizada com sucesso');
           }, function() {
             $scope.pwd = {};
           });
         }
-      }
-
-      var saveCb = function(res) {
-        Profile = res;
-        $scope.user = _.extend({}, Profile);
-        $scope.$emit('saved', res);
-        $state.go($state.current, {}, {reload:true});
-        Message.add('Perfil atualizado com sucesso');
       };
     }
   ]);
@@ -232,6 +233,25 @@ module.exports = function(app) {
         $state.go($state.current, {id: res.id}, {reload:true});
         Message.add('Usuário enviado com sucesso');
       };
+
+      $scope.pwd = {};
+      $scope.updatePwd = function(pwd) {
+        if(!pwd.password) {
+          Message.add('Você deve digitar uma nova senha');
+        } else if(pwd.password !== pwd.password_repeat) {
+          Message.add('Verifique se as duas senhas digitadas são iguais');
+        } else {
+          User['prototype$updateAttributes']({
+            id: Edit.id
+          }, {
+            password: pwd.password
+          }, function(res) {
+            $scope.pwd = {};
+            Message.add('Senha atualizada com sucesso');
+          });
+        }
+      };
+
     }
   ]);
 

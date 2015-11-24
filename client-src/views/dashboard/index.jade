@@ -43,8 +43,8 @@ section#dashboard
                 a(ui-sref="dashboard.cycle") Clique aqui para editar os ciclos
         .clearfix
           .twelve.columns
-            .widget.welcome-widget
-              .row(ng-show="userOrganization")
+            .widget.welcome-widget(ng-show="userOrganization")
+              .row
                 h2 {{userOrganization.name}}
                 p Sua organização deve responder a 
                   strong {{userIndicators.length}} 
