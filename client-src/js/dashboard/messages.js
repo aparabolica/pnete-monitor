@@ -11,16 +11,39 @@ module.exports = function(app) {
   .factory('messageInterceptor', [
   	'$q',
   	'MessageService',
-  	function($q, Message) {
+    'MessageCollection',
+  	function($q, Message, Collection) {
   		return {
   			responseError: function(rejection) {
+          console.log(rejection);
   				if(rejection.status != 404 && rejection.data && rejection.data.error && rejection.data.error.message) {
-            Message.add(rejection.data.error.message);
+            Message.add(Collection.get(rejection.data.error.message));
   				}
   				return $q.reject(rejection);
   			}
   		};
   	}
+  ])
+
+  .factory('MessageCollection', [
+    function() {
+
+      var messages = {};
+
+      messages['username or email is required'] = 'Preencha o campo de email e senha';
+      messages['login failed'] = 'Senha incorreta ou usuário não encontrado';
+      messages['Authorization Required'] = 'Faça login para acessar o painel de controle';
+
+      return {
+        get: function(string) {
+          if(messages[string]) {
+            return messages[string];
+          } else {
+            return string;
+          }
+        }
+      }
+    }
   ])
 
   .factory('MessageService', [
