@@ -5,7 +5,7 @@ var _ = require('underscore');
 var async = require('async');
 var lt = require('loopback-testing');
 var assert = require('assert');
-var app = require('../../server/server.js'); //path to app.js or server.js
+var app = require('../../server/server.js');
 var request = require('supertest');
 var helper = require('../../lib/helpers');
 
