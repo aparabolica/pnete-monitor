@@ -29,13 +29,17 @@ module.exports = function(NotificationTask) {
     var Organization = NotificationTask.app.models.Organization;
     var NotificationEmail = NotificationTask.app.models.NotificationEmail;
     var User = NotificationTask.app.models.User;
-    var orgs;
+    var orgs = ctx.req.body.organizations;
     var users;
 
     // a list of orgs is passed?
-    if (task.organizations) {
+    if (orgs && orgs.length) {
       // yes, fire emails just for them
-      async.eachSeries(task.organizations, createEmailToOrg, next);
+      async.eachSeries(orgs, function(orgId,doneEach){
+        Organization.findById(orgId, {include: ['members']}, function(err, org){
+          createEmailToOrg(org, doneEach);
+        });
+      }, next);
     } else {
       // no, sent to all orgs in active cycle
       fetchActiveOrgs(function(err, orgs){
@@ -47,13 +51,14 @@ module.exports = function(NotificationTask) {
     function createEmailToOrg(org, doneCreateEmailToOrg){
       Organization.include(org, 'members', function(err, populatedOrg){
         if (err) return doneCreateEmailToOrg(err);
+        if (populatedOrg.toJSON) populatedOrg = populatedOrg.toJSON();
         var members = populatedOrg.members;
         if (members.length) {
           async.eachSeries(members, function(member, doneMember){
             NotificationEmail.create({
               recipientId: member.id,
               organizationId: org.id,
-              notificationId: task.id,
+              taskId: task.id,
               status: 'pending'
             }, doneMember);
           }, doneCreateEmailToOrg);

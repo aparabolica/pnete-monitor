@@ -21,6 +21,8 @@ var admin1 = app.settings.defaultAdmin;
 var admin1AccessToken;
 var user1;
 var user1AccessToken;
+var orgsWithUsers = [];
+
 
 describe('Notification Tasks:', function() {
   var User = app.models.User;
@@ -49,10 +51,13 @@ describe('Notification Tasks:', function() {
           });
         });
 
-      // destroy all cycle to avoid confusion
+      // destroy all cycles to avoid confusion
       }, function (doneEach){
-
         Cycle.destroyAll({}, doneEach);
+
+      // destroy all cycles enrollees to avoid confusion
+      }, function (doneEach){
+        CycleEnrollment.destroyAll({}, doneEach);
 
       // remove users from orgs
       }, function (doneEach){
@@ -74,12 +79,17 @@ describe('Notification Tasks:', function() {
           .expect('Content-Type', /json/)
           .end(doneEach);
 
+      // remove some orgs from the cycle
+      }, function (doneEach){
+        CycleEnrollment.destroyAll({id: {lt: 5}}, doneEach);
+
       }, function (doneEach){
 
         // add users to some orgs
         Cycle.findOne({where:{active: true}, include: ['enrollees']}, function(err, cycle){
           cycle = cycle.toJSON();
           async.timesSeries(5, function(i, doneEachOrg){
+            orgsWithUsers.push(cycle.enrollees[i].id);
             helper.createUser({organizationId: cycle.enrollees[i].id}, doneEachOrg);
           }, doneEach);
         });
@@ -121,12 +131,10 @@ describe('Notification Tasks:', function() {
 
     context('with admin user,', function(){
 
-      // remove some orgs from active cycle
-      before(function(doneBeforeIt){
-        CycleEnrollment.destroyAll({id: {lt: 5}}, doneBeforeIt);
-      });
+      it('notify all orgs from cycle, if none is specified', function(doneIt){
 
-      it('should generate send email tasks', function(doneIt){
+        delete payload.organizations;
+
         request(app)
           .post(restApiRoot + '/notification-tasks')
           .set('Authorization', admin1AccessToken)
@@ -140,7 +148,7 @@ describe('Notification Tasks:', function() {
             body.should.have.property('id');
 
             // get emails to be sent
-            NotificationEmail.find({taskId: body['id']}, function(err, emails){
+            NotificationEmail.find({where: {taskId: body['id']}}, function(err, emails){
               if (err) return doneIt(err);
 
               // there must be at least 1 email
@@ -167,5 +175,54 @@ describe('Notification Tasks:', function() {
           });
       });
     });
+
+    it('notify specified orgs', function(doneIt){
+      // reduce the list of orgs notified
+      orgsWithUsers.pop();
+      orgsWithUsers.pop();
+      payload.organizations = orgsWithUsers;
+
+      request(app)
+        .post(restApiRoot + '/notification-tasks')
+        .set('Authorization', admin1AccessToken)
+        .send(payload)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(function(err, res){
+          if (err) return doneIt(err);
+
+          var body = res.body;
+          body.should.have.property('id');
+
+          // get emails to be sent
+          NotificationEmail.find({where: {taskId: body['id']}}, function(err, emails){
+            if (err) return doneIt(err);
+
+            // there must be at least 1 email
+            emails.should.have.length(payload.organizations.length);
+
+            // get recipient organizations
+            var orgsIds = [];
+            emails.forEach(function(email){
+              orgsIds.push(email.organizationId.toString());
+            });
+
+            // get active cycle enrollees
+            Cycle.findOne({include: ['enrollees']}, function(err, cycle){
+              if (err) return doneIt(err);
+              cycle = cycle.toJSON();
+
+              // each enrollees should have one pending message
+              cycle.enrollees.forEach(function(org){
+                _.contains(orgsIds, org.id.toString()).should.be.true;
+              });
+              doneIt();
+            });
+          });
+        });
+    });
+
+
+
   });
 });

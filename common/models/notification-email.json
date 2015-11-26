@@ -18,10 +18,10 @@
   },
   "validations": [],
   "relations": {
-    "notificationTask": {
+    "task": {
       "type": "belongsTo",
       "model": "NotificationTask",
-      "foreignKey": ""
+      "foreignKey": "taskId"
     },
     "organization": {
       "type": "belongsTo",
