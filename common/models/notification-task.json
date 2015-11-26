@@ -1,6 +1,9 @@
 {
-  "name": "notification",
+  "name": "NotificationTask",
   "base": "PersistedModel",
+  "http": {
+    "path": "notification-tasks"
+  },
   "strict": true,
   "idInjection": true,
   "options": {
@@ -14,7 +17,7 @@
       "type": "string",
       "required": true
     },
-    "text": {
+    "content": {
       "type": "string",
       "required": true
     }

@@ -1,34 +1,39 @@
 {
-  "name": "notificationTemplate",
-  "plural": "notificationTemplates",
+  "name": "NotificationEmail",
   "base": "PersistedModel",
   "strict": true,
   "idInjection": true,
   "options": {
     "validateUpsert": false
   },
-  "http": {
-    "path": "notification-templates"
-  },
   "mixins": {
     "TimeStamp": true
   },
   "properties": {
-    "name": {
+    "status": {
       "type": "string",
-      "required": true
-    },
-    "subject": {
-      "type": "string",
-      "required": true
-    },
-    "text": {
-      "type": "string",
-      "required": true
+      "required": true,
+      "default": "pending"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "notificationTask": {
+      "type": "belongsTo",
+      "model": "NotificationTask",
+      "foreignKey": ""
+    },
+    "organization": {
+      "type": "belongsTo",
+      "model": "Organization",
+      "foreignKey": ""
+    },
+    "recipient": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": ""
+    }
+  },
   "acls": [
     {
       "accessType": "*",

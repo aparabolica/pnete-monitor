@@ -104,10 +104,9 @@ describe('Feedbacks:', function() {
           .post(restApiRoot + '/feedbacks')
           .set('Authorization', user1AccessToken)
           .send(payload)
-          // .expect(200)
+          .expect(200)
           .expect('Content-Type', /json/)
           .end(function(err, res){
-            // console.log(res.text);
             if (err) return doneIt(err);
 
             var body = res.body;

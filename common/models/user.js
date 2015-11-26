@@ -29,7 +29,6 @@ module.exports = function(User) {
   });
 
   User.afterRemote('create', function(ctx, user, next){
-
     if (process.env.NODE_ENV != 'test' ) {
 
       var Email = User.app.models.Email;
@@ -123,7 +122,6 @@ module.exports = function(User) {
   });
 
   User.confirmEmail = function(id, token, password, next){
-
     User.findById(id, function(err, user){
       if (token != user.verificationToken) {
         var err = new Error('Invalid verification token.');
