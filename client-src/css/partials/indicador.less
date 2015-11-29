@@ -25,6 +25,72 @@ article#indicador {
     line-height: 100%;
     margin: 0 0 40px;
   }
+  .related-actions {
+    position: relative;
+    .button {
+      position: relative;
+      .icon {
+        position: absolute;
+        top: 12px;
+        right: 3px;
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+    .action-list {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 350px;
+      max-height: 300px;
+      overflow: auto;
+      margin-top: -40px;
+      margin-left: 20px;
+      background: #fff;
+      padding: 20px;
+      z-index: 100;
+      .box-shadow(0 0 10px rgba(0, 0, 0, 0.2));
+      border: 1px solid #ccc;
+      list-style: none;
+      .border-radius(4px);
+      &:before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 10px;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+      }
+      li {
+        margin: 0 0 20px;
+        padding: 0 0 20px;
+        border-bottom: 1px solid #ddd;
+        .number {
+          display: block;
+          width: 40px;
+          height: 40px;
+          font-size: 14px;
+          line-height: 40px;
+          background: #f5f5f5;
+          color: #333;
+          text-align: center;
+          .border-radius(100%);
+          border: 1px solid #ddd;
+          .box-shadow(0 0 10px rgba(0,0,0,0.1));
+          .box-sizing(border-box);
+          .transition(all .2s ease-in-out);
+          cursor: default;
+          float: left;
+          margin: 0 20px 20px 0;
+        }
+        p {
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+    }
+  }
   #overview {
     p {
       font-size: 20px;

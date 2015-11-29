@@ -126,6 +126,13 @@ app.config([
             }).$promise;
           }
         ],
+        Actions: [
+          '$stateParams',
+          'Indicator',
+          function($stateParams, Indicator) {
+            return Indicator.actions({id: $stateParams.indicadorId});
+          }
+        ],
         ActiveCycle: [
           '$stateParams',
           'Cycle',
@@ -186,9 +193,6 @@ app.config([
                         cycleId: ActiveCycle.id
                       }
                     }
-                  },
-                  {
-                    relation: 'notifications'
                   },
                   {
                     relation: 'enrollments',

@@ -62,14 +62,16 @@ module.exports = function(app) {
     'Cycles',
     'Indicador',
     'Eixo',
+    'Actions',
     'ActiveCycle',
     'Analise',
     'Organizations',
-    function($scope, Cycles, Indicador, Eixo, ActiveCycle, Analise, Organizations) {
+    function($scope, Cycles, Indicador, Eixo, Actions, ActiveCycle, Analise, Organizations) {
 
       $scope.ciclos = Cycles;
       $scope.indicador = Indicador;
       $scope.eixo = Eixo;
+      $scope.actions = Actions
       $scope.ciclo = ActiveCycle;
       $scope.analise = Analise;
       $scope.organizations = Organizations;
@@ -90,17 +92,15 @@ module.exports = function(app) {
           return 'check';
         else if(analise.status == 'incomplete')
           return 'cross red';
+      };
+
+      $scope.showActions = false;
+      $scope.toggleActions = function() {
+        if($scope.showActions)
+          $scope.showActions = false;
+        else
+          $scope.showActions = true;
       }
-
-      // Fake data
-      var date = moment('2015-06-05')
-      $scope.since = date.fromNow();
-      $scope.date = date.format('LLLL');
-      $scope.date_ = date.format('L');
-      $scope.pastelColor = _.memoize(function(hash) {
-        return getPastelColor();
-      });
-
 
     }
   ]);

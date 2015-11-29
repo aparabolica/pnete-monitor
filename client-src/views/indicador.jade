@@ -8,7 +8,13 @@ article#indicador
     .container
       .two.columns
         a.eixo-icon.eixo-bg(ui-sref="eixo({eixoId: eixo.id})" style="background:{{eixo.color}};") {{eixo.name}}
-        a.button(href="#") Veja as ações relacionadas
+        .related-actions
+          a.button(href="#" ng-click="toggleActions()") Veja as ações relacionadas
+            .icon.icon-cross(ng-show="showActions")
+          ul.action-list(ng-show="showActions")
+            li(ng-repeat="action in actions")
+              span.number {{action.id}}
+              p {{action.description}}
       .ten.columns
         .clearfix
           .nine.columns
