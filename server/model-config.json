@@ -88,5 +88,9 @@
   "NotificationTask": {
     "dataSource": "db",
     "public": true
+  },
+  "NotificationTemplate": {
+    "dataSource": "db",
+    "public": true
   }
 }
