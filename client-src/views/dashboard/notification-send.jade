@@ -1,0 +1,13 @@
+form(ng-submit="submit(task)")
+  p
+    label(for="template_input") Utilizar um template
+    select(ng-model="template" ng-options="template.name for template in templates")
+      option(value="") Nenhum template
+  p
+    label(for="subject_input") Assunto
+    input#subject_input(type="text" ng-model="task.subject")
+  p
+    label(for="content_input") Corpo da mensagem
+    textarea#content_input(ng-model="task.content")
+  p
+    input(type="submit" value="Enviar")

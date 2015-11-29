@@ -678,13 +678,21 @@ module.exports = function(app) {
         controller: 'DashboardNotificationCtrl',
         templateUrl: '/views/dashboard/notification.html',
         resolve: {
-          'Notifications': [
-            'Notification',
-            function(Notification) {
-              return Notification.find().$promise;
+          'Tasks': [
+            'NotificationTask',
+            function(NotificationTask) {
+              return NotificationTask.find({
+                // filter: {
+                //   include: [
+                //     {
+                //       relation: 'NotificationEmails'
+                //     }
+                //   ]
+                // }
+              }).$promise;
             }
           ],
-          'NotificationTemplates': [
+          'Templates': [
             'NotificationTemplate',
             function(NotificationTemplate) {
               return NotificationTemplate.find().$promise;

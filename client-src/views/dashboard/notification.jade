@@ -7,13 +7,17 @@ section.dashboard-inner-content(ui-view)
     thead
       tr
         th Data de envio
+        th Status
         th Assunto
         th Mensagem
     tbody
-      tr(ng-repeat="notification in notifications")
-        td {{notification.createdAt}}
-        td {{notification.subject}}
-        td {{notification.text}}
+      tr(ng-repeat="task in tasks")
+        td.date 
+          | {{task.createdAt | fromNow}}
+          span.complete {{task.createdAt | formatDate:'LLL'}}
+        td --
+        td {{task.subject}}
+        td {{task.content}}
   section#templates
     header.dashboard-inner-header
       h3 Mensagens pré-definidas
@@ -21,11 +25,17 @@ section.dashboard-inner-content(ui-view)
     table
       thead
         tr
+          th Nome
+          th Assunto
           th Mensagem
           th.action Editar
           th.action Remover
       tbody
-        tr(ng-repeat="template in notificationTemplates")
+        tr(ng-repeat="template in templates")
+          td {{template.name}}
+          td {{template.subject}}
           td {{template.text}}
           td
-            a(ui-sref="dashboard.notification.template({id: template.id})")
+            a.icon.icon-pencil(ui-sref="dashboard.notification.template({id: template.id})")
+          td
+            a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(template)")

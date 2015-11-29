@@ -837,24 +837,85 @@ module.exports = function(app) {
 
   app.controller('DashboardNotificationCtrl', [
     '$scope',
-    'Notifications',
-    'NotificationTemplates',
-    function($scope, Notifications, NotificationTemplates) {
-      $scope.notifications = Notifications;
-      $scope.notificationTemplates = NotificationTemplates;
+    '$state',
+    'MessageService',
+    'Tasks',
+    'Templates',
+    'NotificationTemplate',
+    function($scope, $state, Message, Tasks, Templates, NotificationTemplate) {
+
+      $scope.tasks = Tasks;
+      $scope.templates = Templates;
+
+      $scope.delete = function(template) {
+        if(confirm('Você tem certeza?')) {
+          NotificationTemplate.deleteById({id: template.id}, function() {
+            Message.add('Template de email removido');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
+
     }
   ]);
 
   app.controller('DashboardSendNotificationCtrl', [
     '$scope',
-    function($scope) {
+    'MessageService',
+    '$state',
+    'NotificationTask',
+    function($scope, Message, $state, NotificationTask) {
+
+      $scope.task = {};
+
+      $scope.$watch('template', function(template) {
+        if(template) {
+          $scope.task.subject = template.subject;
+          $scope.task.content = template.text;
+        } else {
+          $scope.task.subject = '';
+          $scope.task.content = '';
+        }
+      });
+
+      $scope.submit = function(task) {
+        NotificationTask.create(task, saveCb);
+      };
+
+      var saveCb = function(res) {
+        $scope.$emit('saved', res);
+        $state.go('dashboard.notification', {}, {reload:true});
+        Message.add('Tarefa de email enviada com sucesso');
+      };
 
     }
   ]);
-  
+
   app.controller('DashboardNotificationTemplateCtrl', [
     '$scope',
-    function($scope) {
+    'Edit',
+    'MessageService',
+    '$state',
+    'NotificationTemplate',
+    function($scope, Edit, Message, $state, NotificationTemplate) {
+
+      $scope.template = _.extend({}, Edit);
+
+      $scope.submit = function(template) {
+        if(!_.isEmpty(Edit)) {
+          NotificationTemplate['prototype$updateAttributes']({id: template.id}, template, saveCb);
+        } else {
+          NotificationTemplate.create(template, saveCb);
+        }
+      };
+
+      var saveCb = function(res) {
+        Edit = res;
+        $scope.template = _.extend({}, Edit);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {id: $scope.template.id}, {reload:true});
+        Message.add('Template de email salvo com sucesso');
+      };
 
     }
   ]);
