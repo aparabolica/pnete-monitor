@@ -28,6 +28,11 @@
       "type": "hasAndBelongsToMany",
       "model": "Organization",
       "foreignKey": ""
+    },
+    "emails": {
+      "type": "hasMany",
+      "model": "NotificationEmail",
+      "foreignKey": ""
     }
   },
   "acls": [
