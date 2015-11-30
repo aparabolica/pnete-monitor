@@ -32,7 +32,7 @@
     "emails": {
       "type": "hasMany",
       "model": "NotificationEmail",
-      "foreignKey": ""
+      "foreignKey": "taskId"
     }
   },
   "acls": [

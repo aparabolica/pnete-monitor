@@ -682,13 +682,9 @@ module.exports = function(app) {
             'NotificationTask',
             function(NotificationTask) {
               return NotificationTask.find({
-                // filter: {
-                //   include: [
-                //     {
-                //       relation: 'NotificationEmails'
-                //     }
-                //   ]
-                // }
+                filter: {
+                  include: 'emails'
+                }
               }).$promise;
             }
           ],

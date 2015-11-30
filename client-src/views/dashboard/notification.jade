@@ -11,11 +11,13 @@ section.dashboard-inner-content(ui-view)
         th Assunto
         th Mensagem
     tbody
-      tr(ng-repeat="task in tasks")
+      tr(ng-repeat="task in tasks" ng-init="task.pending = (task.emails | filter:'pending':status)")
         td.date 
           | {{task.createdAt | fromNow}}
           span.complete {{task.createdAt | formatDate:'LLL'}}
-        td --
+        td.status(ng-class="{complete: !task.pending.length}")
+          span(ng-show="task.pending.length") {{task.pending.length}}/{{task.emails.length}} envios pendentes
+          span(ng-hide="task.pending.length") Envio concluído
         td {{task.subject}}
         td {{task.content}}
   section#templates
