@@ -30,7 +30,7 @@
     },
     "recipient": {
       "type": "belongsTo",
-      "model": "User",
+      "model": "user",
       "foreignKey": ""
     }
   },
