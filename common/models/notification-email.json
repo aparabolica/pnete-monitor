@@ -14,6 +14,9 @@
       "type": "string",
       "required": true,
       "default": "pending"
+    },
+    "mailgunId": {
+      "type": "string"
     }
   },
   "validations": [],
