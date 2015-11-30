@@ -867,13 +867,11 @@ module.exports = function(app) {
           if(!email.organization) {
             Organization.findById({id: email.organizationId}, function(organization) {
               email.organization = organization;
-              console.log(organization);
             });
           }
           if(!email.user) {
             User.findById({id: email.recipientId}, function(user) {
               email.user = user;
-              console.log(user);
             });
           }
         });
