@@ -842,7 +842,9 @@ module.exports = function(app) {
     'Tasks',
     'Templates',
     'NotificationTemplate',
-    function($scope, $state, Message, Tasks, Templates, NotificationTemplate) {
+    'Organization',
+    'User',
+    function($scope, $state, Message, Tasks, Templates, NotificationTemplate, Organization, User) {
 
       $scope.tasks = Tasks;
       $scope.templates = Templates;
@@ -854,6 +856,27 @@ module.exports = function(app) {
             $state.go($state.current, {}, {reload:true});
           });
         }
+      };
+
+      $scope.toggleTask = function(task) {
+        if(task.expand)
+          task.expand = false;
+        else
+          task.expand = true;
+        _.each(task.emails, function(email) {
+          if(!email.organization) {
+            Organization.findById({id: email.organizationId}, function(organization) {
+              email.organization = organization;
+              console.log(organization);
+            });
+          }
+          if(!email.user) {
+            User.findById({id: email.recipientId}, function(user) {
+              email.user = user;
+              console.log(user);
+            });
+          }
+        });
       };
 
     }

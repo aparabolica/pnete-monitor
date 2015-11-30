@@ -10,16 +10,34 @@ section.dashboard-inner-content(ui-view)
         th Status
         th Assunto
         th Mensagem
-    tbody
-      tr(ng-repeat="task in tasks" ng-init="task.pending = (task.emails | filter:'pending':status)")
+    tbody(ng-repeat="task in tasks" ng-init="task.pending = (task.emails | filter:'pending':status)")
+      tr
         td.date 
           | {{task.createdAt | fromNow}}
           span.complete {{task.createdAt | formatDate:'LLL'}}
-        td.status(ng-class="{complete: !task.pending.length}")
-          span(ng-show="task.pending.length") {{task.pending.length}}/{{task.emails.length}} envios pendentes
-          span(ng-hide="task.pending.length") Envio concluído
+        td
+          a.status.button(href="javascript:void(0);" ng-click="toggleTask(task)" ng-class="{complete: !task.pending.length}")
+            span(ng-show="task.pending.length") {{task.pending.length}}/{{task.emails.length}} envios pendentes
+            span(ng-hide="task.pending.length") Envio concluído
         td {{task.subject}}
         td {{task.content}}
+      tr(ng-show="task.expand")
+        td(colspan="4")
+          .subtable
+            table
+              thead
+                tr
+                  th Data
+                  th Status
+                  th Organização
+                  th Usuário
+              tbody
+                tr(ng-repeat="email in task.emails")
+                  td.date
+                    span.complete {{email.createdAt | formatDate:'LLL'}}
+                  td {{email.status}}
+                  td {{email.organization.name}}
+                  td {{email.user.name}}
   section#templates
     header.dashboard-inner-header
       h3 Mensagens pré-definidas
