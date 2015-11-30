@@ -212,14 +212,19 @@
         }
       }
       .subtable {
-        background: #f0f0f0;
+        background: #f6f6f6;
         font-size: 80%;
         margin: -12px 0;
         max-height: 200px;
         overflow: auto;
         padding: 0 15px;
+        border-left: 1px solid #e1e1e1;
+        border-right: 1px solid #e1e1e1;
         table {
           margin: 0;
+          tbody tr:last-child td {
+            border-bottom: 0;
+          }
         }
       }
     }
