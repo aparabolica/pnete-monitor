@@ -13,7 +13,6 @@ module.exports = function(User) {
   User.disableRemoteMethod("upsert", true);
   User.disableRemoteMethod("updateAll", true);
   User.disableRemoteMethod("createChangeStream", true);
-  User.disableRemoteMethod("deleteById", true);
 
   /*
    * "Create user" remote hooks
