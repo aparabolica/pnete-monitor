@@ -9,5 +9,39 @@ form(ng-submit="submit(task)")
   p
     label(for="content_input") Corpo da mensagem
     textarea#content_input(ng-model="task.content")
+    
+  section#organizations
+    h3 Organizações
+    p
+      span.checkbox-list.row
+        span.checkbox-item
+          input(id="all_input" type="checkbox" ng-model="task.all")
+          label(for="all_input") Enviar para todas as organizações
+    .organization-search.live-add(ng-hide="task.all")
+      .input-container
+        input(type="text" ng-model="orgSearch" placeholder="Buscar organizações")
+      table.results-table(ng-show="organizations.length")
+        thead
+          tr
+            th Nome
+            th.action Adicionar à lista
+        tbody
+          tr(ng-repeat="organization in organizations" ng-hide="organizationListed(organization)")
+            td {{organization.name}}
+            td
+              a.icon.icon-add-to-list(href="javascript:void(0);" ng-click="addOrganization(organization)")
+    p(ng-show="notificationOrganizations.length && !task.all")
+      strong Organizações responsáveis:
+    table(ng-show="notificationOrganizations.length && !task.all")
+      thead
+        tr
+          th Nome
+          th.action Remover
+      tbody
+        tr(ng-repeat="organization in notificationOrganizations")
+          td {{organization.name}}
+          td
+            a.icon.icon-cross(href="javascript:void(0);" ng-click="removeOrganization(organization)")
+
   p
     input(type="submit" value="Enviar")

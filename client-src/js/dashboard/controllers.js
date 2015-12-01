@@ -885,9 +885,12 @@ module.exports = function(app) {
     'MessageService',
     '$state',
     'NotificationTask',
-    function($scope, Message, $state, NotificationTask) {
+    'Organization',
+    function($scope, Message, $state, NotificationTask, Organization) {
 
-      $scope.task = {};
+      $scope.task = {
+        all: true
+      };
 
       $scope.$watch('template', function(template) {
         if(template) {
@@ -898,6 +901,44 @@ module.exports = function(app) {
           $scope.task.content = '';
         }
       });
+
+      $scope.notificationOrganizations = [];
+      $scope.orgSearch = '';
+      var doOrgSearch = _.debounce(function(search) {
+        if(search) {
+          Organization.find({
+            filter: {
+              where: {
+                name: { like: search.replace(' ', '.*') + '.*', options: 'i' },
+                id: { nin: _.map($scope.indicadorOrganizations, function(organization) {
+                  return organization.id;
+                }) }
+              },
+            limit: 5
+            }
+          }, function(organizations) {
+            $scope.organizations = organizations;
+          });
+        }
+      }, 500);
+      $scope.$watch('orgSearch', function(search) {
+        if(!search) {
+          $scope.organizations = [];
+        } else {
+          doOrgSearch(search);
+        }
+      });
+      $scope.removeOrganization = function(organization) {
+        if(confirm('Você tem certeza?'))
+          $scope.notificationOrganizations = _.filter($scope.notificationOrganizations, function(org) { return org.id !== organization.id; });
+      };
+      $scope.addOrganization = function(organization) {
+        $scope.notificationOrganizations.push(organization);
+      };
+      $scope.organizationListed = function(organization) {
+        return _.find($scope.notificationOrganizations, function(org) { return org.id == organization.id; });
+      };
+
 
       $scope.submit = function(task) {
         NotificationTask.create(task, saveCb);

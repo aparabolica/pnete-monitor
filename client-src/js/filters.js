@@ -16,4 +16,48 @@ module.exports = function(app) {
     }
   ]);
 
+  app.filter('taskStatus', [
+    function() {
+      return _.memoize(function(input) {
+        var str = '';
+        switch(input) {
+          case 'error':
+            str = 'Erro';
+            break;
+          case 'pending':
+            str = 'Pendente';
+            break;
+          case 'accepted':
+            str = 'Envio aceito';
+            break;
+          case 'rejected':
+            str = 'Envio rejeitado';
+            break;
+          case 'delivered':
+            str = 'Entregue';
+            break;
+          case 'failed':
+            str = 'Falhou';
+            break;
+          case 'opened':
+            str = 'Entregue e lida';
+            break;
+          case 'click':
+            str = 'Entregue, lida e clicada';
+            break;
+          case 'unsubscribed':
+            str = 'Deixou de assinar';
+            break;
+          case 'complained':
+            str = 'Reportado como spam';
+            break;
+          case 'store':
+            str = 'Respondido';
+            break;
+        }
+        return str;
+      });
+    }
+  ])
+
 }
