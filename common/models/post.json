@@ -24,7 +24,12 @@
   },
   "validations": [],
   "relations": {
-    "indicator": {
+    "axis": {
+      "type": "belongsTo",
+      "model": "Axis",
+      "foreignKey": ""
+    },
+    "indicador": {
       "type": "belongsTo",
       "model": "Indicator",
       "foreignKey": ""
