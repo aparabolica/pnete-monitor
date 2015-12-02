@@ -53,18 +53,18 @@ article#indicador
                   a(ui-sref="organization({organizationId: organization.id})") {{organization.name}}
                 p.reply(ng-show="organization.feedbacks.length") Respondido {{organization.feedbacks[0].createdAt | fromNow}} ({{organization.feedbacks[0].createdAt | formatDate:'DD/MM/YYYY'}})
                 p.reply.not(ng-hide="organization.feedbacks.length") 
-                  span(ng-hide="organization.enrollments[0].confirmed") Organização ainda não confirmou participação no monitoramento deste ciclo
-                  span(ng-show="organization.enrollments[0].confirmed")
-                    span(ng-hide="organization.enrollments[0].active") Organização não participará deste ciclo
-                    span(ng-show="organization.enrollments[0].active") Ainda não obtivemos resposta
+                  //- span(ng-hide="organization.enrollments[0].confirmed") Organização ainda não confirmou participação no monitoramento deste ciclo
+                  //- span(ng-show="organization.enrollments[0].confirmed")
+                  span(ng-hide="organization.enrollments[0].active") Organização optou por não participar deste ciclo
+                  span(ng-show="organization.enrollments[0].active") Ainda não obtivemos resposta
               .seven.columns
                 .response(ng-show="organization.feedbacks.length")
                   p.bool(ng-show="indicador.type == 'boolean'") {{organization.feedbacks[0].value.bool ? 'Sim' : 'Não'}}
                   p.value(ng-show="organization.feedbacks[0].value.value") {{organization.feedbacks[0].value.value}}
                   p.percentage(ng-show="organization.feedbacks[0].value.percentage") {{organization.feedbacks[0].value.percentage}}%
                   p {{organization.feedbacks[0].value.comments}}
-                .response(ng-hide="organization.enrollments[0].confirmed")
-                  p Organização ainda não confirmou participação no monitoramento deste ciclo
-                .response(ng-show="organization.enrollments[0].confirmed && !organization.feedbacks.length")
-                  p(ng-hide="organization.enrollments[0].active") Organização não participará deste ciclo
+                //- .response(ng-hide="organization.enrollments[0].confirmed")
+                //-   p Organização ainda não confirmou participação no monitoramento deste ciclo
+                .response(ng-show="!organization.feedbacks.length")
+                  p(ng-hide="organization.enrollments[0].active") Organização optou por não participar deste ciclo
                   p(ng-show="organization.enrollments[0].active") Ainda não obtivemos resposta
