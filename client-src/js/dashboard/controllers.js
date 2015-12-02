@@ -941,7 +941,15 @@ module.exports = function(app) {
 
 
       $scope.submit = function(task) {
-        NotificationTask.create(task, saveCb);
+        task.organizations = _.map($scope.notificationOrganizations, function(org) {
+          return org.id;
+        });
+        if(!task.all && !task.organizations.length) {
+          Message.add('Você deve selecionar ao menos uma organização');
+        } else {
+          delete task.all;
+          NotificationTask.create(task, saveCb);
+        }
       };
 
       var saveCb = function(res) {

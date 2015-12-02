@@ -10,16 +10,16 @@ section.dashboard-inner-content(ui-view)
         th Status
         th Assunto
         th Mensagem
-    tbody(ng-repeat="task in tasks" ng-init="task.pending = (task.emails | filter:'pending':status); task.error = (task.emails | filter:'error':status);")
+    tbody(ng-repeat="task in tasks" ng-init="task.pending = (task.emails | filter:'pending':status); task.error = (task.emails | filter:'error':status); task.failed = (task.emails | filter:'failed':status);")
       tr
         td.date 
           | {{task.createdAt | fromNow}}
           span.complete {{task.createdAt | formatDate:'LLL'}}
         td
-          a.status.button.span(href="javascript:void(0);" ng-click="toggleTask(task)" ng-class="{complete: !task.pending.length && !task.error.length}")
+          a.status.button.span(href="javascript:void(0);" ng-click="toggleTask(task)" ng-class="{complete: !task.pending.length && !task.error.length && !task.failed.length}")
             span(ng-show="task.pending.length") {{task.pending.length}}/{{task.emails.length}} pendentes
-            span(ng-show="task.error.length") {{task.error.length}}/{{task.emails.length}} falharam
-            span(ng-hide="task.pending.length || task.error.length") Envio concluído
+            span(ng-show="task.error.length || task.failed.length") {{task.error.length+task.failed.length}}/{{task.emails.length}} falharam
+            span(ng-hide="task.pending.length || task.error.length || task.failed.length") Envio concluído
         td {{task.subject}}
         td {{task.content}}
       tr(ng-show="task.expand")
