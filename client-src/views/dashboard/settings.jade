@@ -3,7 +3,10 @@ header.dashboard-inner-header
 section.dashboard-inner-content
   form(ng-submit="submit(settings)")
     p
-      label(for="welcome_input") Mensagem de boas vindas
-      textarea#welcome_input(ng-model="settings.welcomeText")
+      label(for="welcome_input") Texto de introdução
+      textarea#welcome_input(ng-model="settings.welcomeEmailIntroText")
+    p
+      label(for="welcome_input") Texto de fechamento
+      textarea#welcome_input(ng-model="settings.welcomeEmailClosingText")
     p
       input(type="submit" value="Enviar")

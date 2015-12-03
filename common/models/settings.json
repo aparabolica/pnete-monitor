@@ -10,7 +10,10 @@
     "path": "settings"
   },
   "properties": {
-    "welcomeText": {
+    "welcomeEmailIntroText": {
+      "type": "string"
+    },
+    "welcomeEmailClosingText": {
       "type": "string"
     }
   },
