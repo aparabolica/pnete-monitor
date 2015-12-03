@@ -4,7 +4,7 @@
 var async = require('async');
 var lt = require('loopback-testing');
 var assert = require('assert');
-var app = require('../../server/server.js'); 
+var app = require('../../server/server.js');
 var request = require('supertest');
 var helper = require('../../lib/helpers');
 
@@ -82,7 +82,7 @@ describe('Cycle endpoints, ', function(){
     ], doneBefore);
   });
 
-  describe('POST /cycle', function(){
+  describe('POST /cycles', function(){
     context('first cycle', function(){
       var payload = {
         name: '2014',
@@ -319,4 +319,36 @@ describe('Cycle endpoints, ', function(){
     })
   });
 
+  describe('DEL /cycles/:id', function(){
+    // cycle enrollements should exist
+    before(function(doneBefore){
+      CycleEnrollment.find({where: {cycleId: cycle2.id}}, function(err, enrollees){
+        if (err) return doneBefore(err);
+
+        enrollees.length.should.be.above(0);
+        doneBefore();
+      });
+    });
+
+    context('after delete', function(){
+      it('should remove enrollements', function(doneIt){
+        request(app)
+          .del(restApiRoot + '/cycles/'+cycle2.id)
+          .set('Authorization', admin1AccessToken)
+          .expect(200)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) doneIt(err);
+
+            CycleEnrollment.find({where: {cycleId: cycle2.id}}, function(err, enrollees){
+              if (err) return doneBefore(err);
+
+              enrollees.should.have.length(0);
+
+              doneIt();
+            });
+          });
+      });
+    });
+  });
 });

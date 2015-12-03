@@ -46,13 +46,17 @@ module.exports = function(Cycle) {
         }
       }, function(err, cycle) {
         if (err) return doneStatus(err);
-        cycle = cycle.toJSON();
-        _.each(cycle.enrollees, function(org){
-          // filter by org
-          if ((organizationId && org.id == organizationId) || (!organizationId)) {
-            enrollees[org.id] = org;
-          }
-        });
+
+        // if an cycle is active
+        if (cycle) {
+          cycle = cycle.toJSON();
+          _.each(cycle.enrollees, function(org){
+            // filter by org
+            if ((organizationId && org.id == organizationId) || (!organizationId)) {
+              enrollees[org.id] = org;
+            }
+          });
+        }
         doneEachSeries();
       });
     }, function(doneEachSeries){
@@ -125,6 +129,16 @@ module.exports = function(Cycle) {
         id: { neq: instance.id }
       }, {active: false}, next);
     } else next();
+  });
+
+  /**
+   * Delete enrollements after remove
+   **/
+  Cycle.observe('after delete', function(ctx, next) {
+    var CycleEnrollment = Cycle.app.models.CycleEnrollment;
+
+    CycleEnrollment.destroyAll({cycleId: ctx.where.id}, next);
+
   });
 
 
