@@ -15,7 +15,6 @@ module.exports = function(app) {
     // check pending emails every 1 sec
     setInterval(verifyNewUserEmailVerification, 1000);
 
-
     function verifyNewUserEmailVerification (doneVerify) {
       User.findOne({
         where: {
@@ -31,7 +30,7 @@ module.exports = function(app) {
         // activation is not track, send e-mail again
         if (user) {
           if (!user.activationEmailId)
-            User.sendEmailConfirmation(user.id);
+            User.sendActivationToken(user.id);
           else {
             mailer.getEmailStatus(user.activationEmailId, function(err, status){
               user.activationStatus = status;

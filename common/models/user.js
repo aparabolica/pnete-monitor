@@ -39,7 +39,7 @@ module.exports = function(User) {
 
     // fires email confirmation without blocking
     if (process.env.NODE_ENV != 'test')
-      User.sendEmailConfirmation(user.id);
+      User.sendActivationToken(user.id);
 
     next();
   });
@@ -134,7 +134,7 @@ module.exports = function(User) {
   /*
    * Method: Confirm email
    */
-  User.sendEmailConfirmation = function(id, next) {
+  User.sendActivationToken = function(id, next) {
 
     User.findById(id, function(err, user){
 
