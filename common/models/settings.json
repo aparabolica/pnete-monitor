@@ -10,6 +10,16 @@
     "path": "settings"
   },
   "properties": {
+    "hostname": {
+      "type": "string",
+      "default": "localhost:3000",
+      "required": true
+    },
+    "welcomeEmailSubject": {
+      "type": "string",
+      "default": "Acesso à plataforma de monitoramento do PNETE",
+      "required": true
+    },
     "welcomeEmailIntroText": {
       "type": "string"
     },

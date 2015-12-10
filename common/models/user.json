@@ -30,6 +30,12 @@
       "type": "boolean",
       "required": true,
       "default": false
+    },
+    "activationEmailId": {
+      "type": "string"
+    },
+    "activationStatus": {
+      "type": "string"
     }
   },
   "validations": [],

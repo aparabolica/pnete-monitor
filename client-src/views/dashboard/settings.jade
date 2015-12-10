@@ -2,11 +2,19 @@ header.dashboard-inner-header
   h2 Configurações da plataforma
 section.dashboard-inner-content
   form(ng-submit="submit(settings)")
-    p
-      label(for="welcome_input") Texto de introdução
-      textarea#welcome_input(ng-model="settings.welcomeEmailIntroText")
-    p
-      label(for="welcome_input") Texto de fechamento
-      textarea#welcome_input(ng-model="settings.welcomeEmailClosingText")
-    p
-      input(type="submit" value="Enviar")
+    h3 Informações gerais
+      p
+        label(for="welcome_input") Hostname da plataforma
+        textarea#welcome_input(ng-model="settings.hostname")
+    h3 E-mail de boas-vindas
+      p
+        label(for="welcome_input") Assunto
+        textarea#welcome_input(ng-model="settings.welcomeEmailSubject")
+      p
+        label(for="welcome_input") Texto de Introdução
+        textarea#welcome_input(ng-model="settings.welcomeEmailIntroText")
+      p
+        label(for="welcome_input") Texto de Fechamento
+        textarea#welcome_input(ng-model="settings.welcomeEmailClosingText")
+      p
+        input(type="submit" value="Enviar")

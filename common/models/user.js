@@ -4,6 +4,8 @@ var crypto = require('crypto');
 var dsConfig = require('../../server/datasources.json');
 var loopback = require('loopback');
 
+var mailer = require('../../lib/mailer');
+
 module.exports = function(User) {
 
   /*
@@ -15,60 +17,31 @@ module.exports = function(User) {
   User.disableRemoteMethod("createChangeStream", true);
 
   /*
-   * "Create user" remote hooks
+   * Hooks
    */
 
+
   User.beforeRemote('create', function(ctx, modelInstance, next){
-    // set a random password until user confirmation;
-    if (!ctx.req.body.password) {
+
+    // if an password is not provided, generate random string until verification
+    if (!ctx.req.body.password)
       ctx.req.body.password = crypto.randomBytes(20).toString('hex');
-    }
+
+    // activation token
     ctx.req.body.verificationToken = crypto.randomBytes(20).toString('hex');
+
     next();
+
   });
 
+  // don't send emails while testing
   User.afterRemote('create', function(ctx, user, next){
 
-    // don't send emails while testing
-    if (process.env.NODE_ENV != 'test' ) {
+    // fires email confirmation without blocking
+    if (process.env.NODE_ENV != 'test')
+      User.sendEmailConfirmation(user.id);
 
-      var Email = User.app.models.Email;
-      var Settings = User.app.models.Settings;
-      var hostname = ctx.req.headers.host;
-
-      Settings.findOne({}, function(err, settings){
-        if (err) return next(err);
-
-        var options = {
-          type: 'email',
-          to: user.email,
-          from: "Monitor do PNETE <naoresponda@monitoramentopnete.org.br>",
-          subject: 'Bem-vindo ao Monitor do PNETE'
-        }
-
-        // email text: greeting
-        options.text = 'Olá, '
-        if (user.name) options.text += user.name + ',';
-        options.text += '\n\n';
-
-        // email text: intro
-        options.text += settings.welcomeEmailIntroText;
-        options.text += '\n\n';
-
-        // email text: link
-        options.text += "Visite o link abaixo para confirmar sua conta:\n\n"
-        options.text += 'http://' + hostname + '/confirmar-email?token=' + user.verificationToken
-          + '&uid=' + user.id + " \n";
-
-        // email text: closing
-        options.text += settings.welcomeEmailClosingText;
-
-        Email.send(options, function(err, email){
-          next(err);
-        })
-      });
-
-    } else next();
+    next();
   });
 
   User.beforeRemote('*.updateAttributes', function (ctx, unused, next) {
@@ -157,5 +130,55 @@ module.exports = function(User) {
     err.statusCode = 403;
     next(err)
   });
+
+  /*
+   * Method: Confirm email
+   */
+  User.sendEmailConfirmation = function(id, next) {
+
+    User.findById(id, function(err, user){
+
+      var Settings = User.app.models.Settings;
+
+      Settings.findOne({}, function(err, settings){
+        if (err) return next(err);
+
+        var hostname = settings.hostname;
+
+        var options = {
+          type: 'email',
+          to: user.email,
+          from: "Monitor do PNETE <naoresponda@monitoramentopnete.org.br>",
+          subject: settings.welcomeEmailSubject
+        }
+
+        // email text: greeting
+        options.text = 'Olá, '
+        if (user.name) options.text += user.name + ',';
+        options.text += '\n\n';
+
+        // email text: intro
+        options.text += settings.welcomeEmailIntroText;
+        options.text += '\n\n';
+
+        // email text: link
+        options.text += "Visite o link abaixo para confirmar sua conta:\n\n"
+        options.text += 'http://' + hostname + '/confirmar-email?token=' + user.verificationToken
+          + '&uid=' + user.id + " \n\n";
+
+        // email text: closing
+        options.text += settings.welcomeEmailClosingText;
+
+        mailer.sendEmail(options, function(err, emailId){
+          if (err) return next(err);
+          else {
+            user.activationEmailId = emailId;
+            user.save(next);
+          }
+        })
+      });
+    });
+  }
+
 
 };
