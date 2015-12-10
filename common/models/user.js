@@ -101,7 +101,7 @@ module.exports = function(User) {
    http: {
      path: '/confirm-email',
      verb: 'post',
-     status: 204
+     status: 200
    },
    accepts: [
      {arg: 'uid', type: 'string', description: 'user id', required: true},
@@ -134,6 +134,21 @@ module.exports = function(User) {
   /*
    * Method: Confirm email
    */
+
+   /*
+    * "Confirm user" remote hooks
+    */
+
+   User.remoteMethod('sendActivationToken',{
+    http: {
+      path: '/send-activation',
+      verb: 'get'
+    },
+    accepts: [
+      {arg: 'uid', type: 'string', description: 'user id', required: true}
+    ]
+   });
+
   User.sendActivationToken = function(id, next) {
 
     User.findById(id, function(err, user){
