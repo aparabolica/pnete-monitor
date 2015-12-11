@@ -9,13 +9,20 @@ section.dashboard-inner-content(ui-view)
         th Nome
         th Email
         th Organização
+        th.action Status
         th.action Editar
         th.action Remover
     tbody
       tr(ng-repeat="user in users")
         td {{user.name}}
-        td {{user.email}} ({{user.activationStatus || user.emailVerified | taskStatus}})
+        td {{user.email}}
         td {{user.organization.name}}
+        td(ng-show="user.emailVerified")
+          span.icon.icon-check
+        td(ng-hide="user.emailVerified")
+          span.icon.icon-cross 
+          a.button.status.email-status(href="javascript:void(0);" ng-click="sendActivation(user)") Email {{user.activationStatus || user.emailVerified | taskStatus}}
+            span.icon.icon-cycle
         td
           a.icon.icon-pencil(ui-sref="dashboard.user.edit({'id': user.id})")
         td

@@ -181,6 +181,15 @@ module.exports = function(app) {
     'Users',
     function($scope, $state, Message, User, Users) {
       $scope.users = Users;
+      $scope.sendActivation = function(user) {
+        if(confirm('Reenviar email de verificação de conta?')) {
+          User.sendActivationToken({uid: user.id}, function(res) {
+            Message.add('Nova tentativa de envio de email de verificação realizada com sucesso.');
+          }, function() {
+            Message.add('Nova tentativa de envio de email de verificação falhou.');
+          });
+        }
+      };
       _.each($scope.users, function(user) {
         User.organization({id: user.id}, function(organization) {
           user.organization = organization;
@@ -262,7 +271,7 @@ module.exports = function(app) {
         Edit = res;
         $scope.user = _.extend({}, Edit);
         $scope.$emit('saved', res);
-        $state.go($state.current, {id: res.id}, {reload:true});
+        $state.go('dashboard.user', {id: null}, {reload:true});
         Message.add('Usuário enviado com sucesso');
       };
 
