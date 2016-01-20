@@ -59,7 +59,7 @@ article#indicador
                   span(ng-show="organization.enrollments[0].active") Ainda não obtivemos resposta
               .seven.columns
                 .response(ng-show="organization.feedbacks.length")
-                  p.bool(ng-show="indicador.type == 'boolean'") {{organization.feedbacks[0].value.bool ? 'Sim' : 'Não'}}
+                  p.bool(ng-show="indicador.type == 'boolean'") {{parseInt(organization.feedbacks[0].value.bool) ? 'Sim' : 'Não'}}
                   p.value(ng-show="organization.feedbacks[0].value.value") {{organization.feedbacks[0].value.value}}
                   p.percentage(ng-show="organization.feedbacks[0].value.percentage") {{organization.feedbacks[0].value.percentage}}%
                   p {{organization.feedbacks[0].value.comments}}
