@@ -20,6 +20,11 @@ module.exports = function(Feedback) {
     // enforce user organizationId
     ctx.req.body.organizationId = ctx.req.currentUser.organizationId;
 
+    // as value.bool type is not defined, always convert to int
+    if (ctx.req.body.value && ctx.req.body.value.bool) {
+      ctx.req.body.value.bool = parseInt(ctx.req.body.value.bool);
+    }
+
     // enforce active cycle
     Cycle.findOne({where:{active: true}}, function(err, cycle){
       ctx.req.body.cycleId = cycle.id;
@@ -31,11 +36,24 @@ module.exports = function(Feedback) {
   var FILTERED_PROPERTIES = ['organizationId', 'cycleId', 'indicatorId'];
   Feedback.observe('before save', function filterProperties(ctx, next) {
     if (ctx.isNewInstance) return next();
+
     if (ctx.instance) {
       FILTERED_PROPERTIES.forEach(function(p) { ctx.instance.unsetAttribute(p); });
+
+      // as value.bool type is not defined, always convert to int
+      if (ctx.instance.value && ctx.instance.value.bool) {
+        ctx.instance.value.bool = parseInt(ctx.instance.value.bool);
+      }
     } else {
       FILTERED_PROPERTIES.forEach(function(p) { delete ctx.data[p]; });
+
+      // as value.bool type is not defined, always convert to int
+      if (ctx.data.value && ctx.data.value.bool) {
+        ctx.data.value.bool = parseInt(ctx.data.value.bool);
+      }
+
     }
+
     next();
   });
 };
