@@ -1,5 +1,15 @@
 module.exports = function(app) {
 
+  app.filter('parseUrl', [
+    '$sce',
+    function($sce) {
+      var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+      return function (text) {
+        return $sce.trustAsHtml(text.replace(urlPattern, '<a target="_blank" href="$&">$&</a>'));
+      };
+    }
+  ]);
+
   app.filter('fromNow', [
     function() {
       return _.memoize(function(input) {

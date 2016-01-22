@@ -1,5 +1,24 @@
 module.exports = function(app) {
 
+  app.directive('parseUrl', function () {
+    var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      replace: true,
+      scope: {
+        props: '=parseUrl',
+        ngModel: '=ngModel'
+      },
+      link: function compile(scope, element, attrs, controller) {
+        scope.$watch('ngModel', function (value) {
+          var html = value.replace(urlPattern, '<a target="' + scope.props.target + '" href="$&">$&</a>');
+          element.html(html);
+        });
+      }
+    };
+  });
+
   app.directive('scrolledClass', [
     function() {
       return {

@@ -43,7 +43,7 @@ article#organization
                   p.bool(ng-show="indicador.type == 'boolean'") {{indicador.feedbacks[0].value.bool ? 'Sim' : 'Não'}}
                   p.value(ng-show="indicador.feedbacks[0].value.value") {{indicador.feedbacks[0].value.value}}
                   p.percentage(ng-show="indicador.feedbacks[0].value.percentage") {{indicador.feedbacks[0].value.percentage}}%
-                  p {{indicador.feedbacks[0].value.comments}}
+                  p(ng-bind-html="indicador.feedbacks[0].value.comments | parseUrl")
                 .feedback.no-response(ng-hide="indicador.feedbacks.length")
                   p(ng-show="enrollment.active") Ainda não obtivemos resposta
                   p(ng-hide="enrollment.active") Organização optou por não participar deste ciclo
