@@ -895,11 +895,15 @@ module.exports = function(app) {
     '$state',
     'NotificationTask',
     'Organization',
-    function($scope, Message, $state, NotificationTask, Organization) {
+    'Organizations',
+    function($scope, Message, $state, NotificationTask, Organization, Organizations) {
 
       $scope.task = {
         all: true
       };
+
+      $scope.organizations = Organizations;
+      $scope.selectedOrganizations = {};
 
       $scope.$watch('template', function(template) {
         if(template) {
@@ -911,32 +915,42 @@ module.exports = function(app) {
         }
       });
 
-      $scope.notificationOrganizations = [];
-      $scope.orgSearch = '';
-      var doOrgSearch = _.debounce(function(search) {
-        if(search) {
-          Organization.find({
-            filter: {
-              where: {
-                name: { like: search.replace(' ', '.*') + '.*', options: 'i' },
-                id: { nin: _.map($scope.indicadorOrganizations, function(organization) {
-                  return organization.id;
-                }) }
-              },
-            limit: 5
-            }
-          }, function(organizations) {
-            $scope.organizations = organizations;
-          });
+      $scope.$watch('selectedOrganizations', function(orgs) {
+        $scope.notificationOrganizations = [];
+        for(var key in orgs) {
+          if(orgs[key]) {
+            $scope.notificationOrganizations.push(_.find($scope.organizations, function(o) { return o.id == key }));
+          }
         }
-      }, 500);
-      $scope.$watch('orgSearch', function(search) {
-        if(!search) {
-          $scope.organizations = [];
-        } else {
-          doOrgSearch(search);
-        }
-      });
+      }, true);
+
+      // $scope.notificationOrganizations = [];
+      // $scope.orgSearch = '';
+      // var doOrgSearch = _.debounce(function(search) {
+      //   if(search) {
+      //     Organization.find({
+      //       filter: {
+      //         where: {
+      //           name: { like: search.replace(' ', '.*') + '.*', options: 'i' },
+      //           id: { nin: _.map($scope.indicadorOrganizations, function(organization) {
+      //             return organization.id;
+      //           }) }
+      //         },
+      //       limit: 5
+      //       }
+      //     }, function(organizations) {
+      //       $scope.organizations = organizations;
+      //     });
+      //   }
+      // }, 500);
+      // $scope.$watch('orgSearch', function(search) {
+      //   if(!search) {
+      //     $scope.organizations = [];
+      //   } else {
+      //     doOrgSearch(search);
+      //   }
+      // });
+
       $scope.removeOrganization = function(organization) {
         if(confirm('Você tem certeza?'))
           $scope.notificationOrganizations = _.filter($scope.notificationOrganizations, function(org) { return org.id !== organization.id; });

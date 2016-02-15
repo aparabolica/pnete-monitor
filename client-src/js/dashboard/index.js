@@ -700,6 +700,14 @@ module.exports = function(app) {
         url: 'enviar/',
         controller: 'DashboardSendNotificationCtrl',
         templateUrl: '/views/dashboard/notification-send.html',
+        resolve: {
+          'Organizations': [
+            'Organization',
+            function(Organization) {
+              return Organization.find().$promise;
+            }
+          ]
+        }
       })
       .state('dashboard.notification.template', {
         url: 'template/?id',
