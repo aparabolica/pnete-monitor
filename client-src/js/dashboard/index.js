@@ -181,7 +181,7 @@ module.exports = function(app) {
                   filter: {
                     where: {
                       cycleId: ActiveCycle.id,
-                      confirmed: false
+                      active: false
                     },
                     include: 'organization'
                   }

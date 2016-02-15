@@ -2,9 +2,11 @@ section#login.mastform
   h1 Login
   form(ng-submit="login(credentials)")
     p
-      input(type="email" ng-model="credentials.email" placeholder="Email")
+      label(for="email") Email
+      input#email(type="email" ng-model="credentials.email" placeholder="Digite seu email")
     p
-      input(type="password" ng-model="credentials.password" placeholder="Senha")
+      label(for="password") Senha
+      input#password(type="password" ng-model="credentials.password" placeholder="Digite sua senha")
     p
       input(type="submit" value="Entrar")
 .message-notification(ng-controller="MessageCtrl")
