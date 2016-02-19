@@ -163,7 +163,7 @@ module.exports = function(User) {
         var options = {
           type: 'email',
           to: user.email,
-          from: "Monitor do PNETE <naoresponda@monitoramentopnete.org.br>",
+          from: "Plataforma de monitoramento do PNETE <naoresponda@monitoramentopnete.org.br>",
           subject: settings.welcomeEmailSubject
         }
 

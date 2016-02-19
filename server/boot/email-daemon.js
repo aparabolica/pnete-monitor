@@ -39,7 +39,7 @@ module.exports = function(app) {
       var emailJSON = email.toJSON();
 
       var data = {
-        from: "Monitor do PNETE <naoresponda@monitoramentopnete.org.br>",
+        from: "Plataforma de monitoramento do PNETE <naoresponda@monitoramentopnete.org.br>",
         to: emailJSON.recipient.email,
         subject: emailJSON.task.subject,
         text: emailJSON.task.content
