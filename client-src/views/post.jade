@@ -1,0 +1,9 @@
+article#post 
+  header.post-header
+    h2 Atualização
+    h3 {{post.title}}
+    .meta
+      p.date 
+        span.icon.icon-calendar
+        | {{post.createdAt | formatDate:'LL'}}
+  section.post-content(ng-bind-html="post.content | autop")

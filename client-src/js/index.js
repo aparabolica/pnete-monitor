@@ -89,9 +89,15 @@ app.config([
       templateUrl: '/views/pages/reports.html'
     })
     .state('indicador', {
-      url: '/indicador/:indicadorId/?ciclo',
+      url: '/indicador/:indicadorId/?ciclo&print',
       controller: 'IndicadorCtrl',
-      templateUrl: '/views/indicador.html',
+      templateUrl: function(params) {
+        if(!params.print) {
+          return '/views/indicador.html';
+        } else {
+          return '/views/print/indicador.html';
+        }
+      },
       resolve: {
         Cycles: [
           'Cycle',
@@ -210,9 +216,14 @@ app.config([
       }
     })
     .state('eixo', {
-      url: '/eixo/:eixoId/',
+      url: '/eixo/:eixoId/?print',
       controller: 'EixoCtrl',
-      templateUrl: '/views/eixo.html',
+      templateUrl: function(params) {
+        if(!params.print)
+          return '/views/eixo.html';
+        else
+          return '/views/print/eixo.html';
+      },
       resolve: {
         Eixo: [
           '$stateParams',
@@ -246,6 +257,33 @@ app.config([
           'Axis',
           function($stateParams, Axis) {
             return Axis.organizations({id: $stateParams.eixoId}).$promise;
+          }
+        ],
+        Posts: [
+          '$stateParams',
+          'Axis',
+          function($stateParams, Axis) {
+            return Axis.posts({id: $stateParams.eixoId}).$promise;
+          }
+        ]
+      }
+    })
+    .state('eixo.post', {
+      url: 'post/:postId/',
+      controller: 'PostCtrl',
+      templateUrl: '/views/post.html',
+      resolve: {
+        'EixoPost': [
+          '$stateParams',
+          'Post',
+          function($stateParams, Post) {
+            return Post.findOne({
+              filter: {
+                where: {
+                  id: $stateParams.postId
+                }
+              }
+            });
           }
         ]
       }

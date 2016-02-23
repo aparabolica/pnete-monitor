@@ -4,11 +4,26 @@ module.exports = function(app) {
     '$sce',
     function($sce) {
       var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
-      return function (text) {
-        return $sce.trustAsHtml(text.replace(urlPattern, '<a target="_blank" href="$&">$&</a>'));
+      return function(text) {
+        if(text) {
+          text = $sce.trustAsHtml(text.replace(urlPattern, '<a target="_blank" href="$&">$&</a>'));
+        }
+        return text;
       };
     }
   ]);
+
+  app.filter('autop', [
+    '$sce',
+    function($sce) {
+      return function(input) {
+        if(input) {
+          input = $sce.trustAsHtml('<p>' + input.replace(/\n([ \t]*\n)+/g, '</p><p>').replace(/\n/g, '<br />') + '</p>');
+        }
+        return input;
+      }
+    }
+  ])
 
   app.filter('fromNow', [
     function() {

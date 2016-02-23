@@ -66,7 +66,7 @@ module.exports = function(app) {
     'ActiveCycle',
     'Analise',
     'Organizations',
-    function($scope, Cycles, Indicador, Eixo, Actions, ActiveCycle, Analise, Organizations) {
+    function($scope, Cycles, Indicador, Eixo, Actions, ActiveCycle, Analise, Organizations, Posts) {
 
       $scope.ciclos = Cycles;
       $scope.indicador = Indicador;
@@ -111,13 +111,23 @@ module.exports = function(app) {
     'Actions',
     'Indicadores',
     'Organizations',
-    function($scope, Eixo, Actions, Indicadores, Organizations) {
+    'Posts',
+    function($scope, Eixo, Actions, Indicadores, Organizations, Posts) {
 
       $scope.eixo = Eixo;
       $scope.actions = Actions;
       $scope.indicadores = Indicadores;
       $scope.organizations = Organizations.organizations;
+      $scope.posts = Posts;
 
+    }
+  ]);
+
+  app.controller('PostCtrl', [
+    '$scope',
+    'EixoPost',
+    function($scope, EixoPost) {
+      $scope.post = EixoPost;
     }
   ]);
 

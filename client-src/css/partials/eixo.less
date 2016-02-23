@@ -11,6 +11,10 @@ article#eixo {
       font-size: 32px;
       line-height: 100%;
       margin: 0 0 40px;
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
     }
     p.meta {
       margin: 0 0 10px;
@@ -35,8 +39,7 @@ article#eixo {
         text-decoration: none;
       }
     }
-    .description {
-      font-family: "Playfair Display";
+    .main-content {
       font-size: 22px;
       margin-top: 20px;
       padding-top: 20px;
@@ -45,8 +48,11 @@ article#eixo {
       padding-left: 60px;
       margin-left: -60px;
       margin-bottom: 60px;
-      p {
-        margin: 0 0 20px;
+      .description {
+        font-family: "Playfair Display";
+        p {
+          margin: 0 0 20px;
+        }
       }
     }
   }
@@ -162,6 +168,7 @@ article#eixo {
     }
   }
   #indicadores {
+    margin: 0 0 40px;
     h2 {
       font-size: 18px;
       color: #999;
@@ -176,6 +183,9 @@ article#eixo {
       li {
         margin: 0;
         padding: 0;
+        &:last-child article {
+          border-bottom: 0;
+        }
       }
     }
     article {
@@ -189,8 +199,101 @@ article#eixo {
           text-decoration: none;
         }
       }
-      &:last-child {
-        border-bottom: 0;
+    }
+  }
+  #posts {
+    margin: 0 0 40px;
+    h2 {
+      font-size: 18px;
+      color: #999;
+      margin: 0 0 10px;
+    }
+    .post-list {
+      border: 1px solid #ddd;
+      .border-radius(4px);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        margin: 0;
+        padding: 0;
+        &:last-child article {
+          border-bottom: 0;
+        }
+      }
+    }
+    article {
+      margin: 0;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+      h3 {
+        margin: 0 0 10px;
+        font-size: 36px;
+        a {
+          color: #333;
+          text-decoration: none;
+        }
+      }
+      .meta {
+        font-size: 12px;
+        margin: 0 0 20px;
+        color: #999;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f0f0f0;
+        p {
+          margin: 0;
+        }
+        .icon {
+          margin-right: 5px;
+        }
+      }
+      .post-content {
+        p {
+          margin: 0 0 20px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  #post {
+    background: #f8f8f8;
+    margin: -20px 0 0 -30px;
+    padding: 20px 30px;
+    .border-radius(0 0 4px 4px);
+    .post-header {
+      h2 {
+        font-size: 14px;
+        line-height: 14px;
+        text-transform: uppercase;
+        color: #999;
+        margin: 0;
+        font-family: "Open Sans";
+        letter-spacing: 1px;
+        margin-top: -55px;
+        margin-bottom: 41px;
+      }
+      h3 {
+        font-size: 46px;
+        margin: 0 0 10px;
+      }
+      .meta {
+        font-size: 14px;
+        margin: 0 0 30px;
+        color: #999;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #f0f0f0;
+        p {
+          margin: 0;
+        }
+        .icon {
+          margin-right: 5px;
+        }
+      }
+    }
+    .post-content {
+      p {
+        margin: 0 0 20px;
+        font-size: 20px;
       }
     }
   }

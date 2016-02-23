@@ -271,6 +271,59 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('dashboard.post', {
+        url: 'posts/',
+        controller: 'DashboardPostCtrl',
+        templateUrl: '/views/dashboard/post.html',
+        resolve: {
+          'Posts': [
+            'Post',
+            function(Post) {
+              return Post.find({
+                filter: {
+                  include: 'axis'
+                }
+              }).$promise;
+            }
+          ],
+          'Eixos': [
+            'Axis',
+            function(Axis) {
+              return Axis.find({
+                filter: {
+                  where: {
+                    blog: true
+                  }
+                }
+              }).$promise;
+            }
+          ]
+        }
+      })
+      .state('dashboard.post.edit', {
+        url: 'editar/?id',
+        controller: 'DashboardEditPostCtrl',
+        templateUrl: '/views/dashboard/post-edit.html',
+        resolve: {
+          'Edit': [
+            '$stateParams',
+            'Post',
+            function($stateParams, Post) {
+              if($stateParams.id) {
+                return Post.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
+      })
       .state('dashboard.cycle', {
         url: 'ciclos/',
         controller: 'DashboardCycleCtrl',

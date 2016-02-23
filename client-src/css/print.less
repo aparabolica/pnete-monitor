@@ -1,0 +1,67 @@
+body {
+  background: white;
+  font-size: 12pt;
+}
+
+p {
+  font-size: 12pt;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 20px;
+}
+
+h1 {
+  font-size: 26pt;
+}
+
+h2 {
+  font-size: 22pt;
+}
+
+h3 {
+  font-size: 18pt;
+  color: #666;
+}
+
+hr {
+  margin: 40px 0;
+}
+
+a:link,
+a:visited {
+	color: #520;
+	background: transparent;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.ui-view a:link:after,
+.ui-view a:visited:after {
+	content: " (" attr(href) ") ";
+	font-size: 90%;
+}
+
+.ui-view a[href^="/"]:after {
+	content: " (http://monitoramentopnete.org.br" attr(href) ") ";
+}
+
+#mastnav,
+.logo-container {
+  display: none !important;
+}
+
+#masthead.shrink {
+  margin: 0 0 40px;
+  h1 {
+    position: static;
+    margin-bottom: 15px;
+  }
+  p {
+    text-align: center;
+    display: block;
+    color: #333;
+  }
+}

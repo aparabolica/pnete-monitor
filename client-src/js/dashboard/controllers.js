@@ -115,7 +115,7 @@ module.exports = function(app) {
       };
 
     }
-  ])
+  ]);
 
   app.controller('DashboardProfileCtrl', [
     '$scope',
@@ -295,6 +295,60 @@ module.exports = function(app) {
 
     }
   ]);
+
+  app.controller('DashboardPostCtrl', [
+    '$scope',
+    '$state',
+    'Post',
+    'MessageService',
+    'Posts',
+    'Eixos',
+    function($scope, $state, Post, Message, Posts, Eixos) {
+
+      $scope.posts = Posts;
+
+      $scope.delete = function(post) {
+        if(confirm('Você tem certeza?')) {
+          Post.deleteById({id: post.id}, function() {
+            Message.add('Post removido');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
+    }
+  ]);
+
+  app.controller('DashboardEditPostCtrl', [
+    '$scope',
+    '$state',
+    'MessageService',
+    'Post',
+    'Edit',
+    'Eixos',
+    function($scope, $state, Message, Post, Edit, Eixos) {
+
+      $scope.eixos = Eixos;
+      
+      $scope.post = _.extend({}, Edit);
+
+      $scope.submit = function(post) {
+        if(!_.isEmpty(Edit)) {
+          Post['prototype$updateAttributes']({id: post.id}, post, saveCb);
+        } else {
+          Post.create(post, saveCb);
+        }
+      };
+
+      var saveCb = function(res) {
+        Edit = res;
+        $scope.post = _.extend({}, res);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Post enviado com sucesso');
+      };
+    }
+  ]);
+
 
   app.controller('DashboardCycleCtrl', [
     '$scope',

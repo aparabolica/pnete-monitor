@@ -1,0 +1,15 @@
+form(ng-submit="submit(post)")
+  p
+    label(for="title_input") Título
+    input#title_input(type="text" ng-model="post.title")
+    
+  p
+    label(for="content_input") Conteúdo
+    textarea#content_input(ng-model="post.content")
+    
+  p
+    label(for="eixo_input") Eixo
+    select#eixo_input(ng-options="eixo.id as eixo.name for eixo in eixos" ng-model="post.axisId")
+
+  p
+    input(type="submit" value="Salvar")

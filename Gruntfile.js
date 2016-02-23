@@ -64,7 +64,8 @@ module.exports = function(grunt) {
 					compress: true
 				},
 				files: {
-					'client/css/app.css': 'client-src/css/main.less'
+					'client/css/app.css': 'client-src/css/main.less',
+					'client/css/print.css': 'client-src/css/print.less'
 				}
 			}
 		},
