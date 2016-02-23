@@ -281,7 +281,8 @@ module.exports = function(app) {
             function(Post) {
               return Post.find({
                 filter: {
-                  include: 'axis'
+                  include: 'axis',
+                  order: 'createdAt DESC'
                 }
               }).$promise;
             }

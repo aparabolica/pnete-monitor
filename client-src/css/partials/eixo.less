@@ -2,6 +2,10 @@
 
 article#eixo {
   .eixo-header {
+    &.bottom-bordered {
+      padding-bottom: 30px;
+      border-bottom: 2px solid #f0f0f0;
+    }
     h1 {
       padding: 20px;
       .border-radius(4px);
@@ -47,7 +51,7 @@ article#eixo {
       border-top-style: solid;
       padding-left: 60px;
       margin-left: -60px;
-      margin-bottom: 60px;
+      margin-bottom: 40px;
       .description {
         font-family: "Playfair Display";
         p {
@@ -166,6 +170,10 @@ article#eixo {
         }
       }
     }
+  }
+  .centered > section:first-child {
+    border-top: 2px solid #333;
+    padding-top: 20px;
   }
   #indicadores {
     margin: 0 0 40px;

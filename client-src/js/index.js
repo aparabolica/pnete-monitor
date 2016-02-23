@@ -263,7 +263,12 @@ app.config([
           '$stateParams',
           'Axis',
           function($stateParams, Axis) {
-            return Axis.posts({id: $stateParams.eixoId}).$promise;
+            return Axis.posts({
+              id: $stateParams.eixoId,
+              filter: {
+                order: 'createdAt DESC'
+              }
+            }).$promise;
           }
         ]
       }

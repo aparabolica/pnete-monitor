@@ -1,5 +1,5 @@
 article#eixo
-  header.eixo-header.row
+  header.eixo-header.row(ng-class="{'bottom-bordered': !actions.length}")
     .container
       .four.columns
         h1.eixo-bg(style="background:{{eixo.color}};")
@@ -22,7 +22,7 @@ article#eixo
           .description
             p {{eixo.description}}
   .container.row
-    .four.columns(ng-show="actions.length")
+    div(ng-show="actions.length" ng-class="{'four columns': actions.length}")
       aside#eixo-aside
         #eixo-actions
           h2 Ações do eixo
@@ -30,7 +30,7 @@ article#eixo
             li(ng-repeat="action in actions")
               span.number {{action.id}}
               p {{action.description}}
-    .eight.columns
+    .eight.columns(ng-class="{'offset-by-two': !actions.length}")
       section#indicadores
         h2 Indicadores
         ul.indicadores-list
@@ -48,5 +48,5 @@ article#eixo
               .meta
                 p.date 
                   span.icon.icon-calendar
-                  | {{post.createdAt | formatDate:'LL'}}
+                  | {{post.createdAt | formatDate:'LLL'}}
               .post-content(ng-bind-html="post.content | autop")
