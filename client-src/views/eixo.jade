@@ -4,14 +4,14 @@ article#eixo
       .four.columns
         h1.eixo-bg(style="background:{{eixo.color}};")
           a(ui-sref="eixo") {{eixo.name}}
-        p.meta 
+        p.meta(ng-show="indicadores.length") 
           span {{indicadores.length}} 
           | indicadores
-        p.meta
+        p.meta(ng-show="organizations.length")
           span {{organizations.length}} 
           | organizações
       .eight.columns
-        .download
+        .download(ng-show="organizations.length")
           p
             span.icon-download 
             | Baixar dados em CSV (em breve)

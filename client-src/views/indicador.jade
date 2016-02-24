@@ -31,7 +31,7 @@ article#indicador
           .subheader.baseline-header
             h3 Conheça o histórico de dados disponíveis
           .baseline-content(ng-bind-html="indicador.baseline | autop | parseUrl | trustHtml")
-        #replies.clearfix
+        #replies.clearfix(ng-show="organizations.length")
           .subheader.replies-header
             .filters(ng-hide="ciclos.length == 1")
               span.main-label Visualizando ciclo: 
