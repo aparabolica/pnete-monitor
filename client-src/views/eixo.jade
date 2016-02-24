@@ -49,4 +49,4 @@ article#eixo
                 p.date 
                   span.icon.icon-calendar
                   | {{post.createdAt | formatDate:'LLL'}}
-              .post-content(ng-bind-html="post.content | autop")
+              .post-content(ng-bind-html="post.content | trustHtml")

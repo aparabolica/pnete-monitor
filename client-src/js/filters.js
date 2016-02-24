@@ -1,12 +1,13 @@
 module.exports = function(app) {
 
   app.filter('parseUrl', [
-    '$sce',
-    function($sce) {
+    function() {
+
       var urlPattern = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/gi;
+
       return function(text) {
         if(text) {
-          text = $sce.trustAsHtml(text.replace(urlPattern, '<a target="_blank" href="$&">$&</a>'));
+          text = text.replace(urlPattern, '<a target="_blank" href="$&">$&</a>');
         }
         return text;
       };
@@ -14,13 +15,24 @@ module.exports = function(app) {
   ]);
 
   app.filter('autop', [
+    function() {
+      return function(input) {
+        if(input) {
+          input = '<p>' + input.replace(/\n([ \t]*\n)+/g, '</p><p>').replace(/\n/g, '<br />') + '</p>';
+        }
+        return input;
+      }
+    }
+  ]);
+
+  app.filter('trustHtml', [
     '$sce',
     function($sce) {
       return function(input) {
-        if(input) {
-          input = $sce.trustAsHtml('<p>' + input.replace(/\n([ \t]*\n)+/g, '</p><p>').replace(/\n/g, '<br />') + '</p>');
-        }
-        return input;
+        if(input)
+          return $sce.trustAsHtml(input);
+        else
+          return input;
       }
     }
   ])

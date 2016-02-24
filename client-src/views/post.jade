@@ -6,4 +6,4 @@ article#post
       p.date 
         span.icon.icon-calendar
         | {{post.createdAt | formatDate:'LLL'}}
-  section.post-content(ng-bind-html="post.content | autop")
+  section.post-content(ng-bind-html="post.content | trustHtml")
