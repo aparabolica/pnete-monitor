@@ -1,20 +1,21 @@
 article#organization
   header.organization-header.row
-    .container.row
-      .seven.columns
-        p.tagline Perfil da organização
-        h1 {{organization.name}}
-      .five.columns
-        .enrollment
-          p.active(ng-show="enrollment.active")
-            span.icon.icon-check
-            | Organização confirmou participação neste ciclo
-          p.not-active(ng-hide="enrollment.active")
-            span.icon.icon-cross
-            | Organização optou por não participar deste ciclo
-          //- p.not-confirmed(ng-show="!enrollment.confirmed")
-          //-   span.icon.icon-cross
-          //-   | Organização ainda não confirmou participação neste ciclo
+    .container
+      .row
+        .seven.columns
+          p.tagline Perfil da organização
+          h1 {{organization.name}}
+        .five.columns
+          .enrollment
+            p.active(ng-show="enrollment.active")
+              span.icon.icon-check
+              | Organização confirmou participação neste ciclo
+            p.not-active(ng-hide="enrollment.active")
+              span.icon.icon-cross
+              | Organização optou por não participar deste ciclo
+            //- p.not-confirmed(ng-show="!enrollment.confirmed")
+            //-   span.icon.icon-cross
+            //-   | Organização ainda não confirmou participação neste ciclo
   section.organization-content
     .container
       .twelve.columns
