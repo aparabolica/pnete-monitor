@@ -9,6 +9,10 @@ window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 
 require('angular-ui-router');
 require('angular-resource');
+require('textangular/dist/textAngular-rangy.min');
+require('textangular/dist/textAngular-sanitize.min');
+require('textangular/dist/textAngularSetup');
+require('textangular');
 require('ng-dialog');
 
 /* -- Loopback generated service -- */
@@ -18,7 +22,8 @@ require('./service.js');
 var app = angular.module('pnete', [
   'pnete.service',
   'ngDialog',
-  'ui.router'
+  'ui.router',
+  'textAngular'
 ]);
 app.config([
   '$stateProvider',

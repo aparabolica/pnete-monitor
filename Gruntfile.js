@@ -94,6 +94,36 @@ module.exports = function(grunt) {
 					}
 				]
 			},
+			bootstrap: {
+				files: [
+					{
+						cwd: 'node_modules/bootstrap/dist',
+						src: ['**'],
+						dest: 'client/vendor/bootstrap',
+						expand: true
+					}
+				]
+			},
+			fontawesome: {
+				files: [
+					{
+						cwd: 'node_modules/font-awesome',
+						src: ['**'],
+						dest: 'client/vendor/font-awesome',
+						expand: true
+					}
+				]
+			},
+			textangular: {
+				files: [
+					{
+						cwd: 'node_modules/textangular/dist',
+						src: ['*.css'],
+						dest: 'client/css',
+						expand: true
+					}
+				]
+			}
 		},
 		watch: {
 			options: {
