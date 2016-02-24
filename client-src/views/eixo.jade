@@ -21,32 +21,33 @@ article#eixo
         .main-content.eixo-border(style="border-color:{{eixo.color}};" ui-view)
           .description
             p {{eixo.description}}
-  .container.row
-    div(ng-show="actions.length" ng-class="{'four columns': actions.length}")
-      aside#eixo-aside
-        #eixo-actions
-          h2 Ações do eixo
-          ul.action-list
-            li(ng-repeat="action in actions")
-              span.number {{action.id}}
-              p {{action.description}}
-    .eight.columns(ng-class="{'offset-by-two': !actions.length}")
-      section#indicadores
-        h2 Indicadores
-        ul.indicadores-list
-          li(ng-repeat="indicador in indicadores")
-            article.indicador
-              h3 
-                a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}
-      section#posts(ng-show="posts.length")
-        h2 Atualizações
-        ul.post-list
-          li(ng-repeat="post in posts")
-            article.post
-              h3 
-                a(ui-sref="eixo.post({postId: post.id})") {{post.title}}
-              .meta
-                p.date 
-                  span.icon.icon-calendar
-                  | {{post.createdAt | formatDate:'LLL'}}
-              .post-content(ng-bind-html="post.content | trustHtml")
+  .container
+    .row
+      div(ng-show="actions.length" ng-class="{'four columns': actions.length}")
+        aside#eixo-aside
+          #eixo-actions
+            h2 Ações do eixo
+            ul.action-list
+              li(ng-repeat="action in actions")
+                span.number {{action.id}}
+                p {{action.description}}
+      .eight.columns(ng-class="{'offset-by-two': !actions.length}")
+        section#indicadores
+          h2 Indicadores
+          ul.indicadores-list
+            li(ng-repeat="indicador in indicadores")
+              article.indicador
+                h3 
+                  a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}
+        section#posts(ng-show="posts.length")
+          h2 Atualizações
+          ul.post-list
+            li(ng-repeat="post in posts")
+              article.post
+                h3 
+                  a(ui-sref="eixo.post({postId: post.id})") {{post.title}}
+                .meta
+                  p.date 
+                    span.icon.icon-calendar
+                    | {{post.createdAt | formatDate:'LLL'}}
+                .post-content(ng-bind-html="post.content | trustHtml")
