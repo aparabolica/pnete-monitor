@@ -30,8 +30,7 @@ article#indicador
         #baseline.clearfix
           .subheader.baseline-header
             h3 Conheça o histórico de dados disponíveis
-          .baseline-content
-            p {{indicador.baseline}}
+          .baseline-content(ng-bind-html="indicador.baseline | autop | parseUrl | trustHtml")
         #replies.clearfix
           .subheader.replies-header
             .filters(ng-hide="ciclos.length == 1")
