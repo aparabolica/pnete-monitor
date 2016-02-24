@@ -8,9 +8,9 @@ module.exports = function(app, donePopulate) {
   var Indicator = app.models.Indicator;
   var Organization = app.models.Organization;
 
-  var tasks = [populate.initSettings];
+  var tasks = [populate.initSettings, populate.initStorage];
 
-  if (process.env.NODE_ENV == 'development' || process.env.NODE_ENV == 'test') {
+  if (process.env.NODE_ENV == 'test') {
     tasks.push(populate.importAxes,
       populate.importActions,
       populate.importOrganizations,

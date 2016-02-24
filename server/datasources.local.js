@@ -4,18 +4,29 @@ require('dotenv').load();
  * Database config
  */
 var dbOptions = {
-  connector: "mongodb",
-  url: process.env.MONGOLAB_URI ||
-        process.env.MONGOHQ_URL ||
-        process.env.MONGODB_URI ||
-        'mongodb://localhost/pnete-dev'
-};
+  connector: "memory"
+}
 
-// user memory for testing
-if (process.env.NODE_ENV == 'test') {
+if (process.env.NODE_ENV != 'test') {
   dbOptions = {
-    connector: "memory"
+    connector: "mongodb",
+    url:
+      process.env.MONGOLAB_URI ||
+      process.env.MONGOHQ_URL ||
+      process.env.MONGODB_URI ||
+      'mongodb://localhost/pnete-dev'
   }
+}
+
+/*
+ * Storage config
+ */
+var storage = {
+  name: "storage",
+  connector: "loopback-component-storage",
+  provider: "filesystem",
+  root: "./server/storage",
+  maxFileSize: "52428800"
 }
 
 /*
@@ -23,6 +34,7 @@ if (process.env.NODE_ENV == 'test') {
  */
 module.exports = {
   db: dbOptions,
+  storage: storage,
   emailDs: {
     name: "emailDs",
     connector: "mail",
