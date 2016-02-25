@@ -395,13 +395,11 @@ module.exports = function(app) {
 
       $scope.getProgress = function() {
         var prog = [0,0];
-        var length = 0;
         if(!_.isEmpty($scope.progress)) {
           for(var key in $scope.progress) {
             if($scope.progress[key][1]) {
               prog[0] += $scope.progress[key][0];
               prog[1] += $scope.progress[key][1];
-              length++;
             }
           }
         }
