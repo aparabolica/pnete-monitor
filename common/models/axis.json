@@ -49,7 +49,7 @@
     "posts": {
       "type": "hasMany",
       "model": "Post",
-      "foreignKey": ""      
+      "foreignKey": ""
     }
   },
   "acls": [

@@ -12,13 +12,13 @@
   "properties": {
     "hostname": {
       "type": "string",
-      "default": "localhost:3000",
-      "required": true
+      "required": true,
+      "default": "localhost:3000"
     },
     "welcomeEmailSubject": {
       "type": "string",
-      "default": "Acesso à plataforma de monitoramento do PNETE",
-      "required": true
+      "required": true,
+      "default": "Acesso à plataforma de monitoramento do PNETE"
     },
     "welcomeEmailIntroText": {
       "type": "string"
@@ -43,6 +43,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {
-  }
+  "methods": {}
 }

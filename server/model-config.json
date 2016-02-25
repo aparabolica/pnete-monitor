@@ -96,5 +96,9 @@
   "Container": {
     "dataSource": "storage",
     "public": true
+  },
+  "Report": {
+    "dataSource": "db",
+    "public": true
   }
 }

@@ -1,40 +1,25 @@
 {
-  "name": "NotificationTask",
+  "name": "Report",
   "base": "PersistedModel",
-  "strict": true,
   "idInjection": true,
   "options": {
-    "validateUpsert": false
+    "validateUpsert": true
   },
   "http": {
-    "path": "notification-tasks"
-  },
-  "mixins": {
-    "TimeStamp": true
+    "path": "reports"
   },
   "properties": {
-    "subject": {
+    "title": {
       "type": "string",
       "required": true
     },
-    "content": {
+    "filename": {
       "type": "string",
       "required": true
     }
   },
   "validations": [],
-  "relations": {
-    "recipients": {
-      "type": "hasAndBelongsToMany",
-      "model": "Organization",
-      "foreignKey": ""
-    },
-    "emails": {
-      "type": "hasMany",
-      "model": "NotificationEmail",
-      "foreignKey": "taskId"
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "accessType": "*",
@@ -46,6 +31,12 @@
       "accessType": "*",
       "principalType": "ROLE",
       "principalId": "admin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
       "permission": "ALLOW"
     }
   ],
