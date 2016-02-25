@@ -345,21 +345,90 @@ module.exports = function(app) {
     }
   ]);
 
+  app.controller('DashboardUploadCtrl', [
+    '$scope',
+    '$state',
+    'Upload',
+    '$q',
+    function($scope, $state, Upload, $q) {
+
+      var uploadUrl = '/api/v1/container/default/upload';
+
+      $scope.progress = [];
+
+      $scope.uploadFiles = function(files) {
+
+        if(files && files.length) {
+
+          var promises = [];
+
+          for(var i = 0; i < files.length; i++) {
+            var promise = Upload.upload({
+              url: uploadUrl,
+              file: files[i]
+            }).then(function(res) {
+
+            }, function(err) {
+
+            }, function(evt) {
+
+              var percentage = parseInt(100.0 * evt.loaded / evt.total);
+              $scope.progress.push(percentage);
+
+            });
+
+            promises.push(promise);
+
+          }
+
+          $q.all(promises).then(function() {
+            $scope.progress = [];
+            $state.go($state.current, {}, {reload:true});
+          });
+
+        }
+
+      };
+
+
+      $scope.getProgress = function() {
+        var prog = 0;
+        if($scope.progress.length) {
+          for(var i = 0; i < $scope.progress.length; i++) {
+            prog += $scope.progress[i];
+          }
+        }
+        return (prog/$scope.progress.length).toFixed(2);
+      }
+
+    }
+  ]);
+
   app.controller('DashboardMediaCtrl', [
     '$scope',
     '$state',
+    'Container',
     'MessageService',
     'Files',
-    function($scope, $state, Message, Files) {
+    '$q',
+    'Upload',
+    function($scope, $state, Container, Message, Files, Upload) {
 
       $scope.files = Files;
 
+      $scope.getFileUrl = function(file) {
+        return window.location.protocol + '//' + window.location.host + '/api/v1/container/' + file.container + '/download/' + file.name;
+      };
+
       $scope.delete = function(file) {
         if(confirm('Você tem certeza?')) {
-          // Media.deleteById({id: file.id}, function() {
-          //   Message.add('Arquivo removido');
-          //   $state.go($state.current, {}, {reload:true});
-          // });
+          Container.removeFile({
+            container: 'default',
+            file: file.name
+          }, function() {
+            Message.add('Arquivo removido');
+            $state.go($state.current, {}, {reload:true});
+          });
         }
       };
     }
@@ -368,25 +437,32 @@ module.exports = function(app) {
   app.controller('DashboardEditMediaCtrl', [
     '$scope',
     '$state',
+    'Container',
     'MessageService',
     'Edit',
-    function($scope, $state, Message, Edit) {
+    'Upload',
+    function($scope, $state, Container, Message, Edit, Upload) {
 
       $scope.file = _.extend({}, Edit);
 
+      var uploadUrl = '/api/v1/container/default/upload';
+
       $scope.submit = function(file) {
+        Upload.upload({
+          url: uploadUrl,
+          file: file.upload
+        }).then(function(res) {
+          saveCb();
+        });
         // if(!_.isEmpty(Edit)) {
         //   Media['prototype$updateAttributes']({id: file.id}, report, saveCb);
         // } else {
-        //   Media.create(file, saveCb);
+        //   Container.upload({container: 'default'}, file.upload, saveCb);
         // }
       };
 
-      var saveCb = function(res) {
-        Edit = res;
-        $scope.file = _.extend({}, res);
-        $scope.$emit('saved', res);
-        $state.go($state.current, {id: res.id}, {reload:true});
+      var saveCb = function() {
+        $state.go('dashboard.media', {}, {reload:true});
         Message.add('Arquivo enviado com sucesso');
       };
     }

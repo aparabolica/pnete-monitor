@@ -318,8 +318,11 @@ module.exports = function(app) {
         templateUrl: '/views/dashboard/media.html',
         resolve: {
           'Files': [
-            function() {
-              return [{}];
+            'Container',
+            function(Container) {
+              return Container.getFiles({
+                container: 'default'
+              }).$promise;
             }
           ]
         }
@@ -330,10 +333,14 @@ module.exports = function(app) {
         templateUrl: '/views/dashboard/media-edit.html',
         resolve: {
           'Edit': [
+            'Container',
             '$stateParams',
-            function($stateParams) {
+            function(Container, $stateParams) {
               if($stateParams.id) {
-                return {};
+                return Container.getFile({
+                  container: 'default',
+                  file: $stateParams.id
+                });
               } else {
                 return {};
               }
