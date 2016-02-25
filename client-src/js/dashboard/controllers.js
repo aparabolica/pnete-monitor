@@ -367,8 +367,7 @@ module.exports = function(app) {
 
         }, function(evt) {
 
-          var percentage = parseInt(100.0 * evt.loaded / evt.total);
-          $scope.progress[file.name] = percentage;
+          $scope.progress[file.name] = [evt.loaded, evt.total];
 
         });
 
@@ -395,17 +394,21 @@ module.exports = function(app) {
 
 
       $scope.getProgress = function() {
-        var prog = 0;
+        var prog = [0,0];
         var length = 0;
         if(!_.isEmpty($scope.progress)) {
           for(var key in $scope.progress) {
-            if($scope.progress[key] && $scope.progress[key] < 100) {
-              prog += $scope.progress[key];
+            if($scope.progress[key][1]) {
+              prog[0] += $scope.progress[key][0];
+              prog[1] += $scope.progress[key][1];
               length++;
             }
           }
         }
-        return (prog/length).toFixed(2);
+        if(prog[0])
+          return (100.0 * prog[0] / prog[1]).toFixed(2);
+        else
+          return 0;
       }
 
     }
