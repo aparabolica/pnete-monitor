@@ -1,5 +1,8 @@
-module.exports = function(Feedback) {
+var json2csv = require('json2csv');
+var modelConfig = require('./feedback.json')
+var properties = Object.keys(modelConfig.properties);
 
+module.exports = function(Feedback) {
 
   /*
    * Disable unwanted endpoints
@@ -56,4 +59,27 @@ module.exports = function(Feedback) {
 
     next();
   });
+
+  Feedback.export = function(filter, res, doneExport) {
+    Feedback.find(filter, function(err, results){
+      json2csv({ data: results, fields: properties }, function(err, csv){
+        res.attachment('feedbacks.csv');
+        res.send(csv);
+      });
+    });
+  }
+
+  Feedback.remoteMethod(
+    'export',
+    {
+      http: { verb: 'get' },
+      accepts: [
+        {arg: 'filter', type: 'object'},
+        {arg: 'res', type: 'object', 'http': {source: 'res'}}
+      ],
+      returns: {arg: 'data', root: true}
+    }
+  )
+
+
 };

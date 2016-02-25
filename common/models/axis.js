@@ -1,4 +1,7 @@
 var _ = require('underscore');
+var json2csv = require('json2csv');
+var modelConfig = require('./axis.json')
+var properties = Object.keys(modelConfig.properties);
 
 module.exports = function(Axis) {
 
@@ -51,5 +54,27 @@ module.exports = function(Axis) {
         http: {path: '/:id/organizations', verb: 'get'}
       }
     );
+
+    Axis.export = function(filter, res, doneExport) {
+      Axis.find(filter, function(err, results){
+        json2csv({ data: results, fields: properties }, function(err, csv){
+          res.attachment('axis.csv');
+          res.send(csv);
+        });
+      });
+    }
+
+    Axis.remoteMethod(
+      'export',
+      {
+        http: { verb: 'get' },
+        accepts: [
+          {arg: 'filter', type: 'object'},
+          {arg: 'res', type: 'object', 'http': {source: 'res'}}
+        ],
+        returns: {arg: 'data', root: true}
+      }
+    )
+
 
 };

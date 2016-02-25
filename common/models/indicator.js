@@ -1,6 +1,7 @@
 var json2csv = require('json2csv');
 var modelConfig = require('./indicator.json')
 var properties = Object.keys(modelConfig.properties);
+properties.push('axisId');
 
 
 module.exports = function(Indicator) {
@@ -42,7 +43,6 @@ module.exports = function(Indicator) {
   });
 
   Indicator.export = function(filter, res, doneExport) {
-    properties.push('axisId');
     Indicator.find(filter, function(err, results){
       json2csv({ data: results, fields: properties }, function(err, csv){
         res.attachment('indicators.csv');

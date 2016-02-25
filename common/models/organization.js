@@ -1,3 +1,7 @@
+var json2csv = require('json2csv');
+var modelConfig = require('./organization.json')
+var properties = Object.keys(modelConfig.properties);
+
 module.exports = function(Organization) {
 
   /*
@@ -17,5 +21,28 @@ module.exports = function(Organization) {
     } else next();
 
   });
+
+
+  Organization.export = function(filter, res, doneExport) {
+    Organization.find(filter, function(err, results){
+      json2csv({ data: results, fields: properties }, function(err, csv){
+        res.attachment('organizations.csv');
+        res.send(csv);
+      });
+    });
+  }
+
+  Organization.remoteMethod(
+    'export',
+    {
+      http: { verb: 'get' },
+      accepts: [
+        {arg: 'filter', type: 'object'},
+        {arg: 'res', type: 'object', 'http': {source: 'res'}}
+      ],
+      returns: {arg: 'data', root: true}
+    }
+  )
+
 
 };
