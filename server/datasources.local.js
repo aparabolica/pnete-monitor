@@ -26,7 +26,10 @@ var storage = {
   connector: "loopback-component-storage",
   provider: "filesystem",
   root: "./server/storage",
-  maxFileSize: "52428800"
+  maxFileSize: "52428800",
+  getFilename: function(fileInfo) {
+    return Date.now().toString() + '-' + fileInfo.name;
+  }
 }
 
 /*

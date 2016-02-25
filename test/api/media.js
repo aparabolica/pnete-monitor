@@ -83,7 +83,7 @@ describe('Media Tasks:', function() {
               var file = res.body.result.files.image[0];
 
               file.should.have.property('container', 'default');
-              file.should.have.property('name', 'logo.png');
+              file.name.should.endWith('logo.png');
 
               doneIt();
             });
