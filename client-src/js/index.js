@@ -9,6 +9,8 @@ window.isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini
 
 require('angular-ui-router');
 require('angular-resource');
+require('ng-file-upload/dist/ng-file-upload.min.js');
+require('ng-file-upload/dist/ng-file-upload-shim.min.js');
 require('textangular/dist/textAngular-rangy.min');
 require('textangular/dist/textAngular-sanitize.min');
 require('textangular/dist/textAngularSetup');
@@ -23,6 +25,7 @@ var app = angular.module('pnete', [
   'pnete.service',
   'ngDialog',
   'ui.router',
+  'ngFileUpload',
   'textAngular'
 ]);
 app.config([

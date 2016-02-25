@@ -53,6 +53,7 @@
     "mailgun-js": "^0.7.7",
     "moment": "^2.10.3",
     "ng-dialog": "^0.4.0",
+    "ng-file-upload": "^12.0.1",
     "serve-favicon": "^2.0.1",
     "textangular": "1.4.6",
     "underscore": "^1.8.3"
