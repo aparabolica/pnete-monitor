@@ -21,8 +21,8 @@ article#eixo
         .main-content.eixo-border(style="border-color:{{eixo.color}};" ui-view)
           .description
             p {{eixo.description}}
-  .container
-    .row
+  .row
+    .container
       div(ng-show="actions.length" ng-class="{'four columns': actions.length}")
         aside#eixo-aside
           #eixo-actions
@@ -31,7 +31,7 @@ article#eixo
               li(ng-repeat="action in actions")
                 span.number {{action.id}}
                 p {{action.description}}
-      .eight.columns(ng-class="{'offset-by-two': !actions.length}")
+      .columns(ng-class="{'four first': !actions.length, 'eight': actions.length}")
         section#indicadores
           h2 Indicadores
           ul.indicadores-list
@@ -39,6 +39,7 @@ article#eixo
               article.indicador
                 h3 
                   a(ui-sref="indicador({indicadorId: indicador.id})") {{indicador.description}}
+      .eight.columns
         section#posts(ng-show="posts.length")
           h2 Atualizações
           ul.post-list
@@ -51,3 +52,5 @@ article#eixo
                     span.icon.icon-calendar
                     | {{post.createdAt | formatDate:'LLL'}}
                 .post-content(ng-bind-html="post.content | trustHtml")
+                p.read-more
+                  a(ui-sref="eixo.post({postId: post.id})") Continue lendo...

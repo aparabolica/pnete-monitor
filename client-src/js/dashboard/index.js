@@ -271,6 +271,76 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('dashboard.report', {
+        url: 'relatorios/',
+        controller: 'DashboardReportCtrl',
+        templateUrl: '/views/dashboard/report.html',
+        resolve: {
+          'Reports': [
+            'Report',
+            function(Report) {
+              return Report.find({
+                filter: {
+                  order: 'title DESC'
+                }
+              }).$promise;
+            }
+          ]
+        }
+      })
+      .state('dashboard.report.edit', {
+        url: 'editar/?id',
+        controller: 'DashboardEditReportCtrl',
+        templateUrl: '/views/dashboard/report-edit.html',
+        resolve: {
+          'Edit': [
+            '$stateParams',
+            'Report',
+            function($stateParams, Report) {
+              if($stateParams.id) {
+                return Report.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
+      })
+      .state('dashboard.media', {
+        url: 'media/',
+        controller: 'DashboardMediaCtrl',
+        templateUrl: '/views/dashboard/media.html',
+        resolve: {
+          'Files': [
+            function() {
+              return [{}];
+            }
+          ]
+        }
+      })
+      .state('dashboard.media.edit', {
+        url: 'editar/?id',
+        controller: 'DashboardEditMediaCtrl',
+        templateUrl: '/views/dashboard/media-edit.html',
+        resolve: {
+          'Edit': [
+            '$stateParams',
+            function($stateParams) {
+              if($stateParams.id) {
+                return {};
+              } else {
+                return {};
+              }
+            }
+          ]
+        }
+      })
       .state('dashboard.post', {
         url: 'posts/',
         controller: 'DashboardPostCtrl',

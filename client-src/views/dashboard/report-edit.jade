@@ -1,0 +1,11 @@
+form(ng-submit="submit(report)")
+  p
+    label(for="name_input") Nome
+    input#name_input(type="text" ng-model="report.title")
+    
+  p
+    label(for="file_input") Arquivo
+    input#file_input(type="text" ng-model="report.filename")
+
+  p
+    input(type="submit" value="Salvar")

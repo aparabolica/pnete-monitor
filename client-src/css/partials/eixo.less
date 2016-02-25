@@ -234,6 +234,13 @@ article#eixo {
       margin: 0;
       padding: 20px;
       border-bottom: 1px solid #ddd;
+      p {
+        margin: 0 0 20px;
+        font-size: 14px;
+        &.read-more {
+          margin: 0;
+        }
+      }
       h3 {
         margin: 0 0 10px;
         font-size: 36px;
@@ -258,7 +265,13 @@ article#eixo {
       .post-content {
         p {
           margin: 0 0 20px;
-          font-size: 14px;
+          font-size: 16px;
+        }
+        > * {
+          display: none;
+        }
+        > p:first-child {
+          display: block;
         }
       }
     }

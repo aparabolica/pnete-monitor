@@ -1,0 +1,18 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.report") Relatórios
+  a(ui-sref="dashboard.report.edit({id: null})") + Novo relatório
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th Nome
+        th.action Editar
+        th.action Remover
+    tbody
+      tr(ng-repeat="report in reports")
+        td {{report.title}}
+        td 
+          a.icon.icon-pencil(ui-sref="dashboard.report.edit({'id': report.id})")
+        td 
+          a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(report)")

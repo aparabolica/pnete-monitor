@@ -1,0 +1,18 @@
+header.dashboard-inner-header
+  h2
+    a(ui-sref="dashboard.media") Biblioteca de mídia
+  a(ui-sref="dashboard.media.edit({id: null})") + Novo arquivo
+section.dashboard-inner-content(ui-view)
+  table
+    thead
+      tr
+        th Nome
+        th.action Editar
+        th.action Remover
+    tbody
+      tr(ng-repeat="file in files")
+        td {{file.name}}
+        td 
+          a.icon.icon-pencil(ui-sref="dashboard.media.edit({'id': file.id})")
+        td 
+          a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(file)")

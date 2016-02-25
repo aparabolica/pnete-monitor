@@ -91,7 +91,26 @@ app.config([
     })
     .state('relatorios', {
       url: '/relatorios/',
-      templateUrl: '/views/pages/reports.html'
+      controller: [
+        '$scope',
+        'Reports',
+        function($scope, Reports) {
+          $scope.reports = Reports;
+        }
+      ],
+      templateUrl: '/views/pages/reports.html',
+      resolve: {
+        'Reports': [
+          'Report',
+          function(Report) {
+            return Report.find({
+              filter: {
+                order: 'title DESC'
+              }
+            }).$promise;
+          }
+        ]
+      }
     })
     .state('indicador', {
       url: '/indicador/:indicadorId/?ciclo&print',

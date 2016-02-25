@@ -296,6 +296,102 @@ module.exports = function(app) {
     }
   ]);
 
+  app.controller('DashboardReportCtrl', [
+    '$scope',
+    '$state',
+    'Report',
+    'MessageService',
+    'Reports',
+    function($scope, $state, Report, Message, Reports) {
+
+      $scope.reports = Reports;
+
+      $scope.delete = function(report) {
+        if(confirm('Você tem certeza?')) {
+          Report.deleteById({id: report.id}, function() {
+            Message.add('Relatório removido');
+            $state.go($state.current, {}, {reload:true});
+          });
+        }
+      };
+    }
+  ]);
+
+  app.controller('DashboardEditReportCtrl', [
+    '$scope',
+    '$state',
+    'Report',
+    'MessageService',
+    'Edit',
+    function($scope, $state, Report, Message, Edit) {
+
+      $scope.report = _.extend({}, Edit);
+
+      $scope.submit = function(report) {
+        if(!_.isEmpty(Edit)) {
+          Report['prototype$updateAttributes']({id: report.id}, report, saveCb);
+        } else {
+          Report.create(report, saveCb);
+        }
+      };
+
+      var saveCb = function(res) {
+        Edit = res;
+        $scope.report = _.extend({}, res);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Relatório enviado com sucesso');
+      };
+    }
+  ]);
+
+  app.controller('DashboardMediaCtrl', [
+    '$scope',
+    '$state',
+    'MessageService',
+    'Files',
+    function($scope, $state, Message, Files) {
+
+      $scope.files = Files;
+
+      $scope.delete = function(file) {
+        if(confirm('Você tem certeza?')) {
+          // Media.deleteById({id: file.id}, function() {
+          //   Message.add('Arquivo removido');
+          //   $state.go($state.current, {}, {reload:true});
+          // });
+        }
+      };
+    }
+  ]);
+
+  app.controller('DashboardEditMediaCtrl', [
+    '$scope',
+    '$state',
+    'MessageService',
+    'Edit',
+    function($scope, $state, Message, Edit) {
+
+      $scope.file = _.extend({}, Edit);
+
+      $scope.submit = function(file) {
+        // if(!_.isEmpty(Edit)) {
+        //   Media['prototype$updateAttributes']({id: file.id}, report, saveCb);
+        // } else {
+        //   Media.create(file, saveCb);
+        // }
+      };
+
+      var saveCb = function(res) {
+        Edit = res;
+        $scope.file = _.extend({}, res);
+        $scope.$emit('saved', res);
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Arquivo enviado com sucesso');
+      };
+    }
+  ]);
+
   app.controller('DashboardPostCtrl', [
     '$scope',
     '$state',
@@ -328,7 +424,7 @@ module.exports = function(app) {
     function($scope, $state, Message, Post, Edit, Eixos) {
 
       $scope.eixos = Eixos;
-      
+
       $scope.post = _.extend({}, Edit);
 
       $scope.submit = function(post) {
@@ -348,7 +444,6 @@ module.exports = function(app) {
       };
     }
   ]);
-
 
   app.controller('DashboardCycleCtrl', [
     '$scope',

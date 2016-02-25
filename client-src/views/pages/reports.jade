@@ -1,21 +1,17 @@
-#page
-  .container
-    .nine.columns
-      h1 Baixe os relatórios anuais
-  .container
-    .eight.columns
-      p Após o encerramento de cada ciclo anual de coleta de dados, os membros da Conatrae se reúnem para avaliar as informações recebidas, produzindo um relatório analítico sobre os avanços e obstáculos que marcaram os esforços para a erradicação do trabalho escravo no Brasil no período em questão. Nessa avaliação, eles levam em consideração também alguns indicadores macroeconômicos e sociais disponíveis relativos ao mesmo período, como a evolução do Produto Interno Bruto (PIB) e a taxa de desemprego.
-      
-      h2 Em breve
-      
-      //- ul.report-list
-      //-   li.clearfix
-      //-     h2 2015
-      //-     span.button
-      //-       span.icon-download 
-      //-       | Baixar em PDF
-      //-   li.clearfix
-      //-     h2 2014
-      //-     span.button
-      //-       span.icon-download 
-      //-       | Baixar em PDF
+.row
+  #page
+    .container
+      .nine.columns
+        h1 Baixe os relatórios anuais
+    .container
+      .eight.columns
+        p Após o encerramento de cada ciclo anual de coleta de dados, os membros da Conatrae se reúnem para avaliar as informações recebidas, produzindo um relatório analítico sobre os avanços e obstáculos que marcaram os esforços para a erradicação do trabalho escravo no Brasil no período em questão. Nessa avaliação, eles levam em consideração também alguns indicadores macroeconômicos e sociais disponíveis relativos ao mesmo período, como a evolução do Produto Interno Bruto (PIB) e a taxa de desemprego.
+        
+        h2(ng-hide="reports.length") Em breve
+
+        ul.report-list(ng-show="reports.length")
+          li.clearfix(ng-repeat="report in reports")
+            h2 {{report.title}}
+            a.button(ng-href="{{report.filename}}")
+              span.icon-download 
+              | Baixar em PDF

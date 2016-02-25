@@ -18,8 +18,14 @@ section#dashboard
             a(ui-sref="dashboard.eixo" ui-sref-active="active") Eixos
           li
             a(ui-sref="dashboard.indicador" ui-sref-active="active") Indicadores
+        ul(ng-show="user.isAdmin")
           li
             a(ui-sref="dashboard.post" ui-sref-active="active") Posts
+          li
+            a(ui-sref="dashboard.report" ui-sref-active="active") Relatórios
+          li
+            a(ui-sref="dashboard.media" ui-sref-active="active") Biblioteca de mídia
+        ul(ng-show="user.isAdmin")
           li
             a(ui-sref="dashboard.organization" ui-sref-active="active") Organizações
           li
