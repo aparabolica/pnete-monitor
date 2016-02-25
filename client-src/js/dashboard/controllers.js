@@ -354,7 +354,25 @@ module.exports = function(app) {
 
       var uploadUrl = '/api/v1/container/default/upload';
 
-      $scope.progress = [];
+      $scope.progress = {};
+
+      var upload = function(file) {
+
+        return Upload.upload({
+          url: uploadUrl,
+          file: file
+        }).then(function(res) {
+
+        }, function(err) {
+
+        }, function(evt) {
+
+          var percentage = parseInt(100.0 * evt.loaded / evt.total);
+          $scope.progress[file.name] = percentage;
+
+        });
+
+      }
 
       $scope.uploadFiles = function(files) {
 
@@ -363,26 +381,11 @@ module.exports = function(app) {
           var promises = [];
 
           for(var i = 0; i < files.length; i++) {
-            var promise = Upload.upload({
-              url: uploadUrl,
-              file: files[i]
-            }).then(function(res) {
-
-            }, function(err) {
-
-            }, function(evt) {
-
-              var percentage = parseInt(100.0 * evt.loaded / evt.total);
-              $scope.progress.push(percentage);
-
-            });
-
-            promises.push(promise);
-
+            promises.push(upload(files[i]));
           }
 
           $q.all(promises).then(function() {
-            $scope.progress = [];
+            $scope.progress = {};
             $state.go($state.current, {}, {reload:true});
           });
 
@@ -393,12 +396,16 @@ module.exports = function(app) {
 
       $scope.getProgress = function() {
         var prog = 0;
-        if($scope.progress.length) {
-          for(var i = 0; i < $scope.progress.length; i++) {
-            prog += $scope.progress[i];
+        var length = 0;
+        if(!_.isEmpty($scope.progress)) {
+          for(var key in $scope.progress) {
+            if($scope.progress[key] && $scope.progress[key] < 100) {
+              prog += $scope.progress[key];
+              length++;
+            }
           }
         }
-        return (prog/$scope.progress.length).toFixed(2);
+        return (prog/length).toFixed(2);
       }
 
     }

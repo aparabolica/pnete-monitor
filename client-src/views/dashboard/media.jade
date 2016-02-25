@@ -5,8 +5,8 @@ header.dashboard-inner-header
 section.dashboard-inner-content(ui-view)
   div(ng-controller="DashboardUploadCtrl")
     .dropbox(ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)" ngf-multiple="true" ngf-drag-over-class="'dragover'" ng-model="files") Arraste arquivos aqui ou clique para selecionar
-      .progress-bar(ng-show="progress.length" ng-style="{'width': getProgress() + '%' }")
-        span.progress-label(ng-show="progress.length") {{getProgress()}}%
+      .progress-bar(ng-show="getProgress()" ng-style="{'width': getProgress() + '%' }")
+        span.progress-label(ng-show="getProgress()") {{getProgress()}}%
   table
     thead
       tr

@@ -130,7 +130,7 @@ module.exports = function(grunt) {
 				livereload: true
 			},
 			documentation: {
-				files: ['server/**/*', 'common/**/*', 'lib/**/*'],
+				files: ['server/**/*', '!server/storage/**/*', 'common/**/*', 'lib/**/*'],
 				tasks: ['docular']
 			},
 			css: {
