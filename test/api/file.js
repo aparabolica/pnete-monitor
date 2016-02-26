@@ -21,6 +21,8 @@ var admin1AccessToken;
 var user1;
 var user1AccessToken;
 var filePath = __dirname + '/../../client-src/img/logo.png';
+var fileId;
+var fileUrl;
 
 describe('File Tasks:', function() {
   var User = app.models.User;
@@ -60,6 +62,7 @@ describe('File Tasks:', function() {
         it('should return 401', function(doneIt){
           request(app)
             .post(restApiRoot + '/files/upload')
+            .attach('file', filePath)
             .send(payload)
             .expect(401)
             .expect('Content-Type', /json/)
@@ -67,12 +70,26 @@ describe('File Tasks:', function() {
         });
       });
 
-      context('logged user', function(){
+      context('deny regular user', function(){
+        it('should return 401', function(doneIt){
+          request(app)
+            .post(restApiRoot + '/files/upload')
+            .set('Authorization', user1AccessToken)
+            .attach('file', filePath)
+            .send(payload)
+            .expect(401)
+            .expect('Content-Type', /json/)
+            .end(doneIt);
+        });
+      });
+
+
+      context('allow admin', function(){
 
         it('should return 200', function(doneIt){
           request(app)
             .post(restApiRoot + '/files/upload')
-            .set('Authorization', user1AccessToken)
+            .set('Authorization', admin1AccessToken)
             .attach('file', filePath)
             .send(payload)
             .expect(200)
@@ -85,10 +102,67 @@ describe('File Tasks:', function() {
               file.should.have.property('container', 'default');
               file.should.have.property('name','logo.png');
 
-              doneIt();
+              fileId = file.id;
+              fileUrl = file.url;
+
+              // file should have valid url
+              request(app)
+                .get(fileUrl)
+                .expect(200)
+                .end(doneIt);
             });
         });
       });
     });
+
+    describe('DEL /files/:id', function(){
+
+      context('deny anonymous', function(){
+        it('should return 401', function(doneIt){
+          request(app)
+            .del(restApiRoot + '/files/' + fileId)
+            .expect(401)
+            .expect('Content-Type', /json/)
+            .end(doneIt);
+        });
+      });
+
+      context('deny regular user', function(){
+        it('should return 401', function(doneIt){
+          request(app)
+            .del(restApiRoot + '/files/' + fileId)
+            .set('Authorization', user1AccessToken)
+            .expect(401)
+            .expect('Content-Type', /json/)
+            .end(doneIt);
+        });
+      });
+
+      context('allow admin', function(){
+
+        it('should return 200', function(doneIt){
+          request(app)
+            .del(restApiRoot + '/files/' + fileId)
+            .set('Authorization', admin1AccessToken)
+            .expect(200)
+            .expect('Content-Type', /json/)
+            .end(function(err, res){
+              if (err) return doneIt(err);
+
+              var file = res.body;
+
+              // file shouldn't be available
+              request(app)
+                .get(fileUrl)
+                .expect(404)
+                .end(doneIt);
+
+            });
+        });
+      });
+
+
+
+    })
 
 });

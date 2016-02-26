@@ -1,6 +1,8 @@
+var fs = require('fs');
+
 module.exports = function(File) {
 
-  var CONTAINERS_URL = '/api/v1/containers/';
+  var CONTAINERS_URL = '/api/v1/container/';
 
   File.upload = function (ctx,doneUpload) {
     ctx.req.params.container = 'default';
@@ -31,4 +33,11 @@ module.exports = function(File) {
       http: {verb: 'post'}
     }
   )
+
+  File.observe('before delete', function(context, next){
+    File.findById(context.where.id, function(err, file) {
+      var filename = file.url.split('/').pop()
+      fs.unlink(__dirname + '/../../server/storage/default/'+filename, next);
+    });
+  });
 }
