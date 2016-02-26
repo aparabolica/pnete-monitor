@@ -20,9 +20,9 @@ var admin1 = app.settings.defaultAdmin;
 var admin1AccessToken;
 var user1;
 var user1AccessToken;
-var imagePath = __dirname + '/../../client-src/img/logo.png';
+var filePath = __dirname + '/../../client-src/img/logo.png';
 
-describe('Media Tasks:', function() {
+describe('File Tasks:', function() {
   var User = app.models.User;
 
   before(function(doneBefore) {
@@ -47,7 +47,7 @@ describe('Media Tasks:', function() {
       }], doneBefore);
     });
 
-    describe('POST /container/default/upload', function(){
+    describe('POST /files/upload', function(){
 
       var payload;
 
@@ -59,7 +59,7 @@ describe('Media Tasks:', function() {
       context('deny anonymous', function(){
         it('should return 401', function(doneIt){
           request(app)
-            .post(restApiRoot + '/container/default/upload')
+            .post(restApiRoot + '/files/upload')
             .send(payload)
             .expect(401)
             .expect('Content-Type', /json/)
@@ -71,19 +71,19 @@ describe('Media Tasks:', function() {
 
         it('should return 200', function(doneIt){
           request(app)
-            .post(restApiRoot + '/container/default/upload')
+            .post(restApiRoot + '/files/upload')
             .set('Authorization', user1AccessToken)
-            .attach('image', imagePath)
+            .attach('file', filePath)
             .send(payload)
             .expect(200)
             .expect('Content-Type', /json/)
             .end(function(err, res){
               if (err) return doneIt(err);
 
-              var file = res.body.result.files.image[0];
+              var file = res.body;
 
               file.should.have.property('container', 'default');
-              file.name.should.endWith('logo.png');
+              file.should.have.property('name','logo.png');
 
               doneIt();
             });
