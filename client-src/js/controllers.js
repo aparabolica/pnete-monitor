@@ -107,12 +107,16 @@ module.exports = function(app) {
 
   app.controller('EixoCtrl', [
     '$scope',
+    '$state',
+    '$stateParams',
+    '$resolve',
+    '$q',
     'Eixo',
     'Actions',
     'Indicadores',
     'Organizations',
     'Posts',
-    function($scope, Eixo, Actions, Indicadores, Organizations, Posts) {
+    function($scope, $state, $stateParams, $resolve, $q, Eixo, Actions, Indicadores, Organizations, Posts) {
 
       $scope.eixo = Eixo;
       $scope.actions = Actions;
@@ -120,13 +124,27 @@ module.exports = function(app) {
       $scope.organizations = Organizations.organizations;
       $scope.posts = Posts;
 
-      $scope.indicatorFilter = {
-        filter: {
-          where: {
-            axisId: Eixo.id
-          }
-        }
-      };
+      if($stateParams.print) {
+
+        $scope.resolved = {};
+
+        var promises = [];
+
+        $scope.indicadores.forEach(function(indicador) {
+          promises.push($resolve.resolve($state.get('indicador').resolve, {
+            '$stateParams': {
+              indicadorId: indicador.id
+            }
+          }));
+        });
+
+        $q.all(promises).then(function() {
+          $scope.resolved.indicadores = arguments[0];
+        });
+
+      }
+
+      // console.log($resolve.resolve($state.get('indicador').resolve, {indicadorId: $scope.indicadores[0].id}));
 
     }
   ]);

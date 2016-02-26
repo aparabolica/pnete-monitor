@@ -14,7 +14,33 @@ hr
 
 section#indicadores
   h2 Indicadores
-  //- .indicador(ng-repeat="indicador in indicadores" ui-state="'indicador'" ui-state-params="{indicadorId: indicador.id, print: 1}")
-
-  a(ui-state="'home'" ui-state-params="{}") state
-  a.indicador(ui-state="indicador" ui-state-params="{indicadorId: '564a20066194ed915fce27be'}") A
+  .indicador(ng-repeat="indicador in resolved.indicadores")
+    h3 {{indicador.Indicador.description}}
+    
+    .indicador-actions(ng-show="indicador.Actions.length")
+      h4 Ações relacionadas
+      ul.action-list
+        li(ng-repeat="action in indicador.Actions") {{action.description}}
+  
+    .indicador-baseline(ng-show="indicador.baseline")
+      h4 Linha de base
+      .baseline-content(ng-bind-html="indicador.baseline | autop | parseUrl | trustHtml")
+      
+    .replies.clearfix(ng-show="indicador.Organizations.length")
+      h4 Respostas das organizações responsáveis
+      .reply.clearfix(ng-repeat="organization in indicador.Organizations" ng-class="{'no-response': !organization.feedbacks.length}" ng-show="organization.enrollments.length")
+        .five.columns
+          p.organization {{organization.name}}
+          p.reply(ng-show="organization.feedbacks.length") Respondido {{organization.feedbacks[0].createdAt | fromNow}} ({{organization.feedbacks[0].createdAt | formatDate:'DD/MM/YYYY'}})
+        .seven.columns
+          .response(ng-show="organization.feedbacks.length")
+            p.bool(ng-show="indicador.type == 'boolean'") {{organization.feedbacks[0].value.bool ? 'Sim' : 'Não'}}
+            p.value(ng-show="organization.feedbacks[0].value.value") {{organization.feedbacks[0].value.value}}
+            p.percentage(ng-show="organization.feedbacks[0].value.percentage") {{organization.feedbacks[0].value.percentage}}%
+            p(ng-bind-html="organization.feedbacks[0].value.comments | autop | parseUrl | trustHtml")
+          //- .response(ng-hide="organization.enrollments[0].confirmed")
+          //-   p Organização ainda não confirmou participação no monitoramento deste ciclo
+          .response(ng-show="!organization.feedbacks.length")
+            p(ng-hide="organization.enrollments[0].active") Organização optou por não participar deste ciclo
+            p(ng-show="organization.enrollments[0].active") Ainda não obtivemos resposta
+    hr
