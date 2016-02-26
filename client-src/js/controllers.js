@@ -111,12 +111,13 @@ module.exports = function(app) {
     '$stateParams',
     '$resolve',
     '$q',
+    '$timeout',
     'Eixo',
     'Actions',
     'Indicadores',
     'Organizations',
     'Posts',
-    function($scope, $state, $stateParams, $resolve, $q, Eixo, Actions, Indicadores, Organizations, Posts) {
+    function($scope, $state, $stateParams, $resolve, $q, $timeout, Eixo, Actions, Indicadores, Organizations, Posts) {
 
       $scope.eixo = Eixo;
       $scope.actions = Actions;
@@ -132,14 +133,17 @@ module.exports = function(app) {
 
         $scope.indicadores.forEach(function(indicador) {
           promises.push($resolve.resolve($state.get('indicador').resolve, {
-            '$stateParams': {
+            '$stateParams': angular.extend({
               indicadorId: indicador.id
-            }
+            }, $stateParams)
           }));
         });
 
-        $q.all(promises).then(function() {
-          $scope.resolved.indicadores = arguments[0];
+        $q.all(promises).then(function(res) {
+          $scope.resolved.indicadores = res;
+          $timeout(function() {
+            window.print();
+          }, 500);
         });
 
       }

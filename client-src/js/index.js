@@ -92,7 +92,8 @@ app.config([
       url: '/dados/',
       controller: [
         '$scope',
-        function($scope) {
+        'Eixos',
+        function($scope, Eixos) {
 
           var getUrl = function(collection) {
             return window.location.protocol + '//' + window.location.host + '/api/v1/' + collection.toLowerCase() + '/export';
@@ -106,9 +107,19 @@ app.config([
             'Ações': getUrl('actions'),
             'Posts': getUrl('posts')
           };
+
+          $scope.eixos = Eixos;
         }
       ],
-      templateUrl: '/views/pages/data.html'
+      templateUrl: '/views/pages/data.html',
+      resolve: {
+        Eixos: [
+          'Axis',
+          function(Axis) {
+            return Axis.find().$promise;
+          }
+        ]
+      }
     })
     .state('relatorios', {
       url: '/relatorios/',
@@ -261,7 +272,7 @@ app.config([
       }
     })
     .state('eixo', {
-      url: '/eixo/:eixoId/?print',
+      url: '/eixo/:eixoId/?ciclo&print',
       controller: 'EixoCtrl',
       templateUrl: function(params) {
         if(!params.print)

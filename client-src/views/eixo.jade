@@ -13,8 +13,9 @@ article#eixo
       .eight.columns
         .download(ng-show="organizations.length")
           p
-            span.icon-download 
-            | Baixar dados em PDF (em breve)
+            a(ui-sref="eixo({print: 1})" target="_blank")
+              span.icon-download 
+              | Baixar dados em PDF
         .main-content.eixo-border(style="border-color:{{eixo.color}};" ui-view)
           .description
             p {{eixo.description}}

@@ -25,7 +25,17 @@
                 
     .six.columns
       h2 PDF
-      h3 Em breve
+      table.download
+        thead
+          tr
+            th Eixo
+            th Download
+        tbody
+          tr(ng-repeat="eixo in eixos")
+            td {{eixo.name}}
+            td.download-link
+              a(ui-sref="eixo({eixoId: eixo.id, print:1})" target="_blank")
+                span.icon-download
       
       //- p.cell-buttons
       //-   span.button
