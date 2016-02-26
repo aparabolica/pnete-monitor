@@ -9,7 +9,7 @@ section#login.mastform
       input#password(type="password" ng-model="credentials.password" placeholder="Digite sua senha")
     p
       input(type="submit" value="Entrar")
-    p
+    p.links
       a(ui-sref="forgotpwd") Esqueci minha senha
   div(ui-view)
 .message-notification(ng-controller="MessageCtrl")
