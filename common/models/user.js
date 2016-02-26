@@ -132,12 +132,8 @@ module.exports = function(User) {
   });
 
   /*
-   * Method: Confirm email
+   * Method: Activation token (confirms email)
    */
-
-   /*
-    * "Confirm user" remote hooks
-    */
 
    User.remoteMethod('sendActivationToken',{
     http: {
@@ -194,6 +190,82 @@ module.exports = function(User) {
       });
     });
   }
+
+  /*
+   * Method: Send reset password token for password reset
+   */
+  User.on('resetPasswordRequest', function (info) {
+    var Settings = User.app.models.Settings;
+
+    User.findOne({where: {email: info.email}}, function(err, user){
+
+      if (!err && user) {
+        /*
+         * Try sending email
+         */
+        Settings.findOne({}, function(err, settings){
+          if (err) return next(err);
+
+          var hostname = settings.hostname;
+
+          var options = {
+            type: 'email',
+            to: info.email,
+            from: "Plataforma de monitoramento do PNETE <naoresponda@monitoramentopnete.org.br>",
+            subject: "Redefinição de senha"
+          }
+
+          // email text: greeting
+          options.text = 'Olá, '
+          if (user.name) options.text += user.name + ',';
+          options.text += '\n\n';
+
+          // email text: link
+          options.text += "Visite o link abaixo para redefinir sua senha:\n\n"
+          options.text += 'http://' + hostname + '/redefinir-senha?token=' + info.accessToken.id
+            + " \n Plataforma de monitoramento do PNETE\n";
+
+          mailer.sendEmail(options, function(err, emailId){
+            if (err) console.error('Error sending e-mail to '+info.email);
+          });
+        });
+      }
+    });
+  });
+
+  User.changePassword = function(ctx, tokenId, newPassword, doneChangePassword) {
+    var AccessToken = User.app.models.AccessToken;
+
+    AccessToken.findById(tokenId, function(err, accessToken){
+      if (err) return doneChangePassword(err);
+
+      accessToken.validate(function(err){
+        if (err) return doneChangePassword(err);
+
+        User.findById(accessToken.userId, function(err, user){
+          if (err) return doneChangePassword(err);
+          user.password = newPassword;
+          user.save(doneChangePassword);
+        });
+      });
+    });
+  }
+
+  User.remoteMethod(
+    'changePassword',
+    {
+      description: 'Change user password after password reset request',
+      http: {
+        path: '/change-password',
+        verb: 'post'
+      },
+      accepts: [
+        { arg: 'ctx', type: 'object', http: { source:'context' } },
+        { arg: 'token', type: 'string' },
+        { arg: 'newPassword', type: 'string' }
+      ]
+    }
+  )
 
 
 };
