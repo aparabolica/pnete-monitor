@@ -1,8 +1,7 @@
 form(ng-submit="submit(file)")
   p
-    label(for="file_input") Arquivo
-    //- input#file_input(type="file" ng-model="file.upload")
-    .button(ngf-select ng-model="file.upload" ngf-max-size="50MB") Selecionar arquivo
+    label(for="name_input") Nome do arquivo
+    input#name_input(type="text" ng-model="file.name")
 
   p
     input(type="submit" value="Enviar")

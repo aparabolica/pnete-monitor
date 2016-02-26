@@ -12,13 +12,13 @@ section.dashboard-inner-content(ui-view)
       tr
         th Nome
         th URL
-        //- th.action Editar
+        th.action Editar
         th.action Remover
     tbody
       tr(ng-repeat="file in files")
         td {{file.name}}
         td {{getFileUrl(file)}}
-        //- td 
-        //-   a.icon.icon-pencil(ui-sref="dashboard.media.edit({'id': file.id})")
+        td 
+          a.icon.icon-pencil(ui-sref="dashboard.media.edit({'id': file.id})")
         td 
           a.icon.icon-cross(href="javascript:void(0);" ng-click="delete(file)")

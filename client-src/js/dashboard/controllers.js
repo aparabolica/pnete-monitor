@@ -352,7 +352,7 @@ module.exports = function(app) {
     '$q',
     function($scope, $state, Upload, $q) {
 
-      var uploadUrl = '/api/v1/container/default/upload';
+      var uploadUrl = '/api/v1/files/upload';
 
       $scope.progress = {};
 
@@ -392,7 +392,6 @@ module.exports = function(app) {
 
       };
 
-
       $scope.getProgress = function() {
         var prog = [0,0];
         if(!_.isEmpty($scope.progress)) {
@@ -415,25 +414,20 @@ module.exports = function(app) {
   app.controller('DashboardMediaCtrl', [
     '$scope',
     '$state',
-    'Container',
+    'File',
     'MessageService',
     'Files',
-    '$q',
-    'Upload',
-    function($scope, $state, Container, Message, Files, Upload) {
+    function($scope, $state, File, Message, Files) {
 
       $scope.files = Files;
 
       $scope.getFileUrl = function(file) {
-        return window.location.protocol + '//' + window.location.host + '/api/v1/container/' + file.container + '/download/' + file.name;
+        return window.location.protocol + '//' + window.location.host + file.url;
       };
 
       $scope.delete = function(file) {
         if(confirm('Você tem certeza?')) {
-          Container.removeFile({
-            container: 'default',
-            file: file.name
-          }, function() {
+          File.deleteById({id: file.id}, function() {
             Message.add('Arquivo removido');
             $state.go($state.current, {}, {reload:true});
           });
@@ -445,33 +439,23 @@ module.exports = function(app) {
   app.controller('DashboardEditMediaCtrl', [
     '$scope',
     '$state',
-    'Container',
+    'File',
     'MessageService',
     'Edit',
     'Upload',
-    function($scope, $state, Container, Message, Edit, Upload) {
+    function($scope, $state, File, Message, Edit, Upload) {
 
       $scope.file = _.extend({}, Edit);
 
-      var uploadUrl = '/api/v1/container/default/upload';
-
       $scope.submit = function(file) {
-        Upload.upload({
-          url: uploadUrl,
-          file: file.upload
-        }).then(function(res) {
-          saveCb();
-        });
-        // if(!_.isEmpty(Edit)) {
-        //   Media['prototype$updateAttributes']({id: file.id}, report, saveCb);
-        // } else {
-        //   Container.upload({container: 'default'}, file.upload, saveCb);
-        // }
+        if(!_.isEmpty(Edit)) {
+          File['prototype$updateAttributes']({id: file.id}, file, saveCb);
+        }
       };
 
       var saveCb = function() {
-        $state.go('dashboard.media', {}, {reload:true});
-        Message.add('Arquivo enviado com sucesso');
+        $state.go($state.current, {id: res.id}, {reload:true});
+        Message.add('Arquivo atualizado com sucesso');
       };
     }
   ]);

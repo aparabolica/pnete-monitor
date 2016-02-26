@@ -318,11 +318,9 @@ module.exports = function(app) {
         templateUrl: '/views/dashboard/media.html',
         resolve: {
           'Files': [
-            'Container',
-            function(Container) {
-              return Container.getFiles({
-                container: 'default'
-              }).$promise;
+            'File',
+            function(File) {
+              return File.find().$promise;
             }
           ]
         }
@@ -333,14 +331,17 @@ module.exports = function(app) {
         templateUrl: '/views/dashboard/media-edit.html',
         resolve: {
           'Edit': [
-            'Container',
+            'File',
             '$stateParams',
-            function(Container, $stateParams) {
+            function(File, $stateParams) {
               if($stateParams.id) {
-                return Container.getFile({
-                  container: 'default',
-                  file: $stateParams.id
-                });
+                return File.findOne({
+                  filter: {
+                    where: {
+                      id: $stateParams.id
+                    }
+                  }
+                }).$promise;
               } else {
                 return {};
               }

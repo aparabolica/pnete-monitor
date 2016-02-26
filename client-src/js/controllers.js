@@ -120,6 +120,14 @@ module.exports = function(app) {
       $scope.organizations = Organizations.organizations;
       $scope.posts = Posts;
 
+      $scope.indicatorFilter = {
+        filter: {
+          where: {
+            axisId: Eixo.id
+          }
+        }
+      };
+
     }
   ]);
 
@@ -204,5 +212,32 @@ module.exports = function(app) {
 
     }
   ]);
+
+  app.controller('ExportCtrl', [
+    '$scope',
+    'Axis',
+    'Assessment',
+    'Indicator',
+    'Feedback',
+    'Organization',
+    'Post',
+    function($scope, Axis, Assessment, Indicator, Feedback, Organization, Post) {
+
+      var args = arguments;
+
+      var getCollection = function(c) {
+        return _.find(args, function(a) {
+          if(a.modelName && a.modelName == c) {
+            return a;
+          }
+        });
+      };
+
+      $scope.export = function(collection, filter) {
+        getCollection(collection).export(filter);
+      };
+
+    }
+  ])
 
 };

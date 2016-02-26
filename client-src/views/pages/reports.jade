@@ -12,6 +12,6 @@
         ul.report-list(ng-show="reports.length")
           li.clearfix(ng-repeat="report in reports")
             h2 {{report.title}}
-            a.button(ng-href="{{report.filename}}")
+            a.button(ng-href="{{report.filename}}" target="_blank")
               span.icon-download 
               | Baixar em PDF

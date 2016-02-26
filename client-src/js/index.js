@@ -90,6 +90,24 @@ app.config([
     })
     .state('dados', {
       url: '/dados/',
+      controller: [
+        '$scope',
+        function($scope) {
+
+          var getUrl = function(collection) {
+            return window.location.protocol + '//' + window.location.host + '/api/v1/' + collection.toLowerCase() + '/export';
+          };
+
+          $scope.data = {
+            'Eixos': getUrl('axes'),
+            'Indicadores': getUrl('indicators'),
+            'Organizações': getUrl('organizations'),
+            'Respostas': getUrl('feedbacks'),
+            'Ações': getUrl('actions'),
+            'Posts': getUrl('posts')
+          };
+        }
+      ],
       templateUrl: '/views/pages/data.html'
     })
     .state('relatorios', {

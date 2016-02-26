@@ -34,10 +34,32 @@ article#eixo {
       font-size: 14px;
       margin-top: 15px;
       text-align: right;
-      color: #999;
+      color: #666;
       p {
         display: inline-block;
         margin: 0 0 0 15px;
+      }
+      .dropdown {
+        position: relative;
+        .dropdown-content {
+          // display: none;
+          position: absolute;
+          top: 20px;
+          left: 0;
+          background: #fff;
+          text-align: left;
+          padding: 10px 0 0;
+          width: 100%;
+          a {
+            color: #999;
+            padding: 10px 22px;
+            border-bottom: 1px solid #f0f0f0;
+            display: block;
+            &:hover {
+              color: #666;
+            }
+          }
+        }
       }
       a {
         text-decoration: none;

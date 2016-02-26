@@ -8,7 +8,24 @@
       
       p A ideia é facilitar a divulgação e compartilhamento desses resultados, assim como a utilização e o tratamento com outras ferramentas de análise e visualização de dados.
       
-      h2 Em breve
+  .container
+    .six.columns
+      h2 CSV
+      table.download
+        thead
+          tr
+            th Coleção
+            th Download
+        tbody
+          tr(ng-repeat="(collection,url) in data")
+            td {{collection}}
+            td.download-link
+              a(ng-href="{{url}}" target="_blank")
+                span.icon-download
+                
+    .six.columns
+      h2 PDF
+      h3 Em breve
       
       //- p.cell-buttons
       //-   span.button
