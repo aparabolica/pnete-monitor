@@ -65,48 +65,4 @@ module.exports = function(Token) {
     });
   });
 
-
-  Token.resetPassword = function (secret, password, doneUpload) {
-    var User = Token.app.models.user;
-
-    Token.findById(secret, function(err, token){
-
-    });
-
-    User.findOne({email: })
-    console.log(password);
-    doneUpload();
-
-    var
-    // ctx.req.params.container = 'default';
-    // Token.app.models.Container.upload(ctx.req,ctx.result,{},function (err,fileObj) {
-    //   if (err) { doneUpload(err) }
-    //   else {
-    //     var fileInfo = fileObj.files.file[0];
-    //     Token.create({
-    //       name: fileInfo.originalTokenname,
-    //       type: fileInfo.type,
-    //       container: fileInfo.container,
-    //       url: CONTAINERS_URL+fileInfo.container+'/download/'+fileInfo.name
-    //     }, doneUpload);
-    //   }
-    // });
-  }
-
-  Token.remoteMethod(
-    'resetPassword',
-    {
-      description: 'Use token to reset user password',
-      http: {
-        path: '/reset-password',
-        verb: 'post'
-      },
-      accepts: [
-        { arg: 'secret', type: 'string' },
-        { arg: 'password', type: 'string' }
-      ]
-    }
-  )
-
-
 };
