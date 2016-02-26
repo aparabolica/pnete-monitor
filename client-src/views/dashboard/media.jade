@@ -4,7 +4,9 @@ header.dashboard-inner-header
   //- a(ui-sref="dashboard.media.edit({id: null})") + Novo arquivo
 section.dashboard-inner-content(ui-view)
   div(ng-controller="DashboardUploadCtrl")
-    .dropbox(ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)" ngf-multiple="true" ngf-drag-over-class="'dragover'" ng-model="files") Arraste arquivos aqui ou clique para selecionar
+    .dropbox(ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)" ngf-multiple="true" ngf-drag-over-class="'dragover'" ng-model="files")
+      span.icon-upload 
+      | Arraste arquivos aqui ou clique para selecionar
       .progress-bar(ng-show="getProgress()" ng-style="{'width': getProgress() + '%' }")
         span.progress-label(ng-show="getProgress()") {{getProgress()}}%
   table(ng-show="files.length")
