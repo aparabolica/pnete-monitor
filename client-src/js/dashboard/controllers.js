@@ -43,15 +43,41 @@ module.exports = function(app) {
   app.controller('ForgotPwdCtrl', [
     '$scope',
     '$state',
-    'Token',
-    function($scope, $state, Token) {
+    'User',
+    function($scope, $state, User) {
       $scope.forgot = function() {
-        Token.create($scope.credentials, function() {
-          // $state.go('dashboard');
+        User.resetPassword($scope.credentials, function() {
+          $scope.done = true;
         });
       }
     }
   ]);
+
+  app.controller('ResetPwdCtrl', [
+    '$scope',
+    '$state',
+    'MessageService',
+    '$stateParams',
+    'User',
+    function($scope, $state, Message, $stateParams, User) {
+      $scope.credentials = {
+        token: $stateParams.token
+      };
+
+      $scope.reset = function() {
+        if(!$scope.credentials.newPassword) {
+          Message.add('Digite uma nova senha');
+        } else if($scope.credentials.newPassword != $scope.credentials.newPasswordRpt) {
+          Message.add('Certifique-se de que as duas senhas são iguais');
+        } else {
+          User.changePassword($scope.credentials, function() {
+            Message.add('Senha alterada com sucesso');
+            $state.go('login');
+          });
+        }
+      }
+    }
+  ])
 
   app.controller('DashboardCtrl', [
     '$scope',

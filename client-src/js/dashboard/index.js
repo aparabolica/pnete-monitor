@@ -69,6 +69,28 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('resetpwd', {
+        url: '/redefinir-senha/?token',
+        controller: 'ResetPwdCtrl',
+        templateUrl: '/views/dashboard/reset-pwd.html',
+        resolve: {
+          Auth: [
+            '$state',
+            '$q',
+            'User',
+            function($state, $q, User) {
+              var deferred = $q.defer();
+              User.getCurrent(function(val) {
+                $state.go('dashboard');
+                deferred.reject(false);
+              }, function(err) {
+                deferred.resolve(true);
+              });
+              return deferred.promise;
+            }
+          ]
+        }
+      })
       .state('dashboard', {
         url: '/dashboard/',
         controller: 'DashboardCtrl',

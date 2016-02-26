@@ -1,0 +1,16 @@
+section#forgot.mastform
+  h1 Redefinição de senha
+  form(ng-submit="reset(credentials)")
+    p
+      label(for="pwd") Nova senha
+      input#pwd(type="password" ng-model="credentials.newPassword" placeholder="Digite sua nova senha")
+    p
+      label(for="pwd_rpt") Repetir nova senha
+      input#pwd_rpt(type="password" ng-model="credentials.newPasswordRpt" placeholder="Digite sua nova senha")
+    p
+      input(type="submit" value="Redefinir senha")
+.message-notification(ng-controller="MessageCtrl")
+  .message-item(ng-repeat="message in messages" ng-show="message.text")
+    .message-content
+      a.close-button(ng-click="close(message)" href="javascript:void(0);") x
+      p(ng-class="message.status" ng-bind-html="getMessage(message)")

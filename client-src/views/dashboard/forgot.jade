@@ -1,6 +1,7 @@
 section#forgot.mastform
   h1 Esqueci minha senha
-  form(ng-submit="forgot(credentials)")
+  p(ng-show="done") Verifique seu email para atualizar sua senha.
+  form(ng-submit="forgot(credentials)" ng-hide="done")
     p
       label(for="email") Email
       input#email(type="email" ng-model="credentials.email" placeholder="Digite seu email")
