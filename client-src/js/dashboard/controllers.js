@@ -453,7 +453,7 @@ module.exports = function(app) {
         }
       };
 
-      var saveCb = function() {
+      var saveCb = function(res) {
         $state.go($state.current, {id: res.id}, {reload:true});
         Message.add('Arquivo atualizado com sucesso');
       };
