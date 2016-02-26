@@ -40,6 +40,19 @@ module.exports = function(app) {
     }
   ]);
 
+  app.controller('ForgotPwdCtrl', [
+    '$scope',
+    '$state',
+    'Token',
+    function($scope, $state, Token) {
+      $scope.forgot = function() {
+        Token.create($scope.credentials, function() {
+          // $state.go('dashboard');
+        });
+      }
+    }
+  ]);
+
   app.controller('DashboardCtrl', [
     '$scope',
     '$state',

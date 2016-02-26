@@ -1,17 +1,11 @@
-section#login.mastform
-  h1 Login
-  form(ng-submit="login(credentials)")
+section#forgot.mastform
+  h1 Esqueci minha senha
+  form(ng-submit="forgot(credentials)")
     p
       label(for="email") Email
       input#email(type="email" ng-model="credentials.email" placeholder="Digite seu email")
     p
-      label(for="password") Senha
-      input#password(type="password" ng-model="credentials.password" placeholder="Digite sua senha")
-    p
-      input(type="submit" value="Entrar")
-    p
-      a(ui-sref="forgotpwd") Esqueci minha senha
-  div(ui-view)
+      input(type="submit" value="Recuperar senha")
 .message-notification(ng-controller="MessageCtrl")
   .message-item(ng-repeat="message in messages" ng-show="message.text")
     .message-content

@@ -47,6 +47,28 @@ module.exports = function(app) {
           ]
         }
       })
+      .state('forgotpwd', {
+        url: '/forgot/',
+        controller: 'ForgotPwdCtrl',
+        templateUrl: '/views/dashboard/forgot.html',
+        resolve: {
+          Auth: [
+            '$state',
+            '$q',
+            'User',
+            function($state, $q, User) {
+              var deferred = $q.defer();
+              User.getCurrent(function(val) {
+                $state.go('dashboard');
+                deferred.reject(false);
+              }, function(err) {
+                deferred.resolve(true);
+              });
+              return deferred.promise;
+            }
+          ]
+        }
+      })
       .state('dashboard', {
         url: '/dashboard/',
         controller: 'DashboardCtrl',
