@@ -1,6 +1,7 @@
 var json2csv = require('json2csv');
 var modelConfig = require('./feedback.json')
 var properties = Object.keys(modelConfig.properties);
+properties.push('value.value', 'value.bool', 'value.comments')
 
 module.exports = function(Feedback) {
 
