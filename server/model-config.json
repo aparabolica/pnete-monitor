@@ -104,5 +104,9 @@
   "file": {
     "dataSource": "db",
     "public": true
+  },
+  "token": {
+    "dataSource": "db",
+    "public": true
   }
 }
