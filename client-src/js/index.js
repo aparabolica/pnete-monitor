@@ -102,10 +102,11 @@ app.config([
           $scope.data = {
             'Eixos': getUrl('axes'),
             'Indicadores': getUrl('indicators'),
-            'Organizações': getUrl('organizations'),
             'Respostas': getUrl('feedbacks'),
+            'Avaliações do gestor': getUrl('assesments'),
             'Ações': getUrl('actions'),
-            'Posts': getUrl('posts')
+            'Posts': getUrl('posts'),
+            'Organizações': getUrl('organizations')
           };
 
           $scope.eixos = Eixos;

@@ -5,12 +5,25 @@ header
   
 hr
   
-section#actions
+section#actions(ng-show="actions.length")
   h2 Ações do eixo
   ol.action-list
     li(ng-repeat="action in actions") {{action.description}}
 
-hr
+  hr
+
+section#posts(ng-show="posts.length")
+  h2 Atualizações
+  article.post(ng-repeat="post in posts")
+    h3 
+      a(ui-sref="eixo.post({postId: post.id})") {{post.title}}
+    .meta
+      p.date 
+        span.icon.icon-calendar 
+        | {{post.createdAt | formatDate:'LLL'}}
+    .post-content(ta-bind="text" ng-model="post.content")
+  hr
+
 
 section#indicadores
   h2 Indicadores

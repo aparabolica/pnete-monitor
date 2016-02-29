@@ -60,6 +60,20 @@ a:visited {
 	content: " (http://monitoramentopnete.org.br" attr(href) ") ";
 }
 
+h1,
+h2,
+h3,
+h4 {
+  a:link,
+  a:visited {
+    text-decoration: none !important;
+  }
+  a:link:after,
+  a:visited:after {
+   content: '' !important;
+  }
+}
+
 #mastnav,
 .logo-container {
   display: none !important;
@@ -98,4 +112,8 @@ a:visited {
       }
     }
   }
+}
+
+.meta {
+  font-size: 80%;
 }
