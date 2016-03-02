@@ -697,6 +697,37 @@ module.exports = function(app) {
               }).$promise;
             }
           ],
+          'Organizations': [
+            '$stateParams',
+            'ReviewCycle',
+            'Indicator',
+            function($stateParams, ReviewCycle, Indicator) {
+              return Indicator.organizations({
+                id: $stateParams.id,
+                filter: {
+                  include: [
+                    {
+                      relation: 'feedbacks',
+                      scope: {
+                        where: {
+                          cycleId: ReviewCycle.id,
+                          indicatorId: $stateParams.id
+                        }
+                      }
+                    },
+                    {
+                      relation: 'enrollments',
+                      scope: {
+                        where: {
+                          cycleId: ReviewCycle.id
+                        }
+                      }
+                    }
+                  ]
+                }
+              }).$promise;
+            }
+          ],
           'Edit': [
             '$stateParams',
             '$q',

@@ -20,6 +20,22 @@
           td(ng-show="indicador.type == 'percentual'") {{feedback.value.percentual}}
           td(ng-show="indicador.type == 'boolean'") {{feedback.value.bool ? 'Sim' : 'Não'}}
           td {{feedback.value.comments}}
+  p(ng-hide="feedbacks.length") Não há respostas para este indicador no ciclo {{cycle.name}}
+  .pending(ng-show="pending.length")
+    h3 Pendências
+    p Organizações de resposta pendente
+    table
+      thead
+        tr
+          th Organização
+          th Motivo
+      tbody
+        tr(ng-repeat="organization in pending")
+          td {{organization.name}}
+          td
+            span(ng-show="organization.enrollments[0].active") Organização ainda não respondeu
+            span(ng-hide="organization.enrollments[0].active") Organização optou por não participar deste ciclo
+
   form(ng-submit="submit(review)")
     p
       label(for="status_input") Avaliação geral

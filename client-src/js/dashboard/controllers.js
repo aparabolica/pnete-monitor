@@ -629,7 +629,7 @@ module.exports = function(app) {
         if(enrollee.confirmed) {
           update(enrollee, {confirmed: false}, 'Confirmação removida para ' + enrollee.organization.name);
         } else {
-          update(enrollee, {confirmed: true}, enrollee.organization.name + ' maracada como confirmada!');
+          update(enrollee, {confirmed: true}, enrollee.organization.name + ' marcada como confirmada!');
         }
       };
 
@@ -637,7 +637,7 @@ module.exports = function(app) {
         if(enrollee.active) {
           update(enrollee, {active: false}, enrollee.organization.name +  ' marcada como inativa!');
         } else {
-          update(enrollee, {active: true}, enrollee.organization.name + ' maracada como ativa!');
+          update(enrollee, {active: true}, enrollee.organization.name + ' marcada como ativa!');
         }
       };
 
@@ -1014,12 +1014,17 @@ module.exports = function(app) {
     'ActiveCycle',
     'ReviewCycle',
     'Assessment',
-    function($scope, $state, $stateParams, Message, Indicador, Feedbacks, Edit, ActiveCycle, ReviewCycle, Assessment) {
+    'Organizations',
+    function($scope, $state, $stateParams, Message, Indicador, Feedbacks, Edit, ActiveCycle, ReviewCycle, Assessment, Organizations) {
 
       $scope.indicador = Indicador;
       $scope.activeCycle = ActiveCycle;
       $scope.cycle = ReviewCycle;
       $scope.feedbacks = Feedbacks;
+
+      $scope.pending = _.filter(Organizations, function(org) {
+        return !org.feedbacks.length;
+      });
 
       $scope.review = _.extend({
         indicatorId: $stateParams.id,
