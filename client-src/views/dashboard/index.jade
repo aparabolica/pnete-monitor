@@ -112,16 +112,16 @@ section#dashboard
             .widget.status-widget(ng-show="user.isAdmin")
               h2 Monitoramento {{activeCycle.name}}
               replied-percent(ratio="status")
-            .widget.organizations-widget(ng-show="user.isAdmin && pendingOrganizations.length")
-              .row
-                h3 Organizações pendentes para este ciclo
-                table
-                  thead
-                    tr
-                      th Nome
-                  tbody
-                    tr(ng-repeat="enrollee in pendingOrganizations")
-                      td {{enrollee.organization.name}}
+            //- .widget.organizations-widget(ng-show="user.isAdmin && pendingOrganizations.length")
+            //-   .row
+            //-     h3 Organizações pendentes para este ciclo
+            //-     table
+            //-       thead
+            //-         tr
+            //-           th Nome
+            //-       tbody
+            //-         tr(ng-repeat="enrollee in pendingOrganizations")
+            //-           td {{enrollee.organization.name}}
 .message-notification(ng-controller="MessageCtrl")
   .message-item(ng-repeat="message in messages" ng-show="message.text")
     .message-content
