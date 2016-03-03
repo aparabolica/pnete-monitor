@@ -21,6 +21,7 @@ var admin1AccessToken;
 var user1;
 var user1AccessToken;
 var indicator1;
+var indicator2;
 var organization1;
 var cycle1;
 var cycle2;
@@ -62,6 +63,12 @@ describe('Feedbacks:', function() {
           doneEach(err);
         });
       }, function (doneEach){
+        helper.createIndicator(function(err,indicator){
+          if (err) return doneBefore(err);
+          indicator2 = indicator;
+          doneEach(err);
+        });
+      }, function (doneEach){
         helper.createCycles(2, function(err,cycles){
           if (err) return doneBefore(err);
           cycle1 = cycles[0];
@@ -97,7 +104,7 @@ describe('Feedbacks:', function() {
       });
     });
 
-    context('logged user', function(){
+    context('allow logged user', function(){
 
       it('should return 200', function(doneIt){
         request(app)
@@ -124,6 +131,8 @@ describe('Feedbacks:', function() {
           });
       });
     });
+
+
   });
 
   describe('PUT /feedbacks/:id', function(){
@@ -172,5 +181,53 @@ describe('Feedbacks:', function() {
           });
       });
     });
+
+    context('finished cycle', function(){
+
+      var payload;
+
+      before(function(doneBefore){
+
+        // create payload
+        payload = {
+          value: "complete",
+          indicatorId: indicator2.id
+        }
+
+        // set active cycle as finished
+        cycle2.endDate = Date.now();
+        cycle2.save(doneBefore);
+      });
+
+      it('deny POST', function(doneIt){
+        request(app)
+          .post(restApiRoot + '/feedbacks')
+          .set('Authorization', user1AccessToken)
+          .send(payload)
+          .expect(403)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            res.body.error.should.have.property('message', 'Active cycle has ended.')
+            doneIt();
+          });
+      });
+
+      it('deny PUT', function(doneIt){
+        request(app)
+          .put(restApiRoot + '/feedbacks/'+feedback1.id)
+          .set('Authorization', user1AccessToken)
+          .send(payload)
+          .expect(403)
+          .expect('Content-Type', /json/)
+          .end(function(err, res){
+            if (err) return doneIt(err);
+            res.body.error.should.have.property('message', 'Active cycle has ended.')
+            doneIt();
+          });
+      });
+    });
+
+
   });
 });

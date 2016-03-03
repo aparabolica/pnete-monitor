@@ -31,14 +31,26 @@ module.exports = function(Feedback) {
 
     // enforce active cycle
     Cycle.findOne({where:{active: true}}, function(err, cycle){
-      ctx.req.body.cycleId = cycle.id;
-      next(err);
+      if (err) return next(err);
+
+      // check if cycle is finished
+      if ((cycle.endDate) && (cycle.endDate.getTime() < (new Date()).getTime())) {
+        var err = new Error('Active cycle has ended.');
+        err.status = 403;
+        return next(err);
+      } else {
+        ctx.req.body.cycleId = cycle.id;
+        next();
+      }
+
     });
   });
 
   // protect immutable properties
   var FILTERED_PROPERTIES = ['organizationId', 'cycleId', 'indicatorId'];
   Feedback.observe('before save', function filterProperties(ctx, next) {
+    var Cycle = Feedback.app.models.Cycle;
+
     if (ctx.isNewInstance) return next();
 
     if (ctx.instance) {
@@ -55,10 +67,18 @@ module.exports = function(Feedback) {
       if (ctx.data.value && ctx.data.value.bool) {
         ctx.data.value.bool = parseInt(ctx.data.value.bool);
       }
-
     }
 
-    next();
+    Cycle.findOne({where:{active: true}}, function(err, cycle){
+
+      // Check if cycle has ended
+      if ((cycle.endDate) && (cycle.endDate.getTime() < (new Date()).getTime())) {
+        var err = new Error('Active cycle has ended.');
+        err.status = 403;
+      }
+
+      next(err);
+    });
   });
 
   Feedback.export = function(filter, res, doneExport) {
