@@ -105,6 +105,7 @@ module.exports = function(app) {
         var m = moment(ActiveCycle.endDate).utc();
         if(m < moment().utc()) {
           $scope.endCycleText = 'O monitoramento deste ciclo foi concluído para análise final'
+          $scope.cycleEnded = true;
         } else {
           $scope.endCycleText = 'O monitoramento deste ciclo será concluído para análise final';
         }

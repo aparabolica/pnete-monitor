@@ -146,15 +146,9 @@ app.config([
       }
     })
     .state('indicador', {
-      url: '/indicador/:indicadorId/?ciclo&print',
+      url: '/indicador/:indicadorId/?ciclo',
       controller: 'IndicadorCtrl',
-      templateUrl: function(params) {
-        if(!params.print) {
-          return '/views/indicador.html';
-        } else {
-          return '/views/print/indicador.html';
-        }
-      },
+      templateUrl: '/views/indicador.html',
       resolve: {
         Cycles: [
           'Cycle',

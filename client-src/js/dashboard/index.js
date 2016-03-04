@@ -601,6 +601,20 @@ module.exports = function(app) {
         controller: 'DashboardFeedbackCtrl',
         templateUrl: '/views/dashboard/feedback.html',
         resolve: {
+          CycleEnded: [
+            'ActiveCycle',
+            'MessageService',
+            function(ActiveCycle, Message) {
+              if(ActiveCycle.endDate) {
+                var m = moment(ActiveCycle.endDate).utc();
+                if(m < moment().utc()) {
+                  Message.add('O envio/edição de respostas está bloqueado devido ao fim do monitoramento deste ciclo.');
+                  $state.go('dashboard');
+                }
+              }
+              return true;
+            }
+          ],
           Indicador: [
             '$stateParams',
             'Indicator',

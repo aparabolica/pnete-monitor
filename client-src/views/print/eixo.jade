@@ -32,12 +32,17 @@ section#indicadores
     
     h4 Pergunta
     p {{indicador.Indicador.question}}
-    
+        
     .indicador-actions(ng-show="indicador.Actions.length")
       h4 Ações relacionadas
       ul.action-list
         li(ng-repeat="action in indicador.Actions") {{action.description}}
-  
+
+    .assessment(ng-show="indicador.Analise")
+      h4 Análise do gestor
+      p.bold {{getStatus(indicador.Analise)}}
+      p {{indicador.Analise.analysis}}
+
     .indicador-baseline(ng-show="indicador.baseline")
       h4 Linha de base
       .baseline-content(ng-bind-html="indicador.baseline | autop | parseUrl | trustHtml")

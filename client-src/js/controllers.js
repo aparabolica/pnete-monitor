@@ -146,6 +146,15 @@ module.exports = function(app) {
           }, 500);
         });
 
+        $scope.getStatus = function(analise) {
+          if(analise.status == 'partial')
+            return 'Parcialmente cumprido';
+          else if(analise.status == 'complete')
+            return 'Cumprido';
+          else if(analise.status == 'incomplete')
+            return 'Não cumprido';
+        };
+
       }
 
       // console.log($resolve.resolve($state.get('indicador').resolve, {indicadorId: $scope.indicadores[0].id}));

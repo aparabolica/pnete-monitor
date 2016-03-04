@@ -59,7 +59,9 @@ section#dashboard
                 p Sua organização deve responder a 
                   strong {{userIndicators.length}} 
                   | indicadores.
-                p Até o encerramento do prazo de monitoramento, indicado pelo ciclo, você pode responder e editar as respostas já enviadas.
+                p(ng-hide="cycleEnded") Até o encerramento do prazo de monitoramento, indicado pelo ciclo, você pode responder e editar as respostas já enviadas.
+                p(ng-show="cycleEnded") 
+                  strong Este ciclo está encerrado, o envio ou edição de respostas foi bloqueado.
               .org-indicators(ng-show="userIndicators.length")
                 h3 Indicadores da minha organização
                 table
@@ -72,8 +74,9 @@ section#dashboard
                       td {{indicador.description}}
                       td 
                         a.icon(ui-sref="dashboard.indicador.feedback({id: indicador.id})")
-                          span.icon.icon-pencil(ng-hide="indicador.feedbacks.length")
                           span.icon.icon-check(ng-show="indicador.feedbacks.length")
+                          span.icon.icon-pencil(ng-hide="indicador.feedbacks.length || cycleEnded")
+                          span.icon.icon-block(ng-show="cycleEnded && !indicador.feedbacks.length")
         .clearfix
           .six.columns
             .widget.content-widget(ng-show="user.isAdmin")
