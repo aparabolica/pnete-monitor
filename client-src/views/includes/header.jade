@@ -26,6 +26,6 @@ header#masthead.row(ng-class="{shrink: !isHome}")
   section#status(ng-show="isHome")
     .container
       .twelve.columns
-        h2 Status do monitoramento em curso
+        h2(ng-show="cycle") Status do monitoramento de {{cycle.name}}
           a(ui-sref="status") Veja o status completo
         replied-percent(ratio="status")

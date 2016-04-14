@@ -52,6 +52,59 @@ app.config([
           function(Axis) {
             return Axis.find().$promise;
           }
+        ],
+        ActiveCycle: [
+          '$stateParams',
+          'Cycle',
+          function($stateParams, Cycle) {
+            var where;
+            if($stateParams.ciclo) {
+              where = {
+                name: $stateParams.ciclo
+              };
+            } else {
+              where = {
+                active: true
+              };
+            }
+            return Cycle.findOne({
+              filter: {
+                where: where
+              }
+            }).$promise;
+          }
+        ],
+        AssessmentCount: [
+          '$q',
+          'ActiveCycle',
+          'Assessment',
+          function($q, ActiveCycle, Assessment) {
+            var promises = {};
+            promises._all = Assessment.count({
+              where: {
+                cycleId: ActiveCycle.id
+              }
+            }).$promise;
+            promises._partial = Assessment.count({
+              where: {
+                cycleId: ActiveCycle.id,
+                status: 'partial'
+              }
+            }).$promise;
+            promises._complete = Assessment.count({
+              where: {
+                cycleId: ActiveCycle.id,
+                status: 'complete'
+              }
+            }).$promise;
+            promises._incomplete = Assessment.count({
+              where: {
+                cycleId: ActiveCycle.id,
+                status: 'incomplete'
+              }
+            }).$promise;
+            return $q.all(promises);
+          }
         ]
       }
     })

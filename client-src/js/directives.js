@@ -43,7 +43,7 @@ module.exports = function(app) {
         }
       }
     }
-  ])
+  ]);
 
   app.directive('repliedPercent', [
     '$interpolate',
@@ -82,6 +82,125 @@ module.exports = function(app) {
         }
       }
     }
-  ])
+  ]);
 
-}
+  app.directive('assessmentChart', [
+    'Cycle',
+    'Assessment',
+    function(Cycle, Assessment) {
+      return {
+        restrict: 'E',
+        scope: {
+          'cycleId': '='
+        },
+        template: '<div class="assessment-chart"></div>',
+        replace: true,
+        link: function(scope, element, attrs) {
+
+          if(!scope.cycleId) {
+            Cycle.find({
+              filter: {
+                where: {
+                  active: true
+                }
+              }
+            }, function(cycle) {
+              scope.cycleId = cycle.id;
+              get(scope.cycleId);
+            });
+          } else {
+            get(scope.cycleId);
+          }
+
+          function get(cycleId) {
+            Assessment.find({
+              filter: {
+                where: {
+                  cycleId: cycleId
+                }
+              }
+            }, function(data) {
+              chart(data);
+            });
+          }
+
+          function chart(data) {
+
+            var total = data.length;
+
+            var types = {};
+
+            data.forEach(function(item) {
+              if(!types[item.status])
+                types[item.status] = 1;
+              else
+                types[item.status]++;
+            });
+
+            var seriesData = [];
+
+            for(var key in types) {
+
+              var name = key;
+              var color;
+
+              if(key == 'incomplete') {
+                name = 'Não cumprido';
+                color = 'rgb(201, 73, 73)';
+              } else if(key == 'partial') {
+                name = 'Parcialmente cumprido';
+                color =  'rgb(214, 221, 95)';
+              } else if(key == 'complete') {
+                name = 'Cumprido';
+                color = 'rgb(66, 223, 77)';
+              }
+
+              seriesData.push({
+                name: name,
+                color: color,
+                y: types[key] / total * 100
+              });
+            }
+
+            $(element).highcharts({
+              chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+                backgroundColor: null
+              },
+              title: false,
+              subtitle: false,
+              credits: {
+                enabled: false
+              },
+              tooltip: {
+                  pointFormat: '<b>{point.percentage:.1f}%</b>'
+              },
+              plotOptions: {
+                pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                      color: '{point.color}'
+                    }
+                  }
+                }
+              },
+              series: [{
+                data: seriesData
+              }]
+            })
+
+          }
+
+        }
+      }
+    }
+  ]);
+
+};

@@ -42,6 +42,16 @@ module.exports = function(app) {
           $scope.isHome = false;
       });
 
+      Cycle.findOne({
+        filter: {
+          where: {
+            active: true
+          }
+        }
+      }, function(data) {
+        $scope.cycle = data;
+      });
+
       Cycle.status(function(data) {
         $scope.status = data.status.feedbacks;
       });
@@ -52,8 +62,10 @@ module.exports = function(app) {
   app.controller('HomeCtrl', [
     '$scope',
     'Eixos',
-    function($scope, Eixos) {
+    'AssessmentCount',
+    function($scope, Eixos, AssessmentCount) {
       $scope.eixos = Eixos;
+      $scope.assessCount = AssessmentCount;
     }
   ]);
 

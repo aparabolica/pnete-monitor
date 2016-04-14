@@ -19,6 +19,14 @@
               .eixo-item-content
                 h3
                   a(ui-sref="eixo({eixoId: eixo.id})") {{eixo.name}}
+  #chart
+    .container
+      .row
+        .four.columns
+          h2 Avaliações de indicadores no ciclo {{cycle.name}}
+          p De um total de {{assessCount._all.count}} indicadores avaliados, {{assessCount._complete.count}} foram considerados cumpridos, {{assessCount._partial.count}} parcialmente cumpridos e {{assessCount._incomplete.count}} não cumpridos.
+        .eight.columns
+          assessment-chart
   .container
     .row
       .six.columns
