@@ -6,7 +6,7 @@ if [ "$1" = 'node' ] || [ "$1" = 'nodemon' ]; then
   chown -R $APP_USER:$APP_USER $HOME
   echo "Compiling assets..."
   exec gosu $APP_USER:$APP_USER $HOME/app/node_modules/grunt-cli/bin/grunt build
-  echo "Executing app process..."
+  echo "Executing process..."
 	exec gosu $APP_USER:$APP_USER "$@"
 fi
 exec "$@"
