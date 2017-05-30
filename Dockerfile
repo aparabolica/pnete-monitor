@@ -22,7 +22,7 @@ ENV HOME=/home/node
 WORKDIR $HOME/app
 COPY . $HOME/app/
 
-# Install app
+# Fix permissions and install app
 RUN chown -R $APP_USER:$APP_USER $HOME/app && \
   gosu $APP_USER:$APP_USER npm install
 
