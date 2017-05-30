@@ -1,0 +1,19 @@
+version: '2'
+services:
+  app:
+    build: .
+    image: aparabolica/pnete-monitor
+    ports:
+      - 3000:3000
+    links:
+      - database:mongo
+    environment:
+      NODE_ENV: development
+      MONGODB_URI: 'mongodb://mongo/pnete-monitor'
+      PORT: 3000
+    volumes:
+      - ./storage:/home/node/app/server/storage
+  database:
+    image: mongo
+    volumes:
+      - ./db:/data/db

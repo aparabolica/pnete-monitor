@@ -22,3 +22,5 @@ datasources.local.json
 docular_generated
 tmp
 client-src/js/service.js
+storage
+db
