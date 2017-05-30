@@ -22,7 +22,7 @@ ENV HOME=/home/node
 WORKDIR $HOME/app
 COPY . $HOME/app/
 
-VOLUME $HOME/server/storage
+VOLUME $HOME/app/server/storage
 
 # Install app
 RUN chown -R $APP_USER:$APP_USER $HOME/app && \
