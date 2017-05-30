@@ -1,4 +1,7 @@
-require('dotenv').load();
+var fs = require('fs');
+if(fs.existsSync('./.env')) {
+  require('dotenv').load();
+}
 
 module.exports = function(grunt) {
 
@@ -167,7 +170,7 @@ module.exports = function(grunt) {
 
 	var servicesTasks = ['loopback_sdk_angular'];
 
-	if(typeof env == 'undefined' || env == 'development') {
+	if(env == 'development') {
 		servicesTasks.push('docular');
 	}
 

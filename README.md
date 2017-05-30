@@ -15,6 +15,10 @@ Install dependency modules:
 
     npm install
 
+Compile assets:
+
+    grunt build
+
 Run:
 
     npm start

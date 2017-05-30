@@ -1,4 +1,7 @@
-require('dotenv').load();
+var fs = require('fs');
+if(fs.existsSync('../.env')) {
+  require('dotenv').load();
+}
 
 /*
  * Database config
